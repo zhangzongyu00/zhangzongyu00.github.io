@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhangzongyu00.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="2020&#x2F;04&#x2F;24 实现上次发现的一个问题：之前在做实验时直接使用的时img2 &#x3D; img1-img0，更改代码为： 123456789img2 &#x3D; np.zeros((imgInfo[0],imgInfo[1]))for i in range(imgInfo[0]):    for j in range(imgInfo[1]):        if (img1[i][j] - img">
+<meta property="og:type" content="website">
+<meta property="og:title" content="report">
+<meta property="og:url" content="http://zhangzongyu00.github.io/report/index.html">
+<meta property="og:site_name" content="爆发🍢小宇宙">
+<meta property="og:description" content="2020&#x2F;04&#x2F;24 实现上次发现的一个问题：之前在做实验时直接使用的时img2 &#x3D; img1-img0，更改代码为： 123456789img2 &#x3D; np.zeros((imgInfo[0],imgInfo[1]))for i in range(imgInfo[0]):    for j in range(imgInfo[1]):        if (img1[i][j] - img">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/IR-VIS.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VIS-IR.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/fastncut.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/semantic_segmentation.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/segmatic1.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/segmatic2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ir_fft.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/re_ir_fft.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ir_gs_fft.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BD%8E%E9%80%9A%E6%BB%A4%E6%B3%A2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E9%80%9A%E6%BB%A4%E6%B3%A2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/haar_vawelet.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/dmey_vawelet.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/db1_vawelet.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/rbio1.1_vawelet.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/sym2_vawelet.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/coif1_vawelet.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/v.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/gv.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ds.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ds_ica_l.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%B8%8A%E5%B1%82%E8%9E%8D%E5%90%88.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ir_vis_ica.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ir_vis_ica_ostu.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ir_wavelet.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/vis_wavelet.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/wavelet_l_h.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/wavelet_l.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/dpm_ir.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/dpm_ir_personFinal.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/dpm_ir_10_personFinal.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/dpm_ir_10_personGrammarFinal.png">
+<meta property="article:published_time" content="2020-04-24T09:00:04.000Z">
+<meta property="article:modified_time" content="2020-06-05T08:46:53.000Z">
+<meta property="article:author" content="章肿鱼">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/IR-VIS.png">
+
+<link rel="canonical" href="http://zhangzongyu00.github.io/report/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>report | 爆发🍢小宇宙
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="爆发🍢小宇宙" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">爆发🍢小宇宙</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">所有的身不由己，都是因为不够强大</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/zhangzongyu00" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">report
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="2020-04-24"><a href="#2020-04-24" class="headerlink" title="2020/04/24"></a>2020/04/24</h1><ol>
+<li><p>实现上次发现的一个问题：<br>之前在做实验时直接使用的时img2 = img1-img0，<br>更改代码为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">img2 &#x3D; np.zeros((imgInfo[0],imgInfo[1]))</span><br><span class="line">for i in range(imgInfo[0]):</span><br><span class="line">    for j in range(imgInfo[1]):</span><br><span class="line">        if (img1[i][j] - img0[i][j]) &lt; 0:</span><br><span class="line">            img2[i][j] &#x3D; 0</span><br><span class="line">        else:</span><br><span class="line">            img2[i][j] &#x3D; img1[i][j] - img0[i][j]</span><br><span class="line">        j &#x3D; j+1</span><br><span class="line">    i &#x3D; i+1</span><br></pre></td></tr></table></figure>
+<p>结果和直接做减法效果一致，后面调用了一个方法，得出的结果也是一样的。<br>IR-VIS的结果图：<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/IR-VIS.png" alt="IR-VIS"><br>VIS-IR的结果图：<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VIS-IR.png" alt="VIS-IR"><br>总结：因为IR与VIS的成像方式不同，特征也不同，直接做差对很多边缘处等的结果出现问题。</p>
+</li>
+<li><p>因为直接做差行不通，考虑使用目标分割的方法，之前使用GrubCut方法，由于使用了聚类方法，容易将红外中的目标区域中的不明显部分当作背景去除掉，效果不好。又查找了NormalizationCut方法，因代码较老，没跑起来，找到一个新一些的，结果如下图，不是很清楚意思。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/fastncut.png" alt="fastncut"></p>
+</li>
+<li><p>查找其他分割方法，有较新的实现，结果图如下。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/semantic_segmentation.png" alt="semantic_segmentation"><br>从图中可以看出，该结果整体变暗，但是目标更加清楚。由于是在网络上直接得出的结果，图像尺寸被修改，两个想法：</p>
+<ul>
+<li>修改VIS图像大小，分配权重进行融合；<br>  <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/segmatic1.png" alt="segmatic1"></li>
+<li>修改VIS图像大小，对IR中的前景部分进行融合。<br>  <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/segmatic2.png" alt="segmatic2"><br>结果可接受，训练一下权重，处理一下边缘，应该有较好结果。<br>速度慢，消耗时间长。</li>
+</ul>
+</li>
+</ol>
+<p>思考：</p>
+<pre><code>使用cv方法将bmp的灰度图转换为jpg的灰度图，通道数也为3，但是在某些代码中依然有问题。</code></pre><p>新思路：</p>
+<pre><code>按照图像检测方法，图像检测主要包括分类和回归。
+- 对IR进行卷积得到特征图；
+- 对该特征图进行分类；
+- 回归到对应的可见光图像（对应位置）；
+- 对对应区域进行融合。
+
+可能问题： 边缘位置会出现突变，可使用模糊或池化等方法解决。</code></pre><h1 id="2020-05-09"><a href="#2020-05-09" class="headerlink" title="2020/05/09"></a>2020/05/09</h1><h2 id="对IR在频域进行分析"><a href="#对IR在频域进行分析" class="headerlink" title="对IR在频域进行分析"></a>对IR在频域进行分析</h2><ol>
+<li>对IR进行快速傅立叶变换；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ir_fft.png" alt="ir_fft"></li>
+<li>对IR进行下采样，再fft；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/re_ir_fft.png" alt="re_ir_fft"></li>
+<li>对IR下采样，高斯模糊后再fft；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ir_gs_fft.png" alt="ir_gs_fft"></li>
+<li>在频域对ir图像进行低通滤波-模糊；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BD%8E%E9%80%9A%E6%BB%A4%E6%B3%A2.png" alt="低通滤波"></li>
+<li>在频域对ir图像进行高通滤波-边缘；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E9%80%9A%E6%BB%A4%E6%B3%A2.png" alt="高通滤波"></li>
+</ol>
+<p>从4、5看，效果很差；<br>从1、2、3看，在频域能进行的操作，在4、5上没想象中的好。</p>
+<hr>
+<h1 id="2020-05-16"><a href="#2020-05-16" class="headerlink" title="2020/05/16"></a>2020/05/16</h1><h2 id="小波变换"><a href="#小波变换" class="headerlink" title="小波变换"></a>小波变换</h2><p>使用几种不同的小波函数进行转换，得到相应的IR图像结果</p>
+<ul>
+<li>haar小波：<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/haar_vawelet.png" alt="haar_vawelet"></li>
+<li>dmey小波：<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/dmey_vawelet.png" alt="dmey_vawelet"></li>
+<li>db1小波：<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/db1_vawelet.png" alt="db1_vawelet"></li>
+<li>rbio1.1小波：<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/rbio1.1_vawelet.png" alt="rbio1.1_vawelet"></li>
+<li>sym2小波：<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/sym2_vawelet.png" alt="sym2_vawelet"></li>
+<li>coif1小波：<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/coif1_vawelet.png" alt="coif1_vawelet"></li>
+</ul>
+<h2 id="使用不同策略对红外和可见图像进行融合"><a href="#使用不同策略对红外和可见图像进行融合" class="headerlink" title="使用不同策略对红外和可见图像进行融合"></a>使用不同策略对红外和可见图像进行融合</h2><ol>
+<li>对红外和可见光图像进行下采样后，通过低频信息进行融合，损失掉大量精度。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/v.png" alt="v"></li>
+<li>对红外和可见光图像进行下采样后，通过高频信息进行融合，结果会有明显斑块。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/gv.png" alt="gv"></li>
+</ol>
+<h1 id="2020-05-31"><a href="#2020-05-31" class="headerlink" title="2020/05/31"></a>2020/05/31</h1><ol>
+<li>改用Matlab后，对图像进行下采样，通过低频信息融合后结果，有明显像素点框<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ds.png" alt="ds"></li>
+<li>对其进行ICA分析处理，边框问题严重影响实验结果<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ds_ica_l.png" alt="ds_ica_l"></li>
+<li>对比：直接对原图像进行低频信息融合处理<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%B8%8A%E5%B1%82%E8%9E%8D%E5%90%88.png" alt="上层融合"></li>
+</ol>
+<p><em>改用师兄提供思路</em>，将ICA结果作为输入<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ir_vis_ica.png" alt="ir_vis_ica"></p>
+<p>进行阈值处理后，<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ir_vis_ica_ostu.png" alt="ir_vis_ica_ostu"></p>
+<p><em>转换思路</em>，直接使用交叉做差，然后转到频域<br>ir分析：<img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ir_wavelet.png" alt="ir_wavelet"><br>vis分析：<img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/vis_wavelet.png" alt="vis_wavelet"><br>进行高低频信息融合<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/wavelet_l_h.png" alt="wavelet_l_h"><br>改为使用低频信息融合<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/wavelet_l.png" alt="wavelet_l"></p>
+<h1 id="2020-06-05"><a href="#2020-06-05" class="headerlink" title="2020/06/05"></a>2020/06/05</h1><ol>
+<li>复现了DPM目标检测模型；</li>
+<li>将IR图像输入到DPM中进行分析；</li>
+</ol>
+<p>使用不同的VOC2007模型，对图像中的分析结果不同：</p>
+<ul>
+<li>person_grammar_final.mat<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/dpm_ir.png" alt="dpm_ir"></li>
+<li>person_final.mat<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/dpm_ir_personFinal.png" alt="dpm_ir_personFinal"></li>
+</ul>
+<p>使用VOC2010模型：</p>
+<ul>
+<li>person_final.mat<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/dpm_ir_10_personFinal.png" alt="dpm_ir_10_personFinal"></li>
+<li>person_grammar_final.mat<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/dpm_ir_10_personGrammarFinal.png" alt="dpm_ir_10_personGrammarFinal"></li>
+</ul>
+
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2020-04-24"><span class="nav-number">1.</span> <span class="nav-text">2020&#x2F;04&#x2F;24</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2020-05-09"><span class="nav-number">2.</span> <span class="nav-text">2020&#x2F;05&#x2F;09</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对IR在频域进行分析"><span class="nav-number">2.1.</span> <span class="nav-text">对IR在频域进行分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2020-05-16"><span class="nav-number">3.</span> <span class="nav-text">2020&#x2F;05&#x2F;16</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#小波变换"><span class="nav-number">3.1.</span> <span class="nav-text">小波变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用不同策略对红外和可见图像进行融合"><span class="nav-number">3.2.</span> <span class="nav-text">使用不同策略对红外和可见图像进行融合</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2020-05-31"><span class="nav-number">4.</span> <span class="nav-text">2020&#x2F;05&#x2F;31</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2020-06-05"><span class="nav-number">5.</span> <span class="nav-text">2020&#x2F;06&#x2F;05</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="章肿鱼"
+      src="/images/img.png">
+  <p class="site-author-name" itemprop="name">章肿鱼</p>
+  <div class="site-description" itemprop="description">讨好世界不如取悦自己</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zhangzongyu00" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zhangzongyu00" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangzongyu00@gmail.com" title="E-Mail → mailto:zhangzongyu00@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">章肿鱼</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.5" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

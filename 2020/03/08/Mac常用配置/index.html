@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhangzongyu00.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="为避免重装系统后无法还原之前软件设置，特此简要记录下安装过程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac常用配置">
+<meta property="og:url" content="http://zhangzongyu00.github.io/2020/03/08/Mac%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="爆发🍢小宇宙">
+<meta property="og:description" content="为避免重装系统后无法还原之前软件设置，特此简要记录下安装过程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-08T04:20:48.000Z">
+<meta property="article:modified_time" content="2020-06-03T17:13:42.000Z">
+<meta property="article:author" content="章肿鱼">
+<meta property="article:tag" content="software">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://zhangzongyu00.github.io/2020/03/08/Mac%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Mac常用配置 | 爆发🍢小宇宙</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="爆发🍢小宇宙" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">爆发🍢小宇宙</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">所有的身不由己，都是因为不够强大</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/zhangzongyu00" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/03/08/Mac%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/img.png">
+      <meta itemprop="name" content="章肿鱼">
+      <meta itemprop="description" content="讨好世界不如取悦自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爆发🍢小宇宙">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mac常用配置
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-08 12:20:48" itemprop="dateCreated datePublished" datetime="2020-03-08T12:20:48+08:00">2020-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-04 01:13:42" itemprop="dateModified" datetime="2020-06-04T01:13:42+08:00">2020-06-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mac/" itemprop="url" rel="index"><span itemprop="name">Mac</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+            <div class="post-description">为避免重装系统后无法还原之前软件设置，特此简要记录下安装过程。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Mac布局设置"><a href="#Mac布局设置" class="headerlink" title="Mac布局设置"></a>Mac布局设置</h1><h2 id="重置dock"><a href="#重置dock" class="headerlink" title="重置dock"></a>重置dock</h2><p>在使用过程中，dock可帮助我们更方便快捷的打开、查看打开的软件/程序/文稿等。<br>对于爱瞎折腾的我来说，经常不满意自己的dock图标的设置，所以可使用如下命令恢复初始布局。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults delete com.apple.dock; killall Dock</span><br></pre></td></tr></table></figure>
+<p>Tip：此操作会使启动台及桌面4角的热键打乱，均需重新调整。</p>
+<h2 id="启动台图标混乱"><a href="#启动台图标混乱" class="headerlink" title="启动台图标混乱"></a>启动台图标混乱</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm ~&#x2F;Library&#x2F;Application\ Support&#x2F;Dock&#x2F;*.db &amp;&amp; killall Dock</span><br><span class="line">defaults write com.apple.dock ResetLaunchPad -bool true &amp;&amp; killall Dock</span><br></pre></td></tr></table></figure>
+
+<h2 id="使Mac保持清醒（尝试过，但好像没用）"><a href="#使Mac保持清醒（尝试过，但好像没用）" class="headerlink" title="使Mac保持清醒（尝试过，但好像没用）"></a>使Mac保持清醒（尝试过，但好像没用）</h2><p>在<code>terminal</code>使用<code>caffeinate</code>命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">caffeinate -i -t 3600</span><br></pre></td></tr></table></figure>
+<p><em>3600代表秒数，3600s=1h</em></p>
+<hr>
+<h1 id="MAC终端个性化设置"><a href="#MAC终端个性化设置" class="headerlink" title="MAC终端个性化设置"></a>MAC终端个性化设置</h1><h2 id="在bash中省略前缀（现在基本使用zsh代替，配置方式基本相同）"><a href="#在bash中省略前缀（现在基本使用zsh代替，配置方式基本相同）" class="headerlink" title="在bash中省略前缀（现在基本使用zsh代替，配置方式基本相同）"></a>在bash中省略前缀（现在基本使用zsh代替，配置方式基本相同）</h2><p>打开终端，对bashrc进行编辑：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim &#x2F;etc&#x2F;bashrc</span><br></pre></td></tr></table></figure>
+<p>滑动至最底部，选择PS1行进行修改即可。</p>
+<p>默认设置 <code>PS1=&quot;%n@%m %1~ %# &quot;</code></p>
+<p><em>命令列表的参数：</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">\u 显示当前用户的用户名（user name）</span><br><span class="line">\h 显示主机名（host name）</span><br><span class="line">\W 显示当前工作目录的名字（work directory）</span><br><span class="line">\w 当前所在的完整路径</span><br><span class="line">\$ 显示$符作为提示符，如果用户是root的话，则显示#号</span><br><span class="line">\d 现在的系统日期</span><br><span class="line">\t 现在的系统时间</span><br></pre></td></tr></table></figure>
+
+<p><strong>zshrc同理，配置文件为 <code>/etc/zshrc</code></strong></p>
+<h2 id="使用zsh代替bash"><a href="#使用zsh代替bash" class="headerlink" title="使用zsh代替bash"></a>使用zsh代替bash</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s &#x2F;bin&#x2F;zsh</span><br></pre></td></tr></table></figure>
+<ul>
+<li>bash的环境变量为<code>.bash_profile</code>;</li>
+<li>zsh的环境变量为<code>.zshrc</code>;<br>若要在zsh继续使用bash的环境变量，在zsh环境变量末尾添加<code>source ~/.bash_profile</code>，重启终端即可。</li>
+</ul>
+<p>若想切换回来，使用以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s &#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Homebrew安装及常用命令"><a href="#Homebrew安装及常用命令" class="headerlink" title="Homebrew安装及常用命令"></a>Homebrew安装及常用命令</h1><h2 id="Homebrew安装"><a href="#Homebrew安装" class="headerlink" title="Homebrew安装"></a><a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">Homebrew安装</a></h2><p>打开终端，输入如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;install&#x2F;master&#x2F;install.sh)&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Homebrew常用命令"><a href="#Homebrew常用命令" class="headerlink" title="Homebrew常用命令"></a>Homebrew常用命令</h2><ul>
+<li><p>安装软件：<code>brew install ***</code> 或 <code>brew cask install ***</code></p>
+</li>
+<li><p>搜索软件：<code>brew search ***</code></p>
+</li>
+<li><p>卸载软件：<code>brew uninstall ***</code> 或 <code>brew cask uninstall ***</code></p>
+</li>
+<li><p>彻底卸载指定软件，包括旧版本：<code>brew uninstall --force &lt;软件名&gt;</code></p>
+</li>
+<li><p>更新所有软件：<code>brew update</code> 或 <code>brew cask upgrade</code></p>
+</li>
+<li><p>更新具体软件：<code>brew upgrade ***</code></p>
+</li>
+<li><p>显示已安装软件：<code>brew list</code> 或 <code>brew cask list</code></p>
+</li>
+<li><p>查看软件信息：<code>brew info ***</code> 或 <code>brew home ***</code><br>  brew home指令是用浏览器打开官方网页查看软件信息</p>
+</li>
+<li><p>查看哪些已安装的程序需要更新： <code>brew outdated</code></p>
+</li>
+<li><p>清理指定软件的过时包：<code>brew cleanup &lt;软件名&gt;</code></p>
+</li>
+<li><p>清理所有的过时软件：<code>brew cleanup</code></p>
+</li>
+<li><p>列出需要清理的内容：<code>brew cleanup -n</code></p>
+</li>
+<li><p>显示包依赖：<code>brew deps &lt;软件名&gt;</code></p>
+</li>
+<li><p>查看已安装的包的依赖，树形显示：<code>brew deps --installed --tree</code></p>
+</li>
+<li><p>显示帮助：<code>brew help</code> 或 <code>brew -h</code></p>
+</li>
+<li><p>查看版本：<code>brew -v</code></p>
+</li>
+<li><p>查找历史版本：<code>brew tap homebrew/cask-versions</code></p>
+<p>  homebrew安装jdk后，查看安装位置：<code>/usr/libexec/java_home -V</code></p>
+</li>
+</ul>
+<h2 id="安装遇到问题"><a href="#安装遇到问题" class="headerlink" title="安装遇到问题"></a>安装遇到问题</h2><p><code>curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused</code><br>一般都是由于网络原因，可更换网络，执行如下命令，重新安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local</span><br><span class="line">sudo rm -rf Caskroom Cellar Homebrew Frameworks</span><br><span class="line">cd</span><br><span class="line">&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;install&#x2F;master&#x2F;install.sh)&quot;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="VScode配置"><a href="#VScode配置" class="headerlink" title="VScode配置"></a>VScode配置</h1><h2 id="常用插件"><a href="#常用插件" class="headerlink" title="常用插件"></a>常用插件</h2><ul>
+<li>Remote Development</li>
+<li>LaTeX Workshop</li>
+<li>PicGo<br>  设置方法与 <a href="/2020/03/09/Hexo%E5%8D%9A%E5%AE%A2/" title="图床">图床</a> 基本相同。</li>
+<li>python<br>  <em>配合miniconda使用：</em><br>  更改设置<code>shift + command + p</code>，输入<code>user setting</code>，选择<code>workspace</code>，下拉找到<code>Edit in settings.json</code>将文件改为：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;python.venvPath&quot;:&quot;&#x2F;opt&#x2F;miniconda3&#x2F;envs&quot;,</span><br><span class="line">    &quot;python.pythonPath&quot;:&quot;&#x2F;opt&#x2F;miniconda3&#x2F;envs&#x2F;pytorch&#x2F;bin&#x2F;python&quot;,</span><br><span class="line">    &quot;python.venvFolders&quot;:[</span><br><span class="line">        &quot;envs&quot;,</span><br><span class="line">        &quot;.pyenv&quot;,</span><br><span class="line">        &quot;.direnv&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;code-runner.runInTerminal&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="软件无法更新"><a href="#软件无法更新" class="headerlink" title="软件无法更新"></a>软件无法更新</h2><p>修改软件权限，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R $USER ~&#x2F;Library&#x2F;Caches&#x2F;com.microsoft.VSCode.ShipIt&#x2F;</span><br><span class="line">xattr -dr com.apple.quarantine &#x2F;Applications&#x2F;Visual\ Studio\ Code.app</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Latex"><a href="#Latex" class="headerlink" title="Latex"></a>Latex</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>使用Homebrew安装，默认有3种方式，完全安装、无界面、基本安装(需要自行配置包)：</p>
+<ul>
+<li>Full installation:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cask install mactex</span><br></pre></td></tr></table></figure></li>
+<li>Full installation without bundled applications:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cask install mactex-no-gui</span><br></pre></td></tr></table></figure></li>
+<li>Minimal installation:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cask install basictex</span><br></pre></td></tr></table></figure>
+推荐选择第1种方式，如果有较强的基础可选第3种，若使用其它替代工具，可选第2种。</li>
+</ul>
+<h2 id="数学符号汇总"><a href="#数学符号汇总" class="headerlink" title="数学符号汇总"></a>数学符号汇总</h2><p>这里引用一个别人做好的PDF吧，非常全面！<br><code>https://www.caam.rice.edu/~heinken/latex/symbols.pdf</code></p>
+<hr>
+<h1 id="将iPhone备份到外置硬盘"><a href="#将iPhone备份到外置硬盘" class="headerlink" title="将iPhone备份到外置硬盘"></a>将iPhone备份到外置硬盘</h1><ol>
+<li>找到存储位置：打开Finder，同时按下<code>command+shift+G</code>，输入<code>~/Library/Application\ Support/MobileSync</code>；</li>
+<li>将Backup文件夹copy到外置硬盘指定位置；</li>
+<li>打开终端，输入<code>ln -s /Volumes/xiaofeiyu/iPhone.backup/Backup ~/Library/Application\ Support/MobileSync</code>，将存放备份位置软链接到备份位置即可。</li>
+</ol>
+<hr>
+<h1 id="aria2"><a href="#aria2" class="headerlink" title="aria2"></a>aria2</h1><h2 id="aria2下载器"><a href="#aria2下载器" class="headerlink" title="aria2下载器"></a>aria2下载器</h2><ol>
+<li>安装<a href="https://github.com/aria2/aria2" target="_blank" rel="noopener">aria2</a>：<code>brew install aria2</code></li>
+<li>创建配置文件 <code>touch ~/.aria2/aria2.conf</code></li>
+<li>创建会话保存文件 <code>touch ~/.aria2/aria2.session</code></li>
+<li>配置<a href="http://aria2c.com/usage.html" target="_blank" rel="noopener">aria2.conf</a> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line">## &#39;#&#39;开头为注释内容, 选项都有相应的注释说明, 根据需要修改 ##</span><br><span class="line">## 被注释的选项填写的是默认值, 建议在需要修改时再取消注释  ##</span><br><span class="line"></span><br><span class="line">## 文件保存相关 ##</span><br><span class="line"></span><br><span class="line"># 文件的保存路径(可使用绝对路径或相对路径), 默认: 当前启动位置</span><br><span class="line">dir&#x3D;~&#x2F;downloads</span><br><span class="line"># 启用磁盘缓存, 0为禁用缓存, 需1.16以上版本, 默认:16M</span><br><span class="line">#disk-cache&#x3D;32M</span><br><span class="line"># 文件预分配方式, 能有效降低磁盘碎片, 默认:prealloc</span><br><span class="line"># 预分配所需时间: none &lt; falloc ? trunc &lt; prealloc</span><br><span class="line"># falloc和trunc则需要文件系统和内核支持</span><br><span class="line"># NTFS建议使用falloc, EXT3&#x2F;4建议trunc, MAC 下需要注释此项</span><br><span class="line">#file-allocation&#x3D;none</span><br><span class="line"># 断点续传</span><br><span class="line">continue&#x3D;true</span><br><span class="line"></span><br><span class="line">## 下载连接相关 ##</span><br><span class="line"></span><br><span class="line"># 最大同时下载任务数, 运行时可修改, 默认:5</span><br><span class="line">#max-concurrent-downloads&#x3D;5</span><br><span class="line"># 同一服务器连接数, 添加时可指定, 默认:1</span><br><span class="line">max-connection-per-server&#x3D;5</span><br><span class="line"># 最小文件分片大小, 添加时可指定, 取值范围1M -1024M, 默认:20M</span><br><span class="line"># 假定size&#x3D;10M, 文件为20MiB 则使用两个来源下载; 文件为15MiB 则使用一个来源下载</span><br><span class="line">min-split-size&#x3D;10M</span><br><span class="line"># 单个任务最大线程数, 添加时可指定, 默认:5</span><br><span class="line">#split&#x3D;5</span><br><span class="line"># 整体下载速度限制, 运行时可修改, 默认:0</span><br><span class="line">#max-overall-download-limit&#x3D;0</span><br><span class="line"># 单个任务下载速度限制, 默认:0</span><br><span class="line">#max-download-limit&#x3D;0</span><br><span class="line"># 整体上传速度限制, 运行时可修改, 默认:0</span><br><span class="line">#max-overall-upload-limit&#x3D;0</span><br><span class="line"># 单个任务上传速度限制, 默认:0</span><br><span class="line">#max-upload-limit&#x3D;0</span><br><span class="line"># 禁用IPv6, 默认:false</span><br><span class="line">#disable-ipv6&#x3D;true</span><br><span class="line"># 连接超时时间, 默认:60</span><br><span class="line">#timeout&#x3D;60</span><br><span class="line"># 最大重试次数, 设置为0表示不限制重试次数, 默认:5</span><br><span class="line">#max-tries&#x3D;5</span><br><span class="line"># 设置重试等待的秒数, 默认:0</span><br><span class="line">#retry-wait&#x3D;0</span><br><span class="line"></span><br><span class="line">## 进度保存相关 ##</span><br><span class="line"></span><br><span class="line"># 从会话文件中读取下载任务</span><br><span class="line">input-file&#x3D;&#x2F;Users&#x2F;zzy&#x2F;.aria2&#x2F;aria2.session</span><br><span class="line"># 在Aria2退出时保存&#96;错误&#x2F;未完成&#96;的下载任务到会话文件</span><br><span class="line">save-session&#x3D;&#x2F;Users&#x2F;zzy&#x2F;.aria2&#x2F;aria2.session</span><br><span class="line"># 定时保存会话, 0为退出时才保存, 需1.16.1以上版本, 默认:0</span><br><span class="line">#save-session-interval&#x3D;60</span><br><span class="line"></span><br><span class="line">## RPC相关设置 ##</span><br><span class="line"></span><br><span class="line"># 启用RPC, 默认:false</span><br><span class="line">enable-rpc&#x3D;true</span><br><span class="line"># 允许所有来源, 默认:false</span><br><span class="line">rpc-allow-origin-all&#x3D;true</span><br><span class="line"># 允许非外部访问, 默认:false</span><br><span class="line">rpc-listen-all&#x3D;true</span><br><span class="line"># 事件轮询方式, 取值:[epoll, kqueue, port, poll, select], 不同系统默认值不同</span><br><span class="line">#event-poll&#x3D;select</span><br><span class="line"># RPC监听端口, 端口被占用时可以修改, 默认:6800</span><br><span class="line">#rpc-listen-port&#x3D;6800</span><br><span class="line"># 设置的RPC授权令牌, v1.18.4新增功能, 取代 --rpc-user 和 --rpc-passwd 选项</span><br><span class="line">#rpc-secret&#x3D;&lt;TOKEN&gt;</span><br><span class="line"># 设置的RPC访问用户名, 此选项新版已废弃, 建议改用 --rpc-secret 选项</span><br><span class="line">#rpc-user&#x3D;&lt;USER&gt;</span><br><span class="line"># 设置的RPC访问密码, 此选项新版已废弃, 建议改用 --rpc-secret 选项</span><br><span class="line">#rpc-passwd&#x3D;&lt;PASSWD&gt;</span><br><span class="line"># 是否启用 RPC 服务的 SSL&#x2F;TLS 加密,</span><br><span class="line"># 启用加密后 RPC 服务需要使用 https 或者 wss 协议连接</span><br><span class="line">#rpc-secure&#x3D;true</span><br><span class="line"># 在 RPC 服务中启用 SSL&#x2F;TLS 加密时的证书文件,</span><br><span class="line"># 使用 PEM 格式时，您必须通过 --rpc-private-key 指定私钥</span><br><span class="line">#rpc-certificate&#x3D;&#x2F;path&#x2F;to&#x2F;certificate.pem</span><br><span class="line"># 在 RPC 服务中启用 SSL&#x2F;TLS 加密时的私钥文件</span><br><span class="line">#rpc-private-key&#x3D;&#x2F;path&#x2F;to&#x2F;certificate.key</span><br><span class="line"></span><br><span class="line">## BT&#x2F;PT下载相关 ##</span><br><span class="line"></span><br><span class="line"># 当下载的是一个种子(以.torrent结尾)时, 自动开始BT任务, 默认:true</span><br><span class="line">#follow-torrent&#x3D;true</span><br><span class="line"># BT监听端口, 当端口被屏蔽时使用, 默认:6881-6999</span><br><span class="line">listen-port&#x3D;51413</span><br><span class="line"># 单个种子最大连接数, 默认:55</span><br><span class="line">#bt-max-peers&#x3D;55</span><br><span class="line"># 打开DHT功能, PT需要禁用, 默认:true</span><br><span class="line">enable-dht&#x3D;false</span><br><span class="line"># 打开IPv6 DHT功能, PT需要禁用</span><br><span class="line">#enable-dht6&#x3D;false</span><br><span class="line"># DHT网络监听端口, 默认:6881-6999</span><br><span class="line">#dht-listen-port&#x3D;6881-6999</span><br><span class="line"># 本地节点查找, PT需要禁用, 默认:false</span><br><span class="line">#bt-enable-lpd&#x3D;false</span><br><span class="line"># 种子交换, PT需要禁用, 默认:true</span><br><span class="line">enable-peer-exchange&#x3D;false</span><br><span class="line"># 每个种子限速, 对少种的PT很有用, 默认:50K</span><br><span class="line">#bt-request-peer-speed-limit&#x3D;50K</span><br><span class="line"># 客户端伪装, PT需要</span><br><span class="line">peer-id-prefix&#x3D;-TR2770-</span><br><span class="line">user-agent&#x3D;Transmission&#x2F;2.77</span><br><span class="line">peer-agent&#x3D;Transmission&#x2F;2.77</span><br><span class="line"># 当种子的分享率达到这个数时, 自动停止做种, 0为一直做种, 默认:1.0</span><br><span class="line">seed-ratio&#x3D;0</span><br><span class="line"># 强制保存会话, 即使任务已经完成, 默认:false</span><br><span class="line"># 较新的版本开启后会在任务完成后依然保留.aria2文件</span><br><span class="line">#force-save&#x3D;false</span><br><span class="line"># BT校验相关, 默认:true</span><br><span class="line">#bt-hash-check-seed&#x3D;true</span><br><span class="line"># 继续之前的BT任务时, 无需再次校验, 默认:false</span><br><span class="line">bt-seed-unverified&#x3D;true</span><br><span class="line"># 保存磁力链接元数据为种子文件(.torrent文件), 默认:false</span><br><span class="line">bt-save-metadata&#x3D;true</span><br></pre></td></tr></table></figure></li>
+<li>运行aria2：<code>aria2c --conf-path=&quot;/Users/zzy/.aria2/aria2.conf&quot; -D</code></li>
+<li>设置aria2开机自启<ul>
+<li>在 <code>~/.aria2</code> 目录下 <code>touch com.aria2c.plist</code>：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC &quot;-&#x2F;&#x2F;Apple&#x2F;&#x2F;DTD PLIST 1.0&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.apple.com&#x2F;DTDs&#x2F;PropertyList-1.0.dtd&quot;&gt;</span><br><span class="line">&lt;plist version&#x3D;&quot;1.0&quot;&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">    &lt;key&gt;KeepAlive&lt;&#x2F;key&gt;</span><br><span class="line">    &lt;true&#x2F;&gt;</span><br><span class="line">    &lt;key&gt;Label&lt;&#x2F;key&gt;</span><br><span class="line">    &lt;string&gt;com.aria2c&lt;&#x2F;string&gt;</span><br><span class="line">    &lt;key&gt;ProgramArguments&lt;&#x2F;key&gt;</span><br><span class="line">    &lt;array&gt;</span><br><span class="line">        &lt;string&gt;&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;aria2&#x2F;1.35.0&#x2F;bin&#x2F;aria2c&lt;&#x2F;string&gt;</span><br><span class="line">        &lt;string&gt;--rpc-listen-all&#x3D;true&lt;&#x2F;string&gt;</span><br><span class="line">        &lt;string&gt;--rpc-allow-origin-all&lt;&#x2F;string&gt;</span><br><span class="line">        &lt;string&gt;--conf-path&#x3D;&#x2F;Users&#x2F;zzy&#x2F;.aria2&#x2F;aria2.conf&lt;&#x2F;string&gt;</span><br><span class="line">    &lt;&#x2F;array&gt;</span><br><span class="line">    &lt;key&gt;RunAtLoad&lt;&#x2F;key&gt;</span><br><span class="line">    &lt;true&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;dict&gt;</span><br><span class="line">&lt;&#x2F;plist&gt;</span><br></pre></td></tr></table></figure></li>
+<li>将该文件拷贝到 <code>~/Library/LaunchAgents</code> 启动项中，运行：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp com.aria2c.plist ~&#x2F;Library&#x2F;LaunchAgents&#x2F;com.aria2c.plist</span><br><span class="line">launchctl load -w ~&#x2F;Library&#x2F;LaunchAgents&#x2F;com.aria2c.plist</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="网盘助手（配合油猴，并修改🆔）"><a href="#网盘助手（配合油猴，并修改🆔）" class="headerlink" title="网盘助手（配合油猴，并修改🆔）"></a>网盘助手（配合油猴，并修改🆔）</h2><p>谷歌应用商店搜索 <code>Tampermonkey</code>，安装后点击查找新脚本，选择 <code>GreasyFork</code>，🔍“网盘助手”，安装。</p>
+<h2 id="安装YAAW-for-Chrome插件"><a href="#安装YAAW-for-Chrome插件" class="headerlink" title="安装YAAW for Chrome插件"></a>安装YAAW for Chrome插件</h2><p>若出现 <code>Error: Internal server error</code> 错误，使用 <code>lsof -i tcp:6800</code> 查看端口占用情况，<code>kill PID</code> 即可。</p>
+<hr>
+<h1 id="Sublime设置（基本已被VSCode代替）"><a href="#Sublime设置（基本已被VSCode代替）" class="headerlink" title="Sublime设置（基本已被VSCode代替）"></a>Sublime设置（基本已被VSCode代替）</h1><h2 id="下载并安装Sublime-Text-3"><a href="#下载并安装Sublime-Text-3" class="headerlink" title="下载并安装Sublime Text 3"></a>下载并安装<a href="http://www.sublimetext.com/3" target="_blank" rel="noopener">Sublime Text 3</a></h2><h2 id="安装软件包管理器"><a href="#安装软件包管理器" class="headerlink" title="安装软件包管理器"></a>安装软件包管理器</h2><p>同时按下control + ` ，在底部控制台运行如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import urllib.request,os; pf &#x3D; &#39;Package Control.sublime-package&#39;; ipp &#x3D; sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), &#39;wb&#39;).write(urllib.request.urlopen( &#39;http:&#x2F;&#x2F;sublime.wbond.net&#x2F;&#39; + pf.replace(&#39; &#39;,&#39;%20&#39;)).read())</span><br></pre></td></tr></table></figure>
+
+<h2 id="Package（最好用的地方）"><a href="#Package（最好用的地方）" class="headerlink" title="Package（最好用的地方）"></a>Package（最好用的地方）</h2><ul>
+<li>安装包（建议使用科学上网）<br>同时按下<code>command + shift + p</code>，打开快速菜单，输入<code>pcip</code>，选择<code>Package Control: Install Package</code>，等待数据更新，完成后会显示软件列表。</li>
+<li>使用包<br>同时按下<code>command + shift + p</code>，打开快速菜单，选择所需使用的软件包即可；</li>
+<li>查看已安装列表<br>同时按下<code>command + shift + p</code>，打开快速菜单，输入<code>list</code>，选择<code>Package Control: List Package</code>；</li>
+<li>卸载包<br>同时按下<code>command + shift + p</code>，打开快速菜单，输入<code>pcrp</code>，选择<code>Package Control: Remove Package</code>；</li>
+</ul>
+<h3 id="个性化配置安装的包"><a href="#个性化配置安装的包" class="headerlink" title="个性化配置安装的包"></a>个性化配置安装的包</h3><p>在菜单栏选择<code>Sublime Text</code>-&gt;<code>Preference</code>-&gt;<code>Package Settings</code>-&gt;<code>Package Control</code>。其下分为两类，一个是软件包默认配置，一般不改；一个是用户个性化设置，可自行设置。</p>
+<p><em>推荐几个好用的包：</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- Markdown Preview：实现浏览器预览markdown文件</span><br><span class="line">- MarkdownEditing：对md文件使用更加友好设置</span><br><span class="line">- LiveReload：实现对md文件在浏览器中的实时刷新</span><br><span class="line">- SideBarEnhancements：在文本左侧添加文件管理列表</span><br><span class="line">- SublimeCodeIntel：代码自动补全</span><br><span class="line">- auto-save：实现md文档到html文件的自动更新</span><br><span class="line">- ConvertToUTF8：打开txt文件</span><br><span class="line">- Codecs33：配合打开txt文件</span><br></pre></td></tr></table></figure>
+<ul>
+<li>auto-save插件选择 <code>Toggle AutoSave:current file only</code></li>
+<li><code>Markdown Preview</code> 在设置中添加配置 <code>&quot;enable_autoreload&quot;: true</code></li>
+<li>实现 <code>Markdown Preview</code> 插件中markdown文件浏览器自动刷新：<br>在md文件最后一行添加 <code>&lt;meta http-equiv=&quot;refresh&quot; content=&quot;5.0&quot;&gt;</code> 即可，或使用 <code>LiveReload</code> 进行配置。</li>
+</ul>
+<hr>
+<h1 id="chrome个性化设置"><a href="#chrome个性化设置" class="headerlink" title="chrome个性化设置"></a>chrome个性化设置</h1><h2 id="为了使Chrome看起来更加干净清爽，去除启动页8个快捷方式："><a href="#为了使Chrome看起来更加干净清爽，去除启动页8个快捷方式：" class="headerlink" title="为了使Chrome看起来更加干净清爽，去除启动页8个快捷方式："></a>为了使Chrome看起来更加干净清爽，去除启动页8个快捷方式：</h2><ol>
+<li>打开 <code>chrome://flags</code> ；</li>
+<li>查找 <code>instant extended</code> ；</li>
+<li>修改 <code>Disable the &#39;instant extended&#39; limit on search suggestions</code> 为 <code>Disable</code> ；</li>
+<li>重启chrome；</li>
+<li>在右下角找到 <code>自定义此页</code> ；</li>
+<li>选择 <code>快捷键</code> ;</li>
+<li>勾选 <code>隐藏快捷方式</code> ；</li>
+<li>点击 <code>完成</code> 即可。</li>
+</ol>
+<p><a href="https://bz.zzzmh.cn/#index" target="_blank" rel="noopener">壁纸网站</a></p>
+<h1 id="时钟屏保"><a href="#时钟屏保" class="headerlink" title="时钟屏保"></a><a href="https://fliqlo.com/#/screensaver" target="_blank" rel="noopener">时钟屏保</a></h1><p><a href="https://fliqlo.com/#/screensaver" target="_blank" rel="noopener">https://fliqlo.com/#/screensaver</a></p>
+<h1 id="精美5K壁纸"><a href="#精美5K壁纸" class="headerlink" title="精美5K壁纸"></a><a href="https://dynamicwallpaper.club/gallery" target="_blank" rel="noopener">精美5K壁纸</a></h1><p><a href="https://dynamicwallpaper.club/gallery" target="_blank" rel="noopener">https://dynamicwallpaper.club/gallery</a><br>将下载好的文件移动至 <code>/Library/Desktop Pictures</code>，然后在系统管理工具中就可见了。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/software/" rel="tag"><i class="fa fa-tag"></i> software</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/02/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="prev" title="程序设计与算法">
+      <i class="fa fa-chevron-left"></i> 程序设计与算法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/09/Hexo%E5%8D%9A%E5%AE%A2/" rel="next" title="Hexo博客">
+      Hexo博客 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mac布局设置"><span class="nav-number">1.</span> <span class="nav-text">Mac布局设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#重置dock"><span class="nav-number">1.1.</span> <span class="nav-text">重置dock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动台图标混乱"><span class="nav-number">1.2.</span> <span class="nav-text">启动台图标混乱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使Mac保持清醒（尝试过，但好像没用）"><span class="nav-number">1.3.</span> <span class="nav-text">使Mac保持清醒（尝试过，但好像没用）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MAC终端个性化设置"><span class="nav-number">2.</span> <span class="nav-text">MAC终端个性化设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在bash中省略前缀（现在基本使用zsh代替，配置方式基本相同）"><span class="nav-number">2.1.</span> <span class="nav-text">在bash中省略前缀（现在基本使用zsh代替，配置方式基本相同）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用zsh代替bash"><span class="nav-number">2.2.</span> <span class="nav-text">使用zsh代替bash</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Homebrew安装及常用命令"><span class="nav-number">3.</span> <span class="nav-text">Homebrew安装及常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Homebrew安装"><span class="nav-number">3.1.</span> <span class="nav-text">Homebrew安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Homebrew常用命令"><span class="nav-number">3.2.</span> <span class="nav-text">Homebrew常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装遇到问题"><span class="nav-number">3.3.</span> <span class="nav-text">安装遇到问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#VScode配置"><span class="nav-number">4.</span> <span class="nav-text">VScode配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用插件"><span class="nav-number">4.1.</span> <span class="nav-text">常用插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件无法更新"><span class="nav-number">4.2.</span> <span class="nav-text">软件无法更新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Latex"><span class="nav-number">5.</span> <span class="nav-text">Latex</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">5.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数学符号汇总"><span class="nav-number">5.2.</span> <span class="nav-text">数学符号汇总</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#将iPhone备份到外置硬盘"><span class="nav-number">6.</span> <span class="nav-text">将iPhone备份到外置硬盘</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#aria2"><span class="nav-number">7.</span> <span class="nav-text">aria2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#aria2下载器"><span class="nav-number">7.1.</span> <span class="nav-text">aria2下载器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网盘助手（配合油猴，并修改🆔）"><span class="nav-number">7.2.</span> <span class="nav-text">网盘助手（配合油猴，并修改🆔）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装YAAW-for-Chrome插件"><span class="nav-number">7.3.</span> <span class="nav-text">安装YAAW for Chrome插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Sublime设置（基本已被VSCode代替）"><span class="nav-number">8.</span> <span class="nav-text">Sublime设置（基本已被VSCode代替）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载并安装Sublime-Text-3"><span class="nav-number">8.1.</span> <span class="nav-text">下载并安装Sublime Text 3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装软件包管理器"><span class="nav-number">8.2.</span> <span class="nav-text">安装软件包管理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Package（最好用的地方）"><span class="nav-number">8.3.</span> <span class="nav-text">Package（最好用的地方）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#个性化配置安装的包"><span class="nav-number">8.3.1.</span> <span class="nav-text">个性化配置安装的包</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chrome个性化设置"><span class="nav-number">9.</span> <span class="nav-text">chrome个性化设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为了使Chrome看起来更加干净清爽，去除启动页8个快捷方式："><span class="nav-number">9.1.</span> <span class="nav-text">为了使Chrome看起来更加干净清爽，去除启动页8个快捷方式：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时钟屏保"><span class="nav-number">10.</span> <span class="nav-text">时钟屏保</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#精美5K壁纸"><span class="nav-number">11.</span> <span class="nav-text">精美5K壁纸</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="章肿鱼"
+      src="/images/img.png">
+  <p class="site-author-name" itemprop="name">章肿鱼</p>
+  <div class="site-description" itemprop="description">讨好世界不如取悦自己</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zhangzongyu00" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zhangzongyu00" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangzongyu00@gmail.com" title="E-Mail → mailto:zhangzongyu00@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">章肿鱼</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.5" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
