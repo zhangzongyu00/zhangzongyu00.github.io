@@ -193,6 +193,445 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/06/30/swift/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/img.png">
+      <meta itemprop="name" content="章肿鱼">
+      <meta itemprop="description" content="讨好世界不如取悦自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爆发🍢小宇宙">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/30/swift/" class="post-title-link" itemprop="url">swift</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-06-30 04:20:42 / 修改时间：04:41:26" itemprop="dateCreated datePublished" datetime="2020-06-30T04:20:42+08:00">2020-06-30</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="ios"><a href="#ios" class="headerlink" title="ios"></a>ios</h1><h2 id="SandBox"><a href="#SandBox" class="headerlink" title="SandBox"></a>SandBox</h2><p>ios中的沙盒机制是一种安全体系。每个app都有一个单独的文件系统/存储空间，而且只能在对应的文件系统中进行操作，即沙盒。所有的非代码文件（资源文件等）都保存在此。</p>
+<p>沙盒包含的目录：</p>
+<ul>
+<li>/AppName.app<ul>
+<li>应用程序的程序包目录；</li>
+<li>由于应用程序必须经过<strong>签名</strong>，所以不能在运行时对这个目录中的内容进行修改，否则会导致应用程序无法启动。</li>
+</ul>
+</li>
+<li>/Documents/<ul>
+<li>保存<strong>应用程序的重要数据文件和用户数据文件</strong>等；</li>
+<li>iTunes<strong>同步</strong>时会<strong>备份</strong>该目录。</li>
+</ul>
+</li>
+<li>/Library/Caches<ul>
+<li>保存应用程序使用时产生的支持文件和缓存文件，还有日志文件最好也放在这个目录；</li>
+<li>iTunes同步时<strong>不备份</strong>该目录。</li>
+</ul>
+</li>
+<li>/Library/Preferences<ul>
+<li>保存应用程序的偏好设置文件；</li>
+<li>使用<code>NSUserDefaults</code>类设置时创建，不应手动创建。</li>
+</ul>
+</li>
+<li>/tmp/<ul>
+<li>保存应用运行时所需要的临时数据；</li>
+<li>iphone<strong>重启时会清空</strong>该目录下所有文件。</li>
+</ul>
+</li>
+</ul>
+<p>查询app沙盒路径：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 在项目中执行代码打印获取</span><br><span class="line">let homeDir &#x3D; NSHomeDirectory() as Stringprintln(homeDir)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 1、获取沙盒根目录</span><br><span class="line">let homeDir &#x3D; NSHomeDirectory() as String</span><br><span class="line">&#x2F;&#x2F; 2、获取 Documents 目录</span><br><span class="line">let docDirs &#x3D; NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArraylet docDir &#x3D; docDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 3、获取 Caches 目录</span><br><span class="line">let cachesDirs &#x3D; NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true) as NSArraylet cachesDir &#x3D; cachesDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 4、获取 Library 目录</span><br><span class="line">let libDirs &#x3D; NSSearchPathForDirectoriesInDomains(.LibraryDirectory, .UserDomainMask, true) as NSArraylet libDir &#x3D; libDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 5、获取 tmp 目录</span><br><span class="line">let tmpDir &#x3D; NSTemporaryDirectory() as String</span><br></pre></td></tr></table></figure>
+
+<h3 id="NSFileManager"><a href="#NSFileManager" class="headerlink" title="NSFileManager"></a>NSFileManager</h3><p>通过<code>fileManager</code>对沙盒中的目录/文件进行操作。</p>
+<h3 id="NSBundle"><a href="#NSBundle" class="headerlink" title="NSBundle"></a>NSBundle</h3><p>app都是通过<code>bundle</code>进行封装的，可以将<code>bundle</code>理解为上述沙盒中的<code>AppName.app</code>文件。</p>
+<p>在<code>Finder</code>中，会把<code>bundle</code>当做文件显示，防止用户误操作，但其内部是一个目录，包含图像、媒体资源、编译的代码、nib文件等，这个目录称为<code>main bundle</code>。</p>
+<p><code>Cocaoa</code>提供了<code>NSBundle类</code>封装了<code>bundle</code>操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 获取应用程序的 main bundle</span><br><span class="line">var mainBundle &#x3D; NSBundle.mainBundle()</span><br><span class="line">&#x2F;&#x2F; 使用 main bundle 获取资源路径</span><br><span class="line">var testFilePath &#x3D; mainBundle.pathForResource(&quot;logo&quot;, ofType: &quot;png&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>参考：</p>
+<ul>
+<li><a href="https://www.cnblogs.com/zjoch/p/4702873.html" target="_blank" rel="noopener">https://www.cnblogs.com/zjoch/p/4702873.html</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/06/27/%E7%86%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/img.png">
+      <meta itemprop="name" content="章肿鱼">
+      <meta itemprop="description" content="讨好世界不如取悦自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爆发🍢小宇宙">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/27/%E7%86%B5/" class="post-title-link" itemprop="url">熵</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-27 23:17:44" itemprop="dateCreated datePublished" datetime="2020-06-27T23:17:44+08:00">2020-06-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-28 00:53:16" itemprop="dateModified" datetime="2020-06-28T00:53:16+08:00">2020-06-28</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>度量两个概率分布的相似度等问题。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/06/27/%E7%86%B5/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/img.png">
+      <meta itemprop="name" content="章肿鱼">
+      <meta itemprop="description" content="讨好世界不如取悦自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爆发🍢小宇宙">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">MVVM设计模式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-23 18:25:39" itemprop="dateCreated datePublished" datetime="2020-06-23T18:25:39+08:00">2020-06-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-27 12:20:24" itemprop="dateModified" datetime="2020-06-27T12:20:24+08:00">2020-06-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ios%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">ios开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="MVC模式"><a href="#MVC模式" class="headerlink" title="MVC模式"></a>MVC模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvc.png" alt="mvc"></p>
+<p>所有的对象都可以被归类为一个model，一个view，或一个controller。</p>
+<p><em>部分代码没有合适的存放位置，如网络请求部分。</em></p>
+<p>弊端：</p>
+<ul>
+<li>大量的代码被放到controller，臃肿；</li>
+<li>controller规模庞大，难以维护；</li>
+<li>属性较多，难以管理；</li>
+<li>遵循较多协议，protocol的响应代码和controller的逻辑代码混杂。</li>
+</ul>
+<h1 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvvm.jpg" alt="mvvm"></p>
+<p>引入新的组件ViewModel，放置用户输入验证逻辑、视图显示逻辑、发起网络请求、数据解析等。<br>项目中的请求数据，统一交给ViewModel管理，每个控制器对应一个专属ViewModel。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/06/23/%E8%87%AA%E7%BC%96%E7%A0%81%E6%9C%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/img.png">
+      <meta itemprop="name" content="章肿鱼">
+      <meta itemprop="description" content="讨好世界不如取悦自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爆发🍢小宇宙">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/23/%E8%87%AA%E7%BC%96%E7%A0%81%E6%9C%BA/" class="post-title-link" itemprop="url">自编码机</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-23 14:25:00" itemprop="dateCreated datePublished" datetime="2020-06-23T14:25:00+08:00">2020-06-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-28 01:42:57" itemprop="dateModified" datetime="2020-06-28T01:42:57+08:00">2020-06-28</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="编码与解码"><a href="#编码与解码" class="headerlink" title="编码与解码"></a>编码与解码</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BC%96%E7%A0%81%E4%B8%8E%E8%A7%A3%E7%A0%81.png" alt="编码与解码"></p>
+<p>左侧将原始图像编码为向量，右侧通过解卷积层“解码”，还原回原始图像。</p>
+<p><em>可以用尽可能多的图像来训练网络，当保存了某张图像的编码向量，可用解码组件重建。</em></p>
+<h1 id="经典自编码机VAE"><a href="#经典自编码机VAE" class="headerlink" title="经典自编码机VAE"></a>经典自编码机VAE</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE.png" alt="VAE"></p>
+<p><em>通过编码向量，创造潜在向量，或实现连续、平滑的潜在空间表示。</em></p>
+<p>通过给编码网络添加一个约束，使其所产生的潜在向量大体上服从单位高斯分布。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E7%BA%A6%E6%9D%9F.png" alt="VAE约束"></p>
+<p>如图，只需从单位高斯分布中采样出一个潜在向量，并将其传递到解码器，就可以生成一张新的图像了。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E9%87%87%E6%A0%B7.png" alt="VAE采样"></p>
+<p>基本思路：</p>
+<ul>
+<li>假定输入数据的数据集D的分布完全由一组隐变量z操控，并且，该组隐变量间相互独立且服从高斯分布；</li>
+<li>VAE让encoder学习输入数据的隐变量模型，即学习该组隐变量的高斯概率分布的参数：隐变量高斯分布的均值$\Mu$和方差$\theta$的$log$值；</li>
+<li>隐变量z通过对参数的正态分布中采样得到：$z ~ N(\Mu, \theta)$；</li>
+<li>通过decoder对隐变量进行解码，重构函数。</li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E5%88%86%E5%B8%83.png" alt="VAE分布"></p>
+<p>总体目标函数：<br>    $\mathcal{L}(x,\widehat{x}) + \sum_j KL(q_j(z|x)||p(z))$</p>
+<p>误差：误差项精确度及潜在变量在单位高斯分布上的契合程度。</p>
+<ul>
+<li>生成误差，用以衡量网络重构图像精准度的均方误差；</li>
+<li>潜在误差，用以衡量潜在变量在单位高斯分布上的契合程度的KL散度。</li>
+</ul>
+<h2 id="参数调整"><a href="#参数调整" class="headerlink" title="参数调整"></a>参数调整</h2><p><em>VAE模型并没有真正的用$z~N(\Mu,\theta)$来采样得到z变量：因为采样后无法对$(\Mu,\theta)$进行求导。</em></p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_Reparameterization.png" alt="VAE_Reparameterization"></p>
+<p>一般先采样一个标准的高斯分布/正态分布$\epsilon<del>N(0,1)$，然后令$z=\Mu+\epsilon*\theta$，这样得到的z就服从$z</del>N(\Mu,\theta)$，同时也可正常对(\Mu,\theta)$求导。</p>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><ul>
+<li>优点：遵循“编码-解码”模式，能直接将生成的图像同原始图像进行对比；</li>
+<li>缺点：直接采用均方误差，导致其神经网络倾向生成较为模糊的图像。</li>
+</ul>
+<h1 id="VAE和GAN的区别"><a href="#VAE和GAN的区别" class="headerlink" title="VAE和GAN的区别"></a>VAE和GAN的区别</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_vs_GAN.png" alt="VAE_vs_GAN"></p>
+<p>GAN是VAE后半部分再加上一个鉴别网络，导致完全不同的训练方式。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://blog.csdn.net/weixin_40955254/article/details/82315224" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40955254/article/details/82315224</a></li>
+<li><a href="https://blog.csdn.net/weixin_40955254/article/details/82315909?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40955254/article/details/82315909?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/06/22/Alamofire%E6%A1%86%E6%9E%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/img.png">
+      <meta itemprop="name" content="章肿鱼">
+      <meta itemprop="description" content="讨好世界不如取悦自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爆发🍢小宇宙">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/22/Alamofire%E6%A1%86%E6%9E%B6/" class="post-title-link" itemprop="url">Alamofire框架</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-22 10:13:19" itemprop="dateCreated datePublished" datetime="2020-06-22T10:13:19+08:00">2020-06-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-23 23:08:34" itemprop="dateModified" datetime="2020-06-23T23:08:34+08:00">2020-06-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ios%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">ios开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>第三方框架：AFNetworking（OC）-- Alamofire（swift）</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/06/22/Alamofire%E6%A1%86%E6%9E%B6/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/06/09/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -224,7 +663,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-10 10:15:16" itemprop="dateModified" datetime="2020-06-10T10:15:16+08:00">2020-06-10</time>
+                <time title="修改时间：2020-06-30 13:19:23" itemprop="dateModified" datetime="2020-06-30T13:19:23+08:00">2020-06-30</time>
               </span>
 
           
@@ -238,8 +677,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>参考：<br><a href="https://blog.csdn.net/gdymind/article/details/82696481" target="_blank" rel="noopener">https://blog.csdn.net/gdymind/article/details/82696481</a></p>
-
+          <p>简单来讲，生成器生成数据，鉴别器用于区分真假，通过训练使其达到一定平衡。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/06/09/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -563,415 +1009,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/06/06/%E7%9B%B4%E6%96%B9%E5%9B%BE%E5%9D%87%E8%A1%A1%E5%8C%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/img.png">
-      <meta itemprop="name" content="章肿鱼">
-      <meta itemprop="description" content="讨好世界不如取悦自己">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爆发🍢小宇宙">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/06/%E7%9B%B4%E6%96%B9%E5%9B%BE%E5%9D%87%E8%A1%A1%E5%8C%96/" class="post-title-link" itemprop="url">直方图均衡化</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-06 12:28:12" itemprop="dateCreated datePublished" datetime="2020-06-06T12:28:12+08:00">2020-06-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-09 13:58:10" itemprop="dateModified" datetime="2020-06-09T13:58:10+08:00">2020-06-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/image/" itemprop="url" rel="index"><span itemprop="name">image</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>使用直方图对图像的颜色空间进行映射</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/06/%E7%9B%B4%E6%96%B9%E5%9B%BE%E5%9D%87%E8%A1%A1%E5%8C%96/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/06/06/kmeans%E8%81%9A%E7%B1%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/img.png">
-      <meta itemprop="name" content="章肿鱼">
-      <meta itemprop="description" content="讨好世界不如取悦自己">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爆发🍢小宇宙">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/06/kmeans%E8%81%9A%E7%B1%BB/" class="post-title-link" itemprop="url">kmeans聚类</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-06 12:22:49" itemprop="dateCreated datePublished" datetime="2020-06-06T12:22:49+08:00">2020-06-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-09 14:02:48" itemprop="dateModified" datetime="2020-06-09T14:02:48+08:00">2020-06-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/image/" itemprop="url" rel="index"><span itemprop="name">image</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>将数据点分配给距离最近的一个类中心，不断修改迭代的过程</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/06/kmeans%E8%81%9A%E7%B1%BB/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/06/06/GrabCut%E5%88%86%E5%89%B2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/img.png">
-      <meta itemprop="name" content="章肿鱼">
-      <meta itemprop="description" content="讨好世界不如取悦自己">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爆发🍢小宇宙">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/06/GrabCut%E5%88%86%E5%89%B2/" class="post-title-link" itemprop="url">GrabCut分割</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-06 12:18:23" itemprop="dateCreated datePublished" datetime="2020-06-06T12:18:23+08:00">2020-06-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-09 13:59:58" itemprop="dateModified" datetime="2020-06-09T13:59:58+08:00">2020-06-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/image/" itemprop="url" rel="index"><span itemprop="name">image</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>使用Kmeans和gmm方法对图像中的像素点进行分割</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/06/GrabCut%E5%88%86%E5%89%B2/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/06/06/GraphCuts%E5%88%86%E5%89%B2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/img.png">
-      <meta itemprop="name" content="章肿鱼">
-      <meta itemprop="description" content="讨好世界不如取悦自己">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爆发🍢小宇宙">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/06/GraphCuts%E5%88%86%E5%89%B2/" class="post-title-link" itemprop="url">GraphCuts分割</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-06 12:14:21" itemprop="dateCreated datePublished" datetime="2020-06-06T12:14:21+08:00">2020-06-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-09 14:00:53" itemprop="dateModified" datetime="2020-06-09T14:00:53+08:00">2020-06-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/image/" itemprop="url" rel="index"><span itemprop="name">image</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>对GrabCut的改进</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/06/GraphCuts%E5%88%86%E5%89%B2/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/06/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/img.png">
-      <meta itemprop="name" content="章肿鱼">
-      <meta itemprop="description" content="讨好世界不如取悦自己">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爆发🍢小宇宙">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">深度学习</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-06 01:53:24" itemprop="dateCreated datePublished" datetime="2020-06-06T01:53:24+08:00">2020-06-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-09 13:31:31" itemprop="dateModified" datetime="2020-06-09T13:31:31+08:00">2020-06-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/deeplearning/" itemprop="url" rel="index"><span itemprop="name">deeplearning</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>简述深度学习中的常用到的一些基本概念</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1039,20 +1080,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

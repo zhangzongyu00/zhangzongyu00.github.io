@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Alamofire框架</title>
+    <url>/2020/06/22/Alamofire%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<h1 id="Alamofire（swift）"><a href="#Alamofire（swift）" class="headerlink" title="Alamofire（swift）"></a>Alamofire（swift）</h1><p>使用Cocoapods进行集成；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew install cocoapods</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>在项目目录下进行pod初始化设置<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pod init</span><br></pre></td></tr></table></figure></li>
+<li>修改配置文件<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Uncomment the next line to define a global platform for your project</span><br><span class="line"># platform :ios, &#39;9.0&#39;</span><br><span class="line"></span><br><span class="line">target &#39;***&#39; do</span><br><span class="line">  # Comment the next line if you don&#39;t want to use dynamic frameworks</span><br><span class="line">  use_frameworks!</span><br><span class="line"></span><br><span class="line">  # Pods for AlamofireTest</span><br><span class="line">  pod &#39;Alamofire&#39;</span><br><span class="line"></span><br><span class="line">end</span><br></pre></td></tr></table></figure></li>
+<li>执行更新<code>pod install</code>，不更新本地库<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pod install --no-repo-update</span><br></pre></td></tr></table></figure></li>
+<li>打开文件目录下<code>***.xcworkspace</code></li>
+<li>重新配置<code>Pods_***.framework</code><br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%87%8D%E6%96%B0%E9%85%8D%E7%BD%AEframework.png" alt="重新配置framework"></li>
+<li>修改<code>Allow Arbitrary Loads</code>访问http请求权限<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Allow_Arbitrary_Loads.png" alt="Allow_Arbitrary_Loads"></li>
+</ol>
+<hr>
+<p><em><code>http://httpbin.org</code>用于处理http/https的相关请求</em></p>
+<p>在实际开发中，为了不过于依赖某一个第三方框架，常使用封装的方式，将其封装到某一工具类，方便其框架不更新时进行修改。</p>
+]]></content>
+      <categories>
+        <category>ios开发</category>
+      </categories>
+      <tags>
+        <tag>swift</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Adam</title>
     <url>/2020/06/07/Adam/</url>
     <content><![CDATA[<h1 id="Momentum"><a href="#Momentum" class="headerlink" title="Momentum"></a>Momentum</h1><p>动量momentum借用了物理中的动量概念，即将前几次的梯度也加入计算过程。为了表示动量，引入了一个新的变量v。v是<strong>之前的梯度的累加</strong>，但每回合都有一定的衰减。</p>
@@ -55,6 +80,34 @@
 </ol>
 <h2 id="高斯混合模型GMM"><a href="#高斯混合模型GMM" class="headerlink" title="高斯混合模型GMM"></a>高斯混合模型GMM</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GMM.png" alt="GMM"></p>
 <p>两组点分别通过两个不同的正态分布随机生成。</p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>图像分割</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GraphCuts分割</title>
+    <url>/2020/06/06/GraphCuts%E5%88%86%E5%89%B2/</url>
+    <content><![CDATA[<h1 id="GraphCuts分割"><a href="#GraphCuts分割" class="headerlink" title="GraphCuts分割"></a>GraphCuts分割</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts.png" alt="GraphCuts"></p>
+<ul>
+<li>普通顶点对应于图像中的每个像素。每两个邻域顶点的连接为一条边。</li>
+<li>两个终端顶点：S(source:前景)、T(sink:背景)。每个普通顶点和这2个终端顶点进行连接，称为第二种边。</li>
+</ul>
+<p>GraphCuts中的Cuts指这样一个边的集合，该集合中的所有边的断开，会导致残留S和T图的分开，被称为割。<br>如果一个割，它的边的所有权值之和最小，就称其为<strong>最小割</strong>，即GraphCuts的结果。</p>
+<p>基于能量的算法：<br>    $E(A) = \lambda \cdot R(A) + B(A)$<br>    $R(A) = \sum_{p \in \mathcal{P}} R_p(A_p)$<br>    $B(A) = \sum_{ {p,q} \in \mathcal{N} } B_{ {p,q} } \cdot \delta(A_p,A_q)$<br>    <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts%E8%83%BD%E9%87%8F.png" alt="GraphCuts能量"><br><em>区域项R(A)、边界项B(A)</em></p>
+<p>R是为像素p分配标签$I_p$的惩罚：<br>    当像素p的灰度值属于目标的概率大于背景，$R_p(1) &lt; R_p(0)$，即像素p更有可能属于目标时，将p归为目标会使能量R(L)更小。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%9B%BE%E5%89%B2%E5%89%8D%E8%83%8C%E6%99%AF%E5%88%86%E5%89%B2%E5%85%AC%E5%BC%8F.png" alt="图割前背景分割公式"><br>B是像素p和q之间不连续的惩罚，一般来说，如果p和q越相似，B越大；若非常不同，B趋向于0。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E8%BF%87%E7%A8%8B.png" alt="GraphCuts基本操作过程"></p>
+<p>基本操作过程：</p>
+<ol>
+<li>先取两个种子点；</li>
+<li>然后建立一个图，图中边的粗细表示对应权值大小；</li>
+<li>找到权值和最小的边的组合；</li>
+<li>完成图像分割。</li>
+</ol>
 ]]></content>
       <categories>
         <category>image</category>
@@ -119,34 +172,6 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GraphCuts分割</title>
-    <url>/2020/06/06/GraphCuts%E5%88%86%E5%89%B2/</url>
-    <content><![CDATA[<h1 id="GraphCuts分割"><a href="#GraphCuts分割" class="headerlink" title="GraphCuts分割"></a>GraphCuts分割</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts.png" alt="GraphCuts"></p>
-<ul>
-<li>普通顶点对应于图像中的每个像素。每两个邻域顶点的连接为一条边。</li>
-<li>两个终端顶点：S(source:前景)、T(sink:背景)。每个普通顶点和这2个终端顶点进行连接，称为第二种边。</li>
-</ul>
-<p>GraphCuts中的Cuts指这样一个边的集合，该集合中的所有边的断开，会导致残留S和T图的分开，被称为割。<br>如果一个割，它的边的所有权值之和最小，就称其为<strong>最小割</strong>，即GraphCuts的结果。</p>
-<p>基于能量的算法：<br>    $E(A) = \lambda \cdot R(A) + B(A)$<br>    $R(A) = \sum_{p \in \mathcal{P}} R_p(A_p)$<br>    $B(A) = \sum_{ {p,q} \in \mathcal{N} } B_{ {p,q} } \cdot \delta(A_p,A_q)$<br>    <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts%E8%83%BD%E9%87%8F.png" alt="GraphCuts能量"><br><em>区域项R(A)、边界项B(A)</em></p>
-<p>R是为像素p分配标签$I_p$的惩罚：<br>    当像素p的灰度值属于目标的概率大于背景，$R_p(1) &lt; R_p(0)$，即像素p更有可能属于目标时，将p归为目标会使能量R(L)更小。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%9B%BE%E5%89%B2%E5%89%8D%E8%83%8C%E6%99%AF%E5%88%86%E5%89%B2%E5%85%AC%E5%BC%8F.png" alt="图割前背景分割公式"><br>B是像素p和q之间不连续的惩罚，一般来说，如果p和q越相似，B越大；若非常不同，B趋向于0。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E8%BF%87%E7%A8%8B.png" alt="GraphCuts基本操作过程"></p>
-<p>基本操作过程：</p>
-<ol>
-<li>先取两个种子点；</li>
-<li>然后建立一个图，图中边的粗细表示对应权值大小；</li>
-<li>找到权值和最小的边的组合；</li>
-<li>完成图像分割。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>图像分割</tag>
       </tags>
   </entry>
   <entry>
@@ -248,10 +273,58 @@
       </tags>
   </entry>
   <entry>
+    <title>MVVM设计模式</title>
+    <url>/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="MVC模式"><a href="#MVC模式" class="headerlink" title="MVC模式"></a>MVC模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvc.png" alt="mvc"></p>
+<p>所有的对象都可以被归类为一个model，一个view，或一个controller。</p>
+<p><em>部分代码没有合适的存放位置，如网络请求部分。</em></p>
+<p>弊端：</p>
+<ul>
+<li>大量的代码被放到controller，臃肿；</li>
+<li>controller规模庞大，难以维护；</li>
+<li>属性较多，难以管理；</li>
+<li>遵循较多协议，protocol的响应代码和controller的逻辑代码混杂。</li>
+</ul>
+<h1 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvvm.jpg" alt="mvvm"></p>
+<p>引入新的组件ViewModel，放置用户输入验证逻辑、视图显示逻辑、发起网络请求、数据解析等。<br>项目中的请求数据，统一交给ViewModel管理，每个控制器对应一个专属ViewModel。</p>
+]]></content>
+      <categories>
+        <category>ios开发</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Java编程</title>
     <url>/2020/03/10/Java%E7%BC%96%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="Java集合类"><a href="#Java集合类" class="headerlink" title="Java集合类"></a>Java集合类</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Java%E9%9B%86%E5%90%88%E7%B1%BB%E5%9B%BE.jpg" alt="Java集合类图"></p>
 <p>LinkedList类实现了Queue接口，因此可以将LinkedList当成Queue来用。</p>
+<p>集合特点：</p>
+<ul>
+<li><p>List：有序、可重复；</p>
+<ul>
+<li><p>ArrayList：数组-查询快、增删慢；<br>扩容机制：</p>
+<ol>
+<li>先对传进来的初始化参数initalCapcity初始容量进行判断，若为0初始化为一个空数组；若非空，则初始化一个容量为10的数组；</li>
+<li>扩容：当数组大小 &gt; 初始容量时，扩容为原来的1.5倍；</li>
+<li>扩容方式：对原数组进行拷贝为新数组，原数组被GC回收。</li>
+</ol>
+</li>
+<li><p>LinkedList：链表-查询慢、增删快；</p>
+</li>
+</ul>
+</li>
+<li><p>Set：有序、不可重复；</p>
+<ul>
+<li>TreeSet：遍历时必须在实现类实现Comparable接口，重写ComparaTo方法；</li>
+<li>HashSet：使用成员对象来计算hashcode值，使用equals()判断对象是否相等。</li>
+</ul>
+</li>
+<li><p>Map：键值对，键不重复；</p>
+<ul>
+<li>HashMap：不保存对象的排列次序，允许键值为null、非Synchronized，但collection框架可保证Synchronized；</li>
+<li>TreeMap：保存对象的排列次序。</li>
+</ul>
+</li>
+</ul>
 <h1 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h1><h2 id="websocket：持久化协议"><a href="#websocket：持久化协议" class="headerlink" title="websocket：持久化协议"></a>websocket：持久化协议</h2><p>实现服务器端主动向客户端推送信息，客户端也可主动向服务器发送请求，实现双向对话。<br>具体来讲，就是先通过客户端使用http协议向服务器发送请求，建立长链接；建立长链接之后，服务器即可主动向客户端发送消息；确定一个时间，经过该时间后，客户端向服务器发送请求确认，避免该🔗断开。</p>
 <p><em>为了兼容浏览器，在握手阶段使用HTTP协议。</em></p>
 <ul>
@@ -357,6 +430,37 @@
       </categories>
       <tags>
         <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu安装Matlab</title>
+    <url>/2020/06/03/Ubuntu%E5%AE%89%E8%A3%85Matlab/</url>
+    <content><![CDATA[<h1 id="Ubuntu-18-04安装Matlab2018b"><a href="#Ubuntu-18-04安装Matlab2018b" class="headerlink" title="Ubuntu 18.04安装Matlab2018b"></a>Ubuntu 18.04安装Matlab2018b</h1><h2 id="Matlab安装"><a href="#Matlab安装" class="headerlink" title="Matlab安装"></a>Matlab安装</h2><ol>
+<li>进入下载文件存储路径，装载光盘1 <code>sudo mount -o loop R2018b_glnxa64_dvd1.iso matlab</code>；</li>
+<li>启动程序 <code>sudo matlab/install</code>；</li>
+<li>选择不联网激活，然后输入license<br>在”Use a File Installation Key”输入license <code>09806-07443-53955-64350-21751-41297</code>。</li>
+<li>当弹出弹框时<code>Eject DVD1 and insert DVD 2 to continue</code>加载第2个光盘<br><code>ctrl+alt+t</code> 打开一个新的terminal:<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo mount -o loop R2018b_glnxa64_dvd2.iso matlab</span><br></pre></td></tr></table></figure>
+在弹框点击ok继续安装，待加载完成unmount文件即可。</li>
+</ol>
+<h2 id="破解Matlab"><a href="#破解Matlab" class="headerlink" title="破解Matlab"></a>破解Matlab</h2><ol>
+<li>替换 <code>libmwlmgrimpl.so</code> 文件<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo cp -f &#x2F;home&#x2F;***&#x2F;Downloads&#x2F;Matlab&#x2F;MATLAB_R2018b_Linux64_Crack&#x2F;MATLAB\ R2018b\ Linux64\ Crack&#x2F;R2018b&#x2F;bin&#x2F;glnxa64&#x2F;matlab_startup_plugins&#x2F;lmgrimpl&#x2F;libmwlmgrimpl.so &#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;bin&#x2F;glnxa64&#x2F;matlab_startup_plugins&#x2F;lmgrimpl&#x2F;</span><br><span class="line">sudo &#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;bin&#x2F;matlab</span><br></pre></td></tr></table></figure></li>
+<li>选择离线激活，选择破解文件license_standalone.lic，<br><code>/home/***/Downloads/Matlab/MATLAB_R2018b_Linux64_Crack/MATLAB R2018b Linux64 Crack/license_standalone.lic</code></li>
+</ol>
+<ul>
+<li>如果不喜欢在terminal中看到 <code>Failed to load module &#39;canberra-gtk-module&#39;</code><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install libcanberra-gtk-module</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="创建Matlab快捷方式"><a href="#创建Matlab快捷方式" class="headerlink" title="创建Matlab快捷方式"></a>创建Matlab快捷方式</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo gedit &#x2F;usr&#x2F;share&#x2F;applications&#x2F;Matlab2018b.desktop</span><br></pre></td></tr></table></figure>
+<p>在文件中拷贝如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[Desktop Entry]</span><br><span class="line">Categories&#x3D;Application;Development;</span><br><span class="line">Comment&#x3D;Matlab</span><br><span class="line">Encoding&#x3D;UTF-8</span><br><span class="line">Exec&#x3D;&#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;bin&#x2F;matlab -desktop -prefersoftwareopengl</span><br><span class="line">Icon&#x3D;&#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;toolbox&#x2F;shared&#x2F;dastudio&#x2F;resources&#x2F;MatlabIcon.png</span><br><span class="line">Name&#x3D;MATLAB R2018b</span><br><span class="line">StartupNotify&#x3D;true</span><br><span class="line">Terminal&#x3D;false</span><br><span class="line">Type&#x3D;Application</span><br></pre></td></tr></table></figure>
+<p>如果打开Matlab提示”The desktop configuration was not saved successfully”：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo chmod a+w -R ~&#x2F;.matlab</span><br><span class="line">sudo chmod 777 &#x2F;home&#x2F;***&#x2F;.matlab</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>ubuntu</category>
+      </categories>
+      <tags>
+        <tag>software</tag>
       </tags>
   </entry>
   <entry>
@@ -542,37 +646,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu安装Matlab</title>
-    <url>/2020/06/03/Ubuntu%E5%AE%89%E8%A3%85Matlab/</url>
-    <content><![CDATA[<h1 id="Ubuntu-18-04安装Matlab2018b"><a href="#Ubuntu-18-04安装Matlab2018b" class="headerlink" title="Ubuntu 18.04安装Matlab2018b"></a>Ubuntu 18.04安装Matlab2018b</h1><h2 id="Matlab安装"><a href="#Matlab安装" class="headerlink" title="Matlab安装"></a>Matlab安装</h2><ol>
-<li>进入下载文件存储路径，装载光盘1 <code>sudo mount -o loop R2018b_glnxa64_dvd1.iso matlab</code>；</li>
-<li>启动程序 <code>sudo matlab/install</code>；</li>
-<li>选择不联网激活，然后输入license<br>在”Use a File Installation Key”输入license <code>09806-07443-53955-64350-21751-41297</code>。</li>
-<li>当弹出弹框时<code>Eject DVD1 and insert DVD 2 to continue</code>加载第2个光盘<br><code>ctrl+alt+t</code> 打开一个新的terminal:<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo mount -o loop R2018b_glnxa64_dvd2.iso matlab</span><br></pre></td></tr></table></figure>
-在弹框点击ok继续安装，待加载完成unmount文件即可。</li>
-</ol>
-<h2 id="破解Matlab"><a href="#破解Matlab" class="headerlink" title="破解Matlab"></a>破解Matlab</h2><ol>
-<li>替换 <code>libmwlmgrimpl.so</code> 文件<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo cp -f &#x2F;home&#x2F;***&#x2F;Downloads&#x2F;Matlab&#x2F;MATLAB_R2018b_Linux64_Crack&#x2F;MATLAB\ R2018b\ Linux64\ Crack&#x2F;R2018b&#x2F;bin&#x2F;glnxa64&#x2F;matlab_startup_plugins&#x2F;lmgrimpl&#x2F;libmwlmgrimpl.so &#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;bin&#x2F;glnxa64&#x2F;matlab_startup_plugins&#x2F;lmgrimpl&#x2F;</span><br><span class="line">sudo &#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;bin&#x2F;matlab</span><br></pre></td></tr></table></figure></li>
-<li>选择离线激活，选择破解文件license_standalone.lic，<br><code>/home/***/Downloads/Matlab/MATLAB_R2018b_Linux64_Crack/MATLAB R2018b Linux64 Crack/license_standalone.lic</code></li>
-</ol>
-<ul>
-<li>如果不喜欢在terminal中看到 <code>Failed to load module &#39;canberra-gtk-module&#39;</code><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install libcanberra-gtk-module</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="创建Matlab快捷方式"><a href="#创建Matlab快捷方式" class="headerlink" title="创建Matlab快捷方式"></a>创建Matlab快捷方式</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo gedit &#x2F;usr&#x2F;share&#x2F;applications&#x2F;Matlab2018b.desktop</span><br></pre></td></tr></table></figure>
-<p>在文件中拷贝如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[Desktop Entry]</span><br><span class="line">Categories&#x3D;Application;Development;</span><br><span class="line">Comment&#x3D;Matlab</span><br><span class="line">Encoding&#x3D;UTF-8</span><br><span class="line">Exec&#x3D;&#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;bin&#x2F;matlab -desktop -prefersoftwareopengl</span><br><span class="line">Icon&#x3D;&#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;toolbox&#x2F;shared&#x2F;dastudio&#x2F;resources&#x2F;MatlabIcon.png</span><br><span class="line">Name&#x3D;MATLAB R2018b</span><br><span class="line">StartupNotify&#x3D;true</span><br><span class="line">Terminal&#x3D;false</span><br><span class="line">Type&#x3D;Application</span><br></pre></td></tr></table></figure>
-<p>如果打开Matlab提示”The desktop configuration was not saved successfully”：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo chmod a+w -R ~&#x2F;.matlab</span><br><span class="line">sudo chmod 777 &#x2F;home&#x2F;***&#x2F;.matlab</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>ubuntu</category>
-      </categories>
-      <tags>
-        <tag>software</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>VS-Code配置</title>
     <url>/2020/06/06/VSCode%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<p>配置C环境<br><a href="https://www.jianshu.com/p/83879b4aa3fe" target="_blank" rel="noopener">https://www.jianshu.com/p/83879b4aa3fe</a></p>
@@ -704,6 +777,70 @@
       </tags>
   </entry>
   <entry>
+    <title>hog特征</title>
+    <url>/2020/06/04/hog%E7%89%B9%E5%BE%81/</url>
+    <content><![CDATA[<h1 id="HOG特征"><a href="#HOG特征" class="headerlink" title="HOG特征"></a>HOG特征</h1><ul>
+<li><p>梯度计算</p>
+<ul>
+<li>分别计算水平、垂直梯度（将二维卷积转换为两个一维卷积）的幅值、方向；</li>
+<li>对于彩色图，选取梯度幅值最大的通道。</li>
+</ul>
+</li>
+<li><p>Block拆分</p>
+<ul>
+<li><p>16*16的Block，步长为8，50%的重合；</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/block.png" alt="block"></p>
+</li>
+<li><p>包含2*2个Cell；</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/cell.png" alt="cell"></p>
+</li>
+<li><p>每个Cell为8*8大小。</p>
+</li>
+</ul>
+</li>
+<li><p>计算每个Cell的梯度方向直方图</p>
+<ul>
+<li><p>9个方向bin(0-180)；</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/bin.png" alt="bin"></p>
+</li>
+<li><p>积累梯度幅值；<br>  <em>易受前景/背景对比度及局部光照影响</em>，需对局部细胞单元进行对比度归一化处理：将各Cell组合成大的、空间上连通的区间block，再进行归一化。</p>
+<p>  <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/hog%E5%BD%92%E4%B8%80%E5%8C%96%E5%A4%84%E7%90%86.png" alt="hog归一化处理"></p>
+</li>
+<li><p>使用位置高斯加权；</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BD%8D%E7%BD%AE%E9%AB%98%E6%96%AF%E5%8A%A0%E6%9D%83.png" alt="位置高斯加权"></p>
+</li>
+<li><p>相邻bin使用线性插值。</p>
+</li>
+</ul>
+</li>
+<li><p>串联所有Block直方图</p>
+</li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%B8%B2%E8%81%94Block.png" alt="串联Block"></p>
+<ul>
+<li>64*128大小图片；</li>
+<li>7*15=105个Block；</li>
+<li>105<em>(2</em>2)*9=3780维。</li>
+</ul>
+<h1 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/HOG%E6%AD%A5%E9%AA%A4.png" alt="HOG步骤"></p>
+<ol>
+<li>将整个图像进行Gamma空间、颜色归一化；</li>
+<li>计算图像梯度；</li>
+<li>构建方向的直方图；</li>
+<li>将细胞单元组成大的区间；</li>
+<li>收集HOG特征。</li>
+</ol>
+<p><em>行人HOG特征：</em></p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%A1%8C%E4%BA%BAHOG%E7%89%B9%E5%BE%81.png" alt="行人HOG特征"></p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>feature</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>haar特征</title>
     <url>/2020/06/04/haar%E7%89%B9%E5%BE%81/</url>
     <content><![CDATA[<h1 id="Haar-like特征"><a href="#Haar-like特征" class="headerlink" title="Haar-like特征"></a>Haar-like特征</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Haar%E7%89%B9%E5%BE%81.png" alt="Haar特征"></p>
@@ -797,70 +934,6 @@
       </categories>
       <tags>
         <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hog特征</title>
-    <url>/2020/06/04/hog%E7%89%B9%E5%BE%81/</url>
-    <content><![CDATA[<h1 id="HOG特征"><a href="#HOG特征" class="headerlink" title="HOG特征"></a>HOG特征</h1><ul>
-<li><p>梯度计算</p>
-<ul>
-<li>分别计算水平、垂直梯度（将二维卷积转换为两个一维卷积）的幅值、方向；</li>
-<li>对于彩色图，选取梯度幅值最大的通道。</li>
-</ul>
-</li>
-<li><p>Block拆分</p>
-<ul>
-<li><p>16*16的Block，步长为8，50%的重合；</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/block.png" alt="block"></p>
-</li>
-<li><p>包含2*2个Cell；</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/cell.png" alt="cell"></p>
-</li>
-<li><p>每个Cell为8*8大小。</p>
-</li>
-</ul>
-</li>
-<li><p>计算每个Cell的梯度方向直方图</p>
-<ul>
-<li><p>9个方向bin(0-180)；</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/bin.png" alt="bin"></p>
-</li>
-<li><p>积累梯度幅值；<br>  <em>易受前景/背景对比度及局部光照影响</em>，需对局部细胞单元进行对比度归一化处理：将各Cell组合成大的、空间上连通的区间block，再进行归一化。</p>
-<p>  <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/hog%E5%BD%92%E4%B8%80%E5%8C%96%E5%A4%84%E7%90%86.png" alt="hog归一化处理"></p>
-</li>
-<li><p>使用位置高斯加权；</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BD%8D%E7%BD%AE%E9%AB%98%E6%96%AF%E5%8A%A0%E6%9D%83.png" alt="位置高斯加权"></p>
-</li>
-<li><p>相邻bin使用线性插值。</p>
-</li>
-</ul>
-</li>
-<li><p>串联所有Block直方图</p>
-</li>
-</ul>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%B8%B2%E8%81%94Block.png" alt="串联Block"></p>
-<ul>
-<li>64*128大小图片；</li>
-<li>7*15=105个Block；</li>
-<li>105<em>(2</em>2)*9=3780维。</li>
-</ul>
-<h1 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/HOG%E6%AD%A5%E9%AA%A4.png" alt="HOG步骤"></p>
-<ol>
-<li>将整个图像进行Gamma空间、颜色归一化；</li>
-<li>计算图像梯度；</li>
-<li>构建方向的直方图；</li>
-<li>将细胞单元组成大的区间；</li>
-<li>收集HOG特征。</li>
-</ol>
-<p><em>行人HOG特征：</em></p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%A1%8C%E4%BA%BAHOG%E7%89%B9%E5%BE%81.png" alt="行人HOG特征"></p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>feature</tag>
       </tags>
   </entry>
   <entry>
@@ -966,37 +1039,6 @@
       </tags>
   </entry>
   <entry>
-    <title>图像格式</title>
-    <url>/2020/06/05/%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F/</url>
-    <content><![CDATA[<h1 id="图片存储格式"><a href="#图片存储格式" class="headerlink" title="图片存储格式"></a>图片存储格式</h1><p>常用存储格式：<br>  bmp,jpg,png,tiff,gif,<br>  pcx,tga,exif,fpx,svg,<br>  psd,cdr,pcd,dxf,ufo,<br>  eps,ai,raw,WMF,webp等。</p>
-<ul>
-<li>BMP：采用位映射存储，占用空间大。</li>
-<li>JPG：常用有损压缩格式，压缩比例可达10:1-40:1。</li>
-<li>PNG：无损压缩图像文件格式，比GIF小30%。</li>
-<li>GIF：基于LZW算法的连续色调的无损压缩格式，压缩率一般在50%左右。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>图像增强</title>
-    <url>/2020/04/13/%E5%9B%BE%E5%83%8F%E5%A2%9E%E5%BC%BA/</url>
-    <content><![CDATA[<h1 id="图像增强目标"><a href="#图像增强目标" class="headerlink" title="图像增强目标"></a>图像增强目标</h1><ul>
-<li>改善图像视觉效果；</li>
-<li>抑制无用信息，提高图像的使用价值；</li>
-<li>转换为更适合人或机器分析处理的形式。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>图像增强</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>图像分割</title>
     <url>/2020/05/28/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/</url>
     <content><![CDATA[<h1 id="图像分割"><a href="#图像分割" class="headerlink" title="图像分割"></a>图像分割</h1><p>图像分割：根据灰度、颜色、纹理、形状等特征，将图像划分为若干互不交叠的区域，并使这些特征在同一区域内呈现出相似性，在不同区域间呈现出明显的差异。</p>
@@ -1043,6 +1085,37 @@
       <tags>
         <tag>图像分割</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>图像增强</title>
+    <url>/2020/04/13/%E5%9B%BE%E5%83%8F%E5%A2%9E%E5%BC%BA/</url>
+    <content><![CDATA[<h1 id="图像增强目标"><a href="#图像增强目标" class="headerlink" title="图像增强目标"></a>图像增强目标</h1><ul>
+<li>改善图像视觉效果；</li>
+<li>抑制无用信息，提高图像的使用价值；</li>
+<li>转换为更适合人或机器分析处理的形式。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>图像增强</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>图像格式</title>
+    <url>/2020/06/05/%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="图片存储格式"><a href="#图片存储格式" class="headerlink" title="图片存储格式"></a>图片存储格式</h1><p>常用存储格式：<br>  bmp,jpg,png,tiff,gif,<br>  pcx,tga,exif,fpx,svg,<br>  psd,cdr,pcd,dxf,ufo,<br>  eps,ai,raw,WMF,webp等。</p>
+<ul>
+<li>BMP：采用位映射存储，占用空间大。</li>
+<li>JPG：常用有损压缩格式，压缩比例可达10:1-40:1。</li>
+<li>PNG：无损压缩图像文件格式，比GIF小30%。</li>
+<li>GIF：基于LZW算法的连续色调的无损压缩格式，压缩率一般在50%左右。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
   </entry>
   <entry>
     <title>图像特征</title>
@@ -1106,45 +1179,6 @@
       <tags>
         <tag>feature</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>图像颜色空间</title>
-    <url>/2020/04/25/%E5%9B%BE%E5%83%8F%E9%A2%9C%E8%89%B2%E7%A9%BA%E9%97%B4/</url>
-    <content><![CDATA[<h1 id="颜色空间"><a href="#颜色空间" class="headerlink" title="颜色空间"></a>颜色空间</h1><h2 id="RGB颜色空间"><a href="#RGB颜色空间" class="headerlink" title="RGB颜色空间"></a>RGB颜色空间</h2><p>三颜色通道：</p>
-<ul>
-<li>Red通道；</li>
-<li>Green通道；</li>
-<li>Blue通道。<br>一个像素颜色值为(b,g,r)，取值范围[0,255]或[0.0,1.0]<br>加法混色，用于彩色显示器。</li>
-</ul>
-<h2 id="CMY-K-颜色空间"><a href="#CMY-K-颜色空间" class="headerlink" title="CMY(K)颜色空间"></a>CMY(K)颜色空间</h2><p>四通道：</p>
-<ul>
-<li>Cyan通道；</li>
-<li>Magenta通道；</li>
-<li>Yellow通道；</li>
-<li>Key通道。<br>一个像素颜色值为(c,m,y,k)，取值范围[0,255]或[0.0,1.0]<br>减法混色，用于印刷。</li>
-</ul>
-<h2 id="HSV颜色空间"><a href="#HSV颜色空间" class="headerlink" title="HSV颜色空间"></a>HSV颜色空间</h2><p>三要素：</p>
-<ul>
-<li>H/Hue：色调，颜色种类；</li>
-<li>S/Saturation：饱和度，颜色纯度；</li>
-<li>V/Value：明亮度，颜色明亮度。<br>一个像素颜色值为(h,s,v)，取值范围[0,255]或[0.0,1.0]<br>符合人类视觉概念，用于画家调色。</li>
-</ul>
-<h2 id="CIE-XYZ颜色空间"><a href="#CIE-XYZ颜色空间" class="headerlink" title="CIE-XYZ颜色空间"></a>CIE-XYZ颜色空间</h2><p>基于人类颜色视觉的直接测定，是其他颜色空间的基础。于1931年由国际照明协会定义。</p>
-<p>3颜色刺激值通道：</p>
-<ul>
-<li>X，Y，Z：基本对应R，G，B；</li>
-<li>一种波的刺激等于几种波的刺激整合。</li>
-</ul>
-<p>人类视觉系统（视锥细胞）：</p>
-<ul>
-<li>短波（S,420-440nm）；</li>
-<li>中波（M,530-540nm）；</li>
-<li>长波（L,560-580nm）。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
   </entry>
   <entry>
     <title>图像特征表示</title>
@@ -1231,62 +1265,43 @@
       </tags>
   </entry>
   <entry>
-    <title>小波变换</title>
-    <url>/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/</url>
-    <content><![CDATA[<h1 id="连续小波变换CWT"><a href="#连续小波变换CWT" class="headerlink" title="连续小波变换CWT"></a>连续小波变换CWT</h1><p>将无限长的三角函数基转换为有限长的会衰减的小波基，不仅能获取频率，还可定位到时间。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2.png" alt="小波变换"></p>
-<p>思路：</p>
-<ol>
-<li>取一个小波，将其与原始信号的开始一节进行比较；</li>
-<li>计算数值F，F表示小波与所取一节信号的相似程度，计算结果取决于所选小波的形状；</li>
-<li>向右移动小波，重复步骤1和步骤2，直至覆盖整个信号；</li>
-<li>伸展小波，重复步骤1-3，对齐；</li>
-<li>对于所有缩放，重复步骤1-4，进行压缩。</li>
-</ol>
-<h1 id="离散小波变换DWT"><a href="#离散小波变换DWT" class="headerlink" title="离散小波变换DWT"></a>离散小波变换DWT</h1><p>离散小波变换的有效方法是使用滤波器，由Mallat于1988年提出。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%A4%9A%E5%B1%82%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="多层小波分解和重构"></p>
-<h2 id="小波分解"><a href="#小波分解" class="headerlink" title="小波分解"></a>小波分解</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%A6%BB%E6%95%A3%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="离散小波分解示意图"></p>
-<p>S表示原始的输入信号，通过两个互补的滤波器组，一个低通滤波器，得到信号的近似值A，另一个高通滤波器，得到该滤波器的细节值D。</p>
-<h2 id="小波重构"><a href="#小波重构" class="headerlink" title="小波重构"></a>小波重构</h2><p>利用小波分解的系数还原出原始信号，也叫逆离散小波变换IDWT/小波合成。</p>
-<h1 id="二维离散小波变换"><a href="#二维离散小波变换" class="headerlink" title="二维离散小波变换"></a>二维离散小波变换</h1><p>将二维信号在不同尺度进行分解，得到原始信号的近似值和细节。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BA%8C%E7%BB%B4%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="二维小波分解和重构"></p>
-<p>分解的结果为**近似分量cA、水平细节分量cH、垂直细节分量cV、对角细节分量cD。</p>
-<h1 id="常见小波函数"><a href="#常见小波函数" class="headerlink" title="常见小波函数"></a>常见小波函数</h1><p>Haar系列，Daubechies系列，Moret系列，Sym系列，Meyer系列，Coif系列</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%B3%A2%E5%87%BD%E6%95%B0.png" alt="常用小波函数"></p>
-<p>参考：<br><a href="https://www.cnblogs.com/keye/p/7809207.html" target="_blank" rel="noopener">https://www.cnblogs.com/keye/p/7809207.html</a><br><a href="https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html</a></p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>多尺度变换</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>局部二值LBP</title>
-    <url>/2020/06/04/%E5%B1%80%E9%83%A8%E4%BA%8C%E5%80%BCLBP/</url>
-    <content><![CDATA[<h1 id="LBP-局部二值模式"><a href="#LBP-局部二值模式" class="headerlink" title="LBP-局部二值模式"></a>LBP-局部二值模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/lbp.png" alt="lbp"></p>
-<ol>
-<li>将每个像素点与周围点大小比较：<ul>
-<li>半径为R的圆，均匀采样P个点；</li>
-<li>大小量化为0或1.</li>
-</ul>
-</li>
-<li>多个bit组成一个书，统计每个数的直方图。</li>
-</ol>
-<p>解决旋转不变性：</p>
+    <title>图像颜色空间</title>
+    <url>/2020/04/25/%E5%9B%BE%E5%83%8F%E9%A2%9C%E8%89%B2%E7%A9%BA%E9%97%B4/</url>
+    <content><![CDATA[<h1 id="颜色空间"><a href="#颜色空间" class="headerlink" title="颜色空间"></a>颜色空间</h1><h2 id="RGB颜色空间"><a href="#RGB颜色空间" class="headerlink" title="RGB颜色空间"></a>RGB颜色空间</h2><p>三颜色通道：</p>
 <ul>
-<li>将LBP周围的二进制码按位旋转，取二进制码最小的值为最终LBP值。</li>
+<li>Red通道；</li>
+<li>Green通道；</li>
+<li>Blue通道。<br>一个像素颜色值为(b,g,r)，取值范围[0,255]或[0.0,1.0]<br>加法混色，用于彩色显示器。</li>
 </ul>
-<h1 id="Extended-LBP-Circular-LBP"><a href="#Extended-LBP-Circular-LBP" class="headerlink" title="Extended LBP/Circular LBP"></a>Extended LBP/Circular LBP</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ExtendedLBP.png" alt="ExtendedLBP"></p>
-<p>将3*3邻域扩展到任意领域，并用圆形领域代替正方形领域。</p>
+<h2 id="CMY-K-颜色空间"><a href="#CMY-K-颜色空间" class="headerlink" title="CMY(K)颜色空间"></a>CMY(K)颜色空间</h2><p>四通道：</p>
+<ul>
+<li>Cyan通道；</li>
+<li>Magenta通道；</li>
+<li>Yellow通道；</li>
+<li>Key通道。<br>一个像素颜色值为(c,m,y,k)，取值范围[0,255]或[0.0,1.0]<br>减法混色，用于印刷。</li>
+</ul>
+<h2 id="HSV颜色空间"><a href="#HSV颜色空间" class="headerlink" title="HSV颜色空间"></a>HSV颜色空间</h2><p>三要素：</p>
+<ul>
+<li>H/Hue：色调，颜色种类；</li>
+<li>S/Saturation：饱和度，颜色纯度；</li>
+<li>V/Value：明亮度，颜色明亮度。<br>一个像素颜色值为(h,s,v)，取值范围[0,255]或[0.0,1.0]<br>符合人类视觉概念，用于画家调色。</li>
+</ul>
+<h2 id="CIE-XYZ颜色空间"><a href="#CIE-XYZ颜色空间" class="headerlink" title="CIE-XYZ颜色空间"></a>CIE-XYZ颜色空间</h2><p>基于人类颜色视觉的直接测定，是其他颜色空间的基础。于1931年由国际照明协会定义。</p>
+<p>3颜色刺激值通道：</p>
+<ul>
+<li>X，Y，Z：基本对应R，G，B；</li>
+<li>一种波的刺激等于几种波的刺激整合。</li>
+</ul>
+<p>人类视觉系统（视锥细胞）：</p>
+<ul>
+<li>短波（S,420-440nm）；</li>
+<li>中波（M,530-540nm）；</li>
+<li>长波（L,560-580nm）。</li>
+</ul>
 ]]></content>
       <categories>
         <category>image</category>
       </categories>
-      <tags>
-        <tag>feature</tag>
-      </tags>
   </entry>
   <entry>
     <title>多尺度变换</title>
@@ -1390,6 +1405,32 @@
       </categories>
       <tags>
         <tag>多尺度变换</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>局部二值LBP</title>
+    <url>/2020/06/04/%E5%B1%80%E9%83%A8%E4%BA%8C%E5%80%BCLBP/</url>
+    <content><![CDATA[<h1 id="LBP-局部二值模式"><a href="#LBP-局部二值模式" class="headerlink" title="LBP-局部二值模式"></a>LBP-局部二值模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/lbp.png" alt="lbp"></p>
+<ol>
+<li>将每个像素点与周围点大小比较：<ul>
+<li>半径为R的圆，均匀采样P个点；</li>
+<li>大小量化为0或1.</li>
+</ul>
+</li>
+<li>多个bit组成一个书，统计每个数的直方图。</li>
+</ol>
+<p>解决旋转不变性：</p>
+<ul>
+<li>将LBP周围的二进制码按位旋转，取二进制码最小的值为最终LBP值。</li>
+</ul>
+<h1 id="Extended-LBP-Circular-LBP"><a href="#Extended-LBP-Circular-LBP" class="headerlink" title="Extended LBP/Circular LBP"></a>Extended LBP/Circular LBP</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ExtendedLBP.png" alt="ExtendedLBP"></p>
+<p>将3*3邻域扩展到任意领域，并用圆形领域代替正方形领域。</p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>feature</tag>
       </tags>
   </entry>
   <entry>
@@ -1544,6 +1585,68 @@
       </categories>
   </entry>
   <entry>
+    <title>小波变换</title>
+    <url>/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/</url>
+    <content><![CDATA[<h1 id="连续小波变换CWT"><a href="#连续小波变换CWT" class="headerlink" title="连续小波变换CWT"></a>连续小波变换CWT</h1><p>将无限长的三角函数基转换为有限长的会衰减的小波基，不仅能获取频率，还可定位到时间。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2.png" alt="小波变换"></p>
+<p>思路：</p>
+<ol>
+<li>取一个小波，将其与原始信号的开始一节进行比较；</li>
+<li>计算数值F，F表示小波与所取一节信号的相似程度，计算结果取决于所选小波的形状；</li>
+<li>向右移动小波，重复步骤1和步骤2，直至覆盖整个信号；</li>
+<li>伸展小波，重复步骤1-3，对齐；</li>
+<li>对于所有缩放，重复步骤1-4，进行压缩。</li>
+</ol>
+<h1 id="离散小波变换DWT"><a href="#离散小波变换DWT" class="headerlink" title="离散小波变换DWT"></a>离散小波变换DWT</h1><p>离散小波变换的有效方法是使用滤波器，由Mallat于1988年提出。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%A4%9A%E5%B1%82%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="多层小波分解和重构"></p>
+<h2 id="小波分解"><a href="#小波分解" class="headerlink" title="小波分解"></a>小波分解</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%A6%BB%E6%95%A3%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="离散小波分解示意图"></p>
+<p>S表示原始的输入信号，通过两个互补的滤波器组，一个低通滤波器，得到信号的近似值A，另一个高通滤波器，得到该滤波器的细节值D。</p>
+<h2 id="小波重构"><a href="#小波重构" class="headerlink" title="小波重构"></a>小波重构</h2><p>利用小波分解的系数还原出原始信号，也叫逆离散小波变换IDWT/小波合成。</p>
+<h1 id="二维离散小波变换"><a href="#二维离散小波变换" class="headerlink" title="二维离散小波变换"></a>二维离散小波变换</h1><p>将二维信号在不同尺度进行分解，得到原始信号的近似值和细节。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BA%8C%E7%BB%B4%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="二维小波分解和重构"></p>
+<p>分解的结果为**近似分量cA、水平细节分量cH、垂直细节分量cV、对角细节分量cD。</p>
+<h1 id="常见小波函数"><a href="#常见小波函数" class="headerlink" title="常见小波函数"></a>常见小波函数</h1><p>Haar系列，Daubechies系列，Moret系列，Sym系列，Meyer系列，Coif系列</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%B3%A2%E5%87%BD%E6%95%B0.png" alt="常用小波函数"></p>
+<p>参考：<br><a href="https://www.cnblogs.com/keye/p/7809207.html" target="_blank" rel="noopener">https://www.cnblogs.com/keye/p/7809207.html</a><br><a href="https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html</a></p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>多尺度变换</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数学公式</title>
+    <url>/2020/04/25/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="欧拉公式"><a href="#欧拉公式" class="headerlink" title="欧拉公式"></a>欧拉公式</h1><p>$e^{ix} = cos{x} + isin{x}$</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F.png" alt="欧拉公式"></p>
+<h1 id="链式求导法则"><a href="#链式求导法则" class="headerlink" title="链式求导法则"></a>链式求导法则</h1><p>$$(f(g(x)))’ = f’(g(x)) g’(x)$$</p>
+<p>或</p>
+<p>$$\frac{dy}{dx} = \frac{dy}{dz} \cdot \frac{dz}{dx}$$</p>
+<h1 id="极大似然估计MLE"><a href="#极大似然估计MLE" class="headerlink" title="极大似然估计MLE"></a>极大似然估计MLE</h1><ol>
+<li>样本集中的样本都是独立同分布iid的，可以只考虑一类样本集D，来估计参数向量$\theta$。</li>
+</ol>
+<p>$D = {x_1, x_2, … ,x_N}$</p>
+<ol start="2">
+<li>似然函数(likelihood function)：联合概率密度函数$p(D| \theta )$称为相对于$\theta$的似然函数。</li>
+</ol>
+<p>$l(\theta) = p(D|\theta) = p(x_1, x_2,…,x_N | \theta) = \prod_{i=1}^N p(x_i | \theta)$</p>
+<p>当$\widehat{\theta}$是参数空间中<strong>使似然函数最大的$\widehat{\theta}$值</strong>，那么，$\widehat{\theta}$很可能是最可能的参数值，则$\widehat{\theta}$为$\theta$的极大似然估计量。</p>
+<ol start="3">
+<li>MLE：求解使得出现该组样本的概率最大的$\theta$值。</li>
+</ol>
+<p>$$\widehat{\theta} = arg\underset{\theta}max l(\theta) = arg\underset{\theta}max \prod_{i=1}^N p(x_i | \theta)$$</p>
+<ol start="4">
+<li>对数似然函数（便于分析）</li>
+</ol>
+<p>$$\widehat{\theta} = arg\underset{\theta}max H(\theta) = arg\underset{\theta}max ln l(\theta) = arg\underset{\theta}max \sum_{i=1}^N ln p(x_i|\theta)$$</p>
+]]></content>
+      <categories>
+        <category>Math</category>
+      </categories>
+  </entry>
+  <entry>
     <title>我与世界只差一个你</title>
     <url>/2020/03/09/%E6%88%91%E4%B8%8E%E4%B8%96%E7%95%8C%E5%8F%AA%E5%B7%AE%E4%B8%80%E4%B8%AA%E4%BD%A0/</url>
     <content><![CDATA[<blockquote><p>世界说大很大，说小很小。大到走了那么久，还没跟对的人相遇，小到围着喜欢的人绕了一圈，就看到了全世界。</p>
@@ -1616,17 +1719,36 @@
       </categories>
   </entry>
   <entry>
-    <title>数学公式</title>
-    <url>/2020/04/25/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/</url>
-    <content><![CDATA[<h1 id="欧拉公式"><a href="#欧拉公式" class="headerlink" title="欧拉公式"></a>欧拉公式</h1><p>$e^{ix} = cos{x} + isin{x}$</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F.png" alt="欧拉公式"></p>
-<h1 id="链式求导法则"><a href="#链式求导法则" class="headerlink" title="链式求导法则"></a>链式求导法则</h1><p>$$(f(g(x)))’ = f’(g(x)) g’(x)$$</p>
-<p>或</p>
-<p>$$\frac{dy}{dx} = \frac{dy}{dz} \cdot \frac{dz}{dx}$$</p>
+    <title>服务器连接</title>
+    <url>/2020/03/09/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE/</url>
+    <content><![CDATA[<h1 id="ssh远程连接（无需输入密码）"><a href="#ssh远程连接（无需输入密码）" class="headerlink" title="ssh远程连接（无需输入密码）"></a>ssh远程连接（无需输入密码）</h1><ol>
+<li><p>确保已经有生成有SSH公钥：<br>进入 <code>~/.ssh</code> 可看到有 <code>id_rsa</code> 和 <code>id_rsa.pub</code> ，其中 <code>id_rsa.pub</code> 为公钥。<br>若没有，运行：<code>ssh-keygen -t rsa -C &quot;***@gmail.com&quot;</code> 或 <code>ssh-keygen</code></p>
+</li>
+<li><p>将本电脑公钥发送到服务器端：<br><code>ssh-copy-id username@144.202.***.***</code></p>
+</li>
+<li><p>验证：<br><code>ssh &#39;username@144.202.***.***&#39;</code><br>自动连接！</p>
+</li>
+</ol>
+<ul>
+<li>若使用该方式后重置，再次连接时，会出现 <code>Host key verfication failed</code> 情况，使用 <code>ssh-keygen -R ip地址</code> 清除。</li>
+</ul>
+<h1 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h1><ol>
+<li><p>上传本地文件夹到服务器<br><code>scp -P port -r LocalWorkSpaces username@IP:WorkSpaces</code></p>
+</li>
+<li><p>下载服务器文件夹到本地<br><code>scp -P port -r username@IP:WorkSpaces LocalWorkSpaces</code> </p>
+</li>
+<li><p>上传本地文件到服务器<br><code>scp -P port file username@IP:WorkSpaces</code></p>
+</li>
+<li><p>下载服务器文件到本地<br><code>scp -P port 用户名@IP:file LocalWorkSpaces</code> </p>
+</li>
+</ol>
 ]]></content>
       <categories>
-        <category>Math</category>
+        <category>Ubuntu</category>
       </categories>
+      <tags>
+        <tag>remote</tag>
+      </tags>
   </entry>
   <entry>
     <title>数据结构</title>
@@ -1714,73 +1836,6 @@
       </categories>
   </entry>
   <entry>
-    <title>服务器连接</title>
-    <url>/2020/03/09/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE/</url>
-    <content><![CDATA[<h1 id="ssh远程连接（无需输入密码）"><a href="#ssh远程连接（无需输入密码）" class="headerlink" title="ssh远程连接（无需输入密码）"></a>ssh远程连接（无需输入密码）</h1><ol>
-<li><p>确保已经有生成有SSH公钥：<br>进入 <code>~/.ssh</code> 可看到有 <code>id_rsa</code> 和 <code>id_rsa.pub</code> ，其中 <code>id_rsa.pub</code> 为公钥。<br>若没有，运行：<code>ssh-keygen -t rsa -C &quot;***@gmail.com&quot;</code> 或 <code>ssh-keygen</code></p>
-</li>
-<li><p>将本电脑公钥发送到服务器端：<br><code>ssh-copy-id username@144.202.***.***</code></p>
-</li>
-<li><p>验证：<br><code>ssh &#39;username@144.202.***.***&#39;</code><br>自动连接！</p>
-</li>
-</ol>
-<ul>
-<li>若使用该方式后重置，再次连接时，会出现 <code>Host key verfication failed</code> 情况，使用 <code>ssh-keygen -R ip地址</code> 清除。</li>
-</ul>
-<h1 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h1><ol>
-<li><p>上传本地文件夹到服务器<br><code>scp -P port -r LocalWorkSpaces username@IP:WorkSpaces</code></p>
-</li>
-<li><p>下载服务器文件夹到本地<br><code>scp -P port -r username@IP:WorkSpaces LocalWorkSpaces</code> </p>
-</li>
-<li><p>上传本地文件到服务器<br><code>scp -P port file username@IP:WorkSpaces</code></p>
-</li>
-<li><p>下载服务器文件到本地<br><code>scp -P port 用户名@IP:file LocalWorkSpaces</code> </p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>remote</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>激活函数</title>
-    <url>/2020/06/05/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<h1 id="sigmoid"><a href="#sigmoid" class="headerlink" title="sigmoid"></a>sigmoid</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/sigmoid.jpg" alt="sigmoid"></p>
-<p>$g(z) = \frac{1}{1 + e^{-z}}$</p>
-<p>常用于二元分类的输出层，输出介于0-1之间。</p>
-<h1 id="tanh"><a href="#tanh" class="headerlink" title="tanh"></a>tanh</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/tanh.png" alt="tanh"></p>
-<p>$tanh(x) = \frac{e^x - e^{-x}}{e^{-x} + e^x}$</p>
-<h1 id="ReLu"><a href="#ReLu" class="headerlink" title="ReLu"></a>ReLu</h1><p><em>rectified linear unit，修正线性单元</em></p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ReLU.jpg" alt="ReLU"></p>
-<ul>
-<li>常规ReLU：$Max(0,x_i)$<ul>
-<li>当$x\geq0$时，$y_i=x_i$；</li>
-<li>当$x&lt;0$时，$y_i=0$；</li>
-</ul>
-</li>
-<li>Leaky ReLU：$Max(ax_i,x_i)$<ul>
-<li>当$x\geq0$时，$y_i=x_i$；</li>
-<li>当$x&lt;0$时，$y_i=a_i x_i$；</li>
-</ul>
-</li>
-<li>Randomized Leaky ReLU：<ul>
-<li>当$x\geq0$时，$y_i=x_i$；</li>
-<li>当$x&lt;0$时，$y_{ji}=a_{ji} x_{ji}$；</li>
-</ul>
-</li>
-</ul>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ReLU%E6%BF%80%E6%B4%BB.png" alt="ReLU激活"></p>
-<p>使用ReLU激活后，一些单元的输出成了0，另一些则变为线性单元，避免了调整各层权重时的梯度消失的问题。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ReLU%E4%BC%98%E5%8C%96.png" alt="ReLU优化"></p>
-]]></content>
-      <categories>
-        <category>deeplearning</category>
-      </categories>
-  </entry>
-  <entry>
     <title>深度学习</title>
     <url>/2020/06/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<h1 id="深度学习与神经网络的区别"><a href="#深度学习与神经网络的区别" class="headerlink" title="深度学习与神经网络的区别"></a>深度学习与神经网络的区别</h1><ul>
@@ -1837,9 +1892,171 @@
       </categories>
   </entry>
   <entry>
+    <title>激活函数</title>
+    <url>/2020/06/05/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="sigmoid"><a href="#sigmoid" class="headerlink" title="sigmoid"></a>sigmoid</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/sigmoid.jpg" alt="sigmoid"></p>
+<p>$g(z) = \frac{1}{1 + e^{-z}}$</p>
+<p>常用于二元分类的输出层，输出介于0-1之间。</p>
+<h1 id="tanh"><a href="#tanh" class="headerlink" title="tanh"></a>tanh</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/tanh.png" alt="tanh"></p>
+<p>$tanh(x) = \frac{e^x - e^{-x}}{e^{-x} + e^x}$</p>
+<h1 id="ReLu"><a href="#ReLu" class="headerlink" title="ReLu"></a>ReLu</h1><p><em>rectified linear unit，修正线性单元</em></p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ReLU.jpg" alt="ReLU"></p>
+<ul>
+<li>常规ReLU：$Max(0,x_i)$<ul>
+<li>当$x\geq0$时，$y_i=x_i$；</li>
+<li>当$x&lt;0$时，$y_i=0$；</li>
+</ul>
+</li>
+<li>Leaky ReLU：$Max(ax_i,x_i)$<ul>
+<li>当$x\geq0$时，$y_i=x_i$；</li>
+<li>当$x&lt;0$时，$y_i=a_i x_i$；</li>
+</ul>
+</li>
+<li>Randomized Leaky ReLU：<ul>
+<li>当$x\geq0$时，$y_i=x_i$；</li>
+<li>当$x&lt;0$时，$y_{ji}=a_{ji} x_{ji}$；</li>
+</ul>
+</li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ReLU%E6%BF%80%E6%B4%BB.png" alt="ReLU激活"></p>
+<p>使用ReLU激活后，一些单元的输出成了0，另一些则变为线性单元，避免了调整各层权重时的梯度消失的问题。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ReLU%E4%BC%98%E5%8C%96.png" alt="ReLU优化"></p>
+]]></content>
+      <categories>
+        <category>deeplearning</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>熵</title>
+    <url>/2020/06/27/%E7%86%B5/</url>
+    <content><![CDATA[<h1 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h1><ul>
+<li>假设一个样本集中有<strong>两个概率分布p、q</strong>，其中p为真实分布，q为非真实分布；</li>
+<li>按照真实分布p来衡量识别一个样本所需要的编码长度的期望为：$$\sum_i p(i) \cdot log(\frac{1}{p(i)})$$</li>
+<li>按照错误分布q表示来自真实分布p的平均编码长度的期望为：$$\sum_i p(i) \cdot log(\frac{1}{q(i)})$$</li>
+<li>$H(p,q)$称之为交叉熵。</li>
+</ul>
+<h1 id="相对熵-KL散度"><a href="#相对熵-KL散度" class="headerlink" title="相对熵/KL散度"></a>相对熵/KL散度</h1><p>KL散度，是两个概率分布P和Q差别的非对称性的度量。</p>
+<p>通常情况下，</p>
+<ul>
+<li>P表示数据的真实分布；</li>
+<li>Q表示数据的理论分布（模型分布、P的近似分布）$D(P||Q) = \sum P(x) log \frac{P(x)}{Q(x)}$ 。</li>
+</ul>
+<p>KL散度<strong>不对称</strong>，不满足距离的性质，即$D_{KL}(P||Q) \neq D_{KL}(Q||P)$ 。</p>
+<h1 id="JS散度"><a href="#JS散度" class="headerlink" title="JS散度"></a>JS散度</h1><p>JS散度，度量两个概率分布的相似度；是基于KL散度的变体，解决了KL散度非对称性的问题。</p>
+<p>$$JS(P||Q) = \frac{1}{2} KL(P(x)||\frac{P(x)+Q(x)}{2}) + \frac{1}{2} KL(Q(x)||\frac{P(x)+Q(x)}{2})$$</p>
+<p>KL散度具有对称性，其取值区间为[0,1]。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>swift</title>
+    <url>/2020/06/30/swift/</url>
+    <content><![CDATA[<h1 id="ios"><a href="#ios" class="headerlink" title="ios"></a>ios</h1><h2 id="SandBox"><a href="#SandBox" class="headerlink" title="SandBox"></a>SandBox</h2><p>ios中的沙盒机制是一种安全体系。每个app都有一个单独的文件系统/存储空间，而且只能在对应的文件系统中进行操作，即沙盒。所有的非代码文件（资源文件等）都保存在此。</p>
+<p>沙盒包含的目录：</p>
+<ul>
+<li>/AppName.app<ul>
+<li>应用程序的程序包目录；</li>
+<li>由于应用程序必须经过<strong>签名</strong>，所以不能在运行时对这个目录中的内容进行修改，否则会导致应用程序无法启动。</li>
+</ul>
+</li>
+<li>/Documents/<ul>
+<li>保存<strong>应用程序的重要数据文件和用户数据文件</strong>等；</li>
+<li>iTunes<strong>同步</strong>时会<strong>备份</strong>该目录。</li>
+</ul>
+</li>
+<li>/Library/Caches<ul>
+<li>保存应用程序使用时产生的支持文件和缓存文件，还有日志文件最好也放在这个目录；</li>
+<li>iTunes同步时<strong>不备份</strong>该目录。</li>
+</ul>
+</li>
+<li>/Library/Preferences<ul>
+<li>保存应用程序的偏好设置文件；</li>
+<li>使用<code>NSUserDefaults</code>类设置时创建，不应手动创建。</li>
+</ul>
+</li>
+<li>/tmp/<ul>
+<li>保存应用运行时所需要的临时数据；</li>
+<li>iphone<strong>重启时会清空</strong>该目录下所有文件。</li>
+</ul>
+</li>
+</ul>
+<p>查询app沙盒路径：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 在项目中执行代码打印获取</span><br><span class="line">let homeDir &#x3D; NSHomeDirectory() as Stringprintln(homeDir)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 1、获取沙盒根目录</span><br><span class="line">let homeDir &#x3D; NSHomeDirectory() as String</span><br><span class="line">&#x2F;&#x2F; 2、获取 Documents 目录</span><br><span class="line">let docDirs &#x3D; NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArraylet docDir &#x3D; docDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 3、获取 Caches 目录</span><br><span class="line">let cachesDirs &#x3D; NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true) as NSArraylet cachesDir &#x3D; cachesDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 4、获取 Library 目录</span><br><span class="line">let libDirs &#x3D; NSSearchPathForDirectoriesInDomains(.LibraryDirectory, .UserDomainMask, true) as NSArraylet libDir &#x3D; libDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 5、获取 tmp 目录</span><br><span class="line">let tmpDir &#x3D; NSTemporaryDirectory() as String</span><br></pre></td></tr></table></figure>
+
+<h3 id="NSFileManager"><a href="#NSFileManager" class="headerlink" title="NSFileManager"></a>NSFileManager</h3><p>通过<code>fileManager</code>对沙盒中的目录/文件进行操作。</p>
+<h3 id="NSBundle"><a href="#NSBundle" class="headerlink" title="NSBundle"></a>NSBundle</h3><p>app都是通过<code>bundle</code>进行封装的，可以将<code>bundle</code>理解为上述沙盒中的<code>AppName.app</code>文件。</p>
+<p>在<code>Finder</code>中，会把<code>bundle</code>当做文件显示，防止用户误操作，但其内部是一个目录，包含图像、媒体资源、编译的代码、nib文件等，这个目录称为<code>main bundle</code>。</p>
+<p><code>Cocaoa</code>提供了<code>NSBundle类</code>封装了<code>bundle</code>操作。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 获取应用程序的 main bundle</span><br><span class="line">var mainBundle &#x3D; NSBundle.mainBundle()</span><br><span class="line">&#x2F;&#x2F; 使用 main bundle 获取资源路径</span><br><span class="line">var testFilePath &#x3D; mainBundle.pathForResource(&quot;logo&quot;, ofType: &quot;png&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>参考：</p>
+<ul>
+<li><a href="https://www.cnblogs.com/zjoch/p/4702873.html" target="_blank" rel="noopener">https://www.cnblogs.com/zjoch/p/4702873.html</a></li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>皮囊</title>
+    <url>/2020/03/09/%E7%9A%AE%E5%9B%8A/</url>
+    <content><![CDATA[<p>本来是抱着一个很轻松的心情翻开这本书的，但是在看完几页之后愈感沉重，以至于不得不分到几天时间才能看完。总体来说，这种书写得很厚重，只有在经历了人生的坡坡坎坎之后才能有此积淀。我觉得这本书最出彩的地方在于它可以主动去勾起你的回忆，以及对人生的思考。人生在世，我们每个人都披了一层皮囊，以此区别于不同的人，为其注入各种不同的思想，活出自己的精彩人生。</p>
+<p>倔强而又骄傲的母亲，为了完成与心爱之人的约定，执着又顽强的坚定的遵从自己的内心。活出了女性的坚持与美丽。与之对应的是爱面子的父亲，在重病期间依旧想的是如何撑起这个家，他将一生全部奉献给了这个家。这是国内传统家庭的真实写照，男主外女主内，在父亲病重后由儿子撑起这个家，在这种交替中，完成了一种身份的转变，责任的交接。</p>
+<p>“张美丽”和“阿小”是当时在那个大环境下的必然产物，是人的内心欲望使然，是人们开始过上美好富裕生活的必然转变，他们是活在了那个特殊的年代，因此显得与周围人格格不入，也正是由于有了这些人的存在，为我们的时代发展转变做出了自己的贡献，我们在现代这个大环境下才活得那么的自然。</p>
+<p>“天才文展”与“厚朴”是我们基本都会遇到的，一个被尊奉为天才，一个充满正能力，有理想，是我们每个人都渴望成为的那类人的分解。“天才文展”学习好，够坚持，有目标，但是活得过于压抑；“厚朴”每天活在自己的想象中，快乐，虚假，脱离了实际。这两类人又是两种互补人格，以两个人的结局与自己形成鲜明对比，告诫我们要如何选择自己的人生。</p>
+]]></content>
+      <categories>
+        <category>reading</category>
+      </categories>
+  </entry>
+  <entry>
     <title>生成对抗网络</title>
     <url>/2020/06/09/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C/</url>
-    <content><![CDATA[<p>参考：<br><a href="https://blog.csdn.net/gdymind/article/details/82696481" target="_blank" rel="noopener">https://blog.csdn.net/gdymind/article/details/82696481</a></p>
+    <content><![CDATA[<h1 id="生成式模型和判别式模型"><a href="#生成式模型和判别式模型" class="headerlink" title="生成式模型和判别式模型"></a>生成式模型和判别式模型</h1><ul>
+<li>判别式模型</li>
+</ul>
+<p>已知观察变量X和隐含变量z，对$p(z|X)$进行建模，根据输入的观察变量x得到隐含变量z出现的概率。</p>
+<ul>
+<li>生成式模型</li>
+</ul>
+<p>已知观察变量X和隐含变量z，对$p(X|z)$进行建模，根据隐含变量z得到输出是观察变量x的概率。</p>
+<h1 id="GAN"><a href="#GAN" class="headerlink" title="GAN"></a>GAN</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GAN%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B.png" alt="GAN基本流程"></p>
+<ul>
+<li><p>生成器网络Generator：$x = G(z; \theta^{(G)})$，负责生成样本数据；</p>
+<ul>
+<li>输入：高斯白噪声向量z；</li>
+<li>输出：样本数据向量x；</li>
+</ul>
+</li>
+<li><p>判别器网络Discriminator：$y = D(x, \theta^D)$，负责检测样本数据真假；</p>
+<ul>
+<li>输入：真实/生成 样本数据；</li>
+<li>输出：真/假 标签；</li>
+</ul>
+</li>
+</ul>
+<p><em>该网络参数一定满足可微分。</em></p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/G2D.png" alt="G2D"></p>
+<p>基本思路：</p>
+<ol>
+<li>让第一代的G产生一些图片，将其和部分真实图片放到D中学习；</li>
+<li>让第一代的D能够分辨生成的图片和真实的图片；</li>
+<li>训练第二代的G，让第二代G生成的图片，能欺骗过第一代的D；</li>
+<li>训练第二代的D；</li>
+<li>依次循环3、4，直到满足终止条件。</li>
+</ol>
+<p>模型的目标：</p>
+<ul>
+<li>训练数据集的模型：$x ~ p_{train} (x)$</li>
+<li>生成样本的模型：$x ~ p_{model} (x)$</li>
+<li>使其相等：$p_{train} (x) = p_{model} (x)$</li>
+</ul>
+<p>主要解决问题：</p>
+<ul>
+<li>构建高维、复杂概率分布；</li>
+<li>解决数据缺少问题；</li>
+<li>用于多模态输出；</li>
+<li>解决真实输出任务；</li>
+<li>进行数据预测etc。</li>
+</ul>
+<p>参考：<br><a href="https://zhuanlan.zhihu.com/p/104575937" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/104575937</a><br><a href="https://blog.csdn.net/gdymind/article/details/82696481" target="_blank" rel="noopener">https://blog.csdn.net/gdymind/article/details/82696481</a></p>
 ]]></content>
   </entry>
   <entry>
@@ -1856,18 +2073,6 @@
 <li>$a$表示学习速率。</li>
 </ul>
 ]]></content>
-  </entry>
-  <entry>
-    <title>皮囊</title>
-    <url>/2020/03/09/%E7%9A%AE%E5%9B%8A/</url>
-    <content><![CDATA[<p>本来是抱着一个很轻松的心情翻开这本书的，但是在看完几页之后愈感沉重，以至于不得不分到几天时间才能看完。总体来说，这种书写得很厚重，只有在经历了人生的坡坡坎坎之后才能有此积淀。我觉得这本书最出彩的地方在于它可以主动去勾起你的回忆，以及对人生的思考。人生在世，我们每个人都披了一层皮囊，以此区别于不同的人，为其注入各种不同的思想，活出自己的精彩人生。</p>
-<p>倔强而又骄傲的母亲，为了完成与心爱之人的约定，执着又顽强的坚定的遵从自己的内心。活出了女性的坚持与美丽。与之对应的是爱面子的父亲，在重病期间依旧想的是如何撑起这个家，他将一生全部奉献给了这个家。这是国内传统家庭的真实写照，男主外女主内，在父亲病重后由儿子撑起这个家，在这种交替中，完成了一种身份的转变，责任的交接。</p>
-<p>“张美丽”和“阿小”是当时在那个大环境下的必然产物，是人的内心欲望使然，是人们开始过上美好富裕生活的必然转变，他们是活在了那个特殊的年代，因此显得与周围人格格不入，也正是由于有了这些人的存在，为我们的时代发展转变做出了自己的贡献，我们在现代这个大环境下才活得那么的自然。</p>
-<p>“天才文展”与“厚朴”是我们基本都会遇到的，一个被尊奉为天才，一个充满正能力，有理想，是我们每个人都渴望成为的那类人的分解。“天才文展”学习好，够坚持，有目标，但是活得过于压抑；“厚朴”每天活在自己的想象中，快乐，虚假，脱离了实际。这两类人又是两种互补人格，以两个人的结局与自己形成鲜明对比，告诫我们要如何选择自己的人生。</p>
-]]></content>
-      <categories>
-        <category>reading</category>
-      </categories>
   </entry>
   <entry>
     <title>目标检测DPM</title>
@@ -2239,34 +2444,46 @@
       </categories>
   </entry>
   <entry>
-    <title>贪心算法</title>
-    <url>/2020/06/04/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="贪心算法-贪婪算法"><a href="#贪心算法-贪婪算法" class="headerlink" title="贪心算法/贪婪算法"></a>贪心算法/贪婪算法</h1><p>贪心算法，在每一个选择过程中都选择<strong>当前最优解</strong>，从而希望最终结果达到最优的算法。</p>
-<h2 id="算法实现步骤："><a href="#算法实现步骤：" class="headerlink" title="算法实现步骤："></a>算法实现步骤：</h2><ol>
-<li>创建数学模型来描述问题；</li>
-<li>把求解的问题<strong>分成若干个子问题</strong>；</li>
-<li>对每一子问题求解，得到子问题的<strong>局部最优解</strong>；</li>
-<li>把子问题的解局部最优解合成所求问题的一个解。</li>
-</ol>
-<p><strong>贪心算法的实现，要根据具体问题具体分析。</strong></p>
-<h2 id="常用解决的问题："><a href="#常用解决的问题：" class="headerlink" title="常用解决的问题："></a>常用解决的问题：</h2><ul>
-<li>贪心算法可以解决一些最优化问题，如：求图中的最小生成树、求哈夫曼编码、旅行推销员问题等。</li>
-<li>对于其它问题，贪心算法一般不能得到我们所要求的答案，常用作辅助算法或直接解决一些要求结果不是特别严格的问题。</li>
-<li>一旦一个问题可以通过贪心算法来解决，那么贪心算法一般是解决该问题的最好方法。</li>
+    <title>自编码机</title>
+    <url>/2020/06/23/%E8%87%AA%E7%BC%96%E7%A0%81%E6%9C%BA/</url>
+    <content><![CDATA[<h1 id="编码与解码"><a href="#编码与解码" class="headerlink" title="编码与解码"></a>编码与解码</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BC%96%E7%A0%81%E4%B8%8E%E8%A7%A3%E7%A0%81.png" alt="编码与解码"></p>
+<p>左侧将原始图像编码为向量，右侧通过解卷积层“解码”，还原回原始图像。</p>
+<p><em>可以用尽可能多的图像来训练网络，当保存了某张图像的编码向量，可用解码组件重建。</em></p>
+<h1 id="经典自编码机VAE"><a href="#经典自编码机VAE" class="headerlink" title="经典自编码机VAE"></a>经典自编码机VAE</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE.png" alt="VAE"></p>
+<p><em>通过编码向量，创造潜在向量，或实现连续、平滑的潜在空间表示。</em></p>
+<p>通过给编码网络添加一个约束，使其所产生的潜在向量大体上服从单位高斯分布。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E7%BA%A6%E6%9D%9F.png" alt="VAE约束"></p>
+<p>如图，只需从单位高斯分布中采样出一个潜在向量，并将其传递到解码器，就可以生成一张新的图像了。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E9%87%87%E6%A0%B7.png" alt="VAE采样"></p>
+<p>基本思路：</p>
+<ul>
+<li>假定输入数据的数据集D的分布完全由一组隐变量z操控，并且，该组隐变量间相互独立且服从高斯分布；</li>
+<li>VAE让encoder学习输入数据的隐变量模型，即学习该组隐变量的高斯概率分布的参数：隐变量高斯分布的均值$\Mu$和方差$\theta$的$log$值；</li>
+<li>隐变量z通过对参数的正态分布中采样得到：$z ~ N(\Mu, \theta)$；</li>
+<li>通过decoder对隐变量进行解码，重构函数。</li>
 </ul>
-<h2 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h2><ul>
-<li>对解决问题具有高效性；</li>
-<li>所得结果更接近于最优结果。</li>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E5%88%86%E5%B8%83.png" alt="VAE分布"></p>
+<p>总体目标函数：<br>    $\mathcal{L}(x,\widehat{x}) + \sum_j KL(q_j(z|x)||p(z))$</p>
+<p>误差：误差项精确度及潜在变量在单位高斯分布上的契合程度。</p>
+<ul>
+<li>生成误差，用以衡量网络重构图像精准度的均方误差；</li>
+<li>潜在误差，用以衡量潜在变量在单位高斯分布上的契合程度的KL散度。</li>
 </ul>
-<h2 id="贪心算法与动态规划的不同"><a href="#贪心算法与动态规划的不同" class="headerlink" title="贪心算法与动态规划的不同"></a>贪心算法与动态规划的不同</h2><ul>
-<li>贪心算法要求对每个子问题的解决方案都要做出选择，且不能回退；</li>
-<li>动态规划会保存之前的运算结果，并依据以前的结果对当前方案进行选择，可回退。</li>
+<h2 id="参数调整"><a href="#参数调整" class="headerlink" title="参数调整"></a>参数调整</h2><p><em>VAE模型并没有真正的用$z~N(\Mu,\theta)$来采样得到z变量：因为采样后无法对$(\Mu,\theta)$进行求导。</em></p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_Reparameterization.png" alt="VAE_Reparameterization"></p>
+<p>一般先采样一个标准的高斯分布/正态分布$\epsilon<del>N(0,1)$，然后令$z=\Mu+\epsilon*\theta$，这样得到的z就服从$z</del>N(\Mu,\theta)$，同时也可正常对(\Mu,\theta)$求导。</p>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><ul>
+<li>优点：遵循“编码-解码”模式，能直接将生成的图像同原始图像进行对比；</li>
+<li>缺点：直接采用均方误差，导致其神经网络倾向生成较为模糊的图像。</li>
 </ul>
-<p>换个思路，就是贪心算法有一个优先级的问题；动态规划则是使用一个数组来进行记录当前方案，会对每一种方法进行尝试。</p>
+<h1 id="VAE和GAN的区别"><a href="#VAE和GAN的区别" class="headerlink" title="VAE和GAN的区别"></a>VAE和GAN的区别</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_vs_GAN.png" alt="VAE_vs_GAN"></p>
+<p>GAN是VAE后半部分再加上一个鉴别网络，导致完全不同的训练方式。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://blog.csdn.net/weixin_40955254/article/details/82315224" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40955254/article/details/82315224</a></li>
+<li><a href="https://blog.csdn.net/weixin_40955254/article/details/82315909?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40955254/article/details/82315909?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase</a></li>
+</ul>
 ]]></content>
-      <categories>
-        <category>算法与数据结构</category>
-      </categories>
   </entry>
   <entry>
     <title>级联分类器</title>
@@ -2303,6 +2520,36 @@
       <tags>
         <tag>分类器</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>贪心算法</title>
+    <url>/2020/06/04/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="贪心算法-贪婪算法"><a href="#贪心算法-贪婪算法" class="headerlink" title="贪心算法/贪婪算法"></a>贪心算法/贪婪算法</h1><p>贪心算法，在每一个选择过程中都选择<strong>当前最优解</strong>，从而希望最终结果达到最优的算法。</p>
+<h2 id="算法实现步骤："><a href="#算法实现步骤：" class="headerlink" title="算法实现步骤："></a>算法实现步骤：</h2><ol>
+<li>创建数学模型来描述问题；</li>
+<li>把求解的问题<strong>分成若干个子问题</strong>；</li>
+<li>对每一子问题求解，得到子问题的<strong>局部最优解</strong>；</li>
+<li>把子问题的解局部最优解合成所求问题的一个解。</li>
+</ol>
+<p><strong>贪心算法的实现，要根据具体问题具体分析。</strong></p>
+<h2 id="常用解决的问题："><a href="#常用解决的问题：" class="headerlink" title="常用解决的问题："></a>常用解决的问题：</h2><ul>
+<li>贪心算法可以解决一些最优化问题，如：求图中的最小生成树、求哈夫曼编码、旅行推销员问题等。</li>
+<li>对于其它问题，贪心算法一般不能得到我们所要求的答案，常用作辅助算法或直接解决一些要求结果不是特别严格的问题。</li>
+<li>一旦一个问题可以通过贪心算法来解决，那么贪心算法一般是解决该问题的最好方法。</li>
+</ul>
+<h2 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h2><ul>
+<li>对解决问题具有高效性；</li>
+<li>所得结果更接近于最优结果。</li>
+</ul>
+<h2 id="贪心算法与动态规划的不同"><a href="#贪心算法与动态规划的不同" class="headerlink" title="贪心算法与动态规划的不同"></a>贪心算法与动态规划的不同</h2><ul>
+<li>贪心算法要求对每个子问题的解决方案都要做出选择，且不能回退；</li>
+<li>动态规划会保存之前的运算结果，并依据以前的结果对当前方案进行选择，可回退。</li>
+</ul>
+<p>换个思路，就是贪心算法有一个优先级的问题；动态规划则是使用一个数组来进行记录当前方案，会对每一种方法进行尝试。</p>
+]]></content>
+      <categories>
+        <category>算法与数据结构</category>
+      </categories>
   </entry>
   <entry>
     <title>金字塔变换</title>

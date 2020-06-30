@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zhangzongyu00.github.io/"/>
-  <updated>2020-06-10T02:15:16.000Z</updated>
+  <updated>2020-06-29T20:41:26.398Z</updated>
   <id>http://zhangzongyu00.github.io/</id>
   
   <author>
@@ -17,20 +17,127 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>生成对抗网络</title>
-    <link href="http://zhangzongyu00.github.io/2020/06/09/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C/"/>
-    <id>http://zhangzongyu00.github.io/2020/06/09/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C/</id>
-    <published>2020-06-09T05:05:22.000Z</published>
-    <updated>2020-06-10T02:15:16.000Z</updated>
+    <title>swift</title>
+    <link href="http://zhangzongyu00.github.io/2020/06/30/swift/"/>
+    <id>http://zhangzongyu00.github.io/2020/06/30/swift/</id>
+    <published>2020-06-29T20:20:42.000Z</published>
+    <updated>2020-06-29T20:41:26.398Z</updated>
     
-    <content type="html"><![CDATA[<p>参考：<br><a href="https://blog.csdn.net/gdymind/article/details/82696481" target="_blank" rel="noopener">https://blog.csdn.net/gdymind/article/details/82696481</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="ios"><a href="#ios" class="headerlink" title="ios"></a>ios</h1><h2 id="SandBox"><a href="#SandBox" class="headerlink" title="SandBox"></a>SandBox</h2><p>ios中的沙盒机制是一种安全体系。每个app都有一个单独的文件系统/存储空间，而且只能在对应的文件系统中进行操作，即沙盒。所有的非代码文件（资源文件等）都保存在此。</p><p>沙盒包含的目录：</p><ul><li>/AppName.app<ul><li>应用程序的程序包目录；</li><li>由于应用程序必须经过<strong>签名</strong>，所以不能在运行时对这个目录中的内容进行修改，否则会导致应用程序无法启动。</li></ul></li><li>/Documents/<ul><li>保存<strong>应用程序的重要数据文件和用户数据文件</strong>等；</li><li>iTunes<strong>同步</strong>时会<strong>备份</strong>该目录。</li></ul></li><li>/Library/Caches<ul><li>保存应用程序使用时产生的支持文件和缓存文件，还有日志文件最好也放在这个目录；</li><li>iTunes同步时<strong>不备份</strong>该目录。</li></ul></li><li>/Library/Preferences<ul><li>保存应用程序的偏好设置文件；</li><li>使用<code>NSUserDefaults</code>类设置时创建，不应手动创建。</li></ul></li><li>/tmp/<ul><li>保存应用运行时所需要的临时数据；</li><li>iphone<strong>重启时会清空</strong>该目录下所有文件。</li></ul></li></ul><p>查询app沙盒路径：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 在项目中执行代码打印获取</span><br><span class="line">let homeDir &#x3D; NSHomeDirectory() as Stringprintln(homeDir)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 1、获取沙盒根目录</span><br><span class="line">let homeDir &#x3D; NSHomeDirectory() as String</span><br><span class="line">&#x2F;&#x2F; 2、获取 Documents 目录</span><br><span class="line">let docDirs &#x3D; NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArraylet docDir &#x3D; docDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 3、获取 Caches 目录</span><br><span class="line">let cachesDirs &#x3D; NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true) as NSArraylet cachesDir &#x3D; cachesDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 4、获取 Library 目录</span><br><span class="line">let libDirs &#x3D; NSSearchPathForDirectoriesInDomains(.LibraryDirectory, .UserDomainMask, true) as NSArraylet libDir &#x3D; libDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 5、获取 tmp 目录</span><br><span class="line">let tmpDir &#x3D; NSTemporaryDirectory() as String</span><br></pre></td></tr></table></figure><h3 id="NSFileManager"><a href="#NSFileManager" class="headerlink" title="NSFileManager"></a>NSFileManager</h3><p>通过<code>fileManager</code>对沙盒中的目录/文件进行操作。</p><h3 id="NSBundle"><a href="#NSBundle" class="headerlink" title="NSBundle"></a>NSBundle</h3><p>app都是通过<code>bundle</code>进行封装的，可以将<code>bundle</code>理解为上述沙盒中的<code>AppName.app</code>文件。</p><p>在<code>Finder</code>中，会把<code>bundle</code>当做文件显示，防止用户误操作，但其内部是一个目录，包含图像、媒体资源、编译的代码、nib文件等，这个目录称为<code>main bundle</code>。</p><p><code>Cocaoa</code>提供了<code>NSBundle类</code>封装了<code>bundle</code>操作。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 获取应用程序的 main bundle</span><br><span class="line">var mainBundle &#x3D; NSBundle.mainBundle()</span><br><span class="line">&#x2F;&#x2F; 使用 main bundle 获取资源路径</span><br><span class="line">var testFilePath &#x3D; mainBundle.pathForResource(&quot;logo&quot;, ofType: &quot;png&quot;)</span><br></pre></td></tr></table></figure><p>参考：</p><ul><li><a href="https://www.cnblogs.com/zjoch/p/4702873.html" target="_blank" rel="noopener">https://www.cnblogs.com/zjoch/p/4702873.html</a></li></ul>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;参考：&lt;br&gt;&lt;a href=&quot;https://blog.csdn.net/gdymind/article/details/82696481&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/gdymind/arti
+        &lt;h1 id=&quot;ios&quot;&gt;&lt;a href=&quot;#ios&quot; class=&quot;headerlink&quot; title=&quot;ios&quot;&gt;&lt;/a&gt;ios&lt;/h1&gt;&lt;h2 id=&quot;SandBox&quot;&gt;&lt;a href=&quot;#SandBox&quot; class=&quot;headerlink&quot; title=&quot;SandBox
       
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>熵</title>
+    <link href="http://zhangzongyu00.github.io/2020/06/27/%E7%86%B5/"/>
+    <id>http://zhangzongyu00.github.io/2020/06/27/%E7%86%B5/</id>
+    <published>2020-06-27T15:17:44.000Z</published>
+    <updated>2020-06-27T16:53:16.452Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h1><ul><li>假设一个样本集中有<strong>两个概率分布p、q</strong>，其中p为真实分布，q为非真实分布；</li><li>按照真实分布p来衡量识别一个样本所需要的编码长度的期望为：$$\sum_i p(i) \cdot log(\frac{1}{p(i)})$$</li><li>按照错误分布q表示来自真实分布p的平均编码长度的期望为：$$\sum_i p(i) \cdot log(\frac{1}{q(i)})$$</li><li>$H(p,q)$称之为交叉熵。</li></ul><h1 id="相对熵-KL散度"><a href="#相对熵-KL散度" class="headerlink" title="相对熵/KL散度"></a>相对熵/KL散度</h1><p>KL散度，是两个概率分布P和Q差别的非对称性的度量。</p><p>通常情况下，</p><ul><li>P表示数据的真实分布；</li><li>Q表示数据的理论分布（模型分布、P的近似分布）$D(P||Q) = \sum P(x) log \frac{P(x)}{Q(x)}$ 。</li></ul><p>KL散度<strong>不对称</strong>，不满足距离的性质，即$D_{KL}(P||Q) \neq D_{KL}(Q||P)$ 。</p><h1 id="JS散度"><a href="#JS散度" class="headerlink" title="JS散度"></a>JS散度</h1><p>JS散度，度量两个概率分布的相似度；是基于KL散度的变体，解决了KL散度非对称性的问题。</p><p>$$JS(P||Q) = \frac{1}{2} KL(P(x)||\frac{P(x)+Q(x)}{2}) + \frac{1}{2} KL(Q(x)||\frac{P(x)+Q(x)}{2})$$</p><p>KL散度具有对称性，其取值区间为[0,1]。</p>]]></content>
+    
+    <summary type="html">
+    
+      度量两个概率分布的相似度等问题。
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>MVVM设计模式</title>
+    <link href="http://zhangzongyu00.github.io/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://zhangzongyu00.github.io/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</id>
+    <published>2020-06-23T10:25:39.000Z</published>
+    <updated>2020-06-27T04:20:24.813Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="MVC模式"><a href="#MVC模式" class="headerlink" title="MVC模式"></a>MVC模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvc.png" alt="mvc"></p><p>所有的对象都可以被归类为一个model，一个view，或一个controller。</p><p><em>部分代码没有合适的存放位置，如网络请求部分。</em></p><p>弊端：</p><ul><li>大量的代码被放到controller，臃肿；</li><li>controller规模庞大，难以维护；</li><li>属性较多，难以管理；</li><li>遵循较多协议，protocol的响应代码和controller的逻辑代码混杂。</li></ul><h1 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvvm.jpg" alt="mvvm"></p><p>引入新的组件ViewModel，放置用户输入验证逻辑、视图显示逻辑、发起网络请求、数据解析等。<br>项目中的请求数据，统一交给ViewModel管理，每个控制器对应一个专属ViewModel。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;MVC模式&quot;&gt;&lt;a href=&quot;#MVC模式&quot; class=&quot;headerlink&quot; title=&quot;MVC模式&quot;&gt;&lt;/a&gt;MVC模式&lt;/h1&gt;&lt;p&gt;&lt;img data-src=&quot;https://cdn.jsdelivr.net/gh/zhangzongyu00/i
+      
+    
+    </summary>
+    
+    
+      <category term="ios开发" scheme="http://zhangzongyu00.github.io/categories/ios%E5%BC%80%E5%8F%91/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>自编码机</title>
+    <link href="http://zhangzongyu00.github.io/2020/06/23/%E8%87%AA%E7%BC%96%E7%A0%81%E6%9C%BA/"/>
+    <id>http://zhangzongyu00.github.io/2020/06/23/%E8%87%AA%E7%BC%96%E7%A0%81%E6%9C%BA/</id>
+    <published>2020-06-23T06:25:00.000Z</published>
+    <updated>2020-06-27T17:42:57.122Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="编码与解码"><a href="#编码与解码" class="headerlink" title="编码与解码"></a>编码与解码</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BC%96%E7%A0%81%E4%B8%8E%E8%A7%A3%E7%A0%81.png" alt="编码与解码"></p><p>左侧将原始图像编码为向量，右侧通过解卷积层“解码”，还原回原始图像。</p><p><em>可以用尽可能多的图像来训练网络，当保存了某张图像的编码向量，可用解码组件重建。</em></p><h1 id="经典自编码机VAE"><a href="#经典自编码机VAE" class="headerlink" title="经典自编码机VAE"></a>经典自编码机VAE</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE.png" alt="VAE"></p><p><em>通过编码向量，创造潜在向量，或实现连续、平滑的潜在空间表示。</em></p><p>通过给编码网络添加一个约束，使其所产生的潜在向量大体上服从单位高斯分布。</p><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E7%BA%A6%E6%9D%9F.png" alt="VAE约束"></p><p>如图，只需从单位高斯分布中采样出一个潜在向量，并将其传递到解码器，就可以生成一张新的图像了。</p><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E9%87%87%E6%A0%B7.png" alt="VAE采样"></p><p>基本思路：</p><ul><li>假定输入数据的数据集D的分布完全由一组隐变量z操控，并且，该组隐变量间相互独立且服从高斯分布；</li><li>VAE让encoder学习输入数据的隐变量模型，即学习该组隐变量的高斯概率分布的参数：隐变量高斯分布的均值$\Mu$和方差$\theta$的$log$值；</li><li>隐变量z通过对参数的正态分布中采样得到：$z ~ N(\Mu, \theta)$；</li><li>通过decoder对隐变量进行解码，重构函数。</li></ul><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E5%88%86%E5%B8%83.png" alt="VAE分布"></p><p>总体目标函数：<br>    $\mathcal{L}(x,\widehat{x}) + \sum_j KL(q_j(z|x)||p(z))$</p><p>误差：误差项精确度及潜在变量在单位高斯分布上的契合程度。</p><ul><li>生成误差，用以衡量网络重构图像精准度的均方误差；</li><li>潜在误差，用以衡量潜在变量在单位高斯分布上的契合程度的KL散度。</li></ul><h2 id="参数调整"><a href="#参数调整" class="headerlink" title="参数调整"></a>参数调整</h2><p><em>VAE模型并没有真正的用$z~N(\Mu,\theta)$来采样得到z变量：因为采样后无法对$(\Mu,\theta)$进行求导。</em></p><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_Reparameterization.png" alt="VAE_Reparameterization"></p><p>一般先采样一个标准的高斯分布/正态分布$\epsilon<del>N(0,1)$，然后令$z=\Mu+\epsilon*\theta$，这样得到的z就服从$z</del>N(\Mu,\theta)$，同时也可正常对(\Mu,\theta)$求导。</p><h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><ul><li>优点：遵循“编码-解码”模式，能直接将生成的图像同原始图像进行对比；</li><li>缺点：直接采用均方误差，导致其神经网络倾向生成较为模糊的图像。</li></ul><h1 id="VAE和GAN的区别"><a href="#VAE和GAN的区别" class="headerlink" title="VAE和GAN的区别"></a>VAE和GAN的区别</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_vs_GAN.png" alt="VAE_vs_GAN"></p><p>GAN是VAE后半部分再加上一个鉴别网络，导致完全不同的训练方式。</p><p>参考：</p><ul><li><a href="https://blog.csdn.net/weixin_40955254/article/details/82315224" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40955254/article/details/82315224</a></li><li><a href="https://blog.csdn.net/weixin_40955254/article/details/82315909?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40955254/article/details/82315909?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;编码与解码&quot;&gt;&lt;a href=&quot;#编码与解码&quot; class=&quot;headerlink&quot; title=&quot;编码与解码&quot;&gt;&lt;/a&gt;编码与解码&lt;/h1&gt;&lt;p&gt;&lt;img data-src=&quot;https://cdn.jsdelivr.net/gh/zhangzongyu00/i
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Alamofire框架</title>
+    <link href="http://zhangzongyu00.github.io/2020/06/22/Alamofire%E6%A1%86%E6%9E%B6/"/>
+    <id>http://zhangzongyu00.github.io/2020/06/22/Alamofire%E6%A1%86%E6%9E%B6/</id>
+    <published>2020-06-22T02:13:19.000Z</published>
+    <updated>2020-06-23T15:08:34.230Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Alamofire（swift）"><a href="#Alamofire（swift）" class="headerlink" title="Alamofire（swift）"></a>Alamofire（swift）</h1><p>使用Cocoapods进行集成；</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install cocoapods</span><br></pre></td></tr></table></figure><ol><li>在项目目录下进行pod初始化设置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod init</span><br></pre></td></tr></table></figure></li><li>修改配置文件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># Uncomment the next line to define a global platform for your project</span><br><span class="line"># platform :ios, &#39;9.0&#39;</span><br><span class="line"></span><br><span class="line">target &#39;***&#39; do</span><br><span class="line">  # Comment the next line if you don&#39;t want to use dynamic frameworks</span><br><span class="line">  use_frameworks!</span><br><span class="line"></span><br><span class="line">  # Pods for AlamofireTest</span><br><span class="line">  pod &#39;Alamofire&#39;</span><br><span class="line"></span><br><span class="line">end</span><br></pre></td></tr></table></figure></li><li>执行更新<code>pod install</code>，不更新本地库<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod install --no-repo-update</span><br></pre></td></tr></table></figure></li><li>打开文件目录下<code>***.xcworkspace</code></li><li>重新配置<code>Pods_***.framework</code><br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%87%8D%E6%96%B0%E9%85%8D%E7%BD%AEframework.png" alt="重新配置framework"></li><li>修改<code>Allow Arbitrary Loads</code>访问http请求权限<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Allow_Arbitrary_Loads.png" alt="Allow_Arbitrary_Loads"></li></ol><hr><p><em><code>http://httpbin.org</code>用于处理http/https的相关请求</em></p><p>在实际开发中，为了不过于依赖某一个第三方框架，常使用封装的方式，将其封装到某一工具类，方便其框架不更新时进行修改。</p>]]></content>
+    
+    <summary type="html">
+    
+      第三方框架：AFNetworking（OC）-- Alamofire（swift）
+    
+    </summary>
+    
+    
+      <category term="ios开发" scheme="http://zhangzongyu00.github.io/categories/ios%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="swift" scheme="http://zhangzongyu00.github.io/tags/swift/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>生成对抗网络</title>
+    <link href="http://zhangzongyu00.github.io/2020/06/09/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C/"/>
+    <id>http://zhangzongyu00.github.io/2020/06/09/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C/</id>
+    <published>2020-06-09T05:05:22.000Z</published>
+    <updated>2020-06-30T05:19:23.257Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="生成式模型和判别式模型"><a href="#生成式模型和判别式模型" class="headerlink" title="生成式模型和判别式模型"></a>生成式模型和判别式模型</h1><ul><li>判别式模型</li></ul><p>已知观察变量X和隐含变量z，对$p(z|X)$进行建模，根据输入的观察变量x得到隐含变量z出现的概率。</p><ul><li>生成式模型</li></ul><p>已知观察变量X和隐含变量z，对$p(X|z)$进行建模，根据隐含变量z得到输出是观察变量x的概率。</p><h1 id="GAN"><a href="#GAN" class="headerlink" title="GAN"></a>GAN</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GAN%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B.png" alt="GAN基本流程"></p><ul><li><p>生成器网络Generator：$x = G(z; \theta^{(G)})$，负责生成样本数据；</p><ul><li>输入：高斯白噪声向量z；</li><li>输出：样本数据向量x；</li></ul></li><li><p>判别器网络Discriminator：$y = D(x, \theta^D)$，负责检测样本数据真假；</p><ul><li>输入：真实/生成 样本数据；</li><li>输出：真/假 标签；</li></ul></li></ul><p><em>该网络参数一定满足可微分。</em></p><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/G2D.png" alt="G2D"></p><p>基本思路：</p><ol><li>让第一代的G产生一些图片，将其和部分真实图片放到D中学习；</li><li>让第一代的D能够分辨生成的图片和真实的图片；</li><li>训练第二代的G，让第二代G生成的图片，能欺骗过第一代的D；</li><li>训练第二代的D；</li><li>依次循环3、4，直到满足终止条件。</li></ol><p>模型的目标：</p><ul><li>训练数据集的模型：$x ~ p_{train} (x)$</li><li>生成样本的模型：$x ~ p_{model} (x)$</li><li>使其相等：$p_{train} (x) = p_{model} (x)$</li></ul><p>主要解决问题：</p><ul><li>构建高维、复杂概率分布；</li><li>解决数据缺少问题；</li><li>用于多模态输出；</li><li>解决真实输出任务；</li><li>进行数据预测etc。</li></ul><p>参考：<br><a href="https://zhuanlan.zhihu.com/p/104575937" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/104575937</a><br><a href="https://blog.csdn.net/gdymind/article/details/82696481" target="_blank" rel="noopener">https://blog.csdn.net/gdymind/article/details/82696481</a></p>]]></content>
+    
+    <summary type="html">
+    
+      简单来讲，生成器生成数据，鉴别器用于区分真假，通过训练使其达到一定平衡。
     
     </summary>
     
@@ -335,121 +442,6 @@
     
       <category term="算法与数据结构" scheme="http://zhangzongyu00.github.io/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>brief特征</title>
-    <link href="http://zhangzongyu00.github.io/2020/06/04/brief%E7%89%B9%E5%BE%81/"/>
-    <id>http://zhangzongyu00.github.io/2020/06/04/brief%E7%89%B9%E5%BE%81/</id>
-    <published>2020-06-03T16:28:14.000Z</published>
-    <updated>2020-06-03T17:12:15.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="BRIEF"><a href="#BRIEF" class="headerlink" title="BRIEF"></a>BRIEF</h1><ol><li>平滑图像；</li><li>在特征点周围选择一个Patch，在这个Patch内通过一定方法挑选$n_d$个点对；</li><li>比较点对中两个像素的大小，并进行赋值：<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/BRIEF%E8%B5%8B%E5%80%BC.png" alt="BRIEF赋值"></li><li>对所有$n_d$个点对，进行比较，生成一个长$n_d$的二进制串。</li></ol><h2 id="点对的生成方式："><a href="#点对的生成方式：" class="headerlink" title="点对的生成方式："></a>点对的生成方式：</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%82%B9%E5%AF%B9%E7%94%9F%E6%88%90.png" alt="点对生成"></p><ul><li>X和Y都服从在[-S/2,S/2]范围内的均匀分布，且相互独立；</li><li>X和Y都服从均值为0，方差为$\frac{S^2}{25}$的高斯分布，且相互独立。</li></ul><p><strong>点对的位置一旦随机选定，就不再更改。</strong></p><hr><h1 id="ORB特征描述"><a href="#ORB特征描述" class="headerlink" title="ORB特征描述"></a>ORB特征描述</h1><p>基于Fast角点的特征点检测和BRIEF特征描述技术。</p><ul><li><p>Fast角点检测缺点：</p><ul><li>缺乏尺度不变性；</li><li>通过构建高斯金字塔，在每一层金字塔图像上检测角点，来实现尺度不变性。</li></ul></li><li><p>BRIEF缺点：</p><ul><li>缺乏旋转不变性；</li><li>给Brief添加旋转不变性。</li></ul></li></ul><h2 id="ORB对BRIEF的改进"><a href="#ORB对BRIEF的改进" class="headerlink" title="ORB对BRIEF的改进"></a>ORB对BRIEF的改进</h2><ul><li><p>在计算描述子时建立的坐标系，以关键点为圆心，以关键点和取点区域的形心(圆心)的连线为X轴建立坐标系；</p></li><li><p>计算形心时，圆形区域上每个点的质量是其对应的像素值。</p></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      brief特征点对及其ORB改进
-    
-    </summary>
-    
-    
-      <category term="image" scheme="http://zhangzongyu00.github.io/categories/image/"/>
-    
-    
-      <category term="feature" scheme="http://zhangzongyu00.github.io/tags/feature/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>hog特征</title>
-    <link href="http://zhangzongyu00.github.io/2020/06/04/hog%E7%89%B9%E5%BE%81/"/>
-    <id>http://zhangzongyu00.github.io/2020/06/04/hog%E7%89%B9%E5%BE%81/</id>
-    <published>2020-06-03T16:18:49.000Z</published>
-    <updated>2020-06-09T06:01:45.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="HOG特征"><a href="#HOG特征" class="headerlink" title="HOG特征"></a>HOG特征</h1><ul><li><p>梯度计算</p><ul><li>分别计算水平、垂直梯度（将二维卷积转换为两个一维卷积）的幅值、方向；</li><li>对于彩色图，选取梯度幅值最大的通道。</li></ul></li><li><p>Block拆分</p><ul><li><p>16*16的Block，步长为8，50%的重合；</p><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/block.png" alt="block"></p></li><li><p>包含2*2个Cell；</p><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/cell.png" alt="cell"></p></li><li><p>每个Cell为8*8大小。</p></li></ul></li><li><p>计算每个Cell的梯度方向直方图</p><ul><li><p>9个方向bin(0-180)；</p><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/bin.png" alt="bin"></p></li><li><p>积累梯度幅值；<br>  <em>易受前景/背景对比度及局部光照影响</em>，需对局部细胞单元进行对比度归一化处理：将各Cell组合成大的、空间上连通的区间block，再进行归一化。</p><p>  <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/hog%E5%BD%92%E4%B8%80%E5%8C%96%E5%A4%84%E7%90%86.png" alt="hog归一化处理"></p></li><li><p>使用位置高斯加权；</p><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BD%8D%E7%BD%AE%E9%AB%98%E6%96%AF%E5%8A%A0%E6%9D%83.png" alt="位置高斯加权"></p></li><li><p>相邻bin使用线性插值。</p></li></ul></li><li><p>串联所有Block直方图</p></li></ul><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%B8%B2%E8%81%94Block.png" alt="串联Block"></p><ul><li>64*128大小图片；</li><li>7*15=105个Block；</li><li>105<em>(2</em>2)*9=3780维。</li></ul><h1 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/HOG%E6%AD%A5%E9%AA%A4.png" alt="HOG步骤"></p><ol><li>将整个图像进行Gamma空间、颜色归一化；</li><li>计算图像梯度；</li><li>构建方向的直方图；</li><li>将细胞单元组成大的区间；</li><li>收集HOG特征。</li></ol><p><em>行人HOG特征：</em></p><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%A1%8C%E4%BA%BAHOG%E7%89%B9%E5%BE%81.png" alt="行人HOG特征"></p>]]></content>
-    
-    <summary type="html">
-    
-      hog特征，常用于行人检测
-    
-    </summary>
-    
-    
-      <category term="image" scheme="http://zhangzongyu00.github.io/categories/image/"/>
-    
-    
-      <category term="feature" scheme="http://zhangzongyu00.github.io/tags/feature/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>级联分类器</title>
-    <link href="http://zhangzongyu00.github.io/2020/06/04/%E7%BA%A7%E8%81%94%E5%88%86%E7%B1%BB%E5%99%A8/"/>
-    <id>http://zhangzongyu00.github.io/2020/06/04/%E7%BA%A7%E8%81%94%E5%88%86%E7%B1%BB%E5%99%A8/</id>
-    <published>2020-06-03T16:13:13.000Z</published>
-    <updated>2020-06-09T05:40:34.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="级联分类器"><a href="#级联分类器" class="headerlink" title="级联分类器"></a>级联分类器</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BA%A7%E8%81%94%E5%88%86%E7%B1%BB.png" alt="级联分类"></p><p>级联分类器是将多个强分类器连接在一起进行操作，每一个强分类器都由若干个弱分类器加权构成。</p><p>级联分类器，每一个强分类器都是对负样本更敏感，使得每次被强分类器拒绝的，都几乎是负样本。<br>因此，通过所有强分类器的，基本上可以认定为正样本。</p><h1 id="强-弱分类器"><a href="#强-弱分类器" class="headerlink" title="强/弱分类器"></a>强/弱分类器</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Boosting%E5%88%86%E7%B1%BB%E5%99%A8%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="Boosting分类器示意图"></p><p>将每轮得到的最佳弱分类器按照一定方法(Boosting)提升为强分类器。</p><h2 id="弱分类器："><a href="#弱分类器：" class="headerlink" title="弱分类器："></a>弱分类器：</h2><p>训练一个弱分类器，即在当前权重分布下，确定f的最优阈值，使该弱分类器对所有训练样本的分类误差最低。</p><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%BC%B1%E5%88%86%E7%B1%BB%E5%99%A8%E8%AF%86%E5%88%AB%E4%BA%BA%E8%84%B8.png" alt="弱分类器识别人脸"></p><ul><li>在海量特征中，选取一个特征，能够区分是否为人脸，使错误率最低；</li><li>能够以<strong>稍低于50%的错误率</strong>来区分人脸和非人脸图像；</li></ul><hr><h1 id="Adaboost分类器"><a href="#Adaboost分类器" class="headerlink" title="Adaboost分类器"></a>Adaboost分类器</h1><p><em>Adaboost是一种基于级联分类模型的分类器。</em></p><p>adaboost训练：</p><ol><li>初始化数据权值分布；</li><li>遍历阈值p：选取最小阈值p——t；</li><li>计算权重；</li><li>更新训练数据权重分布。</li></ol><p>训练终止条件：</p><ol><li>for循环次数；</li><li>p小于设定阈值。</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      由若干个弱分类器加权构成强分类器，将多个强分类器连接进行分类
-    
-    </summary>
-    
-    
-      <category term="image" scheme="http://zhangzongyu00.github.io/categories/image/"/>
-    
-    
-      <category term="分类器" scheme="http://zhangzongyu00.github.io/tags/%E5%88%86%E7%B1%BB%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>haar特征</title>
-    <link href="http://zhangzongyu00.github.io/2020/06/04/haar%E7%89%B9%E5%BE%81/"/>
-    <id>http://zhangzongyu00.github.io/2020/06/04/haar%E7%89%B9%E5%BE%81/</id>
-    <published>2020-06-03T16:09:49.000Z</published>
-    <updated>2020-06-09T06:01:17.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Haar-like特征"><a href="#Haar-like特征" class="headerlink" title="Haar-like特征"></a>Haar-like特征</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Haar%E7%89%B9%E5%BE%81.png" alt="Haar特征"></p><p>Haar-like模版可以表示出人脸的某些特征，如中间图表示眼睛区域的颜色比脸颊区域的颜色要深；<br>右图表示鼻梁两侧比鼻梁的颜色要深。</p><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/haar-like%E4%BA%BA%E8%84%B8.png" alt="haar-like人脸"></p><h1 id="特征模版"><a href="#特征模版" class="headerlink" title="特征模版"></a>特征模版</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/haar-like.png" alt="haar-like"></p><p>Haar-like特征模版：</p><ul><li>边缘特征；</li><li>线性特征；</li><li>中心特征；</li><li>对角线特征。</li></ul><p>该模版的特征值为：白色矩形像素和 - 黑色矩形像素和。</p><p>特征数量：要考虑模版、位置、缩放 etc.</p><h2 id="快速计算-积分图"><a href="#快速计算-积分图" class="headerlink" title="快速计算-积分图"></a>快速计算-积分图</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%A7%AF%E5%88%86%E5%9B%BE.png" alt="积分图"></p><p>根据四个角点计算区域内像素和：$A_{ABCD} = A_C - (A_B + A_D - A_A)$。</p>]]></content>
-    
-    <summary type="html">
-    
-      haar特征，常用于人脸识别
-    
-    </summary>
-    
-    
-      <category term="image" scheme="http://zhangzongyu00.github.io/categories/image/"/>
-    
-    
-      <category term="feature" scheme="http://zhangzongyu00.github.io/tags/feature/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>局部二值LBP</title>
-    <link href="http://zhangzongyu00.github.io/2020/06/04/%E5%B1%80%E9%83%A8%E4%BA%8C%E5%80%BCLBP/"/>
-    <id>http://zhangzongyu00.github.io/2020/06/04/%E5%B1%80%E9%83%A8%E4%BA%8C%E5%80%BCLBP/</id>
-    <published>2020-06-03T16:02:44.000Z</published>
-    <updated>2020-06-09T05:43:13.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="LBP-局部二值模式"><a href="#LBP-局部二值模式" class="headerlink" title="LBP-局部二值模式"></a>LBP-局部二值模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/lbp.png" alt="lbp"></p><ol><li>将每个像素点与周围点大小比较：<ul><li>半径为R的圆，均匀采样P个点；</li><li>大小量化为0或1.</li></ul></li><li>多个bit组成一个书，统计每个数的直方图。</li></ol><p>解决旋转不变性：</p><ul><li>将LBP周围的二进制码按位旋转，取二进制码最小的值为最终LBP值。</li></ul><h1 id="Extended-LBP-Circular-LBP"><a href="#Extended-LBP-Circular-LBP" class="headerlink" title="Extended LBP/Circular LBP"></a>Extended LBP/Circular LBP</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ExtendedLBP.png" alt="ExtendedLBP"></p><p>将3*3邻域扩展到任意领域，并用圆形领域代替正方形领域。</p>]]></content>
-    
-    <summary type="html">
-    
-      特征提取方法，对锚点周围像素点进行比较，大的为1，小的为0
-    
-    </summary>
-    
-    
-      <category term="image" scheme="http://zhangzongyu00.github.io/categories/image/"/>
-    
-    
-      <category term="feature" scheme="http://zhangzongyu00.github.io/tags/feature/"/>
     
   </entry>
   

@@ -22,17 +22,20 @@
     var CONFIG = {"hostname":"zhangzongyu00.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="参考：https:&#x2F;&#x2F;blog.csdn.net&#x2F;gdymind&#x2F;article&#x2F;details&#x2F;82696481">
+  <meta name="description" content="简单来讲，生成器生成数据，鉴别器用于区分真假，通过训练使其达到一定平衡。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="生成对抗网络">
 <meta property="og:url" content="http://zhangzongyu00.github.io/2020/06/09/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C/index.html">
 <meta property="og:site_name" content="爆发🍢小宇宙">
-<meta property="og:description" content="参考：https:&#x2F;&#x2F;blog.csdn.net&#x2F;gdymind&#x2F;article&#x2F;details&#x2F;82696481">
+<meta property="og:description" content="简单来讲，生成器生成数据，鉴别器用于区分真假，通过训练使其达到一定平衡。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GAN%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/G2D.png">
 <meta property="article:published_time" content="2020-06-09T05:05:22.000Z">
-<meta property="article:modified_time" content="2020-06-10T02:15:16.000Z">
+<meta property="article:modified_time" content="2020-06-30T05:19:23.257Z">
 <meta property="article:author" content="章肿鱼">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GAN%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B.png">
 
 <link rel="canonical" href="http://zhangzongyu00.github.io/2020/06/09/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C/">
 
@@ -226,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-10 10:15:16" itemprop="dateModified" datetime="2020-06-10T10:15:16+08:00">2020-06-10</time>
+                <time title="修改时间：2020-06-30 13:19:23" itemprop="dateModified" datetime="2020-06-30T13:19:23+08:00">2020-06-30</time>
               </span>
 
           
@@ -237,6 +240,7 @@
               <span class="post-meta-item-text">阅读次数：</span>
               <span id="busuanzi_value_page_pv"></span>
             </span>
+            <div class="post-description">简单来讲，生成器生成数据，鉴别器用于区分真假，通过训练使其达到一定平衡。</div>
 
         </div>
       </header>
@@ -247,7 +251,54 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>参考：<br><a href="https://blog.csdn.net/gdymind/article/details/82696481" target="_blank" rel="noopener">https://blog.csdn.net/gdymind/article/details/82696481</a></p>
+        <h1 id="生成式模型和判别式模型"><a href="#生成式模型和判别式模型" class="headerlink" title="生成式模型和判别式模型"></a>生成式模型和判别式模型</h1><ul>
+<li>判别式模型</li>
+</ul>
+<p>已知观察变量X和隐含变量z，对$p(z|X)$进行建模，根据输入的观察变量x得到隐含变量z出现的概率。</p>
+<ul>
+<li>生成式模型</li>
+</ul>
+<p>已知观察变量X和隐含变量z，对$p(X|z)$进行建模，根据隐含变量z得到输出是观察变量x的概率。</p>
+<h1 id="GAN"><a href="#GAN" class="headerlink" title="GAN"></a>GAN</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GAN%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B.png" alt="GAN基本流程"></p>
+<ul>
+<li><p>生成器网络Generator：$x = G(z; \theta^{(G)})$，负责生成样本数据；</p>
+<ul>
+<li>输入：高斯白噪声向量z；</li>
+<li>输出：样本数据向量x；</li>
+</ul>
+</li>
+<li><p>判别器网络Discriminator：$y = D(x, \theta^D)$，负责检测样本数据真假；</p>
+<ul>
+<li>输入：真实/生成 样本数据；</li>
+<li>输出：真/假 标签；</li>
+</ul>
+</li>
+</ul>
+<p><em>该网络参数一定满足可微分。</em></p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/G2D.png" alt="G2D"></p>
+<p>基本思路：</p>
+<ol>
+<li>让第一代的G产生一些图片，将其和部分真实图片放到D中学习；</li>
+<li>让第一代的D能够分辨生成的图片和真实的图片；</li>
+<li>训练第二代的G，让第二代G生成的图片，能欺骗过第一代的D；</li>
+<li>训练第二代的D；</li>
+<li>依次循环3、4，直到满足终止条件。</li>
+</ol>
+<p>模型的目标：</p>
+<ul>
+<li>训练数据集的模型：$x ~ p_{train} (x)$</li>
+<li>生成样本的模型：$x ~ p_{model} (x)$</li>
+<li>使其相等：$p_{train} (x) = p_{model} (x)$</li>
+</ul>
+<p>主要解决问题：</p>
+<ul>
+<li>构建高维、复杂概率分布；</li>
+<li>解决数据缺少问题；</li>
+<li>用于多模态输出；</li>
+<li>解决真实输出任务；</li>
+<li>进行数据预测etc。</li>
+</ul>
+<p>参考：<br><a href="https://zhuanlan.zhihu.com/p/104575937" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/104575937</a><br><a href="https://blog.csdn.net/gdymind/article/details/82696481" target="_blank" rel="noopener">https://blog.csdn.net/gdymind/article/details/82696481</a></p>
 
     </div>
 
@@ -266,7 +317,10 @@
     <a href="/2020/06/08/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="prev" title="卷积神经网络">
       <i class="fa fa-chevron-left"></i> 卷积神经网络
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/22/Alamofire%E6%A1%86%E6%9E%B6/" rel="next" title="Alamofire框架">
+      Alamofire框架 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -325,6 +379,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#生成式模型和判别式模型"><span class="nav-number">1.</span> <span class="nav-text">生成式模型和判别式模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GAN"><span class="nav-number">2.</span> <span class="nav-text">GAN</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -340,20 +395,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
