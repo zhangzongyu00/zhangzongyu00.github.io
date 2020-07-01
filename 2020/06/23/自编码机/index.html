@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_Reparameterization.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_vs_GAN.png">
 <meta property="article:published_time" content="2020-06-23T06:25:00.000Z">
-<meta property="article:modified_time" content="2020-06-27T17:42:57.122Z">
+<meta property="article:modified_time" content="2020-07-01T13:30:56.857Z">
 <meta property="article:author" content="章肿鱼">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BC%96%E7%A0%81%E4%B8%8E%E8%A7%A3%E7%A0%81.png">
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-28 01:42:57" itemprop="dateModified" datetime="2020-06-28T01:42:57+08:00">2020-06-28</time>
+                <time title="修改时间：2020-07-01 21:30:56" itemprop="dateModified" datetime="2020-07-01T21:30:56+08:00">2020-07-01</time>
               </span>
 
           
@@ -268,7 +268,7 @@
 <ul>
 <li>假定输入数据的数据集D的分布完全由一组隐变量z操控，并且，该组隐变量间相互独立且服从高斯分布；</li>
 <li>VAE让encoder学习输入数据的隐变量模型，即学习该组隐变量的高斯概率分布的参数：隐变量高斯分布的均值$\Mu$和方差$\theta$的$log$值；</li>
-<li>隐变量z通过对参数的正态分布中采样得到：$z ~ N(\Mu, \theta)$；</li>
+<li>隐变量z通过对参数的正态分布中采样得到：$z \sim N(\Mu, \theta)$；</li>
 <li>通过decoder对隐变量进行解码，重构函数。</li>
 </ul>
 <p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E5%88%86%E5%B8%83.png" alt="VAE分布"></p>
@@ -278,9 +278,9 @@
 <li>生成误差，用以衡量网络重构图像精准度的均方误差；</li>
 <li>潜在误差，用以衡量潜在变量在单位高斯分布上的契合程度的KL散度。</li>
 </ul>
-<h2 id="参数调整"><a href="#参数调整" class="headerlink" title="参数调整"></a>参数调整</h2><p><em>VAE模型并没有真正的用$z~N(\Mu,\theta)$来采样得到z变量：因为采样后无法对$(\Mu,\theta)$进行求导。</em></p>
+<h2 id="参数调整"><a href="#参数调整" class="headerlink" title="参数调整"></a>参数调整</h2><p><em>VAE模型并没有真正的用$z \sim N(\Mu,\theta)$来采样得到z变量：因为采样后无法对$(\Mu,\theta)$进行求导。</em></p>
 <p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_Reparameterization.png" alt="VAE_Reparameterization"></p>
-<p>一般先采样一个标准的高斯分布/正态分布$\epsilon<del>N(0,1)$，然后令$z=\Mu+\epsilon*\theta$，这样得到的z就服从$z</del>N(\Mu,\theta)$，同时也可正常对(\Mu,\theta)$求导。</p>
+<p>一般先采样一个标准的高斯分布/正态分布$\epsilon \sim N(0,1)$，然后令$z=\Mu+\epsilon*\theta$，这样得到的z就服从$z \sim N(\Mu,\theta)$，同时也可正常对(\Mu,\theta)$求导。</p>
 <h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><ul>
 <li>优点：遵循“编码-解码”模式，能直接将生成的图像同原始图像进行对比；</li>
 <li>缺点：直接采用均方误差，导致其神经网络倾向生成较为模糊的图像。</li>
@@ -388,7 +388,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
