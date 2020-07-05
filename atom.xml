@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zhangzongyu00.github.io/"/>
-  <updated>2020-07-01T09:04:05.335Z</updated>
+  <updated>2020-07-04T17:43:02.054Z</updated>
   <id>http://zhangzongyu00.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>图像分类问题</title>
+    <link href="http://zhangzongyu00.github.io/2020/07/05/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98/"/>
+    <id>http://zhangzongyu00.github.io/2020/07/05/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98/</id>
+    <published>2020-07-04T17:24:32.000Z</published>
+    <updated>2020-07-04T17:43:02.054Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="CNN网络进化-结构演化"><a href="#CNN网络进化-结构演化" class="headerlink" title="CNN网络进化/结构演化"></a>CNN网络进化/结构演化</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/CNN%E7%BB%93%E6%9E%84%E6%BC%94%E5%8C%96.png" alt="CNN结构演化"></p><p>AlexNet -&gt; VGG -&gt; GoogleNet -&gt; ResNet;</p><h2 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h2><p><em>ImageNet-2012竞赛No.1，标志着DNN深度学习革命的开始。</em></p><h2 id="VGG"><a href="#VGG" class="headerlink" title="VGG"></a>VGG</h2><p>优点：</p><ul><li>结构简单；</li><li>容易修改，迁移到其他任务中；</li><li>高层任务的基础网络；</li></ul><h2 id="GoogleNet"><a href="#GoogleNet" class="headerlink" title="GoogleNet"></a>GoogleNet</h2><h2 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a>ResNet</h2><h1 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h1><h2 id="ImageNet数据集"><a href="#ImageNet数据集" class="headerlink" title="ImageNet数据集"></a><a href="http://image-net.org/" target="_blank" rel="noopener">ImageNet数据集</a></h2><p>根据WordNet组织的图片集，为一个名词提供平均1000张图片。</p><h2 id="MIT的数据集"><a href="#MIT的数据集" class="headerlink" title="MIT的数据集"></a>MIT的数据集</h2><p>Places2数据集</p><h2 id="CIFAR-10数据集"><a href="#CIFAR-10数据集" class="headerlink" title="CIFAR-10数据集"></a>CIFAR-10数据集</h2><p>共有6w张彩色图像，分辨率为32*32，分为10类，每类6k张图。</p><p>其中，</p><ul><li>5w张用于训练，构成5个epoch，每个epoch1w张；</li><li>1w张用于测试，单独为1批；</li><li>测试批中的数据，每类中抽取1k张。</li></ul><p>参考：</p><ul><li><a href="http://image-net.org/challenges/LSVRC/2017/" target="_blank" rel="noopener">http://image-net.org/challenges/LSVRC/2017/</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;CNN网络进化-结构演化&quot;&gt;&lt;a href=&quot;#CNN网络进化-结构演化&quot; class=&quot;headerlink&quot; title=&quot;CNN网络进化/结构演化&quot;&gt;&lt;/a&gt;CNN网络进化/结构演化&lt;/h1&gt;&lt;p&gt;&lt;img data-src=&quot;https://cdn.jsd
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>图论</title>
@@ -424,27 +446,6 @@
     
     
       <category term="deeplearning" scheme="http://zhangzongyu00.github.io/categories/deeplearning/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>神经网络</title>
-    <link href="http://zhangzongyu00.github.io/2020/06/05/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
-    <id>http://zhangzongyu00.github.io/2020/06/05/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</id>
-    <published>2020-06-04T17:22:26.000Z</published>
-    <updated>2020-06-09T05:16:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BA%BA%E5%B7%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.png" alt="人工神经网络"></p><p>神经网络：由大量神经元节点按照一定体系架构连接而成的网状结构，一般包含输入层、隐藏层、输出层三部分。</p><p>神经网络可用于分类、模式识别、连续值预测 etc. </p><p><em>一般的浅层网络只有3-5层，这也是区别于DL的主要地方。</em></p><h2 id="神经元"><a href="#神经元" class="headerlink" title="神经元"></a>神经元</h2><h3 id="生物神经元"><a href="#生物神经元" class="headerlink" title="生物神经元"></a>生物神经元</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%94%9F%E7%89%A9%E7%A5%9E%E7%BB%8F%E5%85%83.jpg" alt="生物神经元"></p><p>生物神经元之间的相互连接，使得信息在大脑中得以传递。</p><h3 id="人工神经元"><a href="#人工神经元" class="headerlink" title="人工神经元"></a>人工神经元</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BA%BA%E5%B7%A5%E7%A5%9E%E7%BB%8F%E5%85%83.jpg" alt="人工神经元"></p><p>每个神经元都是一个结构相似的独立单元，接受前一层传来的数据，并将其加权和输入到非线性激活函数中，然后，将非线性激活函数的输出传递给下一层。</p><p>神经元包括以下内容：</p><ul><li>输入向量x；</li><li>权重向量w；</li><li>偏置向量b；</li><li>激活函数f；</li></ul><h2 id="前馈神经网络"><a href="#前馈神经网络" class="headerlink" title="前馈神经网络"></a>前馈神经网络</h2><ul><li>前馈神经网络采用一种单向多层结构；</li><li>各神经元从输入层开始，接收前一级输入，并输出到下一级，直到输出层。</li><li>每一层包含若干各神经元，同一层间的神经元间没有连接，层间信息的传递只沿一个方向进行；</li><li>整个网络中没有反馈，类似一个有向无环图。</li></ul><h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><a href="/2020/06/05/%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" title="Delta学习规则">Delta学习规则</a><p>$$J(w) = \frac{1}{2} \Vert t - z \Vert^2 = \frac{1}{2} \sum_{k=1}^c (t_k - z_k)^2$$<br>其中，$t = (t_1,…,t_c$表示期望输出，$z = (z_1,…,z_c$表示实际输出。</p><h2 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/gradient_descent.png" alt="gradient_descent"></p><p>这是一个表示参数w与目标函数J(w)的关系图，红色部分表示J(w)有较高取值，需要让J(w)的值尽可能降低，到达深蓝色部分。</p><p>$$w(m+1) = w(m) + \bigtriangleup w(m) = w(m) - \eta \frac{\partial J}{\partial w}$$</p><p>看到一个很形象的示意图：<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="梯度下降示意图"></p><p>整体思路：</p><ul><li>先确定一个初始点；</li><li>将w按照梯度下降方向进行调整，使J(w)向更低方向变化；</li><li>直到，w无法继续下降为止。</li></ul><h2 id="误差反向传播"><a href="#误差反向传播" class="headerlink" title="误差反向传播"></a>误差反向传播</h2><p>定义几个变量：J为目标函数；z为输出结果；$net_k$为输出单元的总输入；$net_j$为隐藏层单元的总输入；$y_j$为隐藏层单元的输出。</p><ol><li>输出层权重改变量：</li></ol><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%BE%93%E5%87%BA%E5%B1%82%E6%9D%83%E9%87%8D%E6%94%B9%E5%8F%98.png" alt="输出层权重改变"></p><p>$$\frac{\partial J}{\partial w_{kj}} = \frac{\partial J}{\partial net_k} \frac{\partial net_k}{\partial w_{kj}}$$</p><p>其中，</p><ul><li>$$J(w) = \frac{1}{2} \Vert t - z \Vert^2 = \frac{1}{2} \sum_{k=1}^c (t_k - z_k)^2$$</li><li>$$net_k = \sum_{i=1}^{n_H} w_{ki}y_i$$</li><li>$$\frac{\partial J}{\partial net_k} = \frac{\partial J}{\partial z_k} \frac{\partial z_k}{\partial net_k} = -(t_k - z_k) f’(net_k)$$</li><li>$$\frac{\partial net_k}{\partial w_{kj}} = y_j$$</li></ul><ol start="2"><li>隐藏层权重改变量：</li></ol><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%9A%90%E8%97%8F%E5%B1%82%E6%9D%83%E9%87%8D%E6%94%B9%E5%8F%98.png" alt="隐藏层权重改变"></p><ul><li>先找到$w_{ji}$与$net_j$的关系；</li><li>然后找$net_j$与隐藏层输出$y_j$的关系。</li></ul><p>$$\frac{\partial J}{\partial w_{ji}} = \frac{\partial J}{\partial y_j} \frac{\partial y_i}{\partial net_j} \frac{\partial net_j}{\partial w_{ji}}$$</p><p>其中，</p><ul><li>$$\frac{\partial net_j}{\partial w_{ji}} = \frac{\partial}{\partial w_{ji}} (\sum_{m=1}^d w_{jm} x_m) = x_i$$</li><li>$$\frac{\partial y_j}{\partial net_j} = f’(net_j)$$</li><li>$$\frac{\partial J}{\partial y_i} = \frac{\partial}{\partial y_j} [\frac{1}{2} \sum_{k=1}^{c} (t_k - z_k)^2] = -\sum_{k=1}^c (t_k - z_k) \frac{\partial z_k}{\partial y_i} = -\sum_{k=1}^c (t_k - z_k) \frac{\partial z_k}{\partial net_k} \frac{\partial net_k}{\partial y_i} =  -\sum_{k=1}^c (t_k - z_k) f’(net_k) w_{kj}$$</li></ul><ol start="3"><li>输出层和隐藏层的误差传播公式可统一为：</li></ol><ul><li>权重增量 = -1 * 学习步长 * 目标函数对权重的偏导数；</li><li>目标函数对权重的偏导数 = -1 * 残差 * 当前层的输入；</li><li>残差 = 当前层激活函数的导数 * 上层反传的误差；</li><li>上层反传的误差 = 上层残差的加权和。</li></ul><h3 id="Stochastic-Gradient-Descent"><a href="#Stochastic-Gradient-Descent" class="headerlink" title="Stochastic Gradient Descent"></a>Stochastic Gradient Descent</h3><p>随机梯度下降SGD在样本量很大时，对每个样本迭代更新速度过慢，可能只需其中部分样本即可迭代到最优解。</p><p>SGD噪音比BGD(批量梯度下降)多，因此，并不是每次迭代都向着整体最优方向。</p><p>优点：<strong>稳定</strong>。</p><p>存在的问题：</p><ul><li>学习步长不易确定，太小收敛满，太大损失函数会在极小值处震荡或偏离；</li><li>每个参数的learning rate都相同，当数据稀疏时，难以对出现频率低的特征进行大一点的更新；</li><li>学习过程中容易陷入到马鞍面中，所有方向梯度值几乎为0；</li></ul><p><em>马鞍面：</em></p><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%A9%AC%E9%9E%8D%E9%9D%A2.png" alt="马鞍面"></p><h3 id="Mini-batch-Gradient-Descent"><a href="#Mini-batch-Gradient-Descent" class="headerlink" title="Mini-batch Gradient Descent"></a>Mini-batch Gradient Descent</h3><p>每次从所有训练数据中取一个子集用于计算梯度，是BGD和SGD的折中。</p><ul><li>在CNN训练时，绝大多数都采用基于mini-batch的随机梯度下降算法为基础进行训练；</li><li>随着输入数据的不断变化，网络中的参数不断调整，网络各层输入数据的分布也不断变化；</li><li>各层在训练的过程中需要不断的改变，以适应新的数据分布，容易造成网络训练困难，难以拟合的问题。</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      大量结构简单、功能接近的神经元结点，按照一定的体系架构，连接而成的网状结构，类似于人脑。
-    
-    </summary>
-    
-    
-      <category term="神经网络" scheme="http://zhangzongyu00.github.io/categories/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
     
     
   </entry>
