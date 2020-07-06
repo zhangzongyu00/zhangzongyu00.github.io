@@ -39,7 +39,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/SRGAN_D.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/CycleGAN.png">
 <meta property="article:published_time" content="2020-06-09T05:05:22.000Z">
-<meta property="article:modified_time" content="2020-07-05T18:55:33.467Z">
+<meta property="article:modified_time" content="2020-07-06T01:58:20.662Z">
 <meta property="article:author" content="章肿鱼">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GAN%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B.png">
@@ -236,7 +236,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-06 02:55:33" itemprop="dateModified" datetime="2020-07-06T02:55:33+08:00">2020-07-06</time>
+                <time title="修改时间：2020-07-06 09:58:20" itemprop="dateModified" datetime="2020-07-06T09:58:20+08:00">2020-07-06</time>
               </span>
 
           
@@ -301,8 +301,8 @@
 <p>优化目标/价值函数：<br>  $$min_G max_D V(D,G) = E_{x \sim p_{data}(x)} [log D(x)] + E_{z \sim p_z(z)} [log (1-D(G(z)))]$$</p>
 <ul>
 <li>生成器G固定后，使用$max_D V(D,G)$来评价$p_{data}$和$p_z$间的差异；</li>
-<li>判别器优化方向 -&gt; 最大化价值函数$$J(D) = -\frac{1}{2} E_{x \sim p_{data}} log D(x) - \frac{1}{2} E_z log(1-D(G(z)))$$；</li>
-<li>生成器优化方向 -&gt; 最小化价值函数$$J(G) = -J(D) = \frac{1}{2} E_z log(1-D(G(z)))$$；</li>
+<li>判别器优化方向 -&gt; 最大化价值函数$$J(D) = -\frac{1}{2} E_{x \sim p_{data}} log D(x) - \frac{1}{2} E_z log(1-D(G(z)))$$</li>
+<li>生成器优化方向 -&gt; 最小化价值函数$$J(G) = -J(D) = \frac{1}{2} E_z log(1-D(G(z)))$$</li>
 </ul>
 <p>  <em>优化目标函数，直到达到纳什均衡</em></p>
 <p>为了引入KL散度和JS散度，对目标函数进行变换：</p>
@@ -352,7 +352,7 @@
 <ul>
 <li>在生成网络的输入z的基础上连接一个输入额外信息y；</li>
 <li>在判别网络的输入x的基础上连接一个y；</li>
-<li>目标函数变为 $$ min_G max_D V(D,G) = E_{x \sim p_{data}(x)} [log D(x|y)] + E_{z \sim p_z(z)} [log (1-D(G(z|y)))] $$。</li>
+<li>目标函数变为$$min_G max_D V(D,G) = E_{x \sim p_{data}(x)} [log D(x|y)] + E_{z \sim p_z(z)} [log (1-D(G(z|y)))]$$</li>
 </ul>
 <h2 id="Wasserstein-GAN"><a href="#Wasserstein-GAN" class="headerlink" title="Wasserstein GAN"></a>Wasserstein GAN</h2><p>目标函数问题：</p>
 <ul>
@@ -367,7 +367,7 @@
 <p>目标函数：</p>
 <ul>
 <li>生成器loss：$-\mathbb{E}_{x\sim P_g}[f_w(x)]$</li>
-<li>判别器loss：$\mathbb{E}<em>{x\sim P_g}[f_w(x)] - \mathbb{E}</em>{x\sim P_r}[f_w(x)]$</li>
+<li>判别器loss：$\mathbb{E}<em>{x\sim P_g}[f_w(x)]-\mathbb{E}</em>{x\sim P_r}[f_w(x)]$</li>
 </ul>
 <p>创新点：</p>
 <ol>
@@ -385,8 +385,8 @@
 </ul>
 <p><em>WGAN不用DCGAN各种特殊的架构设计，与DCGAN结果类似。</em></p>
 <h1 id="Super-ResolutionGAN"><a href="#Super-ResolutionGAN" class="headerlink" title="Super-ResolutionGAN"></a>Super-ResolutionGAN</h1><p>$I^{HR}$，高分辨率图像，来自数据库；<br>$I^{LR}$，由$I^{HR}$进行高斯滤波，然后下采样获得。</p>
-<p>目标函数：<br>$$min_{\theta_G} max_{\theta_D} \mathbb{E}<em>{I^{HR} \sim p</em>{train}(I^{HR})}[log D_{\theta_D}(I^{HR})] + \mathbb{E}<em>{I^{LR} \sim p_G(I^{LR})}[log (1- D</em>{\theta_D}(G_{\theta_G}(I^{LR})))]$$</p>
-<p>参数$\theta_G$通过优化一个损失函数$l^{SR}$得到：$$\widehat{\theta}<em>G = arg min</em>{\theta_G} \frac{1}{N} \sum_{n=1}^N l^{SR} (G_{\theta_G}(I_n^{LR}), I_n^{HR})$$</p>
+<p>目标函数：<br>$min_{\theta_G} max_{\theta_D} \mathbb{E}<em>{I^{HR}\sim p</em>{train}(I^{HR})}[log D_{\theta_D}(I^{HR})]+\mathbb{E}<em>{I^{LR}\sim p_G(I^{LR})}[log(1-D</em>{\theta_D}(G_{\theta_G}(I^{LR})))]$</p>
+<p>参数$\theta_G$通过优化一个损失函数$l^{SR}$得到：$\widehat{\theta}<em>G=arg min</em>{\theta_G}\frac{1}{N}\sum_{n=1}^N l^{SR}(G_{\theta_G}(I_n^{LR}),I_n^{HR})$</p>
 <ol>
 <li>生成网络：<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/SRGAN_G.png" alt="SRGAN_G"><ul>
 <li>应用分布相同的B残差块，每个残差块由两个卷积层；</li>
@@ -405,7 +405,7 @@
 <h1 id="CycleGAN"><a href="#CycleGAN" class="headerlink" title="CycleGAN"></a>CycleGAN</h1><p><em>可实现无配对的两个图片集的训练，结构有些类似于自动编码器。</em></p>
 <p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/CycleGAN.png" alt="CycleGAN"></p>
 <p>CycleGAN本质上是镜像对称的GAN网络，构成了一个环形回路。两个GAN共享两个G，并各自带了一个D，一个单向GAN两个loss，因此，整个网络共有四个loss。</p>
-<p>损失函数（使用均方误差）：<br>$$L_{LSGAN}(G,D_Y,X,Y) = \mathbb{E}<em>{y\sim p</em>{data}(y)} [(D_Y(y) - 1)^2] + \mathbb{E}<em>{x\sim p</em>{data}(x)} [1 - D_Y(G(x)))^2]$$</p>
+<p>损失函数（使用均方误差）：<br>$L_{LSGAN}(G,D_Y,X,Y)=\mathbb{E}<em>{y\sim p</em>{data}(y)}[(D_Y(y)-1)^2]+\mathbb{E}<em>{x\sim p</em>{data}(x)}[1-D_Y(G(x))]^2$</p>
 <p>参考：<br><a href="https://zhuanlan.zhihu.com/p/104575937" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/104575937</a><br><a href="https://blog.csdn.net/gdymind/article/details/82696481" target="_blank" rel="noopener">https://blog.csdn.net/gdymind/article/details/82696481</a><br><a href="https://zhuanlan.zhihu.com/p/83630387" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/83630387</a><br><a href="https://zhuanlan.zhihu.com/p/90835081" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/90835081</a><br><a href="https://www.jianshu.com/p/64bf39804c80" target="_blank" rel="noopener">https://www.jianshu.com/p/64bf39804c80</a></p>
 
     </div>
