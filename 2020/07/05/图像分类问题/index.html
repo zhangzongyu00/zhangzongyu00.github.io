@@ -22,17 +22,18 @@
     var CONFIG = {"hostname":"zhangzongyu00.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="CNN网络进化&#x2F;结构演化 AlexNet -&gt; VGG -&gt; GoogleNet -&gt; ResNet; AlexNetImageNet-2012竞赛No.1，标志着DNN深度学习革命的开始。  VGG优点：  结构简单； 容易修改，迁移到其他任务中； 高层任务的基础网络；  GoogleNetResNet数据集ImageNet数据集根据WordNet组织的图片集，为一个名词提供平">
+  <meta name="description" content="CNN网络进化&#x2F;结构演化 AlexNet -&gt; VGG -&gt; GoogleNet -&gt; ResNet; AlexNetImageNet-2012竞赛No.1，标志着DNN深度学习革命的开始。   使用了5个卷积层，3个全连接层； 使用了ReLu非线性激活； 进行Max pooling池化； 使用了Dropout regularization； 局部响应归一化LRN（被抛弃）；">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图像分类问题">
 <meta property="og:url" content="http://zhangzongyu00.github.io/2020/07/05/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="爆发🍢小宇宙">
-<meta property="og:description" content="CNN网络进化&#x2F;结构演化 AlexNet -&gt; VGG -&gt; GoogleNet -&gt; ResNet; AlexNetImageNet-2012竞赛No.1，标志着DNN深度学习革命的开始。  VGG优点：  结构简单； 容易修改，迁移到其他任务中； 高层任务的基础网络；  GoogleNetResNet数据集ImageNet数据集根据WordNet组织的图片集，为一个名词提供平">
+<meta property="og:description" content="CNN网络进化&#x2F;结构演化 AlexNet -&gt; VGG -&gt; GoogleNet -&gt; ResNet; AlexNetImageNet-2012竞赛No.1，标志着DNN深度学习革命的开始。   使用了5个卷积层，3个全连接层； 使用了ReLu非线性激活； 进行Max pooling池化； 使用了Dropout regularization； 局部响应归一化LRN（被抛弃）；">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/CNN%E7%BB%93%E6%9E%84%E6%BC%94%E5%8C%96.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/AlexNet.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Alexnet%E7%BB%93%E6%9E%84.png">
 <meta property="article:published_time" content="2020-07-04T17:24:32.000Z">
-<meta property="article:modified_time" content="2020-07-05T18:56:37.021Z">
+<meta property="article:modified_time" content="2020-07-09T17:23:51.029Z">
 <meta property="article:author" content="章肿鱼">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/CNN%E7%BB%93%E6%9E%84%E6%BC%94%E5%8C%96.png">
@@ -229,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-06 02:56:37" itemprop="dateModified" datetime="2020-07-06T02:56:37+08:00">2020-07-06</time>
+                <time title="修改时间：2020-07-10 01:23:51" itemprop="dateModified" datetime="2020-07-10T01:23:51+08:00">2020-07-10</time>
               </span>
 
           
@@ -254,6 +255,28 @@
 <p>AlexNet -&gt; VGG -&gt; GoogleNet -&gt; ResNet;</p>
 <h2 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h2><p><em>ImageNet-2012竞赛No.1，标志着DNN深度学习革命的开始。</em></p>
 <p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/AlexNet.png" alt="AlexNet"></p>
+<ul>
+<li>使用了5个卷积层，3个全连接层；</li>
+<li>使用了ReLu非线性激活；</li>
+<li>进行<code>Max pooling</code>池化；</li>
+<li>使用了Dropout regularization；</li>
+<li>局部响应归一化LRN（被抛弃）；</li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Alexnet%E7%BB%93%E6%9E%84.png" alt="Alexnet结构"></p>
+<p>结构分解：</p>
+<ol>
+<li>输入层：224<em>224</em>3；</li>
+<li>卷积层1：96<em>11<em>11</em>3，ReLU-&gt;MP-&gt;LRN；<em>tip：2个GPU\</em>48个卷积核，卷积核大小11*11，3通道。</em></li>
+<li>卷积层2：256<em>5</em>5*48，ReLU-&gt;MP-&gt;LRN；</li>
+<li>卷积层3：384<em>3</em>3*256，ReLU；</li>
+<li>卷积层4：384<em>3</em>3*192，ReLU-&gt;MP；</li>
+<li>卷积层5：256<em>3</em>3*192，ReLU；</li>
+<li>全连接层1：4096，ReLu；</li>
+<li>全连接层2：4096，ReLu；</li>
+<li>全连接层3：1000，ReLu-&gt;MP；</li>
+<li>Softmax层：1000；</li>
+<li>Loss：$arg max_w{ \frac{1}{N} \sum -log(p(f(x,w)=y(x))) }$标签概率的log值的和。</li>
+</ol>
 <h2 id="VGG"><a href="#VGG" class="headerlink" title="VGG"></a>VGG</h2><p>优点：</p>
 <ul>
 <li>结构简单；</li>
@@ -272,6 +295,7 @@
 <p>参考：</p>
 <ul>
 <li><a href="http://image-net.org/challenges/LSVRC/2017/" target="_blank" rel="noopener">http://image-net.org/challenges/LSVRC/2017/</a></li>
+<li><a href="https://www.pianshen.com/article/2717286724/" target="_blank" rel="noopener">https://www.pianshen.com/article/2717286724/</a></li>
 </ul>
 
     </div>
@@ -291,7 +315,10 @@
     <a href="/2020/07/01/%E5%9B%BE%E8%AE%BA/" rel="prev" title="图论">
       <i class="fa fa-chevron-left"></i> 图论
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/07/%E7%BA%BF%E7%A8%8BVS%E8%BF%9B%E7%A8%8B/" rel="next" title="线程&进程">
+      线程&进程 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -366,7 +393,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
