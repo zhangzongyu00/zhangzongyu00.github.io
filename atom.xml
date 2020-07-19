@@ -262,7 +262,7 @@
     <link href="http://zhangzongyu00.github.io/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     <id>http://zhangzongyu00.github.io/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</id>
     <published>2020-06-23T10:25:39.000Z</published>
-    <updated>2020-06-27T04:20:24.813Z</updated>
+    <updated>2020-07-19T08:54:34.597Z</updated>
     
     <content type="html"><![CDATA[<h1 id="MVC模式"><a href="#MVC模式" class="headerlink" title="MVC模式"></a>MVC模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvc.png" alt="mvc"></p><p>所有的对象都可以被归类为一个model，一个view，或一个controller。</p><p><em>部分代码没有合适的存放位置，如网络请求部分。</em></p><p>弊端：</p><ul><li>大量的代码被放到controller，臃肿；</li><li>controller规模庞大，难以维护；</li><li>属性较多，难以管理；</li><li>遵循较多协议，protocol的响应代码和controller的逻辑代码混杂。</li></ul><h1 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvvm.jpg" alt="mvvm"></p><p>引入新的组件ViewModel，放置用户输入验证逻辑、视图显示逻辑、发起网络请求、数据解析等。<br>项目中的请求数据，统一交给ViewModel管理，每个控制器对应一个专属ViewModel。</p>]]></content>
     
