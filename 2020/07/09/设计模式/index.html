@@ -29,10 +29,20 @@
 <meta property="og:site_name" content="爆发🍢小宇宙">
 <meta property="og:description" content="设计模式Design Pattern是前辈们对代码开发经验的总结，是解决特定问题的一系列套路。它不是语法规定，是一套可用来提高代码可复用性、可维护性、可读性、稳健型及安全性的解决方案。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%BB%93%E6%9E%84%E5%9B%BE.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%9C%89%E9%99%90%E7%9A%84%E5%A4%9A%E4%BE%8B%E6%A8%A1%E5%BC%8F.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E7%BB%93%E6%9E%84%E5%9B%BE.png">
 <meta property="article:published_time" content="2020-07-09T12:11:20.000Z">
-<meta property="article:modified_time" content="2020-07-10T14:39:03.711Z">
+<meta property="article:modified_time" content="2020-07-19T08:50:04.903Z">
 <meta property="article:author" content="章肿鱼">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%BB%93%E6%9E%84%E5%9B%BE.png">
 
 <link rel="canonical" href="http://zhangzongyu00.github.io/2020/07/09/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
 
@@ -226,7 +236,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-10 22:39:03" itemprop="dateModified" datetime="2020-07-10T22:39:03+08:00">2020-07-10</time>
+                <time title="修改时间：2020-07-19 16:50:04" itemprop="dateModified" datetime="2020-07-19T16:50:04+08:00">2020-07-19</time>
               </span>
 
           
@@ -275,11 +285,215 @@
 </li>
 </ol>
 <h1 id="单例模式-Singleton"><a href="#单例模式-Singleton" class="headerlink" title="单例模式 Singleton"></a>单例模式 Singleton</h1><p>某个类只能生成一个实例，该类提供了一个全局访问点供外部获取该实例，其拓展是有限多例模式。</p>
-<h1 id="原型模式-Prototype"><a href="#原型模式-Prototype" class="headerlink" title="原型模式 Prototype"></a>原型模式 Prototype</h1><p>将一个对象作为原型，通过对其进行复制而克隆出多个和原型类似的新实例。</p>
-<h1 id="工厂方法模式-Factory-Method"><a href="#工厂方法模式-Factory-Method" class="headerlink" title="工厂方法模式 Factory Method"></a>工厂方法模式 Factory Method</h1><p>定义一个用于创建产品的接口，由子类决定生产什么产品。</p>
-<h1 id="抽象工厂模式-Abstract-Factory"><a href="#抽象工厂模式-Abstract-Factory" class="headerlink" title="抽象工厂模式 Abstract Factory"></a>抽象工厂模式 Abstract Factory</h1><p>提供一个创建产品族的接口，其每个子类可生产一系列相关的产品。</p>
-<h1 id="建造者模式-Builder"><a href="#建造者模式-Builder" class="headerlink" title="建造者模式 Builder"></a>建造者模式 Builder</h1><p>将一个复杂对象分解成多个相对简单的部分，然后根据不同需要分别创建它们，最后构建成该复杂对象。</p>
-<h1 id="代理模式-Proxy"><a href="#代理模式-Proxy" class="headerlink" title="代理模式 Proxy"></a>代理模式 Proxy</h1><p>为某对象提供一种代理以控制对该对象的访问。即**客户端通过代理间接地访问该对象，从而限制、增强或修改该对象的一些特性。</p>
+<p>单例模式，指<strong>一个类只有一个实例</strong>，且该类能自行创建这个实例的一种模式。</p>
+<h2 id="单例模式的特点："><a href="#单例模式的特点：" class="headerlink" title="单例模式的特点："></a>单例模式的特点：</h2><ul>
+<li>单例类只有一个实例对象；</li>
+<li>该单例对象必须由单例类自行创建；</li>
+<li>单例类对外提供一个访问该单例的全局访问点。</li>
+</ul>
+<p>优点：</p>
+<ul>
+<li>提供了对唯一实例的受控访问；</li>
+<li>由于在系统内存中只存在一个对象，可节约系统资源，对一些需要频繁创建和销毁的对象单例模式可提高系统性能；</li>
+<li>允许可变数目的实例。<br>缺点：</li>
+<li>由于单例模式没有抽象层，因此单例类很<strong>难扩展</strong>；</li>
+<li>单例类的职责过重，在一定程度上违背了<a href="/2020/07/12/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="单一职责原则SRP">单一职责原则SRP</a>；</li>
+<li>滥用单例将带来负面问题<ul>
+<li>如为了节约系统资源，将数据库连接池对象设计为单例模式，可能导致共享连接池对象的程序过多而出现连接池溢出；</li>
+<li>如实例化的对象长时间不使用，系统当作垃圾回收，将导致对象状态的丢失。</li>
+</ul>
+</li>
+</ul>
+<h2 id="单例模式的结构及实现"><a href="#单例模式的结构及实现" class="headerlink" title="单例模式的结构及实现"></a>单例模式的结构及实现</h2><p>通常，普通类的构造函数是公有的，外部类可通过“new 构造函数()”来生成多个实例。<br>若将类的构造函数设为私有的，外部类就无法调用该构造函数，也就无法生成多个实例。<br>单例类自身<strong>必须定义一个静态私有实例</strong>，并<strong>向外提供一个静态的公有函数</strong>用于创建或获取该静态私有实例。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%BB%93%E6%9E%84%E5%9B%BE.png" alt="单例模式结构图"></p>
+<p>Singleton模式通常有两种实现形式：</p>
+<ol>
+<li>懒汉式单例：类加载时不生成单例，<strong>只有当第一次调用getInstance方法时才创建</strong>这个单例。<br>多线程时要保留volatile和synchronized关键字，但<strong>每次访问都要同步</strong>，会影响性能，且消耗更多资源。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class LazySingleton</span><br><span class="line">&#123;</span><br><span class="line">    private static volatile LazySingleton instance&#x3D;null;    &#x2F;&#x2F;保证 instance 在所有线程中同步</span><br><span class="line">    private LazySingleton()&#123;&#125;    &#x2F;&#x2F;private 避免类在外部被实例化</span><br><span class="line">    public static synchronized LazySingleton getInstance()</span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F;getInstance 方法前加同步</span><br><span class="line">        if(instance&#x3D;&#x3D;null)</span><br><span class="line">        &#123;</span><br><span class="line">            instance&#x3D;new LazySingleton();</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>饿汉式单例：<strong>类一旦加载就创建一个单例</strong>，保证在调用getInstance方法前单例就已存在。<br>类创建的同时就创建好一个静态对象供系统使用，以后不再改变，线程安全，可直接用于多线程。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class HungrySingleton</span><br><span class="line">&#123;</span><br><span class="line">    private static final HungrySingleton instance&#x3D;new HungrySingleton();</span><br><span class="line">    private HungrySingleton()&#123;&#125;</span><br><span class="line">    public static HungrySingleton getInstance()</span><br><span class="line">    &#123;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ul>
+<li>在应用场景中，某类只要求生成一个对象时。如一个班的班长，个人身份证号等；</li>
+<li>当对象需要被共享的场合。由于单例模式只允许创建一个对象，共享该对象可以节省内存，并加快对象访问速度。如web中的配置对象，数据库连接池等。</li>
+<li>当某类需要频繁实例化，创建的对象又频繁被销毁时。如多线程的线程池，网络连接池等。</li>
+</ul>
+<h2 id="单例模式的扩展-多例模式"><a href="#单例模式的扩展-多例模式" class="headerlink" title="单例模式的扩展-多例模式"></a>单例模式的扩展-多例模式</h2><p>单例模式可扩展为有限的多例模式，这种模式可<strong>生成有限个实例并保存在ArrayList</strong>中，客户需要时可随机获取。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%9C%89%E9%99%90%E7%9A%84%E5%A4%9A%E4%BE%8B%E6%A8%A1%E5%BC%8F.png" alt="有限的多例模式"></p>
+<h1 id="原型模式-Prototype"><a href="#原型模式-Prototype" class="headerlink" title="原型模式 Prototype"></a>原型模式 Prototype</h1><p>将一个对象作为原型，通过对其进行<strong>复制而克隆出多个和原型类似的新实例</strong>。</p>
+<p>原型模式，指用一个已经创建的实例作为原型，通过复制该原型对象来创建一个和原型相同或相似的新对象。<br>原型实例指定了要创建的对象的种类，用这种方式创建对象非常高效，<strong>无须知道对象创建的细节</strong>。</p>
+<h2 id="原型模式的结构与实现"><a href="#原型模式的结构与实现" class="headerlink" title="原型模式的结构与实现"></a>原型模式的结构与实现</h2><p><em>Java提供了对象的clone()方法，用Java实现原型模式非常简单。</em></p>
+<h3 id="原型模式的结构"><a href="#原型模式的结构" class="headerlink" title="原型模式的结构"></a>原型模式的结构</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F.png" alt="原型模式"></p>
+<ol>
+<li>抽象原型类：规定了具体原型对象必须实现的接口；</li>
+<li>具体原型类：实现抽象原型类的clone()方法，是<strong>可被复制的对象</strong>；</li>
+<li>访问类：使用具体原型类的clone()方法来复制新的对象。</li>
+</ol>
+<h3 id="原型模式的实现"><a href="#原型模式的实现" class="headerlink" title="原型模式的实现"></a>原型模式的实现</h3><ol>
+<li>浅克隆：Java中的Object类提供了浅克隆的clone()方法，具体原型类只要实现Cloneable接口(抽象原型类)即可实现对象的浅克隆。</li>
+<li>深克隆</li>
+</ol>
+<h2 id="原型模式的应用场景"><a href="#原型模式的应用场景" class="headerlink" title="原型模式的应用场景"></a>原型模式的应用场景</h2><ul>
+<li>对象间相同或相似，即只有个别属性不同；</li>
+<li>对象的创建过程繁琐，但复制比较简单。</li>
+</ul>
+<h2 id="原型模式的扩展"><a href="#原型模式的扩展" class="headerlink" title="原型模式的扩展"></a>原型模式的扩展</h2><p>带<strong>原型管理器</strong>的原型模式，在原型模式的基础上增加了一个原型管理器PrototypeManager类，该类使用HashMap保存多个复制的原型，Client类可通过管理器的get(String id)方法获取复制的原型。</p>
+<h1 id="工厂方法模式-Factory-Method"><a href="#工厂方法模式-Factory-Method" class="headerlink" title="工厂方法模式 Factory Method"></a>工厂方法模式 Factory Method</h1><p>定义一个用于创建<strong>产品的接口</strong>，由子类决定生产什么产品。</p>
+<p>工厂方法模式，指定义一个创建产品对象的工厂接口，将产品对象的实际创建工作推迟到具体子工厂类中，满足创建型模式中要求的<strong>创建与使用相分离</strong>的特点。</p>
+<p><strong>被创建的对象–产品，创建产品的对象–工厂。</strong></p>
+<p>简单工厂模式<em>(不属于GoF)</em>，若要创建的产品不多，只要一个工厂类就可完成。<br>缺点：增加新产品时会违背OCP。</p>
+<p>工厂方法模式，是对简单工厂模式的进一步抽象化，优势在于<strong>可使系统在不修改原代码的基础上引进新产品</strong>，即满足OCP。</p>
+<h2 id="工厂方法模式的特点"><a href="#工厂方法模式的特点" class="headerlink" title="工厂方法模式的特点"></a>工厂方法模式的特点</h2><ul>
+<li>优点：<ul>
+<li>用户只需要知道具体工厂的名称，即可得到所要的产品，无须知道产品的具体创建过程；</li>
+<li>在系统增加新的产品时，只需添加具体产品类和对应的具体工厂类，无须对原工厂进行任何修改，满足OCP。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>每增加一个产品，就要增加一个具体产品类和一个对应的具体工厂类，增加了系统的复杂度。</li>
+</ul>
+</li>
+</ul>
+<h2 id="工厂方法模式的结构和实现"><a href="#工厂方法模式的结构和实现" class="headerlink" title="工厂方法模式的结构和实现"></a>工厂方法模式的结构和实现</h2><p>工厂方法模式由<strong>抽象工厂、具体工厂、抽象产品、具体产品</strong>4个要素构成。</p>
+<h3 id="工厂方法模式的结构"><a href="#工厂方法模式的结构" class="headerlink" title="工厂方法模式的结构"></a>工厂方法模式的结构</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F.png" alt="工厂方法模式"></p>
+<ol>
+<li>抽象工厂<code>Abstract Factory</code>：提供了创建产品的接口，调用者通过访问具体工厂的工厂方法newProduct()来创建产品。</li>
+<li>具体工厂<code>Concrete Factory</code>：实现抽象工厂中的抽象方法，完成具体产品的创建。</li>
+<li>抽象产品<code>Product</code>：定义了产品的规范，描述了<strong>产品的主要特性和功能</strong>。</li>
+<li>具体产品<code>Concrete Product</code>：实现了抽象产品角色所定义的接口，<strong>由具体工厂创建</strong>，同具体工厂间一一对应。</li>
+</ol>
+<h2 id="工厂方法模式的应用场景"><a href="#工厂方法模式的应用场景" class="headerlink" title="工厂方法模式的应用场景"></a>工厂方法模式的应用场景</h2><ul>
+<li>客户只知道创建产品的工厂名，不知道具体的产品名。</li>
+<li>创建对象的任务由多个具体子工厂中的某一个完成，抽象工厂只提供创建产品的链接。</li>
+<li>客户不关心创建产品的细节，只关心产品的品牌。</li>
+</ul>
+<h2 id="工厂方法模式的扩展"><a href="#工厂方法模式的扩展" class="headerlink" title="工厂方法模式的扩展"></a>工厂方法模式的扩展</h2><p>当需要生产的产品不多，且不会增加，一个具体工厂类就可完成任务时，可删除抽象工厂类。<br>可将工厂方法模式退化为简单工厂模式。</p>
+<h1 id="抽象工厂模式-Abstract-Factory"><a href="#抽象工厂模式-Abstract-Factory" class="headerlink" title="抽象工厂模式 Abstract Factory"></a>抽象工厂模式 Abstract Factory</h1><p>提供一个<strong>创建产品族</strong>的接口，其<strong>每个子类可生产一系列相关的产品</strong>。</p>
+<p>抽象工厂模式，指一种<strong>为访问类提供一个创建一组相关或相互依赖对象的接口</strong>，且访问类无须指定所要产品的具体类，就能得到同族的不同等级的产品的模式结构。</p>
+<p><strong>抽象工厂和工厂方法模式的区别：</strong></p>
+<ul>
+<li>工厂方法模式<strong>只考虑生产<code>同等级/同种类</code>的产品</strong>；</li>
+<li>抽象工厂模式<strong>考虑多等级产品的生产</strong>，将<code>同一具体工厂生产的位于不同等级的一组产品</code>成为一个产品族。</li>
+<li>工厂方法模式只生产一个等级的产品，抽象工厂模式可生产多个等级的产品，是工厂方法模式的升级版。</li>
+</ul>
+<h2 id="抽象工厂模式的特点"><a href="#抽象工厂模式的特点" class="headerlink" title="抽象工厂模式的特点"></a>抽象工厂模式的特点</h2><ul>
+<li>优点：<ul>
+<li>可以在类的内部对产品族中相关联的多等级产品共同管理，而不必专门引入多个新的类来进行管理；</li>
+<li>当增加一个新的产品族时不需要修改原代码，满足OCP。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>当产品族中需要增加一个新的产品时，所有的工厂类都需要进行修改。</li>
+</ul>
+</li>
+</ul>
+<h2 id="抽象工厂模式的结构与实现"><a href="#抽象工厂模式的结构与实现" class="headerlink" title="抽象工厂模式的结构与实现"></a>抽象工厂模式的结构与实现</h2><p>抽象工厂模式同工厂方法模式一样，都是由抽象工厂、具体工厂、抽象产品、具体产品等4个要素构成，但抽象方法中方法个数不同，抽象产品的个数也不同。</p>
+<h3 id="抽象工厂模式的结构"><a href="#抽象工厂模式的结构" class="headerlink" title="抽象工厂模式的结构"></a>抽象工厂模式的结构</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F.png" alt="抽象工厂模式"></p>
+<ol>
+<li>抽象工厂：提供了创建产品的接口，包含多个创建产品的方法newProduct()，可以创建多个不同等级的产品。</li>
+<li>具体工厂：主要实现抽象工厂中的多个抽象方法，完成具体产品的创建。</li>
+<li>抽象产品：定义了产品的规范，描述了产品的主要特性和性能，抽象工厂模式有多个抽象产品。</li>
+<li>具体产品：实现了抽象产品角色所定义的接口，由具体工厂来创建，同具体工厂间是<code>n:1</code>的关系。</li>
+</ol>
+<p>抽象工厂模式和工厂方法模式的结构相似，不同的是其产品的种类不止一个，所以，<strong>创建产品的方法不止一个</strong>。</p>
+<h3 id="抽象工厂模式的实现"><a href="#抽象工厂模式的实现" class="headerlink" title="抽象工厂模式的实现"></a>抽象工厂模式的实现</h3><ol>
+<li>抽象工厂：提供了产品的生成方法。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">interface AbstractFactory &#123;</span><br><span class="line">    public Product1 newProduct1();</span><br><span class="line">    public Product2 newProduct2();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>具体工厂：实现了产品的生成方法。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class ConcreteFactory implements AbstractFactory &#123;</span><br><span class="line">    public Product1 newProduct1() &#123;</span><br><span class="line">        System.out.println(&quot;具体工厂 1 生成--&gt;具体产品 1...&quot;);</span><br><span class="line">        return new ConcreteProduct1();</span><br><span class="line">    &#125;</span><br><span class="line">    public Product2 newProduct2() &#123;</span><br><span class="line">        System.out.println(&quot;具体工厂 1 生成--&gt;具体产品 2...&quot;);</span><br><span class="line">        return new ConcreteProduct2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="抽象工厂模式的适用场景"><a href="#抽象工厂模式的适用场景" class="headerlink" title="抽象工厂模式的适用场景"></a>抽象工厂模式的适用场景</h2><ul>
+<li>系统中有多个产品族，每个具体工厂创建同一族但属于不同等级结构的产品；</li>
+<li>系统一次只可消费其中某一族的产品，即同族的产品一起使用。</li>
+</ul>
+<p>具体来讲，可分为如下3种：</p>
+<ul>
+<li>当需要创建的对象是一系列相互关联或相互依赖的产品族时，如电器工厂中的电视机、洗衣机、空调等；</li>
+<li>系统中有多个产品族，但每次只使用其中的某一族产品，如有人只喜欢某一个品牌的衣服和鞋子；</li>
+<li>系统中提供了产品的类库，且所有产品的接口相同，客户端不依赖产品实例的创建细节和内部结构。</li>
+</ul>
+<p>抽象工厂模式最早的应用是用于创建属于不同操作系统的视窗构建，如Java的AWT中的Button和Text等构件在Windows和UNIX中的本地实现是不同的。</p>
+<h2 id="抽象工厂模式的扩展"><a href="#抽象工厂模式的扩展" class="headerlink" title="抽象工厂模式的扩展"></a>抽象工厂模式的扩展</h2><p>抽象工厂模式的扩展具有一定的OCP倾斜性：</p>
+<ul>
+<li>当增加一个新的产品族时只需增加一个新的具体工厂，不需要修改原代码，满足OCP。</li>
+<li>当产品族中需要增加一个新种类的产品时，所有的工厂类都需要进行修改，不满足OCP。</li>
+</ul>
+<p>当系统中只存在一个等级结构的产品时，抽象工厂模式将退化到工厂方法模式。</p>
+<h1 id="建造者模式-Builder"><a href="#建造者模式-Builder" class="headerlink" title="建造者模式 Builder"></a>建造者模式 Builder</h1><p>将一个<strong>复杂对象分解</strong>成多个相对简单的部分，然后根据不同需要分别创建它们，最后构建成该复杂对象。</p>
+<p>建造者模式，指将一个复杂对象的<strong>构造与其表示分离</strong>，<strong>使同样的构建过程可以创建不同的表示</strong>。<br>将一个复杂的对象分解为多个简单的对象，然后一步步构建而成；将变与不变相分离，即产品的组成部分是不变的，但<strong>每一部分是灵活选择</strong>的。</p>
+<h2 id="建造者模式的特点"><a href="#建造者模式的特点" class="headerlink" title="建造者模式的特点"></a>建造者模式的特点</h2><p>建造者模式和工厂方法模式的区别：（🉑️结合使用）</p>
+<ul>
+<li>建造者模式<strong>注重零部件的组装过程</strong>；</li>
+<li>工厂方法模式注重零部件的<strong>创建过程</strong>。</li>
+</ul>
+<ul>
+<li>优点：<ul>
+<li>各个具体的建造者相互独立，有利于系统的扩展；</li>
+<li>客户端不必知道产品内部组成的细节，便于控制细节风险。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>产品的组成部分必须相同，限制了其使用范围；</li>
+<li>若产品的内部变化复杂，会增加很多的建造者类。</li>
+</ul>
+</li>
+</ul>
+<h2 id="建造者模式的结构与实现"><a href="#建造者模式的结构与实现" class="headerlink" title="建造者模式的结构与实现"></a>建造者模式的结构与实现</h2><p>建造者模式由<strong>产品、抽象建造者、具体建造者、指挥者</strong>4个要素构成。</p>
+<h3 id="建造者模式的结构"><a href="#建造者模式的结构" class="headerlink" title="建造者模式的结构"></a>建造者模式的结构</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F.png" alt="建造者模式"></p>
+<ol>
+<li>产品角色Product：包含<strong>多个组成部件的复杂对象</strong>，由具体建造者来创建其各个部件；</li>
+<li>抽象建造者Builder：包含创建产品各个子部件的抽象方法的接口，通常还包含一个<strong>返回复杂产品的方法</strong>getResult()；</li>
+<li>具体建造者<code>Concrete Builder</code>：实现Builder接口，完成复杂产品的各个部件的具体创建方法；</li>
+<li>指挥者Director：调用建造者对象中的<strong>部件构造与装配方法</strong>，完成复杂对象的创建，在指挥者中<strong>不涉及具体产品的信息</strong>。</li>
+</ol>
+<h3 id="建造者模式的实现"><a href="#建造者模式的实现" class="headerlink" title="建造者模式的实现"></a>建造者模式的实现</h3><ol>
+<li>产品角色：包含多个组成部件的复杂对象；</li>
+<li>抽象建造者：包含创建产品各个子部件的抽象方法；</li>
+<li>具体建造者：实现了抽象建造者接口；</li>
+<li>指挥者：调用建造者中的方法完成复杂对象的创建；</li>
+<li>客户类</li>
+</ol>
+<h2 id="建造者模式的应用场景"><a href="#建造者模式的应用场景" class="headerlink" title="建造者模式的应用场景"></a>建造者模式的应用场景</h2><p>建造者模式创建的是复杂对象，其产品的各个部分经常面临着剧烈的变化，但将它们组合在一起的算法却相对稳定：</p>
+<ul>
+<li>创建的对象复杂，由多个部件构成，各部件面临着复杂的变化，但构件间的建造顺序是稳定的；</li>
+<li>创建复杂对象的算法独立于该对象的组成部分及它们的装配方式，即产品的构建过程和最终的表示是独立的。</li>
+</ul>
+<h2 id="建造者模式的扩展"><a href="#建造者模式的扩展" class="headerlink" title="建造者模式的扩展"></a>建造者模式的扩展</h2><p>建造者模式在应用过程中可以根据需要改变，如果创建的产品种类只有一种，只需要一个具体建造者，可省略抽象建造者，甚至指挥者。</p>
+<h1 id="代理模式-Proxy"><a href="#代理模式-Proxy" class="headerlink" title="代理模式 Proxy"></a>代理模式 Proxy</h1><p>为某对象提供一种代理以控制对该对象的访问。即<strong>客户端通过代理间接地访问该对象</strong>，从而限制、增强或修改该对象的一些特性。</p>
+<p>代理模式，由于某些原因需要给某对象提供一个<strong>代理以控制对该对象的访问</strong>，访问对象不适合或不能直接引用目标对象，代理对象作为访问对象和目标对象的中介。</p>
+<h2 id="代理模式的特点"><a href="#代理模式的特点" class="headerlink" title="代理模式的特点"></a>代理模式的特点</h2><ul>
+<li>优点：<ul>
+<li>代理模式在客户端与目标对象间起到一个中介作用和<strong>保护目标对象</strong>的作用；</li>
+<li>代理对象可以<strong>扩展目标对象的功能</strong>；</li>
+<li>代理模式能将客户端与目标对象分离，在一定程度上降低了系统的耦合度；</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>在客户端和目标对象间增加一个代理对象，会造成请求处理速度变慢；</li>
+<li>增加了系统的复杂度。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代理模式的结构与实现"><a href="#代理模式的结构与实现" class="headerlink" title="代理模式的结构与实现"></a>代理模式的结构与实现</h2><p>代理模式的结构比较简单，主要是通过<strong>定义一个继承抽象主题的代理来包含真实主题</strong>，从而实现对真实主题的访问。</p>
+<h3 id="代理模式的结构"><a href="#代理模式的结构" class="headerlink" title="代理模式的结构"></a>代理模式的结构</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F.png" alt="代理模式"></p>
+<ol>
+<li>抽象主题类Subject：通过接口或抽象类声明真实主题和代理对象实现的业务方法；</li>
+<li>真实主题类<code>Real Subject</code>：实现类抽象主题中的具体业务，是代理对象所代表的真实对象，是最终要引用的对象；</li>
+<li>代理类：提供了与真实主题相同的接口，其内部含有对真实主题的引用，🉑️访问、控制、扩展真实主题的功能。</li>
+</ol>
+<h3 id="代理模式的应用场景"><a href="#代理模式的应用场景" class="headerlink" title="代理模式的应用场景"></a>代理模式的应用场景</h3><ul>
+<li>远程代理：通常为了隐藏目标对象存在于<strong>不同地址空间</strong>的事实，方便客户端访问，如虚拟硬盘；</li>
+<li>虚拟代理：通常用于要创建的目标对象开销较大时，先用<strong>小比例的虚拟代理替换真实对象</strong>，消除用户等待烦躁；</li>
+<li>安全代理：通常用于控制不同种类客户对真实对象的访问权限；</li>
+<li>智能指引：用于调用目标对象时，代理附加一些额外的处理功能；</li>
+<li>延迟加载：为提高系统性能，延迟对目标的加载。</li>
+</ul>
+<h2 id="代理模式的扩展"><a href="#代理模式的扩展" class="headerlink" title="代理模式的扩展"></a>代理模式的扩展</h2><p>普通代理模式的缺点：</p>
+<ul>
+<li>真实主题于代理主题一一对应，增加真实主题需要增加对应代理；</li>
+<li>设计代理之前，真实主题必须事先存在。</li>
+</ul>
+<p>动态代理模式：<em>如SpringAOP</em><br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F.png" alt="动态代理模式"></p>
 <h1 id="适配器模式-Adapter"><a href="#适配器模式-Adapter" class="headerlink" title="适配器模式 Adapter"></a>适配器模式 Adapter</h1><p>将一个类的接口转换成客户希望的<strong>另一个接口</strong>，使得原本由于<strong>接口不兼容</strong>而不能一起工作的那些类可一起工作。</p>
 <h1 id="桥接模式-Bridge"><a href="#桥接模式-Bridge" class="headerlink" title="桥接模式 Bridge"></a>桥接模式 Bridge</h1><p>将抽象与实现分离，使它们可以独立变化。它是用<strong>组合关系代替继承关系</strong>来实现，从而降低了抽象和实现这两个可变维度的耦合度。</p>
 <h1 id="装饰模式-Decorator"><a href="#装饰模式-Decorator" class="headerlink" title="装饰模式 Decorator"></a>装饰模式 Decorator</h1><p>动态的给对象增加一些职责，即增加其额外的功能。</p>
@@ -287,11 +501,46 @@
 <h1 id="享元模式-Flyweight"><a href="#享元模式-Flyweight" class="headerlink" title="享元模式 Flyweight"></a>享元模式 Flyweight</h1><p>运用共享技术来有效地支持大量细粒度对象的复用。</p>
 <h1 id="组合模式-Composite"><a href="#组合模式-Composite" class="headerlink" title="组合模式 Composite"></a>组合模式 Composite</h1><p>将对象组合成树状层次结构，使用户对单个对象和组合对象具有一致的访问性。</p>
 <h1 id="模版方法模式-Template-Method"><a href="#模版方法模式-Template-Method" class="headerlink" title="模版方法模式 Template Method"></a>模版方法模式 Template Method</h1><p>定义一个操作中的<strong>算法骨架</strong>，将算法的一些<strong>步骤延迟到子类</strong>中，使子类可以不改变该算法结构的情况下重新定义该算法的某些特定步骤。</p>
-<h1 id="策略模式-Strategy"><a href="#策略模式-Strategy" class="headerlink" title="策略模式 Strategy"></a>策略模式 Strategy</h1><p>定义一系列算法，并对每个算法进行封装，使其可以相互替换，，且算法的改变不会影响使用算法的客户。</p>
+<h1 id="策略模式-Strategy"><a href="#策略模式-Strategy" class="headerlink" title="策略模式 Strategy"></a>策略模式 Strategy</h1><p>定义一系列算法，并对每个算法进行封装，使其可以相互替换，且算法的改变不会影响使用算法的客户。</p>
 <h1 id="命令模式-Command"><a href="#命令模式-Command" class="headerlink" title="命令模式 Command"></a>命令模式 Command</h1><p>将一个请求封装为一个对象，使发出请求的责任和执行请求的责任分隔开。</p>
 <h1 id="职责链模式-Chain-of-Responsibility"><a href="#职责链模式-Chain-of-Responsibility" class="headerlink" title="职责链模式 Chain of Responsibility"></a>职责链模式 Chain of Responsibility</h1><p>把请求从链中的一个对象传到下一个对象，直到请求被响应为止。通过这种方法去除对象间的耦合。</p>
 <h1 id="状态模式-State"><a href="#状态模式-State" class="headerlink" title="状态模式 State"></a>状态模式 State</h1><p>允许一个对象在其内部状态发生改变时改变其行为能力。</p>
 <h1 id="观察者模式-Observer"><a href="#观察者模式-Observer" class="headerlink" title="观察者模式 Observer"></a>观察者模式 Observer</h1><p>多个对象间存在一对多关系，当一个对象发生改变时，<strong>把这种改变通知给其它多个对象</strong>，从而影响其它对象的行为。</p>
+<p>观察者模式，又称<strong>发布-订阅模式、模型-视图模式</strong>，指多个对象间存在一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知，并被自动更新。</p>
+<p>观察者模式是一种<strong>对象行为型</strong>模式，具有如下特点：</p>
+<ol>
+<li>优点：<ol>
+<li>降低了目标与观察者之间的耦合关系，两者之间是<strong>抽象耦合关系</strong>；</li>
+<li>目标与观察者之间建立了一套触发机制。</li>
+</ol>
+</li>
+<li>缺点：<ol>
+<li>目标与观察者之间的<strong>依赖关系</strong>并没有完全接触，而且有可能出现<strong>循环引用</strong>；</li>
+<li>当观察者对象较多时，通知的发布会花费很多时间，影响程序效率。</li>
+</ol>
+</li>
+</ol>
+<h2 id="观察者模式的结构与实现"><a href="#观察者模式的结构与实现" class="headerlink" title="观察者模式的结构与实现"></a>观察者模式的结构与实现</h2><p><strong>具体目标对象和具体观察者对象间不能直接调用</strong>，否则会将两者紧密耦合，违反OOP设计原则。</p>
+<h3 id="观察者的结构："><a href="#观察者的结构：" class="headerlink" title="观察者的结构："></a>观察者的结构：</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E7%BB%93%E6%9E%84%E5%9B%BE.png" alt="观察者模式结构图"></p>
+<ol>
+<li>抽象主题角色Subject：也称抽象目标类，提供了一个用于<strong>保存观察者对象的聚集类</strong>和<strong>增加、删除观察者对象的方法</strong>，以及<strong>通知所有观察者的抽象方法</strong>。</li>
+<li>具体主题角色<code>Concrete Subject</code>：，也称具体目标类，<strong>实现抽象目标中的通知方法</strong>，当具体主题的内部状态发生改变时，<strong>通知所有注册过的观察者对象</strong>。</li>
+<li>抽象观察者角色Observer：一个抽象类/接口，包含了一个<strong>更新自己的抽象方法</strong>，当接到具体主题的更改通知时被调用。</li>
+<li>具体观察者角色<code>Concrete Observer</code>：实现抽象观察者中定义的抽象方法，以便在<strong>得到目标的改变通知时更新自身的状态</strong>。</li>
+</ol>
+<h3 id="事件监听处理"><a href="#事件监听处理" class="headerlink" title="事件监听处理"></a>事件监听处理</h3><p>观察者模式在软件开发中用的最多的是<strong>窗体程序设计中的事件处理</strong>，<strong>窗体中的所有组件都是事件源，即目标对象</strong>，而<strong>事件处理程序类的对象是具体观察者对象</strong>。</p>
+<h2 id="观察者模式应用场景"><a href="#观察者模式应用场景" class="headerlink" title="观察者模式应用场景"></a>观察者模式应用场景</h2><ul>
+<li>对象间存在一对多的关系，一个对象的状态改变发生会影响其它对象。</li>
+<li>当一个抽象模型有两方面，一方面依赖于另一方面时，可将二者封装在独立的对象中以使其可以各自独立的改变和复用。</li>
+</ul>
+<h2 id="观察者模式扩展"><a href="#观察者模式扩展" class="headerlink" title="观察者模式扩展"></a>观察者模式扩展</h2><p>Java中，通过<code>java.util.Observable</code>类和<code>java.util.Observer</code>接口定义了观察者模式，只要实现其子类即可编写观察者模式实例。</p>
+<h3 id="Observable类"><a href="#Observable类" class="headerlink" title="Observable类"></a>Observable类</h3><p>Observable类是抽象目标类，有一个Vector向量，用于保存所有要通知的观察者对象。</p>
+<ol>
+<li><code>void addObserver(Observer o)</code>方法：用于将新的观察者添加到向量中；</li>
+<li><code>void notifyObservers(Object arg)</code>方法：调用向量中的所有观察者对象的update方法，通知它们数据发生改变，通常越晚加入向量的观察者越先得到通知；</li>
+<li><code>void setChange()</code>方法：用来设置一个boolean类型的内部标识位，注明目标对象发生类变化，当为真时，notifyObservers()才会通知观察者。</li>
+</ol>
+<h3 id="Observer接口"><a href="#Observer接口" class="headerlink" title="Observer接口"></a>Observer接口</h3><p>Observer接口是抽象观察者，监视目标对象的变化，当目标对象发生变化时，观察者得到通知，并调用<code>void update(Observable o, Object arg)</code>方法执行更新。</p>
 <h1 id="中介者模式-Mediator"><a href="#中介者模式-Mediator" class="headerlink" title="中介者模式 Mediator"></a>中介者模式 Mediator</h1><p>定义一个中介对象来简化原有对象间的交互关系，降低系统对象间的耦合度，使原有对象间不必相互了解。</p>
 <h1 id="迭代器模式-Iterator"><a href="#迭代器模式-Iterator" class="headerlink" title="迭代器模式 Iterator"></a>迭代器模式 Iterator</h1><p>提供一种方法来顺序访问聚合对象中的一系列数据，而不暴露聚合对象的内部表示。</p>
 <h1 id="访问者模式-Visitor"><a href="#访问者模式-Visitor" class="headerlink" title="访问者模式 Visitor"></a>访问者模式 Visitor</h1><p>在不改变集合元素的前提下，为一个集合中的每个元素提供多种访问方式，即每个元素有多个访问者对象访问。</p>
@@ -300,6 +549,7 @@
 <hr>
 <h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
 <li><a href="http://c.biancheng.net/view/1317.html" target="_blank" rel="noopener">http://c.biancheng.net/view/1317.html</a></li>
+<li><a href="https://www.jianshu.com/p/4475b2e1f9ae" target="_blank" rel="noopener">https://www.jianshu.com/p/4475b2e1f9ae</a></li>
 </ul>
 
     </div>
@@ -381,7 +631,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#软件设计模式概述"><span class="nav-number">1.</span> <span class="nav-text">软件设计模式概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#软件设计模式的基本要素："><span class="nav-number">1.1.</span> <span class="nav-text">软件设计模式的基本要素：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计模式的分类："><span class="nav-number">1.2.</span> <span class="nav-text">设计模式的分类：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单例模式-Singleton"><span class="nav-number">2.</span> <span class="nav-text">单例模式 Singleton</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原型模式-Prototype"><span class="nav-number">3.</span> <span class="nav-text">原型模式 Prototype</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工厂方法模式-Factory-Method"><span class="nav-number">4.</span> <span class="nav-text">工厂方法模式 Factory Method</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抽象工厂模式-Abstract-Factory"><span class="nav-number">5.</span> <span class="nav-text">抽象工厂模式 Abstract Factory</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#建造者模式-Builder"><span class="nav-number">6.</span> <span class="nav-text">建造者模式 Builder</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代理模式-Proxy"><span class="nav-number">7.</span> <span class="nav-text">代理模式 Proxy</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#适配器模式-Adapter"><span class="nav-number">8.</span> <span class="nav-text">适配器模式 Adapter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#桥接模式-Bridge"><span class="nav-number">9.</span> <span class="nav-text">桥接模式 Bridge</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#装饰模式-Decorator"><span class="nav-number">10.</span> <span class="nav-text">装饰模式 Decorator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#外观模式-Facade"><span class="nav-number">11.</span> <span class="nav-text">外观模式 Facade</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#享元模式-Flyweight"><span class="nav-number">12.</span> <span class="nav-text">享元模式 Flyweight</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组合模式-Composite"><span class="nav-number">13.</span> <span class="nav-text">组合模式 Composite</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模版方法模式-Template-Method"><span class="nav-number">14.</span> <span class="nav-text">模版方法模式 Template Method</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#策略模式-Strategy"><span class="nav-number">15.</span> <span class="nav-text">策略模式 Strategy</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令模式-Command"><span class="nav-number">16.</span> <span class="nav-text">命令模式 Command</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#职责链模式-Chain-of-Responsibility"><span class="nav-number">17.</span> <span class="nav-text">职责链模式 Chain of Responsibility</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#状态模式-State"><span class="nav-number">18.</span> <span class="nav-text">状态模式 State</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#观察者模式-Observer"><span class="nav-number">19.</span> <span class="nav-text">观察者模式 Observer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#中介者模式-Mediator"><span class="nav-number">20.</span> <span class="nav-text">中介者模式 Mediator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#迭代器模式-Iterator"><span class="nav-number">21.</span> <span class="nav-text">迭代器模式 Iterator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#访问者模式-Visitor"><span class="nav-number">22.</span> <span class="nav-text">访问者模式 Visitor</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#备忘录模式-Memento"><span class="nav-number">23.</span> <span class="nav-text">备忘录模式 Memento</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解释器模式-Interpreter"><span class="nav-number">24.</span> <span class="nav-text">解释器模式 Interpreter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考："><span class="nav-number">25.</span> <span class="nav-text">参考：</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#软件设计模式概述"><span class="nav-number">1.</span> <span class="nav-text">软件设计模式概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#软件设计模式的基本要素："><span class="nav-number">1.1.</span> <span class="nav-text">软件设计模式的基本要素：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计模式的分类："><span class="nav-number">1.2.</span> <span class="nav-text">设计模式的分类：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单例模式-Singleton"><span class="nav-number">2.</span> <span class="nav-text">单例模式 Singleton</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单例模式的特点："><span class="nav-number">2.1.</span> <span class="nav-text">单例模式的特点：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单例模式的结构及实现"><span class="nav-number">2.2.</span> <span class="nav-text">单例模式的结构及实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#适用场景"><span class="nav-number">2.3.</span> <span class="nav-text">适用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单例模式的扩展-多例模式"><span class="nav-number">2.4.</span> <span class="nav-text">单例模式的扩展-多例模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原型模式-Prototype"><span class="nav-number">3.</span> <span class="nav-text">原型模式 Prototype</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原型模式的结构与实现"><span class="nav-number">3.1.</span> <span class="nav-text">原型模式的结构与实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型模式的结构"><span class="nav-number">3.1.1.</span> <span class="nav-text">原型模式的结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型模式的实现"><span class="nav-number">3.1.2.</span> <span class="nav-text">原型模式的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型模式的应用场景"><span class="nav-number">3.2.</span> <span class="nav-text">原型模式的应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型模式的扩展"><span class="nav-number">3.3.</span> <span class="nav-text">原型模式的扩展</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工厂方法模式-Factory-Method"><span class="nav-number">4.</span> <span class="nav-text">工厂方法模式 Factory Method</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂方法模式的特点"><span class="nav-number">4.1.</span> <span class="nav-text">工厂方法模式的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂方法模式的结构和实现"><span class="nav-number">4.2.</span> <span class="nav-text">工厂方法模式的结构和实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工厂方法模式的结构"><span class="nav-number">4.2.1.</span> <span class="nav-text">工厂方法模式的结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂方法模式的应用场景"><span class="nav-number">4.3.</span> <span class="nav-text">工厂方法模式的应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂方法模式的扩展"><span class="nav-number">4.4.</span> <span class="nav-text">工厂方法模式的扩展</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抽象工厂模式-Abstract-Factory"><span class="nav-number">5.</span> <span class="nav-text">抽象工厂模式 Abstract Factory</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象工厂模式的特点"><span class="nav-number">5.1.</span> <span class="nav-text">抽象工厂模式的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象工厂模式的结构与实现"><span class="nav-number">5.2.</span> <span class="nav-text">抽象工厂模式的结构与实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象工厂模式的结构"><span class="nav-number">5.2.1.</span> <span class="nav-text">抽象工厂模式的结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象工厂模式的实现"><span class="nav-number">5.2.2.</span> <span class="nav-text">抽象工厂模式的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象工厂模式的适用场景"><span class="nav-number">5.3.</span> <span class="nav-text">抽象工厂模式的适用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象工厂模式的扩展"><span class="nav-number">5.4.</span> <span class="nav-text">抽象工厂模式的扩展</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#建造者模式-Builder"><span class="nav-number">6.</span> <span class="nav-text">建造者模式 Builder</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#建造者模式的特点"><span class="nav-number">6.1.</span> <span class="nav-text">建造者模式的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建造者模式的结构与实现"><span class="nav-number">6.2.</span> <span class="nav-text">建造者模式的结构与实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建造者模式的结构"><span class="nav-number">6.2.1.</span> <span class="nav-text">建造者模式的结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建造者模式的实现"><span class="nav-number">6.2.2.</span> <span class="nav-text">建造者模式的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建造者模式的应用场景"><span class="nav-number">6.3.</span> <span class="nav-text">建造者模式的应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建造者模式的扩展"><span class="nav-number">6.4.</span> <span class="nav-text">建造者模式的扩展</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代理模式-Proxy"><span class="nav-number">7.</span> <span class="nav-text">代理模式 Proxy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代理模式的特点"><span class="nav-number">7.1.</span> <span class="nav-text">代理模式的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理模式的结构与实现"><span class="nav-number">7.2.</span> <span class="nav-text">代理模式的结构与实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代理模式的结构"><span class="nav-number">7.2.1.</span> <span class="nav-text">代理模式的结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代理模式的应用场景"><span class="nav-number">7.2.2.</span> <span class="nav-text">代理模式的应用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理模式的扩展"><span class="nav-number">7.3.</span> <span class="nav-text">代理模式的扩展</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#适配器模式-Adapter"><span class="nav-number">8.</span> <span class="nav-text">适配器模式 Adapter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#桥接模式-Bridge"><span class="nav-number">9.</span> <span class="nav-text">桥接模式 Bridge</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#装饰模式-Decorator"><span class="nav-number">10.</span> <span class="nav-text">装饰模式 Decorator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#外观模式-Facade"><span class="nav-number">11.</span> <span class="nav-text">外观模式 Facade</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#享元模式-Flyweight"><span class="nav-number">12.</span> <span class="nav-text">享元模式 Flyweight</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组合模式-Composite"><span class="nav-number">13.</span> <span class="nav-text">组合模式 Composite</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模版方法模式-Template-Method"><span class="nav-number">14.</span> <span class="nav-text">模版方法模式 Template Method</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#策略模式-Strategy"><span class="nav-number">15.</span> <span class="nav-text">策略模式 Strategy</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令模式-Command"><span class="nav-number">16.</span> <span class="nav-text">命令模式 Command</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#职责链模式-Chain-of-Responsibility"><span class="nav-number">17.</span> <span class="nav-text">职责链模式 Chain of Responsibility</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#状态模式-State"><span class="nav-number">18.</span> <span class="nav-text">状态模式 State</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#观察者模式-Observer"><span class="nav-number">19.</span> <span class="nav-text">观察者模式 Observer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#观察者模式的结构与实现"><span class="nav-number">19.1.</span> <span class="nav-text">观察者模式的结构与实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#观察者的结构："><span class="nav-number">19.1.1.</span> <span class="nav-text">观察者的结构：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件监听处理"><span class="nav-number">19.1.2.</span> <span class="nav-text">事件监听处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#观察者模式应用场景"><span class="nav-number">19.2.</span> <span class="nav-text">观察者模式应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#观察者模式扩展"><span class="nav-number">19.3.</span> <span class="nav-text">观察者模式扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Observable类"><span class="nav-number">19.3.1.</span> <span class="nav-text">Observable类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Observer接口"><span class="nav-number">19.3.2.</span> <span class="nav-text">Observer接口</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#中介者模式-Mediator"><span class="nav-number">20.</span> <span class="nav-text">中介者模式 Mediator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#迭代器模式-Iterator"><span class="nav-number">21.</span> <span class="nav-text">迭代器模式 Iterator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#访问者模式-Visitor"><span class="nav-number">22.</span> <span class="nav-text">访问者模式 Visitor</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#备忘录模式-Memento"><span class="nav-number">23.</span> <span class="nav-text">备忘录模式 Memento</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解释器模式-Interpreter"><span class="nav-number">24.</span> <span class="nav-text">解释器模式 Interpreter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考："><span class="nav-number">25.</span> <span class="nav-text">参考：</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -397,7 +647,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

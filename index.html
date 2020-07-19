@@ -193,6 +193,379 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/07/19/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/img.png">
+      <meta itemprop="name" content="章肿鱼">
+      <meta itemprop="description" content="讨好世界不如取悦自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爆发🍢小宇宙">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/19/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-title-link" itemprop="url">计算机网络</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-19 00:14:02 / 修改时间：16:33:41" itemprop="dateCreated datePublished" datetime="2020-07-19T00:14:02+08:00">2020-07-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="网络七层协议-OSI七层模型"><a href="#网络七层协议-OSI七层模型" class="headerlink" title="网络七层协议/OSI七层模型"></a>网络七层协议/OSI七层模型</h1><ul>
+<li>应用层<ul>
+<li>用户接口、应用程序，<strong>网络进程</strong>访问应用层；</li>
+<li>Application典型设备：网关；</li>
+<li>典型协议、标准、应用：TELNET、FTP、HTTP、DNS；</li>
+</ul>
+</li>
+<li>表示层<ul>
+<li>数据表示、压缩、加密presentation，应用层数据的<strong>格式转化</strong>；</li>
+<li>典型设备：网关；</li>
+<li>典型协议、标准、应用：ASCLL、PICT、TIFF、JPEG｜MPEG；</li>
+<li>表示层相当于一个东西的表示，表示的一些协议，如图片、声音、视频MPEG；</li>
+</ul>
+</li>
+<li>会话层<ul>
+<li>会话的建立和结束，<strong>应用程序间</strong>的会话；</li>
+<li>典型设备：网关；</li>
+<li>典型协议、标准、应用：RPC、SQL、NFS、X WINDOWS、ASP；</li>
+</ul>
+</li>
+<li>传输层<ul>
+<li>主要功能：端到端控制Transport，<code>网段</code>传输；</li>
+<li>典型设备：网关；</li>
+<li>典型协议、标准、应用：<strong>TCP</strong>、<strong>UDP</strong>、SPX；</li>
+<li>错误检测和<strong>恢复</strong>：海明码；</li>
+</ul>
+</li>
+<li>网络层<code>host-to-network</code>：IP头-&gt;源地址SIP-&gt;目标地址DIP-&gt;”DLL_Data”<ul>
+<li>主要功能：路由、寻址NetWork，<code>数据包</code>传输；</li>
+<li>典型设备：路由器Router；<ul>
+<li>路由表<code>route</code>：目标网络、端口、距离(路径选择)；</li>
+</ul>
+</li>
+<li>典型协议、标准、应用：<strong>IP</strong>、IPX、APPLETALK、ICMP、<strong>ARP、逆地址解析协议RARP</strong>；</li>
+</ul>
+</li>
+<li>数据链路层：前导符_8-&gt;目标地址DMAC_6-&gt;源地址SMAC_6-&gt;长度_2-&gt;Data-&gt;FCS_4<ul>
+<li>主要功能：保证无差错的疏忽链路的data link，<code>帧</code>传输；</li>
+<li>典型设备：交换机、网桥、网卡；<ul>
+<li>交换机各接口拥有各自冲突域；</li>
+<li>同一广播域；</li>
+<li>通过加压等手段，解决电流不分压问题；</li>
+</ul>
+</li>
+<li>典型协议、标准、应用：802.2、802.3ATM、HDLC、FRAME RELAY；</li>
+<li>错误检测：奇偶校验；CRC冗余校验、</li>
+</ul>
+</li>
+<li>物理层<ul>
+<li>主要功能：传输比特流Physical，二进制<code>位</code>传输；</li>
+<li>典型设备：集线器、中继器；<ul>
+<li>集线器特点：<ul>
+<li>同一冲突域：CSMA/CD载波侦听多路访问控制；</li>
+<li>同一广播域：电流扩散特性；</li>
+<li>所有设备共享相同带宽：并联分压；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>典型协议、标准、应用：V.35、EIA/TIA-232。</li>
+</ul>
+</li>
+</ul>
+<h1 id="TCP-IP五层模型"><a href="#TCP-IP五层模型" class="headerlink" title="TCP/IP五层模型"></a>TCP/IP五层模型</h1><p>TCP/IP协议是一个<strong>协议簇</strong>，包含很多协议，如UDP。<br>TCP/IP<strong>协议集/协议族</strong>包括：应用层、传输层、网络层、网络访问层/数据链路层。</p>
+<ul>
+<li>应用层</li>
+<li>传输层</li>
+<li>Internet层</li>
+<li>数据链路层</li>
+<li>物理层</li>
+</ul>
+<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><p><code>Transmission Control Protocol</code>，传输控制协议，是<strong>面向连接</strong>的协议，在<strong>收发数据前必须建立起可靠的连接</strong>。<br>一个TCP连接必须要经过<strong>三次握手</strong>才能建立，经过<strong>四次挥手</strong>断开连接，大大提高了数据通信的可靠性，使发送数据端和接收端在数据正式传输前就有了交互。</p>
+<p>TCP报头：原端口_16位，目标端口_16，序列号_32，TCP头长度_4，reserved_6，控制代码_6，窗口大小_16，偏移量_16，校验和_16，选项_32(可选)。<br><em>TCP最小报头长度为20字节。</em></p>
+<h3 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h3><ol>
+<li>主机A通过向主机B发送一个<strong>含有同步序列号SYN的标识位的数据段</strong>给主机B，向主机B请求建立连接。<br>通过该数据段，主机A告诉主机B两件事：我想要和你通信；你可以用那个序列号作为起始数据段来回应我。</li>
+<li>主机B收到主机A的请求后，用一个<strong>带有确认应答ACK和同步序列号SYN标识位的数据段</strong>响应主机A。<br>主机B回应主机A两件事：我已经收到你的请求，你可以传输数据了；你要用哪个序列号作为起始数据段来回应我。</li>
+<li>主机A收到回应的数据段后，再发送一个<strong>确认应答ACK</strong>，确认已收到主机B的数据段“我已收到回复，我现在要开始传输实际数据了”。</li>
+</ol>
+<p>三次握手的特点：</p>
+<ul>
+<li>没有应用层的数据；</li>
+<li>SYN这个标识位只有在TCP建立连接时才会被置为1，握手完成后SYN标识位被置为0。</li>
+</ul>
+<p>ACK：TCP报头的控制位之一，对数据进行确认，确认由目的端发出，告诉发送端某序列号之前的数据段都收到了。<br>    如，确认号为X，则表示前X-1个数据段都收到了，只有当ACK=1时，确认才有效；当ACK=0时，确认号无效，要求重传数据，保证数据的完整性。<br>SYN：同步序列号，TCP建立连接时，将该位置置为1。</p>
+<h3 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h3><ol>
+<li>当主机A完成数据传输后，将<strong>控制位FIN置为1</strong>，提出停止TCP连接的请求；</li>
+<li>主机B收到FIN后对其作出响应，确认这一方向上的TCP连接将要关闭，将<strong>ACK置为1</strong>；</li>
+<li>主机B提出反方向的关闭请求，将<strong>FIN置为1</strong>；</li>
+<li>主机A对主机B的请求进行确认，将<strong>ACK置为1</strong>，TCP连接关闭。</li>
+</ol>
+<p>FIN：发送端完成发送任务后，当TCP完成数据传输需要断开时，提出断开连接的一方将该位置为1。</p>
+<h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p><code>User Data Protocol</code>，用户数据报协议：</p>
+<ul>
+<li>UDP是一个<strong>非连接的协议</strong>，传输数据之前源端和终端不建立连接，当它想传送时就简单的去抓取来自应用程序的数据，并尽可能快的将其扔到网络上。<ul>
+<li>发送端，UDP传送数据的速度仅仅受应用程序生成数据的速度、计算机的能力、传输带宽的限制；</li>
+<li>接收端，UDP将每个消息段放在队列中，应用程序每次从队列中读取一个消息段；</li>
+</ul>
+</li>
+<li>由于传输数据不建立连接，因此不需要维护连接状态(包括收发状态等)；<ul>
+<li>一台服务器可同时向多个客户机传输相同的消息；</li>
+</ul>
+</li>
+<li>UDP信息报的标题只有8个字节，信息报的额外开销小；</li>
+<li>吞吐量不受拥塞控制算法的调节，只受应用软件生成数据的速率、传输带宽、源端和终端主机性能的限制；</li>
+<li>UDP使用<strong>尽最大努力交付</strong>，即不保证可靠交付，主机不需要维持复杂的链接状态表；</li>
+<li>UDP<strong>面向报文</strong>，发送方的UDP对应用程序交下来报文，在添加首部后就向下交付给IP层，既不拆分，也不合并，保留这些报文的边界。<ul>
+<li>应用程序需要选择合适的报文大小。</li>
+</ul>
+</li>
+</ul>
+<p>UDP报头：源端口_16，目的端口_16，长度_16，校验和_16位。</p>
+<h2 id="TCP-vs-UDP"><a href="#TCP-vs-UDP" class="headerlink" title="TCP vs. UDP"></a>TCP vs. UDP</h2><p>TCP：一种<strong>流模式</strong>的协议，面向连接、传输可靠(保证数据正确性，保证数据顺序)、用于传输大量数据(流模式)、速度慢，建立连接需要开销大(时间&amp;系统资源)，TCP程序结构较简单。<br>UDP：一种<strong>数据报模式</strong>的协议，面向非连接、传输不可靠、用于传输少量数据(数据报模式)、速度快，对系统资源占用少，UDP程序结构较简单。</p>
+<h1 id="HTTP-HTTPS"><a href="#HTTP-HTTPS" class="headerlink" title="HTTP/HTTPS"></a>HTTP/HTTPS</h1><h2 id="Hypertext-Transfer-Protocol-超文本传输协议"><a href="#Hypertext-Transfer-Protocol-超文本传输协议" class="headerlink" title="Hypertext Transfer Protocol 超文本传输协议"></a>Hypertext Transfer Protocol 超文本传输协议</h2><p>Http是建立在TCP协议上的一种应用，是Web联网的基础。</p>
+<p>核心：<strong>客户端发送的每次请求都需要服务器发送响应，在请求结束后，主动释放连接</strong>。</p>
+<ul>
+<li>从建立连接到关闭连接的过程称为<code>一次连接</code>。</li>
+<li>Http连接是一种<code>**短连接**</code>，即要保持客户端程序的在线状态，需要不断的向服务器发起连接请求；<ul>
+<li>若服务器长时间无法收到客户端的请求，则认为客户端“下线”；</li>
+<li>若客户端长时间无法收到服务器的回复，则认为网络已经断开。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Http 1.0<ul>
+<li>客户端的每次请求都要求建立一次单独的连接，在处理完本次请求后，自动释放连接。</li>
+<li>生命周期通过request界定，一个request对应一个response。</li>
+</ul>
+</li>
+<li>Http 1.1<ul>
+<li>可在一次连接中处理多个请求，并且多个请求可以交叠进行，不需要等待一个请求结束再发送下一个请求。</li>
+<li>添加一个keep-alive，可将多个http请求合并为一个，即在一个http链接中，可以发送多个request，接受对应多个response。</li>
+</ul>
+</li>
+</ul>
+<p><em>response是被动的，不能主动发起。</em></p>
+<h2 id="Hypertex-Transfer-Protocol-over-Secure-Socket-Layer"><a href="#Hypertex-Transfer-Protocol-over-Secure-Socket-Layer" class="headerlink" title="Hypertex Transfer Protocol over Secure Socket Layer"></a>Hypertex Transfer Protocol over Secure Socket Layer</h2><p>https是以安全为目标的http通道，在http下加入SSL层(安全加密)。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/https.jpeg" alt="https"></p>
+<ol>
+<li>客户端发送https请求，服务器端应非对称加密生成公钥和私钥；</li>
+<li>服务端将公钥发送给客户端，服务端保存私钥；</li>
+<li>客户端拿到公钥，生成一个密钥(客户端和服务端通信的🔑)；</li>
+<li>客户端用公钥对密钥进行加密，发送给服务器；</li>
+<li>服务器拿到客户端发送的加密后的密钥，用私钥进行解密，双方均获得通信的🔑。</li>
+</ol>
+<p>https与http的区别：</p>
+<ul>
+<li>https：需要<strong>ca申请证书</strong>，<strong>端口号443</strong>，https是由<code>ssl+http</code>构建的可进行<strong>加密传输、身份认证</strong>的网络协议。</li>
+<li>http：超文本传输协议，明文信息传输，<strong>端口号80</strong>，http的连接是<strong>无状态</strong>的。</li>
+</ul>
+<h1 id="Socket-套接字协议"><a href="#Socket-套接字协议" class="headerlink" title="Socket 套接字协议"></a>Socket 套接字协议</h1><p>Socket是通信的基石，是支持TCP/IP协议的网络通信的<strong>基本操作单元</strong>。</p>
+<p>Socket是网络通信过程中端点的抽象表示，包含进行网络通信必须的五种信息：</p>
+<ul>
+<li>连接使用的协议</li>
+<li>本地主机的IP地址</li>
+<li>本地进程的协议端口</li>
+<li>远地主机的IP地址</li>
+<li>远地进程的协议端口</li>
+</ul>
+<p>解决问题：</p>
+<ul>
+<li>应用层通过传输层进行数据通信时，TCP会遇到同时为多个应用程序提供并发服务的问题。</li>
+<li>多个TCP连接或多个应用程序进程可能需要通过同一个TCP协议端口传输数据。</li>
+<li>为了区别不同的应用程序进程和连接，操作系统为应用程序及TCP/IP协议交互提供了Socket接口。</li>
+<li>应用层可以和传输层通过Socket接口，区分来自不同应用程序进程或网络连接的通信，<strong>实现数据传输的并发服务</strong>。</li>
+</ul>
+<h2 id="Socket连接的建立"><a href="#Socket连接的建立" class="headerlink" title="Socket连接的建立"></a>Socket连接的建立</h2><p>建立Socket连接至少需要一对套接字，其中一个运行于客户端<code>ClientSocket</code>，另一个运行于服务器端<code>ServerSocket</code>。</p>
+<ol>
+<li>服务器监听：ServerSocket不定位具体的ClientSocket，而是<strong>处于等待连接的状态</strong>，<strong>实时监控网络状态</strong>，等待客户端的连接请求。</li>
+<li>客户端请求：ClientSocket提出连接请求，要连接的目标是ServerSocket。<ol>
+<li>ClientSocket必须描述要连接的ServerSocket，指出S而verSocket的地址和端口号；</li>
+<li>向ServerSocket提出连接请求。</li>
+</ol>
+</li>
+<li>连接确认：当ServerSocket监听/接收到ClientSocket的连接请求，响应ClientSocket请求。<ol>
+<li>建立一个新线程，将ServerSocket的描述发送给客户端；</li>
+<li>待客户端确认该描述，双方正式建立连接；</li>
+<li>ServerSocket继续处于监听状态，继续接收其它ClientSocket的连接请求。</li>
+</ol>
+</li>
+</ol>
+<h2 id="Socket连接-vs-TCP连接"><a href="#Socket连接-vs-TCP连接" class="headerlink" title="Socket连接 vs. TCP连接"></a>Socket连接 vs. TCP连接</h2><p>创建Socket连接时，可指定使用的传输层协议，当Socket使用TCP协议进行连接时(<strong>默认TCP</strong>)，Socket就是一个TCP连接。<br>当Socket连接一旦建立，通信双方即可开始相互发送数据内容，直到双方连接断开。</p>
+<p>在实际网络应用中，客户端到服务器间的通信往往需要穿越多个中间节点(路由器、网关、防火墙等)而导致Socket连接中断，因此，<strong>需要通过<code>轮询</code>告诉网络该连接处于活跃状态</strong>。</p>
+<h2 id="Socket连接-vs-http连接"><a href="#Socket连接-vs-http连接" class="headerlink" title="Socket连接 vs. http连接"></a>Socket连接 vs. http连接</h2><ul>
+<li>Socket连接：服务器可主动向客户端推送数据，保持客户端于服务器数据的实时与同步；</li>
+<li>http连接：<code>请求-响应</code>方式，在请求时需要先建立连接，在客户端向服务器发送请求后，服务器端才能回复数据；客户端需要定时向服务器端发送连接请求，使其保持在线状态，同时询问服务器是否有新数据。</li>
+</ul>
+<h1 id="session-amp-cookie"><a href="#session-amp-cookie" class="headerlink" title="session &amp; cookie"></a>session &amp; cookie</h1><p>针对http的无状态的特性，无法判断具体哪个用户，因此，设计了Cookie和Session。、</p>
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>Cookie存储在客户端，用来记录用户状态，区分用户。<br>一般由服务端将生成的Cookie通过响应返回给客户端，由客户端进行保存。</p>
+<ul>
+<li>修改Cookie<ul>
+<li>相同Key值得到的新的Cookie会<strong>覆盖</strong>旧的Cookie；</li>
+<li>覆盖规则是<code>name path</code>和<code>domain</code>等需要与原有的一致。</li>
+</ul>
+</li>
+<li>删除Cookie<ul>
+<li>设置Cookie的expires为过去的一个时间点，或<code>maxAge = 0</code>。</li>
+</ul>
+</li>
+</ul>
+<p>如何保证Cookie的安全：</p>
+<ul>
+<li>对Cookie进行加密处理；</li>
+<li>只在https上携带Cookie；</li>
+<li>设置Cookie为httpOnly，防止跨站脚本攻击。</li>
+</ul>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>Session存储在网络端，需要依赖Cookie机制。<br>服务端生成Session后，返回给客户端，客户端进行存储<code>setCookie:sessionID</code>；<br>再次请求时，客户端将Cookie发送给服务端，服务端解析出<code>SessionID</code>，根据<code>SessionID</code>判断当前用户。</p>
+<hr>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a href="https://www.bilibili.com/video/BV1yb41157bj?from=search&amp;seid=2308486019812769228" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1yb41157bj?from=search&amp;seid=2308486019812769228</a></li>
+<li><a href="https://www.jianshu.com/p/a9a960677508" target="_blank" rel="noopener">https://www.jianshu.com/p/a9a960677508</a></li>
+<li><a href="https://blog.csdn.net/u013967628/article/details/85210036" target="_blank" rel="noopener">https://blog.csdn.net/u013967628/article/details/85210036</a></li>
+<li><a href="https://www.jianshu.com/p/afb516bc4519" target="_blank" rel="noopener">https://www.jianshu.com/p/afb516bc4519</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/07/16/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BF%90%E7%AE%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/img.png">
+      <meta itemprop="name" content="章肿鱼">
+      <meta itemprop="description" content="讨好世界不如取悦自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爆发🍢小宇宙">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/16/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BF%90%E7%AE%97/" class="post-title-link" itemprop="url">二进制运算</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-16 15:16:04 / 修改时间：15:23:54" itemprop="dateCreated datePublished" datetime="2020-07-16T15:16:04+08:00">2020-07-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">名称</th>
+<th align="center">表示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">&amp;</td>
+<td align="center">按位与</td>
+<td align="center">对应位均为1，才为1；否则为0</td>
+</tr>
+<tr>
+<td align="center">|</td>
+<td align="center">按位或</td>
+<td align="center">对应位有1，即为1；否则为0</td>
+</tr>
+<tr>
+<td align="center">^</td>
+<td align="center">按位异或</td>
+<td align="center">相同异或为1；不同异或为1</td>
+</tr>
+<tr>
+<td align="center">~</td>
+<td align="center">按位取反</td>
+<td align="center">1变0，0变1</td>
+</tr>
+<tr>
+<td align="center">&lt;&lt;</td>
+<td align="center">按位左移</td>
+<td align="center">左移，右边补0，相当*2</td>
+</tr>
+<tr>
+<td align="center">&gt;&gt;</td>
+<td align="center">有符号的右移</td>
+<td align="center">右移，左边补符号位，负数以原码形式参与运算</td>
+</tr>
+<tr>
+<td align="center">&gt;&gt;&gt;</td>
+<td align="center">无符号的右移</td>
+<td align="center">右移，左边补0，所有数据以无符号方式计算</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/07/12/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -224,7 +597,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-13 01:13:42" itemprop="dateModified" datetime="2020-07-13T01:13:42+08:00">2020-07-13</time>
+                <time title="修改时间：2020-07-17 18:26:16" itemprop="dateModified" datetime="2020-07-17T18:26:16+08:00">2020-07-17</time>
               </span>
 
           
@@ -362,7 +735,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-11 21:37:44" itemprop="dateModified" datetime="2020-07-11T21:37:44+08:00">2020-07-11</time>
+                <time title="修改时间：2020-07-18 20:15:44" itemprop="dateModified" datetime="2020-07-18T20:15:44+08:00">2020-07-18</time>
               </span>
 
           
@@ -376,7 +749,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="equals-和-的区别"><a href="#equals-和-的区别" class="headerlink" title="equals 和 == 的区别"></a>equals 和 == 的区别</h1><h2 id="equals"><a href="#equals" class="headerlink" title="equals"></a>equals</h2><p>若没有对Object的equals方法进行重写，则比较的是引用类型的变量所指向的对象的地址，反之，比较的是内容。</p>
+          <h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><p>基本数据类型：byte、short、int、long、float、double、boolean、char。<br>三大特性：封装、继承、多态(overload参数不同，override方法覆盖)。</p>
+<h1 id="equals-和-的区别"><a href="#equals-和-的区别" class="headerlink" title="equals 和 == 的区别"></a>equals 和 == 的区别</h1><h2 id="equals"><a href="#equals" class="headerlink" title="equals"></a>equals</h2><p>若没有对Object的equals方法进行重写，则比较的是引用类型的变量所指向的对象的地址，反之，比较的是内容。</p>
 <ul>
 <li>类覆盖了equals()方法，<strong>一般都覆盖equals()方法来比较两个对象的内容是否相等</strong>，若相同返回true；</li>
 <li>类没有覆盖equals()方法，通过equals()比较类的两个对象时，等价于“==”。</li>
@@ -522,7 +896,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-10 22:39:03" itemprop="dateModified" datetime="2020-07-10T22:39:03+08:00">2020-07-10</time>
+                <time title="修改时间：2020-07-19 16:50:04" itemprop="dateModified" datetime="2020-07-19T16:50:04+08:00">2020-07-19</time>
               </span>
 
           
@@ -847,7 +1221,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-06 21:20:18" itemprop="dateModified" datetime="2020-07-06T21:20:18+08:00">2020-07-06</time>
+                <time title="修改时间：2020-07-18 14:59:01" itemprop="dateModified" datetime="2020-07-18T14:59:01+08:00">2020-07-18</time>
               </span>
 
           
@@ -904,170 +1278,117 @@
 <p><code>Cocaoa</code>提供了<code>NSBundle类</code>封装了<code>bundle</code>操作。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 获取应用程序的 main bundle</span><br><span class="line">var mainBundle &#x3D; NSBundle.mainBundle()</span><br><span class="line">&#x2F;&#x2F; 使用 main bundle 获取资源路径</span><br><span class="line">var testFilePath &#x3D; mainBundle.pathForResource(&quot;logo&quot;, ofType: &quot;png&quot;)</span><br></pre></td></tr></table></figure>
 
+<h1 id="KVC"><a href="#KVC" class="headerlink" title="KVC"></a>KVC</h1><h2 id="KVC设值"><a href="#KVC设值" class="headerlink" title="KVC设值"></a>KVC设值</h2><p>通过对象中对应的key，KVC在内部寻找key，并调用<code>setValue:属性值forKey:@&quot;name&quot;</code>，底层执行机制为：</p>
+<ol>
+<li>程序优先调用<code>set&lt;Key&gt;:属性值</code>方法，代码通过setter方法完成设置。*<key>指成员变量名，首字母大小写要符合KVC命名规则。*</li>
+<li>若没有找到<code>setName:</code>方法，<ol>
+<li>KVC机制会检查<code>+(BOOL)accessInstanceVariablesDirectly</code>方法有没有返回YES，默认返回YES；</li>
+<li>若重写该方法返回NO，会执行<code>setValue:forUndefinedKey</code>方法，一般不会这么做，当找不到时，会直接执行第4步。</li>
+<li>KVC机制会搜索该类中名为<key>的成员变量，无论该变量是在类接口处定义，还是在类实现处定义，无论使用怎样的访问修饰符，只要存在以<key>命名的变量，KVC都可对该成员变量赋值。</li>
+</ol>
+</li>
+<li>若该类既没有<code>set&lt;key&gt;:</code>方法，也没有<code>_&lt;key&gt;</code>和<code>_is&lt;key&gt;</code>成员变量，KVC机制会搜索<code>&lt;key&gt;</code>和<code>is&lt;key&gt;</code>的成员变量，并赋值。</li>
+<li>如果方法或成员变量都不存在，系统将会执行该对象的<code>setValue:forUndefinedKey:</code>方法，默认为抛出异常。</li>
+</ol>
+<h2 id="KVC取值"><a href="#KVC取值" class="headerlink" title="KVC取值"></a>KVC取值</h2><p>当调用<code>valueForKey:@&quot;name&quot;</code>时，KVC对key的搜索方式不同于<code>setValue:属性值forKey:@&quot;name&quot;</code>，其搜索方式为：</p>
+<ol>
+<li>首先，按<code>get&lt;key&gt;,&lt;key&gt;,is&lt;key&gt;</code>的顺序方法查找getter方法，找到就直接调用；如果是BOOL或Int等值类型，会将其包装成一个NSNumber对象。</li>
+<li>如果getter没有找到，KVC会查找<code>countOf&lt;Key&gt;, objectIn&lt;Key&gt;AtIndex或&lt;Key&gt;AtIndexes</code>格式的方法；<ol>
+<li>如果<code>countOf&lt;Key&gt;</code>和另外两个方法中的一个，那么就会返回一个可以响应NSArray所有方法的代理集合(NSkeyValueArray，是NSArray的子类)；</li>
+<li>调用该代理集合的方法，或给该代理发送属于NSArray的方法，就会以<code>countOf&lt;Key&gt;, objectIn&lt;Key&gt;AtIndex或&lt;Key&gt;AtIndexes</code>方法组合的形式调用；</li>
+<li>可选方法<code>get&lt;Key&gt;:range:</code>。</li>
+</ol>
+</li>
+<li>若没有找到，会同时查找<code>countOf&lt;Key&gt;, enumeratorOf&lt;Key&gt;, memberOf&lt;Key&gt;</code>格式的方法；<ol>
+<li>如果找到这三个方法，则返回一个可响应NSSet所有方法的代理集合；</li>
+<li>给该代理集合发送NSSet的消息，就会以<code>countOf&lt;Key&gt;, enumeratorOf&lt;Key&gt;, memberOf&lt;Key&gt;</code>组合的形式调用。</li>
+</ol>
+</li>
+<li>若还没找到，检查类方法<code>+(BOOL)accessInstanceVariablesDirectly</code>；<ol>
+<li>若返回YES（默认），按照<code>_&lt;Key&gt;, _is&lt;Key&gt;, &lt;Key&gt;, is&lt;Key&gt;</code>的顺序搜索成员变量名；</li>
+<li>如重写了类方法<code>+(BOOL)accessInstanceVariablesDirectly</code>，返回NO，便直接调用<code>valueForUndefinedKey:</code>方法，默认抛出异常。</li>
+</ol>
+</li>
+</ol>
+<h2 id="KVC处理数值和结构体类型属性"><a href="#KVC处理数值和结构体类型属性" class="headerlink" title="KVC处理数值和结构体类型属性"></a>KVC处理数值和结构体类型属性</h2><p><code>valueForKey:</code>总是返回一个🆔对象，若原本变量类型为值类型或结构体，返回值会封装成NSNumber或NSValue对象。<br><code>setValue:forKey:</code>需要手动将值类型转换为NSNumber或NSValue类型。</p>
+<p>因为传递进去和取出来的都是id类型，所以需要开发者自己担保类型的正确性，运行时Objective-C在发送消息时会检查类型，如果错误会直接抛出异常。</p>
+<h2 id="KVC处理集合"><a href="#KVC处理集合" class="headerlink" title="KVC处理集合"></a>KVC处理集合</h2><p>简单集合运算符：@avg，@count，@max，@min，@sum。<br>对象运算符：能以数组的方式返回指定的内容。</p>
+<ul>
+<li><code>@distinctUnionOfObjects</code>：返回元素唯一，类似Set；</li>
+<li><code>@unionOfObjects</code>：返回全部元素。</li>
+</ul>
+<h2 id="KVC处理字典"><a href="#KVC处理字典" class="headerlink" title="KVC处理字典"></a>KVC处理字典</h2><p>当对NSDictionary对象使用KVC时，<code>valueForKey:</code>表现行为和<code>objectForKey:</code>一样，常使用<code>valueForKeyPath:</code>来访问多层嵌套的字典。</p>
+<p><code>dictionaryWithValuesForKeys:</code>指输入一组key，返回这组key对应的属性，再组成一个字典。<br><code>setValuesForKeysWithDictionary</code>用来修改Model中对应key的属性。</p>
+<h2 id="KVC处理异常"><a href="#KVC处理异常" class="headerlink" title="KVC处理异常"></a>KVC处理异常</h2><p>KVC处理nil异常：重写<code>setNilValueForKey:</code>方法。</p>
+<p>KVC处理UndefinedKey异常：重写<code>forUndefinedKey</code>方法。</p>
+<h2 id="KVC使用场景"><a href="#KVC使用场景" class="headerlink" title="KVC使用场景"></a>KVC使用场景</h2><ul>
+<li>动态地取值和设值；</li>
+<li>访问和修改私有变量；</li>
+<li>Model和字典转换：通常和runtime组合使用；</li>
+<li>修改部分控件的内部属性；</li>
+<li>操作集合：<code>valueForKey:</code>方法的特殊实现，如NSArray和NSSet容器类；</li>
+<li>实现高阶消息传递<code>valueForKey:</code>传递给容器的每一个对象，结果添加到返回的容器中；</li>
+</ul>
+<h1 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h1><p><code>Key-Value Observing</code>，键值观察，是基于KVC实现的，是一种<strong>观察者模式的衍生</strong>。</p>
+<p><strong>基本思想：</strong>对目标对象的某属性添加观察，当该属性发生变化时，通过触发观察者对象实现的KVO接口方法，自动的通知观察者。</p>
+<p>KVO可以通过监听key，来获得value的变化，用来在对象之间监听状态变化。<br>KVO的原理是修改被观察者的setter方法。<br>KVO的定义都是对NSObject的扩展来实现的，OC中有个显式的NSKeyValueObserving类别名，对于所有继承NSObject的类型，都可使用KVO。</p>
+<p>KVO中，观察者和被观察者的改变发生在<strong>同一线程</strong>上，需要确保线程安全。</p>
+<h2 id="注册与解除注册"><a href="#注册与解除注册" class="headerlink" title="注册与解除注册"></a>注册与解除注册</h2><p>若已经拥有可供键值观察属性的类，即可通过在该类的对象(被观察对象)上调用名为NSKeyValueObserverRegistration的category方法将观察者对象与被观察者对象注册与解除注册。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;</span><br><span class="line">- (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath;</span><br></pre></td></tr></table></figure>
+<p>其中：</p>
+<ul>
+<li>observer:观察者，也就是KVO通知的订阅者；</li>
+<li>observeValueForKeyPath:ofObject:change:context:方法；</li>
+<li>keyPath：描述将要观察的属性，相对于被观察者；</li>
+<li>options：KVO的一些属性配置；<ul>
+<li>NSKeyValueObservingOptionNew：change字典包括改变后的值；</li>
+<li>NSKeyValueObservingOptionOld:change字典包括改变前的值；</li>
+<li>NSKeyValueObservingOptionInitial:注册后立刻触发KVO通知；</li>
+<li>NSKeyValueObservingOptionPrior:值改变前是否也要通知（这个key决定了是否在改变前改变后通知两次）</li>
+</ul>
+</li>
+<li>context: 上下文，传递到订阅者的函数中，用来区分消息。</li>
+</ul>
+<p>系统通过重写dealloc方法来<strong>释放资源</strong>。</p>
+<h2 id="KVO实现"><a href="#KVO实现" class="headerlink" title="KVO实现"></a>KVO实现</h2><p>KVO是通过<code>isa-swizzling</code>实现的，基本流程为：</p>
+<ul>
+<li>编译器自动为被观察者对象创造一个派生类，并将被观察对象的isa指向该派生类；</li>
+<li>若用户注册了对此目标对象的某一个属性的观察，派生类会重写该方法(只重写注册观察者的属性方法)，并在其中添加通知对象；</li>
+<li>OC在发送消息时，通过isa指针找到当前对象所属的类对象，类对象中保存着当前对象的实例方法，因此向此对象发送消息，实际上是发送到了派生类对象的方法；</li>
+<li>由于编译器对派生类的方法进行了override，并添加了通知对象，因此会向注册的对象发送通知。</li>
+</ul>
+<h2 id="手动KVO"><a href="#手动KVO" class="headerlink" title="手动KVO"></a>手动KVO</h2><ul>
+<li><code>- (void)willChangeValueForKey:(NSString *)key;</code>：将要发生改变；</li>
+<li><code>- (void)didChangeValueForKey:(NSString *)key;</code>：已经发生改变；<br>在不用的时候，一定要<strong>解除注册</strong>，否则会导致内存泄漏。</li>
+</ul>
+<p>每当监听的keyPath发生变化，就会在<code>-(void)observeValueForKeyPath:</code>函数中进行回调：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)observeValueForKeyPath:(NSString *)keyPath</span><br><span class="line">                      ofObject:(id)object</span><br><span class="line">                        change:(NSDictionary *)change</span><br><span class="line">                       context:(void *)context</span><br></pre></td></tr></table></figure>
+
+<p><em>键值观察依赖键</em></p>
+<h2 id="禁用KVO"><a href="#禁用KVO" class="headerlink" title="禁用KVO"></a>禁用KVO</h2><p>实现类方法<code>automaticallyNotifiesObserversForKey</code>返回NO，实现属性的setter方法，不调用<code>willChangeValueForKey:</code>和<code>didChangeValueForKey:</code>方法。</p>
+<h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1><p>在swift中有专门的指针类型，均被定义为<strong>unsafe</strong>：</p>
+<ul>
+<li><code>UnsafePointer&lt;Pointee&gt;</code>：类似于C语言中的<code>const Pointee *</code>，只能访问内存，不能修改内存；</li>
+<li><code>UnsafeMutablePointer&lt;Pointee&gt;</code>：类似于C语言中的<code>Pointee *</code>，可访问和修改内存；</li>
+<li><code>UnsafeRawPointer</code>：类似于<code>const void *</code>，只读，不支持泛型；</li>
+<li><code>UnsafeMutableRawPointer</code>：类似于void，可读可写，不支持泛型。</li>
+</ul>
+<p>获取变量的指针：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 获取可变的变量指针, value参数接受变量地址，取决于body闭包的返回值</span><br><span class="line">@inlinable public func withUnsafeMutablePointer&lt;T, Result&gt;(to value: inout T, _ body: (UnsafeMutablePointer&lt;T&gt;) throws -&gt; Result) rethrows -&gt; Result</span><br><span class="line">&#x2F;&#x2F; 获取不可变的变量指针, value参数接受变量，取决于body闭包的返回值</span><br><span class="line">@inlinable public func withUnsafePointer&lt;T, Result&gt;(to value: T, _ body: (UnsafePointer&lt;T&gt;) throws -&gt; Result) rethrows -&gt; Result</span><br><span class="line">&#x2F;&#x2F; 获取不可变的变量指针, value参数接受变量地址，取决于body闭包的返回值</span><br><span class="line">@inlinable public func withUnsafePointer&lt;T, Result&gt;(to value: inout T, _ body: (UnsafePointer&lt;T&gt;) throws -&gt; Result) rethrows -&gt; Result</span><br></pre></td></tr></table></figure>
+
+<p>分配内存创建指针：</p>
+<ul>
+<li>malloc</li>
+<li>allocate：只有<code>UnsafeMutableRawPointer</code>和<code>UnsafeMutablePointer&lt;T&gt;</code>才有此分配方法。</li>
+</ul>
 <p>参考：</p>
 <ul>
 <li><a href="https://numbbbbb.gitbooks.io/-the-swift-programming-language-/" target="_blank" rel="noopener">https://numbbbbb.gitbooks.io/-the-swift-programming-language-/</a></li>
 <li><a href="https://www.cnblogs.com/zjoch/p/4702873.html" target="_blank" rel="noopener">https://www.cnblogs.com/zjoch/p/4702873.html</a></li>
 <li><a href="https://blog.csdn.net/Listron/article/details/80197347" target="_blank" rel="noopener">https://blog.csdn.net/Listron/article/details/80197347</a></li>
 <li><a href="https://www.jianshu.com/p/2cef1e80042c" target="_blank" rel="noopener">https://www.jianshu.com/p/2cef1e80042c</a></li>
+<li><a href="https://www.jianshu.com/p/b9f020a8b4c9" target="_blank" rel="noopener">https://www.jianshu.com/p/b9f020a8b4c9</a></li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/06/27/%E7%86%B5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/img.png">
-      <meta itemprop="name" content="章肿鱼">
-      <meta itemprop="description" content="讨好世界不如取悦自己">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爆发🍢小宇宙">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/27/%E7%86%B5/" class="post-title-link" itemprop="url">熵</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-27 23:17:44" itemprop="dateCreated datePublished" datetime="2020-06-27T23:17:44+08:00">2020-06-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-28 00:53:16" itemprop="dateModified" datetime="2020-06-28T00:53:16+08:00">2020-06-28</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>度量两个概率分布的相似度等问题。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/27/%E7%86%B5/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/img.png">
-      <meta itemprop="name" content="章肿鱼">
-      <meta itemprop="description" content="讨好世界不如取悦自己">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爆发🍢小宇宙">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">MVVM设计模式</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-23 18:25:39" itemprop="dateCreated datePublished" datetime="2020-06-23T18:25:39+08:00">2020-06-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-27 12:20:24" itemprop="dateModified" datetime="2020-06-27T12:20:24+08:00">2020-06-27</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ios%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">ios开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="MVC模式"><a href="#MVC模式" class="headerlink" title="MVC模式"></a>MVC模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvc.png" alt="mvc"></p>
-<p>所有的对象都可以被归类为一个model，一个view，或一个controller。</p>
-<p><em>部分代码没有合适的存放位置，如网络请求部分。</em></p>
-<p>弊端：</p>
-<ul>
-<li>大量的代码被放到controller，臃肿；</li>
-<li>controller规模庞大，难以维护；</li>
-<li>属性较多，难以管理；</li>
-<li>遵循较多协议，protocol的响应代码和controller的逻辑代码混杂。</li>
-</ul>
-<h1 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvvm.jpg" alt="mvvm"></p>
-<p>引入新的组件ViewModel，放置用户输入验证逻辑、视图显示逻辑、发起网络请求、数据解析等。<br>项目中的请求数据，统一交给ViewModel管理，每个控制器对应一个专属ViewModel。</p>
 
       
     </div>
@@ -1154,7 +1475,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
