@@ -35,6 +35,37 @@
       </categories>
   </entry>
   <entry>
+    <title>GrabCut分割</title>
+    <url>/2020/06/06/GrabCut%E5%88%86%E5%89%B2/</url>
+    <content><![CDATA[<h1 id="GrabCut分割"><a href="#GrabCut分割" class="headerlink" title="GrabCut分割"></a>GrabCut分割</h1><p>前景/背景的颜色模型：</p>
+<ul>
+<li>假定前景和背景为高斯混合模型GMM；</li>
+<li>对于每个要素，均来自于目标GMM/背景GMM的某个高斯分量；</li>
+<li>用边界项来表示邻域像素间不连续的惩罚，若两邻域像素差别很小，则属于同一目标/背景的可能性就大，反之可能为边缘；</li>
+<li>通过<a href="/2020/06/06/kmeans%E8%81%9A%E7%B1%BB/" title="kmeans聚类">kmeans聚类</a>算法迭代获得。</li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GrabCut.png" alt="GrabCut"></p>
+<p>算法流程：</p>
+<ol>
+<li>使用标记初始化颜色模型（k=5）；</li>
+<li>迭代进行GraphCut；<ul>
+<li>优化前景/背景的颜色模型；</li>
+<li>能量会随着不断迭代变小；</li>
+<li>分割效果也越来越好。</li>
+</ul>
+</li>
+</ol>
+<h2 id="高斯混合模型GMM"><a href="#高斯混合模型GMM" class="headerlink" title="高斯混合模型GMM"></a>高斯混合模型GMM</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GMM.png" alt="GMM"></p>
+<p>两组点分别通过两个不同的正态分布随机生成。</p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>图像分割</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Alamofire框架</title>
     <url>/2020/06/22/Alamofire%E6%A1%86%E6%9E%B6/</url>
     <content><![CDATA[<h1 id="Alamofire（swift）"><a href="#Alamofire（swift）" class="headerlink" title="Alamofire（swift）"></a>Alamofire（swift）</h1><p>使用Cocoapods进行集成；</p>
@@ -72,65 +103,6 @@
       </categories>
       <tags>
         <tag>swift</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GrabCut分割</title>
-    <url>/2020/06/06/GrabCut%E5%88%86%E5%89%B2/</url>
-    <content><![CDATA[<h1 id="GrabCut分割"><a href="#GrabCut分割" class="headerlink" title="GrabCut分割"></a>GrabCut分割</h1><p>前景/背景的颜色模型：</p>
-<ul>
-<li>假定前景和背景为高斯混合模型GMM；</li>
-<li>对于每个要素，均来自于目标GMM/背景GMM的某个高斯分量；</li>
-<li>用边界项来表示邻域像素间不连续的惩罚，若两邻域像素差别很小，则属于同一目标/背景的可能性就大，反之可能为边缘；</li>
-<li>通过<a href="/2020/06/06/kmeans%E8%81%9A%E7%B1%BB/" title="kmeans聚类">kmeans聚类</a>算法迭代获得。</li>
-</ul>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GrabCut.png" alt="GrabCut"></p>
-<p>算法流程：</p>
-<ol>
-<li>使用标记初始化颜色模型（k=5）；</li>
-<li>迭代进行GraphCut；<ul>
-<li>优化前景/背景的颜色模型；</li>
-<li>能量会随着不断迭代变小；</li>
-<li>分割效果也越来越好。</li>
-</ul>
-</li>
-</ol>
-<h2 id="高斯混合模型GMM"><a href="#高斯混合模型GMM" class="headerlink" title="高斯混合模型GMM"></a>高斯混合模型GMM</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GMM.png" alt="GMM"></p>
-<p>两组点分别通过两个不同的正态分布随机生成。</p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>图像分割</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GraphCuts分割</title>
-    <url>/2020/06/06/GraphCuts%E5%88%86%E5%89%B2/</url>
-    <content><![CDATA[<h1 id="GraphCuts分割"><a href="#GraphCuts分割" class="headerlink" title="GraphCuts分割"></a>GraphCuts分割</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts.png" alt="GraphCuts"></p>
-<ul>
-<li>普通顶点对应于图像中的每个像素。每两个邻域顶点的连接为一条边。</li>
-<li>两个终端顶点：S(source:前景)、T(sink:背景)。每个普通顶点和这2个终端顶点进行连接，称为第二种边。</li>
-</ul>
-<p>GraphCuts中的Cuts指这样一个边的集合，该集合中的所有边的断开，会导致残留S和T图的分开，被称为割。<br>如果一个割，它的边的所有权值之和最小，就称其为<strong>最小割</strong>，即GraphCuts的结果。</p>
-<p>基于能量的算法：<br>    $E(A) = \lambda \cdot R(A) + B(A)$<br>    $R(A) = \sum_{p \in \mathcal{P}} R_p(A_p)$<br>    $B(A) = \sum_{ {p,q} \in \mathcal{N} } B_{ {p,q} } \cdot \delta(A_p,A_q)$<br>    <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts%E8%83%BD%E9%87%8F.png" alt="GraphCuts能量"><br><em>区域项R(A)、边界项B(A)</em></p>
-<p>R是为像素p分配标签$I_p$的惩罚：<br>    当像素p的灰度值属于目标的概率大于背景，$R_p(1) &lt; R_p(0)$，即像素p更有可能属于目标时，将p归为目标会使能量R(L)更小。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%9B%BE%E5%89%B2%E5%89%8D%E8%83%8C%E6%99%AF%E5%88%86%E5%89%B2%E5%85%AC%E5%BC%8F.png" alt="图割前背景分割公式"><br>B是像素p和q之间不连续的惩罚，一般来说，如果p和q越相似，B越大；若非常不同，B趋向于0。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E8%BF%87%E7%A8%8B.png" alt="GraphCuts基本操作过程"></p>
-<p>基本操作过程：</p>
-<ol>
-<li>先取两个种子点；</li>
-<li>然后建立一个图，图中边的粗细表示对应权值大小；</li>
-<li>找到权值和最小的边的组合；</li>
-<li>完成图像分割。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>图像分割</tag>
       </tags>
   </entry>
   <entry>
@@ -189,6 +161,34 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GraphCuts分割</title>
+    <url>/2020/06/06/GraphCuts%E5%88%86%E5%89%B2/</url>
+    <content><![CDATA[<h1 id="GraphCuts分割"><a href="#GraphCuts分割" class="headerlink" title="GraphCuts分割"></a>GraphCuts分割</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts.png" alt="GraphCuts"></p>
+<ul>
+<li>普通顶点对应于图像中的每个像素。每两个邻域顶点的连接为一条边。</li>
+<li>两个终端顶点：S(source:前景)、T(sink:背景)。每个普通顶点和这2个终端顶点进行连接，称为第二种边。</li>
+</ul>
+<p>GraphCuts中的Cuts指这样一个边的集合，该集合中的所有边的断开，会导致残留S和T图的分开，被称为割。<br>如果一个割，它的边的所有权值之和最小，就称其为<strong>最小割</strong>，即GraphCuts的结果。</p>
+<p>基于能量的算法：<br>    $E(A) = \lambda \cdot R(A) + B(A)$<br>    $R(A) = \sum_{p \in \mathcal{P}} R_p(A_p)$<br>    $B(A) = \sum_{ {p,q} \in \mathcal{N} } B_{ {p,q} } \cdot \delta(A_p,A_q)$<br>    <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts%E8%83%BD%E9%87%8F.png" alt="GraphCuts能量"><br><em>区域项R(A)、边界项B(A)</em></p>
+<p>R是为像素p分配标签$I_p$的惩罚：<br>    当像素p的灰度值属于目标的概率大于背景，$R_p(1) &lt; R_p(0)$，即像素p更有可能属于目标时，将p归为目标会使能量R(L)更小。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%9B%BE%E5%89%B2%E5%89%8D%E8%83%8C%E6%99%AF%E5%88%86%E5%89%B2%E5%85%AC%E5%BC%8F.png" alt="图割前背景分割公式"><br>B是像素p和q之间不连续的惩罚，一般来说，如果p和q越相似，B越大；若非常不同，B趋向于0。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E8%BF%87%E7%A8%8B.png" alt="GraphCuts基本操作过程"></p>
+<p>基本操作过程：</p>
+<ol>
+<li>先取两个种子点；</li>
+<li>然后建立一个图，图中边的粗细表示对应权值大小；</li>
+<li>找到权值和最小的边的组合；</li>
+<li>完成图像分割。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>图像分割</tag>
       </tags>
   </entry>
   <entry>
@@ -454,6 +454,26 @@
       <tags>
         <tag>Java</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>MVVM设计模式</title>
+    <url>/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="MVC模式"><a href="#MVC模式" class="headerlink" title="MVC模式"></a>MVC模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvc.png" alt="mvc"></p>
+<p>所有的对象都可以被归类为一个model，一个view，或一个controller。</p>
+<p><em>部分代码没有合适的存放位置，如网络请求部分。</em></p>
+<p>弊端：</p>
+<ul>
+<li>大量的代码被放到controller，臃肿；</li>
+<li>controller规模庞大，难以维护；</li>
+<li>属性较多，难以管理；</li>
+<li>遵循较多协议，protocol的响应代码和controller的逻辑代码混杂。</li>
+</ul>
+<h1 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvvm.jpg" alt="mvvm"></p>
+<p>引入新的组件ViewModel，放置用户输入验证逻辑、视图显示逻辑、发起网络请求、数据解析等。<br>项目中的请求数据，统一交给ViewModel管理，每个控制器对应一个专属ViewModel。</p>
+]]></content>
+      <categories>
+        <category>ios</category>
+      </categories>
   </entry>
   <entry>
     <title>Mac常用配置</title>
@@ -790,51 +810,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>brief特征</title>
-    <url>/2020/06/04/brief%E7%89%B9%E5%BE%81/</url>
-    <content><![CDATA[<h1 id="BRIEF"><a href="#BRIEF" class="headerlink" title="BRIEF"></a>BRIEF</h1><ol>
-<li>平滑图像；</li>
-<li>在特征点周围选择一个Patch，在这个Patch内通过一定方法挑选$n_d$个点对；</li>
-<li>比较点对中两个像素的大小，并进行赋值：<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/BRIEF%E8%B5%8B%E5%80%BC.png" alt="BRIEF赋值"></li>
-<li>对所有$n_d$个点对，进行比较，生成一个长$n_d$的二进制串。</li>
-</ol>
-<h2 id="点对的生成方式："><a href="#点对的生成方式：" class="headerlink" title="点对的生成方式："></a>点对的生成方式：</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%82%B9%E5%AF%B9%E7%94%9F%E6%88%90.png" alt="点对生成"></p>
-<ul>
-<li>X和Y都服从在[-S/2,S/2]范围内的均匀分布，且相互独立；</li>
-<li>X和Y都服从均值为0，方差为$\frac{S^2}{25}$的高斯分布，且相互独立。</li>
-</ul>
-<p><strong>点对的位置一旦随机选定，就不再更改。</strong></p>
-<hr>
-<h1 id="ORB特征描述"><a href="#ORB特征描述" class="headerlink" title="ORB特征描述"></a>ORB特征描述</h1><p>基于Fast角点的特征点检测和BRIEF特征描述技术。</p>
-<ul>
-<li><p>Fast角点检测缺点：</p>
-<ul>
-<li>缺乏尺度不变性；</li>
-<li>通过构建高斯金字塔，在每一层金字塔图像上检测角点，来实现尺度不变性。</li>
-</ul>
-</li>
-<li><p>BRIEF缺点：</p>
-<ul>
-<li>缺乏旋转不变性；</li>
-<li>给Brief添加旋转不变性。</li>
-</ul>
-</li>
-</ul>
-<h2 id="ORB对BRIEF的改进"><a href="#ORB对BRIEF的改进" class="headerlink" title="ORB对BRIEF的改进"></a>ORB对BRIEF的改进</h2><ul>
-<li><p>在计算描述子时建立的坐标系，以关键点为圆心，以关键点和取点区域的形心(圆心)的连线为X轴建立坐标系；</p>
-</li>
-<li><p>计算形心时，圆形区域上每个点的质量是其对应的像素值。</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>feature</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>conda</title>
     <url>/2020/03/09/conda/</url>
     <content><![CDATA[<h1 id="Anaconda-miniconda-个性化设置"><a href="#Anaconda-miniconda-个性化设置" class="headerlink" title="Anaconda/miniconda 个性化设置"></a>Anaconda/miniconda 个性化设置</h1><h2 id="更换国内镜像源"><a href="#更换国内镜像源" class="headerlink" title="更换国内镜像源"></a>更换国内镜像源</h2><p>具体替换方式在官方网站中均有提示，<a href="https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/" target="_blank" rel="noopener">清华镜像源网站</a>：</p>
@@ -882,6 +857,51 @@
       </categories>
       <tags>
         <tag>conda</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>brief特征</title>
+    <url>/2020/06/04/brief%E7%89%B9%E5%BE%81/</url>
+    <content><![CDATA[<h1 id="BRIEF"><a href="#BRIEF" class="headerlink" title="BRIEF"></a>BRIEF</h1><ol>
+<li>平滑图像；</li>
+<li>在特征点周围选择一个Patch，在这个Patch内通过一定方法挑选$n_d$个点对；</li>
+<li>比较点对中两个像素的大小，并进行赋值：<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/BRIEF%E8%B5%8B%E5%80%BC.png" alt="BRIEF赋值"></li>
+<li>对所有$n_d$个点对，进行比较，生成一个长$n_d$的二进制串。</li>
+</ol>
+<h2 id="点对的生成方式："><a href="#点对的生成方式：" class="headerlink" title="点对的生成方式："></a>点对的生成方式：</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%82%B9%E5%AF%B9%E7%94%9F%E6%88%90.png" alt="点对生成"></p>
+<ul>
+<li>X和Y都服从在[-S/2,S/2]范围内的均匀分布，且相互独立；</li>
+<li>X和Y都服从均值为0，方差为$\frac{S^2}{25}$的高斯分布，且相互独立。</li>
+</ul>
+<p><strong>点对的位置一旦随机选定，就不再更改。</strong></p>
+<hr>
+<h1 id="ORB特征描述"><a href="#ORB特征描述" class="headerlink" title="ORB特征描述"></a>ORB特征描述</h1><p>基于Fast角点的特征点检测和BRIEF特征描述技术。</p>
+<ul>
+<li><p>Fast角点检测缺点：</p>
+<ul>
+<li>缺乏尺度不变性；</li>
+<li>通过构建高斯金字塔，在每一层金字塔图像上检测角点，来实现尺度不变性。</li>
+</ul>
+</li>
+<li><p>BRIEF缺点：</p>
+<ul>
+<li>缺乏旋转不变性；</li>
+<li>给Brief添加旋转不变性。</li>
+</ul>
+</li>
+</ul>
+<h2 id="ORB对BRIEF的改进"><a href="#ORB对BRIEF的改进" class="headerlink" title="ORB对BRIEF的改进"></a>ORB对BRIEF的改进</h2><ul>
+<li><p>在计算描述子时建立的坐标系，以关键点为圆心，以关键点和取点区域的形心(圆心)的连线为X轴建立坐标系；</p>
+</li>
+<li><p>计算形心时，圆形区域上每个点的质量是其对应的像素值。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>feature</tag>
       </tags>
   </entry>
   <entry>
@@ -1261,55 +1281,6 @@
       </tags>
   </entry>
   <entry>
-    <title>二进制运算</title>
-    <url>/2020/07/16/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BF%90%E7%AE%97/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">符号</th>
-<th align="center">名称</th>
-<th align="center">表示</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">&amp;</td>
-<td align="center">按位与</td>
-<td align="center">对应位均为1，才为1；否则为0</td>
-</tr>
-<tr>
-<td align="center">|</td>
-<td align="center">按位或</td>
-<td align="center">对应位有1，即为1；否则为0</td>
-</tr>
-<tr>
-<td align="center">^</td>
-<td align="center">按位异或</td>
-<td align="center">相同异或为1；不同异或为1</td>
-</tr>
-<tr>
-<td align="center">~</td>
-<td align="center">按位取反</td>
-<td align="center">1变0，0变1</td>
-</tr>
-<tr>
-<td align="center">&lt;&lt;</td>
-<td align="center">按位左移</td>
-<td align="center">左移，右边补0，相当*2</td>
-</tr>
-<tr>
-<td align="center">&gt;&gt;</td>
-<td align="center">有符号的右移</td>
-<td align="center">右移，左边补符号位，负数以原码形式参与运算</td>
-</tr>
-<tr>
-<td align="center">&gt;&gt;&gt;</td>
-<td align="center">无符号的右移</td>
-<td align="center">右移，左边补0，所有数据以无符号方式计算</td>
-</tr>
-</tbody></table>
-]]></content>
-  </entry>
-  <entry>
     <title>swift</title>
     <url>/2020/06/30/swift/</url>
     <content><![CDATA[<h1 id="playground"><a href="#playground" class="headerlink" title="playground"></a>playground</h1><p><em>所见及所得，可快速查看语法更改</em></p>
@@ -1469,52 +1440,53 @@
 ]]></content>
   </entry>
   <entry>
-    <title>图像分割</title>
-    <url>/2020/05/28/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/</url>
-    <content><![CDATA[<h1 id="图像分割"><a href="#图像分割" class="headerlink" title="图像分割"></a>图像分割</h1><p>图像分割：根据灰度、颜色、纹理、形状等特征，将图像划分为若干互不交叠的区域，并使这些特征在同一区域内呈现出相似性，在不同区域间呈现出明显的差异。</p>
-<p>经典数字图像分割算法一般基于灰度值的两个基本特性：</p>
-<ul>
-<li>不连续性；</li>
-<li>相似性。</li>
-</ul>
-<p>前景/背景分割：</p>
-<ul>
-<li>前景一般包含物体；</li>
-<li>需要交互提供初始标记。</li>
-</ul>
-<h2 id="基于阈值的分割方法"><a href="#基于阈值的分割方法" class="headerlink" title="基于阈值的分割方法"></a>基于阈值的分割方法</h2><p>基本思想：基于图像的灰度特征来计算一个或多个灰度阈值，并将图像中每个像素的灰度值与阈值相比较，最后将像素根据比较结果分到合适的类别中。</p>
-<p>设定某一灰度阈值T，将图像分为两部分：大于T的像素群和小于T的像素群，选定一个<strong>合适的阈值</strong>即可将图像准确地分割开。</p>
-<h2 id="基于边缘的分割方法"><a href="#基于边缘的分割方法" class="headerlink" title="基于边缘的分割方法"></a>基于边缘的分割方法</h2><p>边缘，是指图像中两个不同区域的边界线上连续的像素点的集合，是图像局部特征不连续性的反映，体现了灰度、颜色、纹理等图像特性的<strong>突变</strong>。</p>
-<p>基本思路：先确定图像中的边缘像素，然后再把这些像素连接在一起构成所需的区域边界。</p>
-<hr>
-<h1 id="传统图像分割方法"><a href="#传统图像分割方法" class="headerlink" title="传统图像分割方法"></a>传统图像分割方法</h1><h2 id="基于区域的分割方法"><a href="#基于区域的分割方法" class="headerlink" title="基于区域的分割方法"></a>基于区域的分割方法</h2><p>将图像按照相似性准则分成不同的区域。</p>
-<h3 id="区域生长法"><a href="#区域生长法" class="headerlink" title="区域生长法"></a>区域生长法</h3><p>根据一种事先定义的准则，将像素或子区域聚合成更大区域的过程，并且要充分保证分割后的区域满足以下条件：</p>
-<ul>
-<li>内部连通、互斥；</li>
-<li>各子集的并集能构成全集。</li>
-</ul>
-<p>区域生长的条件：根据像素灰度间的连续性定义的一些相似性准则；<br>区域生长停止的条件：一个终止规则。</p>
-<p>区域生长法定义了最大像素灰度值距离，当待加入像素点的灰度值和已分割好的区域所有像素点的平均灰度的差的绝对值不大于最大像素灰度值距离时，该像素点加入到该分割区域；相反，则区域生长算法停止。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8C%BA%E5%9F%9F%E7%94%9F%E9%95%BF.png" alt="区域生长"></p>
-<h3 id="分水岭方法"><a href="#分水岭方法" class="headerlink" title="分水岭方法"></a>分水岭方法</h3><p>将图像中的<strong>边缘</strong>转化为<strong>山脉</strong>，将<strong>均匀区域</strong>转化为<strong>山谷</strong>。</p>
-<p>在分割过程中，该方法会将临近像素间的相似性作为重要的参考依据，从而将在<strong>空间位置上相近</strong>，并且<strong>灰度值相近</strong>的像素点互相连接起来，构成一个封闭的轮廓。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%88%86%E6%B0%B4%E5%B2%AD.png" alt="分水岭"></p>
-<p>操作步骤：</p>
-<ol>
-<li>彩色图像灰度化；</li>
-<li>求梯度图；</li>
-<li>进行分水岭算法，求得分段图像的边缘线。</li>
-</ol>
-<h2 id="基于图论的分割方法"><a href="#基于图论的分割方法" class="headerlink" title="基于图论的分割方法"></a>基于图论的分割方法</h2><p>将图像分割问题与图的最小割mincut问题联系。将图像映射为带权无向图，图中每个节点对应于图像中的每个像素，每条边的权值对应相邻像素间在灰度、颜色、纹理等方面的非负相似度。</p>
-<a href="/2020/06/06/GraphCuts%E5%88%86%E5%89%B2/" title="GraphCuts分割">GraphCuts分割</a>
-
-<a href="/2020/06/06/GrabCut%E5%88%86%E5%89%B2/" title="GrabCut分割">GrabCut分割</a>]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>图像分割</tag>
-      </tags>
+    <title>二进制运算</title>
+    <url>/2020/07/16/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BF%90%E7%AE%97/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">名称</th>
+<th align="center">表示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">&amp;</td>
+<td align="center">按位与</td>
+<td align="center">对应位均为1，才为1；否则为0</td>
+</tr>
+<tr>
+<td align="center">|</td>
+<td align="center">按位或</td>
+<td align="center">对应位有1，即为1；否则为0</td>
+</tr>
+<tr>
+<td align="center">^</td>
+<td align="center">按位异或</td>
+<td align="center">相同异或为1；不同异或为1</td>
+</tr>
+<tr>
+<td align="center">~</td>
+<td align="center">按位取反</td>
+<td align="center">1变0，0变1</td>
+</tr>
+<tr>
+<td align="center">&lt;&lt;</td>
+<td align="center">按位左移</td>
+<td align="center">左移，右边补0，相当*2</td>
+</tr>
+<tr>
+<td align="center">&gt;&gt;</td>
+<td align="center">有符号的右移</td>
+<td align="center">右移，左边补符号位，负数以原码形式参与运算</td>
+</tr>
+<tr>
+<td align="center">&gt;&gt;&gt;</td>
+<td align="center">无符号的右移</td>
+<td align="center">右移，左边补0，所有数据以无符号方式计算</td>
+</tr>
+</tbody></table>
+]]></content>
   </entry>
   <entry>
     <title>卷积神经网络</title>
@@ -1581,6 +1553,54 @@
       </categories>
       <tags>
         <tag>CNN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>图像分割</title>
+    <url>/2020/05/28/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/</url>
+    <content><![CDATA[<h1 id="图像分割"><a href="#图像分割" class="headerlink" title="图像分割"></a>图像分割</h1><p>图像分割：根据灰度、颜色、纹理、形状等特征，将图像划分为若干互不交叠的区域，并使这些特征在同一区域内呈现出相似性，在不同区域间呈现出明显的差异。</p>
+<p>经典数字图像分割算法一般基于灰度值的两个基本特性：</p>
+<ul>
+<li>不连续性；</li>
+<li>相似性。</li>
+</ul>
+<p>前景/背景分割：</p>
+<ul>
+<li>前景一般包含物体；</li>
+<li>需要交互提供初始标记。</li>
+</ul>
+<h2 id="基于阈值的分割方法"><a href="#基于阈值的分割方法" class="headerlink" title="基于阈值的分割方法"></a>基于阈值的分割方法</h2><p>基本思想：基于图像的灰度特征来计算一个或多个灰度阈值，并将图像中每个像素的灰度值与阈值相比较，最后将像素根据比较结果分到合适的类别中。</p>
+<p>设定某一灰度阈值T，将图像分为两部分：大于T的像素群和小于T的像素群，选定一个<strong>合适的阈值</strong>即可将图像准确地分割开。</p>
+<h2 id="基于边缘的分割方法"><a href="#基于边缘的分割方法" class="headerlink" title="基于边缘的分割方法"></a>基于边缘的分割方法</h2><p>边缘，是指图像中两个不同区域的边界线上连续的像素点的集合，是图像局部特征不连续性的反映，体现了灰度、颜色、纹理等图像特性的<strong>突变</strong>。</p>
+<p>基本思路：先确定图像中的边缘像素，然后再把这些像素连接在一起构成所需的区域边界。</p>
+<hr>
+<h1 id="传统图像分割方法"><a href="#传统图像分割方法" class="headerlink" title="传统图像分割方法"></a>传统图像分割方法</h1><h2 id="基于区域的分割方法"><a href="#基于区域的分割方法" class="headerlink" title="基于区域的分割方法"></a>基于区域的分割方法</h2><p>将图像按照相似性准则分成不同的区域。</p>
+<h3 id="区域生长法"><a href="#区域生长法" class="headerlink" title="区域生长法"></a>区域生长法</h3><p>根据一种事先定义的准则，将像素或子区域聚合成更大区域的过程，并且要充分保证分割后的区域满足以下条件：</p>
+<ul>
+<li>内部连通、互斥；</li>
+<li>各子集的并集能构成全集。</li>
+</ul>
+<p>区域生长的条件：根据像素灰度间的连续性定义的一些相似性准则；<br>区域生长停止的条件：一个终止规则。</p>
+<p>区域生长法定义了最大像素灰度值距离，当待加入像素点的灰度值和已分割好的区域所有像素点的平均灰度的差的绝对值不大于最大像素灰度值距离时，该像素点加入到该分割区域；相反，则区域生长算法停止。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8C%BA%E5%9F%9F%E7%94%9F%E9%95%BF.png" alt="区域生长"></p>
+<h3 id="分水岭方法"><a href="#分水岭方法" class="headerlink" title="分水岭方法"></a>分水岭方法</h3><p>将图像中的<strong>边缘</strong>转化为<strong>山脉</strong>，将<strong>均匀区域</strong>转化为<strong>山谷</strong>。</p>
+<p>在分割过程中，该方法会将临近像素间的相似性作为重要的参考依据，从而将在<strong>空间位置上相近</strong>，并且<strong>灰度值相近</strong>的像素点互相连接起来，构成一个封闭的轮廓。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%88%86%E6%B0%B4%E5%B2%AD.png" alt="分水岭"></p>
+<p>操作步骤：</p>
+<ol>
+<li>彩色图像灰度化；</li>
+<li>求梯度图；</li>
+<li>进行分水岭算法，求得分段图像的边缘线。</li>
+</ol>
+<h2 id="基于图论的分割方法"><a href="#基于图论的分割方法" class="headerlink" title="基于图论的分割方法"></a>基于图论的分割方法</h2><p>将图像分割问题与图的最小割mincut问题联系。将图像映射为带权无向图，图中每个节点对应于图像中的每个像素，每条边的权值对应相邻像素间在灰度、颜色、纹理等方面的非负相似度。</p>
+<a href="/2020/06/06/GraphCuts%E5%88%86%E5%89%B2/" title="GraphCuts分割">GraphCuts分割</a>
+
+<a href="/2020/06/06/GrabCut%E5%88%86%E5%89%B2/" title="GrabCut分割">GrabCut分割</a>]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>图像分割</tag>
       </tags>
   </entry>
   <entry>
@@ -1974,32 +1994,6 @@
       </tags>
   </entry>
   <entry>
-    <title>局部二值LBP</title>
-    <url>/2020/06/04/%E5%B1%80%E9%83%A8%E4%BA%8C%E5%80%BCLBP/</url>
-    <content><![CDATA[<h1 id="LBP-局部二值模式"><a href="#LBP-局部二值模式" class="headerlink" title="LBP-局部二值模式"></a>LBP-局部二值模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/lbp.png" alt="lbp"></p>
-<ol>
-<li>将每个像素点与周围点大小比较：<ul>
-<li>半径为R的圆，均匀采样P个点；</li>
-<li>大小量化为0或1.</li>
-</ul>
-</li>
-<li>多个bit组成一个书，统计每个数的直方图。</li>
-</ol>
-<p>解决旋转不变性：</p>
-<ul>
-<li>将LBP周围的二进制码按位旋转，取二进制码最小的值为最终LBP值。</li>
-</ul>
-<h1 id="Extended-LBP-Circular-LBP"><a href="#Extended-LBP-Circular-LBP" class="headerlink" title="Extended LBP/Circular LBP"></a>Extended LBP/Circular LBP</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ExtendedLBP.png" alt="ExtendedLBP"></p>
-<p>将3*3邻域扩展到任意领域，并用圆形领域代替正方形领域。</p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>feature</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>小波变换</title>
     <url>/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/</url>
     <content><![CDATA[<h1 id="连续小波变换CWT"><a href="#连续小波变换CWT" class="headerlink" title="连续小波变换CWT"></a>连续小波变换CWT</h1><p>将无限长的三角函数基转换为有限长的会衰减的小波基，不仅能获取频率，还可定位到时间。</p>
@@ -2029,6 +2023,32 @@
       </categories>
       <tags>
         <tag>多尺度变换</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>局部二值LBP</title>
+    <url>/2020/06/04/%E5%B1%80%E9%83%A8%E4%BA%8C%E5%80%BCLBP/</url>
+    <content><![CDATA[<h1 id="LBP-局部二值模式"><a href="#LBP-局部二值模式" class="headerlink" title="LBP-局部二值模式"></a>LBP-局部二值模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/lbp.png" alt="lbp"></p>
+<ol>
+<li>将每个像素点与周围点大小比较：<ul>
+<li>半径为R的圆，均匀采样P个点；</li>
+<li>大小量化为0或1.</li>
+</ul>
+</li>
+<li>多个bit组成一个书，统计每个数的直方图。</li>
+</ol>
+<p>解决旋转不变性：</p>
+<ul>
+<li>将LBP周围的二进制码按位旋转，取二进制码最小的值为最终LBP值。</li>
+</ul>
+<h1 id="Extended-LBP-Circular-LBP"><a href="#Extended-LBP-Circular-LBP" class="headerlink" title="Extended LBP/Circular LBP"></a>Extended LBP/Circular LBP</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ExtendedLBP.png" alt="ExtendedLBP"></p>
+<p>将3*3邻域扩展到任意领域，并用圆形领域代替正方形领域。</p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>feature</tag>
       </tags>
   </entry>
   <entry>

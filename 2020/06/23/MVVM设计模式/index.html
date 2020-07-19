@@ -22,20 +22,22 @@
     var CONFIG = {"hostname":"zhangzongyu00.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="the way to find a job">
-<meta property="og:type" content="website">
-<meta property="og:title" content="面试">
-<meta property="og:url" content="http://zhangzongyu00.github.io/report/%E9%9D%A2%E8%AF%95.html">
+  <meta name="description" content="MVC模式 所有的对象都可以被归类为一个model，一个view，或一个controller。 部分代码没有合适的存放位置，如网络请求部分。 弊端：  大量的代码被放到controller，臃肿； controller规模庞大，难以维护； 属性较多，难以管理； 遵循较多协议，protocol的响应代码和controller的逻辑代码混杂。  MVVM模式 引入新的组件ViewModel，放置用户输">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MVVM设计模式">
+<meta property="og:url" content="http://zhangzongyu00.github.io/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="爆发🍢小宇宙">
-<meta property="og:description" content="the way to find a job">
+<meta property="og:description" content="MVC模式 所有的对象都可以被归类为一个model，一个view，或一个controller。 部分代码没有合适的存放位置，如网络请求部分。 弊端：  大量的代码被放到controller，臃肿； controller规模庞大，难以维护； 属性较多，难以管理； 遵循较多协议，protocol的响应代码和controller的逻辑代码混杂。  MVVM模式 引入新的组件ViewModel，放置用户输">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-03-09T09:54:25.000Z">
-<meta property="article:modified_time" content="2020-04-21T06:42:59.000Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvc.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvvm.jpg">
+<meta property="article:published_time" content="2020-06-23T10:25:39.000Z">
+<meta property="article:modified_time" content="2020-07-19T08:55:59.153Z">
 <meta property="article:author" content="章肿鱼">
-<meta property="article:tag" content="job">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvc.png">
 
-<link rel="canonical" href="http://zhangzongyu00.github.io/report/%E9%9D%A2%E8%AF%95">
+<link rel="canonical" href="http://zhangzongyu00.github.io/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
 
 
 <script id="page-configurations">
@@ -43,13 +45,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>面试 | 爆发🍢小宇宙
-</title>
+  <title>MVVM设计模式 | 爆发🍢小宇宙</title>
   
 
 
@@ -190,71 +191,116 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
-          <div class="content page posts-expand">
+          <div class="content post posts-expand">
             
 
     
-    
-    
-    <div class="post-block" lang="zh-CN">
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/img.png">
+      <meta itemprop="name" content="章肿鱼">
+      <meta itemprop="description" content="讨好世界不如取悦自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爆发🍢小宇宙">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MVVM设计模式
+        </h1>
 
-<h1 class="post-title" itemprop="name headline">面试
-</h1>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
 
-<div class="post-meta">
-    <div class="post-description">the way to find a job</div>
+              <time title="创建时间：2020-06-23 18:25:39" itemprop="dateCreated datePublished" datetime="2020-06-23T18:25:39+08:00">2020-06-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-19 16:55:59" itemprop="dateModified" datetime="2020-07-19T16:55:59+08:00">2020-07-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ios/" itemprop="url" rel="index"><span itemprop="name">ios</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="MVC模式"><a href="#MVC模式" class="headerlink" title="MVC模式"></a>MVC模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvc.png" alt="mvc"></p>
+<p>所有的对象都可以被归类为一个model，一个view，或一个controller。</p>
+<p><em>部分代码没有合适的存放位置，如网络请求部分。</em></p>
+<p>弊端：</p>
+<ul>
+<li>大量的代码被放到controller，臃肿；</li>
+<li>controller规模庞大，难以维护；</li>
+<li>属性较多，难以管理；</li>
+<li>遵循较多协议，protocol的响应代码和controller的逻辑代码混杂。</li>
+</ul>
+<h1 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvvm.jpg" alt="mvvm"></p>
+<p>引入新的组件ViewModel，放置用户输入验证逻辑、视图显示逻辑、发起网络请求、数据解析等。<br>项目中的请求数据，统一交给ViewModel管理，每个控制器对应一个专属ViewModel。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/23/%E8%87%AA%E7%BC%96%E7%A0%81%E6%9C%BA/" rel="prev" title="自编码机">
+      <i class="fa fa-chevron-left"></i> 自编码机
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/27/%E7%86%B5/" rel="next" title="熵">
+      熵 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
-          <h1 id="江北某证券-20200312"><a href="#江北某证券-20200312" class="headerlink" title="江北某证券 - 20200312"></a>江北某证券 - 20200312</h1><h2 id="技术面"><a href="#技术面" class="headerlink" title="技术面"></a>技术面</h2><p>自我介绍，项目经历少；<br>为什么选择金融行业；<br>分析问题（对数据的感知、处理、分析）；<br>项目经历深究（寻找与数据挖掘相关的东西，e.g.项目过程中的数据量）；<br>如何获取数据；<br>算法能力 🆚 代码能力 pk；<br>工作过程枯燥，如何处理；<br>非相关选择题：你好大家一般 or 你一般大家好？</p>
-<h2 id="HR面"><a href="#HR面" class="headerlink" title="HR面"></a>HR面</h2><p>对实习的想法，主要询问与导师相关的意见；<br>对补贴的看法。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>不禁感慨一句“人生处处是陷阱啊”，因为之前有过购买基金、股票等的经历，稍微弥补了一些领域亏空，让我不至于无话可讲。</p>
-<p>从这次面试过程中我对自己的理财方面的理解有了很大的补充，以及对数据挖掘相关方面很多知识的回忆，并且要从发展的角度来看问题，未雨绸缪。</p>
-<p>张经理和金经理在面试过程中都非常友好、温和，并给了我很多的提示、帮助，在此表示衷心感谢！</p>
-<hr>
-<h1 id="腾讯PCG-后台开发-201912"><a href="#腾讯PCG-后台开发-201912" class="headerlink" title="腾讯PCG - 后台开发 - 201912"></a>腾讯PCG - 后台开发 - 201912</h1><h2 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h2><p>先做个自我介绍，主要讲述你觉得面试官会感兴趣的地方。</p>
-<p>你觉得学习的课程中哪些课程比较有用，并且你觉得掌握的还可以的？<br>根据所说的几门课程依次提问几个问题，大部分都是先说自己掌握的哪些还不错的，然后继续问。</p>
-<ul>
-<li>计算机网络：TCP/IP五层模型的协议、tcp协议特点、三次握手与四次挥手</li>
-<li>数据结构：平衡二叉树、B树、B+树、红黑树等间的区别；数组与链表使用特点；栈、队列等</li>
-<li>数据库：你从这门课中学会了哪些知识，数据库索引有哪些</li>
-<li>操作系统：你觉得操作系统这门课对你的帮助，线程与进程的区别+协程</li>
-<li>计算机组成原理</li>
-</ul>
-<p>拿出笔试题目，依次讲述每个问题的解题思路、解题过程，中间会提问算法时间复杂度相关问题（如使用暴力破解）。</p>
-<p>讲述项目经历，负责了项目哪些部分，遇到问题及解决方案，中间会穿插一些框架等的问题深入了解。</p>
-<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>在经过笔试之后，身边认识的小伙伴们都没有收到通知，这让我感觉莫名的紧张起来，加之没有任何的准备，因为平时都是在研究算法，看论文跑实验，和后台相关的知识已经所剩无几。</p>
-<p>整体表现而言，在这次面试过程中，我感觉自己的表现非常糟糕，还原初衷-本来就是抱着学习体验的心态来参加这第一次面试。</p>
-<p>在面试结束之后，问过几个师兄师姐的经验，我对自己的学习之路有了更加深刻的认识。对于学习方法、学习态度都有了很大的转变，尤其是要有自己的思考方式、思考深度。</p>
-<p>不过还是非常感谢我的面试官kyle等人，让我有一个非常温和的面试体验。</p>
-<p>在后期的学习过程中，我会加深对基础知识的理解，加深记忆，完善自己的知识储备。</p>
-<hr>
-<h1 id="研会面试感触-20191121"><a href="#研会面试感触-20191121" class="headerlink" title="研会面试感触 20191121"></a>研会面试感触 20191121</h1><p>今天中午对下一届研会竞选人员进行面试，<br>看到他们想到了之前的自己，当初本科大一进学生会面试时的放弃，<br>大二进勤工助学面试时的紧张和语无伦次，<br>大三开始做代理班长开始步入正轨，参加各种会议、活动，<br>大四支教时做面对教育厅和校领导做自我介绍与经验总结，内心不断给自己心里暗示：不再是一个学生的身份，要从老师的角度去做汇报，要自然得体。</p>
-<p>后面考研备考期间和一个特别友好的老师做朋友，身边的老师逐渐多了起来，再见到老师时的紧张感（来自一个学生对老师的天然恐惧）消失了很多。<br>考研面试时在经过了两个小时的免费面试视频讲解锻炼后得到了一定程度的缓解，成功晋级。</p>
-<p>进入研究生活后，各种演讲汇报等，开始时还是会有一定的紧张，但是当进入到状态后就没有感觉了。<br>虽然说起来很简单很不堪，但是其中的辛酸只有自己知道。现在看着他们，庆幸自己当初没有听家人的话，✊要考研，坚持要改变自己。</p>
-<p>这些师弟师妹中，有的经历非常丰富，处事大方得体；有的虽然没什么成绩，但是想通过这种方式锻炼下自己；也有的紧张到说话磕磕绊绊，没有底气。各式各样、形形色色、奇奇怪怪的人，不管怎么说，目的只有一个：加油，致那些在努力拼搏的人们！</p>
-
-      </div>
-      
-      
-      
-    </div>
-    
-
-    
-    
-    
 
 
           </div>
@@ -305,7 +351,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#江北某证券-20200312"><span class="nav-number">1.</span> <span class="nav-text">江北某证券 - 20200312</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#技术面"><span class="nav-number">1.1.</span> <span class="nav-text">技术面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HR面"><span class="nav-number">1.2.</span> <span class="nav-text">HR面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#腾讯PCG-后台开发-201912"><span class="nav-number">2.</span> <span class="nav-text">腾讯PCG - 后台开发 - 201912</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题："><span class="nav-number">2.1.</span> <span class="nav-text">问题：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-1"><span class="nav-number">2.2.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#研会面试感触-20191121"><span class="nav-number">3.</span> <span class="nav-text">研会面试感触 20191121</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MVC模式"><span class="nav-number">1.</span> <span class="nav-text">MVC模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MVVM模式"><span class="nav-number">2.</span> <span class="nav-text">MVVM模式</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -458,6 +504,61 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

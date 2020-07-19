@@ -279,6 +279,30 @@
   </entry>
   
   <entry>
+    <title>MVVM设计模式</title>
+    <link href="http://zhangzongyu00.github.io/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://zhangzongyu00.github.io/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</id>
+    <published>2020-06-23T10:25:39.000Z</published>
+    <updated>2020-07-19T08:55:59.153Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="MVC模式"><a href="#MVC模式" class="headerlink" title="MVC模式"></a>MVC模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvc.png" alt="mvc"></p><p>所有的对象都可以被归类为一个model，一个view，或一个controller。</p><p><em>部分代码没有合适的存放位置，如网络请求部分。</em></p><p>弊端：</p><ul><li>大量的代码被放到controller，臃肿；</li><li>controller规模庞大，难以维护；</li><li>属性较多，难以管理；</li><li>遵循较多协议，protocol的响应代码和controller的逻辑代码混杂。</li></ul><h1 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvvm.jpg" alt="mvvm"></p><p>引入新的组件ViewModel，放置用户输入验证逻辑、视图显示逻辑、发起网络请求、数据解析等。<br>项目中的请求数据，统一交给ViewModel管理，每个控制器对应一个专属ViewModel。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;MVC模式&quot;&gt;&lt;a href=&quot;#MVC模式&quot; class=&quot;headerlink&quot; title=&quot;MVC模式&quot;&gt;&lt;/a&gt;MVC模式&lt;/h1&gt;&lt;p&gt;&lt;img data-src=&quot;https://cdn.jsdelivr.net/gh/zhangzongyu00/i
+      
+    
+    </summary>
+    
+    
+      <category term="ios" scheme="http://zhangzongyu00.github.io/categories/ios/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>自编码机</title>
     <link href="http://zhangzongyu00.github.io/2020/06/23/%E8%87%AA%E7%BC%96%E7%A0%81%E6%9C%BA/"/>
     <id>http://zhangzongyu00.github.io/2020/06/23/%E8%87%AA%E7%BC%96%E7%A0%81%E6%9C%BA/</id>
@@ -425,29 +449,6 @@
     </summary>
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>直方图均衡化</title>
-    <link href="http://zhangzongyu00.github.io/2020/06/06/%E7%9B%B4%E6%96%B9%E5%9B%BE%E5%9D%87%E8%A1%A1%E5%8C%96/"/>
-    <id>http://zhangzongyu00.github.io/2020/06/06/%E7%9B%B4%E6%96%B9%E5%9B%BE%E5%9D%87%E8%A1%A1%E5%8C%96/</id>
-    <published>2020-06-06T04:28:12.000Z</published>
-    <updated>2020-06-09T05:58:10.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="直方图均衡化"><a href="#直方图均衡化" class="headerlink" title="直方图均衡化"></a>直方图均衡化</h1><ul><li>实质上是对图像进行非线性拉伸，重新分配各个灰度单位的像素点数量，使其均匀分布；</li><li>利用图像直方图对图像的对比度进行调整；</li><li>通常用于增强局部的对比度而不影响整体对比度，过黑或过曝的处理。</li></ul><p>思路：</p><ol><li>统计每个颜色出现的概率；</li><li>计算累计概率；</li><li>根据累计概率求取新的颜色映射表：p*255；</li><li>利用新颜色映射表完成颜色映射。</li></ol><h2 id="自适应直方图均衡AHE"><a href="#自适应直方图均衡AHE" class="headerlink" title="自适应直方图均衡AHE"></a>自适应直方图均衡AHE</h2><ul><li>移动模版在源图像上按stride滑动；</li><li>移动后，模版区域内做直方图均衡，映射后的结果赋值给模版区域内所有点；</li><li>对每个点取多次赋值的均值。</li></ul><p>缺点：过度放大平滑区域噪声。</p><h2 id="CLAHE（自适应直方图均衡）"><a href="#CLAHE（自适应直方图均衡）" class="headerlink" title="CLAHE（自适应直方图均衡）"></a>CLAHE（自适应直方图均衡）</h2><p>算法步骤：</p><ol><li>对图像进行分块，以块为单位；</li><li>先计算直方图，然后对其进行修剪，然后均衡；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/CLAHE%E4%BF%AE%E5%89%AA.png" alt="CLAHE修剪"></li><li>遍历各个图像块，对块间区域进行双线性差值，使图像平滑；</li><li>与源图像做涂层滤色混合操作（可选）。</li></ol><p>映射关系：<br>    <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/CLAHE%E6%98%A0%E5%B0%84.png" alt="CLAHE映射"></p><ul><li>小黑点处的灰度值由映射函数直接计算得出；</li><li>粉色区域灰度值由映射函数计算得出；</li><li>滤色区域灰度值由相邻2块灰度值映射线性插值得出；</li><li>紫色区域灰度值由相邻4块灰度值映射线性插值得出。</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      使用直方图对图像的颜色空间进行映射
-    
-    </summary>
-    
-    
-      <category term="image" scheme="http://zhangzongyu00.github.io/categories/image/"/>
-    
-    
-      <category term="多尺度变换" scheme="http://zhangzongyu00.github.io/tags/%E5%A4%9A%E5%B0%BA%E5%BA%A6%E5%8F%98%E6%8D%A2/"/>
     
   </entry>
   
