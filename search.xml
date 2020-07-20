@@ -35,105 +35,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Alamofire框架</title>
-    <url>/2020/06/22/Alamofire%E6%A1%86%E6%9E%B6/</url>
-    <content><![CDATA[<h1 id="Alamofire（swift）"><a href="#Alamofire（swift）" class="headerlink" title="Alamofire（swift）"></a>Alamofire（swift）</h1><p>使用Cocoapods进行集成；</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew install cocoapods</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>在项目目录下进行pod初始化设置</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pod init</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>修改配置文件</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Uncomment the next line to define a global platform for your project</span><br><span class="line"># platform :ios, &#39;9.0&#39;</span><br><span class="line"></span><br><span class="line">target &#39;***&#39; do</span><br><span class="line">  # Comment the next line if you don&#39;t want to use dynamic frameworks</span><br><span class="line">  use_frameworks!</span><br><span class="line"></span><br><span class="line">  # Pods for AlamofireTest</span><br><span class="line">  pod &#39;Alamofire&#39;</span><br><span class="line"></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>执行更新<code>pod install</code>，不更新本地库</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pod install --no-repo-update</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li><p>打开文件目录下<code>***.xcworkspace</code></p>
-</li>
-<li><p>重新配置<code>Pods_***.framework</code><br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%87%8D%E6%96%B0%E9%85%8D%E7%BD%AEframework.png" alt="重新配置framework"></p>
-</li>
-<li><p>修改<code>Allow Arbitrary Loads</code>访问http请求权限<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Allow_Arbitrary_Loads.png" alt="Allow_Arbitrary_Loads"></p>
-</li>
-</ol>
-<hr>
-<p><em><code>http://httpbin.org</code>用于处理http/https的相关请求</em></p>
-<p>在实际开发中，为了不过于依赖某一个第三方框架，常使用封装的方式，将其封装到某一工具类，方便其框架不更新时进行修改。</p>
-]]></content>
-      <categories>
-        <category>ios开发</category>
-      </categories>
-      <tags>
-        <tag>swift</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GraphCuts分割</title>
-    <url>/2020/06/06/GraphCuts%E5%88%86%E5%89%B2/</url>
-    <content><![CDATA[<h1 id="GraphCuts分割"><a href="#GraphCuts分割" class="headerlink" title="GraphCuts分割"></a>GraphCuts分割</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts.png" alt="GraphCuts"></p>
-<ul>
-<li>普通顶点对应于图像中的每个像素。每两个邻域顶点的连接为一条边。</li>
-<li>两个终端顶点：S(source:前景)、T(sink:背景)。每个普通顶点和这2个终端顶点进行连接，称为第二种边。</li>
-</ul>
-<p>GraphCuts中的Cuts指这样一个边的集合，该集合中的所有边的断开，会导致残留S和T图的分开，被称为割。<br>如果一个割，它的边的所有权值之和最小，就称其为<strong>最小割</strong>，即GraphCuts的结果。</p>
-<p>基于能量的算法：<br>    $E(A) = \lambda \cdot R(A) + B(A)$<br>    $R(A) = \sum_{p \in \mathcal{P}} R_p(A_p)$<br>    $B(A) = \sum_{ {p,q} \in \mathcal{N} } B_{ {p,q} } \cdot \delta(A_p,A_q)$<br>    <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts%E8%83%BD%E9%87%8F.png" alt="GraphCuts能量"><br><em>区域项R(A)、边界项B(A)</em></p>
-<p>R是为像素p分配标签$I_p$的惩罚：<br>    当像素p的灰度值属于目标的概率大于背景，$R_p(1) &lt; R_p(0)$，即像素p更有可能属于目标时，将p归为目标会使能量R(L)更小。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%9B%BE%E5%89%B2%E5%89%8D%E8%83%8C%E6%99%AF%E5%88%86%E5%89%B2%E5%85%AC%E5%BC%8F.png" alt="图割前背景分割公式"><br>B是像素p和q之间不连续的惩罚，一般来说，如果p和q越相似，B越大；若非常不同，B趋向于0。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E8%BF%87%E7%A8%8B.png" alt="GraphCuts基本操作过程"></p>
-<p>基本操作过程：</p>
-<ol>
-<li>先取两个种子点；</li>
-<li>然后建立一个图，图中边的粗细表示对应权值大小；</li>
-<li>找到权值和最小的边的组合；</li>
-<li>完成图像分割。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>图像分割</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GrabCut分割</title>
-    <url>/2020/06/06/GrabCut%E5%88%86%E5%89%B2/</url>
-    <content><![CDATA[<h1 id="GrabCut分割"><a href="#GrabCut分割" class="headerlink" title="GrabCut分割"></a>GrabCut分割</h1><p>前景/背景的颜色模型：</p>
-<ul>
-<li>假定前景和背景为高斯混合模型GMM；</li>
-<li>对于每个要素，均来自于目标GMM/背景GMM的某个高斯分量；</li>
-<li>用边界项来表示邻域像素间不连续的惩罚，若两邻域像素差别很小，则属于同一目标/背景的可能性就大，反之可能为边缘；</li>
-<li>通过<a href="/2020/06/06/kmeans%E8%81%9A%E7%B1%BB/" title="kmeans聚类">kmeans聚类</a>算法迭代获得。</li>
-</ul>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GrabCut.png" alt="GrabCut"></p>
-<p>算法流程：</p>
-<ol>
-<li>使用标记初始化颜色模型（k=5）；</li>
-<li>迭代进行GraphCut；<ul>
-<li>优化前景/背景的颜色模型；</li>
-<li>能量会随着不断迭代变小；</li>
-<li>分割效果也越来越好。</li>
-</ul>
-</li>
-</ol>
-<h2 id="高斯混合模型GMM"><a href="#高斯混合模型GMM" class="headerlink" title="高斯混合模型GMM"></a>高斯混合模型GMM</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GMM.png" alt="GMM"></p>
-<p>两组点分别通过两个不同的正态分布随机生成。</p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>图像分割</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo博客</title>
     <url>/2020/03/09/Hexo%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h1 id="Hexo-GitHub-Pages搭建个人博客"><a href="#Hexo-GitHub-Pages搭建个人博客" class="headerlink" title="Hexo + GitHub Pages搭建个人博客"></a>Hexo + GitHub Pages搭建个人博客</h1><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! </p>
@@ -189,6 +90,105 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Alamofire框架</title>
+    <url>/2020/06/22/Alamofire%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<h1 id="Alamofire（swift）"><a href="#Alamofire（swift）" class="headerlink" title="Alamofire（swift）"></a>Alamofire（swift）</h1><p>使用Cocoapods进行集成；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew install cocoapods</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>在项目目录下进行pod初始化设置</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pod init</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>修改配置文件</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Uncomment the next line to define a global platform for your project</span><br><span class="line"># platform :ios, &#39;9.0&#39;</span><br><span class="line"></span><br><span class="line">target &#39;***&#39; do</span><br><span class="line">  # Comment the next line if you don&#39;t want to use dynamic frameworks</span><br><span class="line">  use_frameworks!</span><br><span class="line"></span><br><span class="line">  # Pods for AlamofireTest</span><br><span class="line">  pod &#39;Alamofire&#39;</span><br><span class="line"></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>执行更新<code>pod install</code>，不更新本地库</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pod install --no-repo-update</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>打开文件目录下<code>***.xcworkspace</code></p>
+</li>
+<li><p>重新配置<code>Pods_***.framework</code><br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%87%8D%E6%96%B0%E9%85%8D%E7%BD%AEframework.png" alt="重新配置framework"></p>
+</li>
+<li><p>修改<code>Allow Arbitrary Loads</code>访问http请求权限<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Allow_Arbitrary_Loads.png" alt="Allow_Arbitrary_Loads"></p>
+</li>
+</ol>
+<hr>
+<p><em><code>http://httpbin.org</code>用于处理http/https的相关请求</em></p>
+<p>在实际开发中，为了不过于依赖某一个第三方框架，常使用封装的方式，将其封装到某一工具类，方便其框架不更新时进行修改。</p>
+]]></content>
+      <categories>
+        <category>ios开发</category>
+      </categories>
+      <tags>
+        <tag>swift</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GrabCut分割</title>
+    <url>/2020/06/06/GrabCut%E5%88%86%E5%89%B2/</url>
+    <content><![CDATA[<h1 id="GrabCut分割"><a href="#GrabCut分割" class="headerlink" title="GrabCut分割"></a>GrabCut分割</h1><p>前景/背景的颜色模型：</p>
+<ul>
+<li>假定前景和背景为高斯混合模型GMM；</li>
+<li>对于每个要素，均来自于目标GMM/背景GMM的某个高斯分量；</li>
+<li>用边界项来表示邻域像素间不连续的惩罚，若两邻域像素差别很小，则属于同一目标/背景的可能性就大，反之可能为边缘；</li>
+<li>通过<a href="/2020/06/06/kmeans%E8%81%9A%E7%B1%BB/" title="kmeans聚类">kmeans聚类</a>算法迭代获得。</li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GrabCut.png" alt="GrabCut"></p>
+<p>算法流程：</p>
+<ol>
+<li>使用标记初始化颜色模型（k=5）；</li>
+<li>迭代进行GraphCut；<ul>
+<li>优化前景/背景的颜色模型；</li>
+<li>能量会随着不断迭代变小；</li>
+<li>分割效果也越来越好。</li>
+</ul>
+</li>
+</ol>
+<h2 id="高斯混合模型GMM"><a href="#高斯混合模型GMM" class="headerlink" title="高斯混合模型GMM"></a>高斯混合模型GMM</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GMM.png" alt="GMM"></p>
+<p>两组点分别通过两个不同的正态分布随机生成。</p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>图像分割</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GraphCuts分割</title>
+    <url>/2020/06/06/GraphCuts%E5%88%86%E5%89%B2/</url>
+    <content><![CDATA[<h1 id="GraphCuts分割"><a href="#GraphCuts分割" class="headerlink" title="GraphCuts分割"></a>GraphCuts分割</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts.png" alt="GraphCuts"></p>
+<ul>
+<li>普通顶点对应于图像中的每个像素。每两个邻域顶点的连接为一条边。</li>
+<li>两个终端顶点：S(source:前景)、T(sink:背景)。每个普通顶点和这2个终端顶点进行连接，称为第二种边。</li>
+</ul>
+<p>GraphCuts中的Cuts指这样一个边的集合，该集合中的所有边的断开，会导致残留S和T图的分开，被称为割。<br>如果一个割，它的边的所有权值之和最小，就称其为<strong>最小割</strong>，即GraphCuts的结果。</p>
+<p>基于能量的算法：<br>    $E(A) = \lambda \cdot R(A) + B(A)$<br>    $R(A) = \sum_{p \in \mathcal{P}} R_p(A_p)$<br>    $B(A) = \sum_{ {p,q} \in \mathcal{N} } B_{ {p,q} } \cdot \delta(A_p,A_q)$<br>    <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts%E8%83%BD%E9%87%8F.png" alt="GraphCuts能量"><br><em>区域项R(A)、边界项B(A)</em></p>
+<p>R是为像素p分配标签$I_p$的惩罚：<br>    当像素p的灰度值属于目标的概率大于背景，$R_p(1) &lt; R_p(0)$，即像素p更有可能属于目标时，将p归为目标会使能量R(L)更小。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%9B%BE%E5%89%B2%E5%89%8D%E8%83%8C%E6%99%AF%E5%88%86%E5%89%B2%E5%85%AC%E5%BC%8F.png" alt="图割前背景分割公式"><br>B是像素p和q之间不连续的惩罚，一般来说，如果p和q越相似，B越大；若非常不同，B趋向于0。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E8%BF%87%E7%A8%8B.png" alt="GraphCuts基本操作过程"></p>
+<p>基本操作过程：</p>
+<ol>
+<li>先取两个种子点；</li>
+<li>然后建立一个图，图中边的粗细表示对应权值大小；</li>
+<li>找到权值和最小的边的组合；</li>
+<li>完成图像分割。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>图像分割</tag>
       </tags>
   </entry>
   <entry>
@@ -393,35 +393,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Java编程</title>
-    <url>/2020/03/10/Java%E7%BC%96%E7%A8%8B/</url>
-    <content><![CDATA[<h1 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h1><h2 id="websocket：持久化协议"><a href="#websocket：持久化协议" class="headerlink" title="websocket：持久化协议"></a>websocket：持久化协议</h2><p>实现服务器端主动向客户端推送信息，客户端也可主动向服务器发送请求，实现双向对话。<br>具体来讲，就是先通过客户端使用http协议向服务器发送请求，建立长链接；建立长链接之后，服务器即可主动向客户端发送消息；确定一个时间，经过该时间后，客户端向服务器发送请求确认，避免该🔗断开。</p>
-<p><em>为了兼容浏览器，在握手阶段使用HTTP协议。</em></p>
-<ul>
-<li>websocket建立在TCP协议上，服务器端端实现较容易；</li>
-<li>与HTTP协议兼容性较好，默认端口为80或443，可通过http代理的服务器；</li>
-<li>数据格式轻量，性能开销较小，通信高效；</li>
-<li>可以发送文本，也可以发送二进制数据；</li>
-<li>没有同源限制，客户端可以与任意服务器通信；</li>
-<li>协议表示符是ws，若需🔐，使用wss，服务器网址为url。</li>
-</ul>
-<h2 id="典型的websocket🤝"><a href="#典型的websocket🤝" class="headerlink" title="典型的websocket🤝"></a>典型的websocket🤝</h2><ul>
-<li>浏览器请求：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GET &#x2F;chat HTTP&#x2F;1.1</span><br><span class="line">Host: server.example.com</span><br><span class="line">Upgrade: websocket			&#x2F;&#x2F; websocket协议</span><br><span class="line">Connection: Upgrade			&#x2F;&#x2F; 告诉服务器，发起的请求为Upgrade对应的websocket协议</span><br><span class="line">Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw&#x3D;&#x3D;			&#x2F;&#x2F; Base64 encode值，由浏览器自动生成，用于验证是否使用websocket协议</span><br><span class="line">Sec-WebSocket-Protocol: chat, superchat			&#x2F;&#x2F; 用户定义的字符串，用于区分URL下不同服务所需要的协议</span><br><span class="line">Sec-WebSocket-Version: 13			&#x2F;&#x2F; websocket版本</span><br><span class="line">Origin: http:&#x2F;&#x2F;example.com</span><br></pre></td></tr></table></figure></li>
-<li>服务器返回：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">HTTP&#x2F;1.1 101 Switching Protocols</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk&#x3D;</span><br><span class="line">Sec-WebSocket-Protocol: chat</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<hr>
-<p><em>参考：</em><br><a href="https://www.cnblogs.com/jieerma666/p/10342435.html" target="_blank" rel="noopener">用JAVA分别实现WebSocket客户端与服务端</a><br><a href="https://www.cnblogs.com/nnngu/p/9347635.html" target="_blank" rel="noopener">看完让你彻底理解 WebSocket 原理，附完整的实战代码</a></p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java测试</title>
     <url>/2020/03/10/Java%E6%B5%8B%E8%AF%95/</url>
     <content><![CDATA[<h1 id="开发者测试"><a href="#开发者测试" class="headerlink" title="开发者测试"></a>开发者测试</h1><p><em>插件 eclemma查询覆盖率，最新版eclipse已内置</em></p>
@@ -456,69 +427,128 @@
       </tags>
   </entry>
   <entry>
-    <title>Markdown</title>
-    <url>/2020/03/09/Markdown/</url>
-    <content><![CDATA[<h1 id="md基本标记符号"><a href="#md基本标记符号" class="headerlink" title="md基本标记符号"></a>md基本标记符号</h1><ol>
-<li><p>标题<br>支持六级标题，一般在#后跟个空格再写标题内容。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>代码</p>
-</li>
-</ol>
+    <title>Java编程</title>
+    <url>/2020/03/10/Java%E7%BC%96%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h1><h2 id="websocket：持久化协议"><a href="#websocket：持久化协议" class="headerlink" title="websocket：持久化协议"></a>websocket：持久化协议</h2><p>实现服务器端主动向客户端推送信息，客户端也可主动向服务器发送请求，实现双向对话。<br>具体来讲，就是先通过客户端使用http协议向服务器发送请求，建立长链接；建立长链接之后，服务器即可主动向客户端发送消息；确定一个时间，经过该时间后，客户端向服务器发送请求确认，避免该🔗断开。</p>
+<p><em>为了兼容浏览器，在握手阶段使用HTTP协议。</em></p>
 <ul>
-<li>单行代码<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;代码内容&#96;</span><br></pre></td></tr></table></figure></li>
-<li>多行代码，代码之间分别用三个反引号包起来，且两边的反引号单独占一行。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(&#96;&#96;&#96;)</span><br><span class="line">  代码...</span><br><span class="line">  代码...</span><br><span class="line">  代码...</span><br><span class="line">(&#96;&#96;&#96;)</span><br></pre></td></tr></table></figure>
-注：为了防止转译，前后三个反引号处加了小括号</li>
+<li>websocket建立在TCP协议上，服务器端端实现较容易；</li>
+<li>与HTTP协议兼容性较好，默认端口为80或443，可通过http代理的服务器；</li>
+<li>数据格式轻量，性能开销较小，通信高效；</li>
+<li>可以发送文本，也可以发送二进制数据；</li>
+<li>没有同源限制，客户端可以与任意服务器通信；</li>
+<li>协议表示符是ws，若需🔐，使用wss，服务器网址为url。</li>
 </ul>
-<ol start="3">
-<li><p>字体</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">*倾斜*</span><br><span class="line">**加粗**</span><br><span class="line">***斜体加粗***</span><br><span class="line">~~加删除线~~</span><br></pre></td></tr></table></figure>
+<h2 id="典型的websocket🤝"><a href="#典型的websocket🤝" class="headerlink" title="典型的websocket🤝"></a>典型的websocket🤝</h2><ul>
+<li>浏览器请求：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GET &#x2F;chat HTTP&#x2F;1.1</span><br><span class="line">Host: server.example.com</span><br><span class="line">Upgrade: websocket			&#x2F;&#x2F; websocket协议</span><br><span class="line">Connection: Upgrade			&#x2F;&#x2F; 告诉服务器，发起的请求为Upgrade对应的websocket协议</span><br><span class="line">Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw&#x3D;&#x3D;			&#x2F;&#x2F; Base64 encode值，由浏览器自动生成，用于验证是否使用websocket协议</span><br><span class="line">Sec-WebSocket-Protocol: chat, superchat			&#x2F;&#x2F; 用户定义的字符串，用于区分URL下不同服务所需要的协议</span><br><span class="line">Sec-WebSocket-Version: 13			&#x2F;&#x2F; websocket版本</span><br><span class="line">Origin: http:&#x2F;&#x2F;example.com</span><br></pre></td></tr></table></figure></li>
+<li>服务器返回：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">HTTP&#x2F;1.1 101 Switching Protocols</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk&#x3D;</span><br><span class="line">Sec-WebSocket-Protocol: chat</span><br></pre></td></tr></table></figure>
+
 </li>
-<li><p>图片</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![图片alt](图片地址 &#39;&#39;图片title&#39;&#39;)</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li>图片alt就是显示在图片下面的文字，相当于对图片内容的解释；</li>
-<li>图片title是图片的标题，当鼠标移到图片上时显示的内容。title可不加；</li>
-<li>github和md文件关联的图片地址是有一定的格式的，不显示可将blob改为raw。</li>
 </ul>
-<ol start="5">
-<li>表格<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">表头|表头|表头</span><br><span class="line">---|:--:|--:</span><br><span class="line">内容|内容|内容</span><br><span class="line">内容|内容|内容</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li>第二行分割表头和内容；</li>
-<li>- 有一个就行，为了对齐，多加了几个；</li>
-<li>文字默认居左，-两边加：表示文字居中，-右边加：表示文字居右；</li>
-<li>原生的语法两边都要用 <code>|</code> 包起来。</li>
-</ul>
-<ol start="6">
-<li><p>引用<br>在引用的文字前加&gt;即可。引用也可以嵌套，如加两个&gt;&gt;三个&gt;&gt;&gt;</p>
-</li>
-<li><p>分割线<br>三个或者三个以上的 - 或者 * 均可。</p>
-</li>
-<li><p>超链接</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[超链接名](超链接地址 &quot;超链接title&quot;)</span><br></pre></td></tr></table></figure>
-<p>Markdown本身语法不支持链接在新页面中打开，可用html的a标签代替。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;a href&#x3D;&quot;超链接地址&quot; target&#x3D;&quot;_blank&quot;&gt;超链接名&lt;&#x2F;a&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>列表</p>
-</li>
-</ol>
-<ul>
-<li>无序列表<br>无序列表用 <code>- + *</code> 任何一种均可，但与内容之间都要有一个空格<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- 列表内容</span><br><span class="line">+ 列表内容</span><br><span class="line">* 列表内容</span><br></pre></td></tr></table></figure></li>
-<li>有序列表<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 列表内容</span><br><span class="line">2. 列表内容</span><br><span class="line">3. 列表内容</span><br></pre></td></tr></table></figure></li>
-<li>列表嵌套<br>上一级与下一级间加3个空格即可。</li>
-</ul>
-<ol start="10">
-<li>流程图（GitHub貌似不支持）<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始</span><br><span class="line">op&#x3D;&gt;operation: My Operation</span><br><span class="line">cond&#x3D;&gt;condition: Yes or No?</span><br><span class="line">e&#x3D;&gt;end</span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br><span class="line">&amp;</span><br></pre></td></tr></table></figure></li>
-</ol>
+<hr>
+<p><em>参考：</em><br><a href="https://www.cnblogs.com/jieerma666/p/10342435.html" target="_blank" rel="noopener">用JAVA分别实现WebSocket客户端与服务端</a><br><a href="https://www.cnblogs.com/nnngu/p/9347635.html" target="_blank" rel="noopener">看完让你彻底理解 WebSocket 原理，附完整的实战代码</a></p>
 ]]></content>
       <categories>
-        <category>Manual</category>
+        <category>Java</category>
       </categories>
       <tags>
-        <tag>Markdown</tag>
+        <tag>Java</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>MVVM设计模式</title>
+    <url>/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="MVC模式"><a href="#MVC模式" class="headerlink" title="MVC模式"></a>MVC模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvc.png" alt="mvc"></p>
+<p>所有的对象都可以被归类为一个model，一个view，或一个controller。–Apple</p>
+<ul>
+<li>M：模型model的对象通常比较简单。<ul>
+<li>根据Apple的文档，model应包括数据和操作数据的业务逻辑；</li>
+<li>在实际中，model层往往非常薄；</li>
+<li>model层的业务逻辑不应被拖入到controller；</li>
+</ul>
+</li>
+<li>V：视图view通常是UIKit控件或编码定义的UIKit控件的集合。<ul>
+<li>View的构建可不告诉controller，也不应该直接引用model；</li>
+<li>View仅仅通过IBAction事件引用controller；</li>
+<li>视图本身不包含任何业务；</li>
+</ul>
+</li>
+<li>C：控制器controller用于协调model和view间的所有交互，是app的“胶水代码”。<ul>
+<li>controller负责管理所拥有的view的视图层次结构，并且响应view的loading、appearing、disappearing等；</li>
+<li>包括不愿暴露给view的业务逻辑；</li>
+<li>网络数据的请求及后续操作，本地数据库操作，及一些带有工具性质辅助方法等都加大了<code>Massive View Controller</code>的产生。</li>
+</ul>
+</li>
+</ul>
+<p><em>部分代码没有合适的存放位置，如网络逻辑。</em></p>
+<p>弊端：</p>
+<ul>
+<li>大量的代码被放到controller，臃肿；</li>
+<li>controller规模庞大，难以维护；</li>
+<li>属性较多，难以管理；</li>
+<li>遵循较多协议，protocol的响应代码和controller的逻辑代码混杂；</li>
+<li>View Controller混合类视图处理逻辑和业务逻辑，分离这些成分的单元测试成为艰巨的任务。</li>
+</ul>
+<h1 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/MVVM.png" alt="MVVM"></p>
+<p>MVVM是对MVC的一种演进，促进了UI代码和业务逻辑的分离。<br>MVVM正式规范了视图和控制器紧耦合的性质，并引入新的组件ViewModel。<br>项目中的请求数据，统一交给ViewModel管理，每个控制器对应一个专属ViewModel。</p>
+<ul>
+<li><p>特点：</p>
+<ul>
+<li>view和<code>view controller</code>正式联系在一起，将其视为一个组件；</li>
+<li>view和<code>view controller</code>不能直接引用model，而是引用viewModel；</li>
+<li>viewModel放置用户输入验证逻辑、视图显示逻辑、发起网络请求、数据解析等；</li>
+<li>使用MVVM会增加少量代码量，但总体上减少了代码的复杂性。</li>
+</ul>
+</li>
+<li><p>注意事项：</p>
+<ul>
+<li>view引用viewModel，但viewModel不能引用view；</li>
+<li>viewModel引用model，但model不能引用ViewModel；</li>
+<li>MVVM可兼容MVC架构；</li>
+<li>MVVM配合一个绑定机制(如ReactiveCocoa)效果最好；</li>
+<li>尽量使用viewModel处理业务逻辑；</li>
+<li>viewController尽量不涉及业务逻辑，只接收view的事件、调用viewModel的方法、响应viewModel的变化；</li>
+<li>viewModel间可以有依赖，但要避免过于臃肿。</li>
+</ul>
+</li>
+<li><p>优点：</p>
+<ul>
+<li>低耦合：View可以独立于Model变化和修改，一个viewModel可以绑定到不同的View上；</li>
+<li>可重用性：可将一些视图逻辑放到一个viewModel中，让view重用该视图逻辑；</li>
+<li>独立开发：开发人员可专注于业务逻辑和数据的开发viewModel，设计人员可专注于页面设计View；</li>
+<li>可测试：通常界面是比较难测试，MVVM模式可针对viewModel进行测试。</li>
+</ul>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li>数据绑定使得一个位置的Bug被快速传递到别的位置，难定位到原始位置；</li>
+<li>对于过大的项目，数据绑定和数据转化需要花费更多的内存：<ul>
+<li>数组内容的转化成本较高，数组中每项都要转化成Item对象，Item对象中可能还有类似数组；</li>
+<li>转化后的数据大部分情况下不能直接被展示，还需二次转化；</li>
+<li>只有在API返回的数据高度标准化时，Item的可复用程度才高，否则容易出现类型爆炸，提高维护成本；</li>
+</ul>
+</li>
+<li>调试时通过Item查看数据内容，不如直接通过NSDictionary/NSArray直观；</li>
+<li>同一API的数据被不同View展示时，难以控制数据转化的代码，可能散落在任何需要的地方。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>个人实战使用总结：</p>
+<ul>
+<li>Model：存放所需要用到的变量、定义字典等，用于转换数据；</li>
+<li>View：控件相关，用于定义控件属性Cell、UI界面的设置等；</li>
+<li>Controller：用于传递数据信息等，如给UIView内容赋值；</li>
+<li>ViewModel：用于解析数据等。</li>
+</ul>
+<hr>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a href="https://www.jianshu.com/p/d0bc12a63ccf" target="_blank" rel="noopener">https://www.jianshu.com/p/d0bc12a63ccf</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>ios</category>
+      </categories>
   </entry>
   <entry>
     <title>Mac常用配置</title>
@@ -677,155 +707,68 @@
       </tags>
   </entry>
   <entry>
-    <title>MVVM设计模式</title>
-    <url>/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<h1 id="MVC模式"><a href="#MVC模式" class="headerlink" title="MVC模式"></a>MVC模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvc.png" alt="mvc"></p>
-<p>所有的对象都可以被归类为一个model，一个view，或一个controller。–Apple</p>
-<ul>
-<li>M：模型model的对象通常比较简单。<ul>
-<li>根据Apple的文档，model应包括数据和操作数据的业务逻辑；</li>
-<li>在实际中，model层往往非常薄；</li>
-<li>model层的业务逻辑不应被拖入到controller；</li>
-</ul>
+    <title>Markdown</title>
+    <url>/2020/03/09/Markdown/</url>
+    <content><![CDATA[<h1 id="md基本标记符号"><a href="#md基本标记符号" class="headerlink" title="md基本标记符号"></a>md基本标记符号</h1><ol>
+<li><p>标题<br>支持六级标题，一般在#后跟个空格再写标题内容。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题</span><br></pre></td></tr></table></figure>
 </li>
-<li>V：视图view通常是UIKit控件或编码定义的UIKit控件的集合。<ul>
-<li>View的构建可不告诉controller，也不应该直接引用model；</li>
-<li>View仅仅通过IBAction事件引用controller；</li>
-<li>视图本身不包含任何业务；</li>
-</ul>
-</li>
-<li>C：控制器controller用于协调model和view间的所有交互，是app的“胶水代码”。<ul>
-<li>controller负责管理所拥有的view的视图层次结构，并且响应view的loading、appearing、disappearing等；</li>
-<li>包括不愿暴露给view的业务逻辑；</li>
-<li>网络数据的请求及后续操作，本地数据库操作，及一些带有工具性质辅助方法等都加大了<code>Massive View Controller</code>的产生。</li>
-</ul>
-</li>
-</ul>
-<p><em>部分代码没有合适的存放位置，如网络逻辑。</em></p>
-<p>弊端：</p>
-<ul>
-<li>大量的代码被放到controller，臃肿；</li>
-<li>controller规模庞大，难以维护；</li>
-<li>属性较多，难以管理；</li>
-<li>遵循较多协议，protocol的响应代码和controller的逻辑代码混杂；</li>
-<li>View Controller混合类视图处理逻辑和业务逻辑，分离这些成分的单元测试成为艰巨的任务。</li>
-</ul>
-<h1 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/MVVM.png" alt="MVVM"></p>
-<p>MVVM是对MVC的一种演进，促进了UI代码和业务逻辑的分离。<br>MVVM正式规范了视图和控制器紧耦合的性质，并引入新的组件ViewModel。<br>项目中的请求数据，统一交给ViewModel管理，每个控制器对应一个专属ViewModel。</p>
-<ul>
-<li><p>特点：</p>
-<ul>
-<li>view和<code>view controller</code>正式联系在一起，将其视为一个组件；</li>
-<li>view和<code>view controller</code>不能直接引用model，而是引用viewModel；</li>
-<li>viewModel放置用户输入验证逻辑、视图显示逻辑、发起网络请求、数据解析等；</li>
-<li>使用MVVM会增加少量代码量，但总体上减少了代码的复杂性。</li>
-</ul>
-</li>
-<li><p>注意事项：</p>
-<ul>
-<li>view引用viewModel，但viewModel不能引用view；</li>
-<li>viewModel引用model，但model不能引用ViewModel；</li>
-<li>MVVM可兼容MVC架构；</li>
-<li>MVVM配合一个绑定机制(如ReactiveCocoa)效果最好；</li>
-<li>尽量使用viewModel处理业务逻辑；</li>
-<li>viewController尽量不涉及业务逻辑，只接收view的事件、调用viewModel的方法、响应viewModel的变化；</li>
-<li>viewModel间可以有依赖，但要避免过于臃肿。</li>
-</ul>
-</li>
-<li><p>优点：</p>
-<ul>
-<li>低耦合：View可以独立于Model变化和修改，一个viewModel可以绑定到不同的View上；</li>
-<li>可重用性：可将一些视图逻辑放到一个viewModel中，让view重用该视图逻辑；</li>
-<li>独立开发：开发人员可专注于业务逻辑和数据的开发viewModel，设计人员可专注于页面设计View；</li>
-<li>可测试：通常界面是比较难测试，MVVM模式可针对viewModel进行测试。</li>
-</ul>
-</li>
-<li><p>缺点：</p>
-<ul>
-<li>数据绑定使得一个位置的Bug被快速传递到别的位置，难定位到原始位置；</li>
-<li>对于过大的项目，数据绑定和数据转化需要花费更多的内存：<ul>
-<li>数组内容的转化成本较高，数组中每项都要转化成Item对象，Item对象中可能还有类似数组；</li>
-<li>转化后的数据大部分情况下不能直接被展示，还需二次转化；</li>
-<li>只有在API返回的数据高度标准化时，Item的可复用程度才高，否则容易出现类型爆炸，提高维护成本；</li>
-</ul>
-</li>
-<li>调试时通过Item查看数据内容，不如直接通过NSDictionary/NSArray直观；</li>
-<li>同一API的数据被不同View展示时，难以控制数据转化的代码，可能散落在任何需要的地方。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p>个人实战使用总结：</p>
-<ul>
-<li>Model：存放所需要用到的变量、定义字典等，用于转换数据；</li>
-<li>View：控件相关，用于定义控件属性Cell、UI界面的设置等；</li>
-<li>Controller：用于传递数据信息等，如给UIView内容赋值；</li>
-<li>ViewModel：用于解析数据等。</li>
-</ul>
-<hr>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="https://www.jianshu.com/p/d0bc12a63ccf" target="_blank" rel="noopener">https://www.jianshu.com/p/d0bc12a63ccf</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>ios</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Ubuntu安装Matlab</title>
-    <url>/2020/06/03/Ubuntu%E5%AE%89%E8%A3%85Matlab/</url>
-    <content><![CDATA[<h1 id="Ubuntu-18-04安装Matlab2018b"><a href="#Ubuntu-18-04安装Matlab2018b" class="headerlink" title="Ubuntu 18.04安装Matlab2018b"></a>Ubuntu 18.04安装Matlab2018b</h1><h2 id="Matlab安装"><a href="#Matlab安装" class="headerlink" title="Matlab安装"></a>Matlab安装</h2><ol>
-<li>进入下载文件存储路径，装载光盘1 <code>sudo mount -o loop R2018b_glnxa64_dvd1.iso matlab</code>；</li>
-<li>启动程序 <code>sudo matlab/install</code>；</li>
-<li>选择不联网激活，然后输入license<br>在”Use a File Installation Key”输入license <code>09806-07443-53955-64350-21751-41297</code>。</li>
-<li>当弹出弹框时<code>Eject DVD1 and insert DVD 2 to continue</code>加载第2个光盘<br><code>ctrl+alt+t</code> 打开一个新的terminal:<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo mount -o loop R2018b_glnxa64_dvd2.iso matlab</span><br></pre></td></tr></table></figure>
-在弹框点击ok继续安装，待加载完成unmount文件即可。</li>
-</ol>
-<h2 id="破解Matlab"><a href="#破解Matlab" class="headerlink" title="破解Matlab"></a>破解Matlab</h2><ol>
-<li>替换 <code>libmwlmgrimpl.so</code> 文件<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo cp -f &#x2F;home&#x2F;***&#x2F;Downloads&#x2F;Matlab&#x2F;MATLAB_R2018b_Linux64_Crack&#x2F;MATLAB\ R2018b\ Linux64\ Crack&#x2F;R2018b&#x2F;bin&#x2F;glnxa64&#x2F;matlab_startup_plugins&#x2F;lmgrimpl&#x2F;libmwlmgrimpl.so &#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;bin&#x2F;glnxa64&#x2F;matlab_startup_plugins&#x2F;lmgrimpl&#x2F;</span><br><span class="line">sudo &#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;bin&#x2F;matlab</span><br></pre></td></tr></table></figure></li>
-<li>选择离线激活，选择破解文件license_standalone.lic，<br><code>/home/***/Downloads/Matlab/MATLAB_R2018b_Linux64_Crack/MATLAB R2018b Linux64 Crack/license_standalone.lic</code></li>
-</ol>
-<ul>
-<li>如果不喜欢在terminal中看到 <code>Failed to load module &#39;canberra-gtk-module&#39;</code><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install libcanberra-gtk-module</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="创建Matlab快捷方式"><a href="#创建Matlab快捷方式" class="headerlink" title="创建Matlab快捷方式"></a>创建Matlab快捷方式</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo gedit &#x2F;usr&#x2F;share&#x2F;applications&#x2F;Matlab2018b.desktop</span><br></pre></td></tr></table></figure>
-<p>在文件中拷贝如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[Desktop Entry]</span><br><span class="line">Categories&#x3D;Application;Development;</span><br><span class="line">Comment&#x3D;Matlab</span><br><span class="line">Encoding&#x3D;UTF-8</span><br><span class="line">Exec&#x3D;&#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;bin&#x2F;matlab -desktop -prefersoftwareopengl</span><br><span class="line">Icon&#x3D;&#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;toolbox&#x2F;shared&#x2F;dastudio&#x2F;resources&#x2F;MatlabIcon.png</span><br><span class="line">Name&#x3D;MATLAB R2018b</span><br><span class="line">StartupNotify&#x3D;true</span><br><span class="line">Terminal&#x3D;false</span><br><span class="line">Type&#x3D;Application</span><br></pre></td></tr></table></figure>
-<p>如果打开Matlab提示”The desktop configuration was not saved successfully”：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo chmod a+w -R ~&#x2F;.matlab</span><br><span class="line">sudo chmod 777 &#x2F;home&#x2F;***&#x2F;.matlab</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>ubuntu</category>
-      </categories>
-      <tags>
-        <tag>software</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu配置CUDA</title>
-    <url>/2020/06/03/Ubuntu%E9%85%8D%E7%BD%AECUDA/</url>
-    <content><![CDATA[<h1 id="Ubuntu-18-04安装cuda-10-1版本deb"><a href="#Ubuntu-18-04安装cuda-10-1版本deb" class="headerlink" title="Ubuntu 18.04安装cuda 10.1版本deb"></a>Ubuntu 18.04安装cuda 10.1版本deb</h1><ol>
-<li>进入存储路径 <code>cd Downloads/cuda</code>；</li>
-<li>安装库<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo dpkg --install cuda-repo-ubuntu1804-10-1-local-10.1.168-418.67_1.0-1_amd64.deb</span><br><span class="line">sudo apt-key add &#x2F;var&#x2F;cuda-repo-10-1-local-10.1.168-418.67</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install cuda</span><br></pre></td></tr></table></figure></li>
-<li>重启Reboot；</li>
-<li>配置环境变量 <code>sudo gedit ~/.bashrc</code><br>在bashrc末尾添加：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;cuda-10.1&#x2F;bin$&#123;PATH:+:$&#123;PATH&#125;&#125;</span><br><span class="line">export LD_LIBRARY_PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;cuda-10.1&#x2F;lib64$&#123;LD_LIBRARY_PATH:+:$&#123;LD_LIBRARY_PATH&#125;&#125;</span><br></pre></td></tr></table></figure></li>
-<li>重启环境变量 <code>source ~/.bashrc</code>；</li>
-<li>验证。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cuda-install-samples-10.1.sh ~</span><br><span class="line">cd ~&#x2F;NVIDIA_CUDA-10.1_Samples&#x2F;5_Simulations&#x2F;nbody</span><br><span class="line">make</span><br><span class="line">.&#x2F;nbody</span><br></pre></td></tr></table></figure>
-
+<li><p>代码</p>
 </li>
 </ol>
-<hr>
-<h1 id="Ubuntu-18-04安装cudnn7-6-2版本deb"><a href="#Ubuntu-18-04安装cudnn7-6-2版本deb" class="headerlink" title="Ubuntu 18.04安装cudnn7.6.2版本deb"></a>Ubuntu 18.04安装cudnn7.6.2版本deb</h1><ol>
-<li>安装库<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo dpkg -i libcudnn7_7.6.2.24-1+cuda10.1_amd64.deb </span><br><span class="line">sudo dpkg -i libcudnn7-dev_7.6.2.24-1+cuda10.1_amd64.deb</span><br><span class="line">sudo dpkg -i libcudnn7-doc_7.6.2.24-1+cuda10.1_amd64.deb</span><br></pre></td></tr></table></figure></li>
-<li>验证（”Test passed!”）<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp -r &#x2F;usr&#x2F;src&#x2F;cudnn_samples_v7&#x2F; $HOME</span><br><span class="line">cd  $HOME&#x2F;cudnn_samples_v7&#x2F;mnistCUDNN</span><br><span class="line">make clean &amp;&amp; make</span><br><span class="line">.&#x2F;mnistCUDNN</span><br></pre></td></tr></table></figure></li>
+<ul>
+<li>单行代码<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;代码内容&#96;</span><br></pre></td></tr></table></figure></li>
+<li>多行代码，代码之间分别用三个反引号包起来，且两边的反引号单独占一行。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(&#96;&#96;&#96;)</span><br><span class="line">  代码...</span><br><span class="line">  代码...</span><br><span class="line">  代码...</span><br><span class="line">(&#96;&#96;&#96;)</span><br></pre></td></tr></table></figure>
+注：为了防止转译，前后三个反引号处加了小括号</li>
+</ul>
+<ol start="3">
+<li><p>字体</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">*倾斜*</span><br><span class="line">**加粗**</span><br><span class="line">***斜体加粗***</span><br><span class="line">~~加删除线~~</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>图片</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![图片alt](图片地址 &#39;&#39;图片title&#39;&#39;)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>图片alt就是显示在图片下面的文字，相当于对图片内容的解释；</li>
+<li>图片title是图片的标题，当鼠标移到图片上时显示的内容。title可不加；</li>
+<li>github和md文件关联的图片地址是有一定的格式的，不显示可将blob改为raw。</li>
+</ul>
+<ol start="5">
+<li>表格<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">表头|表头|表头</span><br><span class="line">---|:--:|--:</span><br><span class="line">内容|内容|内容</span><br><span class="line">内容|内容|内容</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>第二行分割表头和内容；</li>
+<li>- 有一个就行，为了对齐，多加了几个；</li>
+<li>文字默认居左，-两边加：表示文字居中，-右边加：表示文字居右；</li>
+<li>原生的语法两边都要用 <code>|</code> 包起来。</li>
+</ul>
+<ol start="6">
+<li><p>引用<br>在引用的文字前加&gt;即可。引用也可以嵌套，如加两个&gt;&gt;三个&gt;&gt;&gt;</p>
+</li>
+<li><p>分割线<br>三个或者三个以上的 - 或者 * 均可。</p>
+</li>
+<li><p>超链接</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[超链接名](超链接地址 &quot;超链接title&quot;)</span><br></pre></td></tr></table></figure>
+<p>Markdown本身语法不支持链接在新页面中打开，可用html的a标签代替。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;a href&#x3D;&quot;超链接地址&quot; target&#x3D;&quot;_blank&quot;&gt;超链接名&lt;&#x2F;a&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>列表</p>
+</li>
+</ol>
+<ul>
+<li>无序列表<br>无序列表用 <code>- + *</code> 任何一种均可，但与内容之间都要有一个空格<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- 列表内容</span><br><span class="line">+ 列表内容</span><br><span class="line">* 列表内容</span><br></pre></td></tr></table></figure></li>
+<li>有序列表<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 列表内容</span><br><span class="line">2. 列表内容</span><br><span class="line">3. 列表内容</span><br></pre></td></tr></table></figure></li>
+<li>列表嵌套<br>上一级与下一级间加3个空格即可。</li>
+</ul>
+<ol start="10">
+<li>流程图（GitHub貌似不支持）<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始</span><br><span class="line">op&#x3D;&gt;operation: My Operation</span><br><span class="line">cond&#x3D;&gt;condition: Yes or No?</span><br><span class="line">e&#x3D;&gt;end</span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br><span class="line">&amp;</span><br></pre></td></tr></table></figure></li>
 </ol>
 ]]></content>
       <categories>
-        <category>ubuntu</category>
+        <category>Manual</category>
       </categories>
       <tags>
-        <tag>software</tag>
+        <tag>Markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -878,11 +821,68 @@
 ]]></content>
   </entry>
   <entry>
+    <title>Ubuntu安装Matlab</title>
+    <url>/2020/06/03/Ubuntu%E5%AE%89%E8%A3%85Matlab/</url>
+    <content><![CDATA[<h1 id="Ubuntu-18-04安装Matlab2018b"><a href="#Ubuntu-18-04安装Matlab2018b" class="headerlink" title="Ubuntu 18.04安装Matlab2018b"></a>Ubuntu 18.04安装Matlab2018b</h1><h2 id="Matlab安装"><a href="#Matlab安装" class="headerlink" title="Matlab安装"></a>Matlab安装</h2><ol>
+<li>进入下载文件存储路径，装载光盘1 <code>sudo mount -o loop R2018b_glnxa64_dvd1.iso matlab</code>；</li>
+<li>启动程序 <code>sudo matlab/install</code>；</li>
+<li>选择不联网激活，然后输入license<br>在”Use a File Installation Key”输入license <code>09806-07443-53955-64350-21751-41297</code>。</li>
+<li>当弹出弹框时<code>Eject DVD1 and insert DVD 2 to continue</code>加载第2个光盘<br><code>ctrl+alt+t</code> 打开一个新的terminal:<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo mount -o loop R2018b_glnxa64_dvd2.iso matlab</span><br></pre></td></tr></table></figure>
+在弹框点击ok继续安装，待加载完成unmount文件即可。</li>
+</ol>
+<h2 id="破解Matlab"><a href="#破解Matlab" class="headerlink" title="破解Matlab"></a>破解Matlab</h2><ol>
+<li>替换 <code>libmwlmgrimpl.so</code> 文件<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo cp -f &#x2F;home&#x2F;***&#x2F;Downloads&#x2F;Matlab&#x2F;MATLAB_R2018b_Linux64_Crack&#x2F;MATLAB\ R2018b\ Linux64\ Crack&#x2F;R2018b&#x2F;bin&#x2F;glnxa64&#x2F;matlab_startup_plugins&#x2F;lmgrimpl&#x2F;libmwlmgrimpl.so &#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;bin&#x2F;glnxa64&#x2F;matlab_startup_plugins&#x2F;lmgrimpl&#x2F;</span><br><span class="line">sudo &#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;bin&#x2F;matlab</span><br></pre></td></tr></table></figure></li>
+<li>选择离线激活，选择破解文件license_standalone.lic，<br><code>/home/***/Downloads/Matlab/MATLAB_R2018b_Linux64_Crack/MATLAB R2018b Linux64 Crack/license_standalone.lic</code></li>
+</ol>
+<ul>
+<li>如果不喜欢在terminal中看到 <code>Failed to load module &#39;canberra-gtk-module&#39;</code><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install libcanberra-gtk-module</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="创建Matlab快捷方式"><a href="#创建Matlab快捷方式" class="headerlink" title="创建Matlab快捷方式"></a>创建Matlab快捷方式</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo gedit &#x2F;usr&#x2F;share&#x2F;applications&#x2F;Matlab2018b.desktop</span><br></pre></td></tr></table></figure>
+<p>在文件中拷贝如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[Desktop Entry]</span><br><span class="line">Categories&#x3D;Application;Development;</span><br><span class="line">Comment&#x3D;Matlab</span><br><span class="line">Encoding&#x3D;UTF-8</span><br><span class="line">Exec&#x3D;&#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;bin&#x2F;matlab -desktop -prefersoftwareopengl</span><br><span class="line">Icon&#x3D;&#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;toolbox&#x2F;shared&#x2F;dastudio&#x2F;resources&#x2F;MatlabIcon.png</span><br><span class="line">Name&#x3D;MATLAB R2018b</span><br><span class="line">StartupNotify&#x3D;true</span><br><span class="line">Terminal&#x3D;false</span><br><span class="line">Type&#x3D;Application</span><br></pre></td></tr></table></figure>
+<p>如果打开Matlab提示”The desktop configuration was not saved successfully”：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo chmod a+w -R ~&#x2F;.matlab</span><br><span class="line">sudo chmod 777 &#x2F;home&#x2F;***&#x2F;.matlab</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>ubuntu</category>
+      </categories>
+      <tags>
+        <tag>software</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VS-Code配置</title>
     <url>/2020/06/06/VSCode%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<p>配置C环境<br><a href="https://www.jianshu.com/p/83879b4aa3fe" target="_blank" rel="noopener">https://www.jianshu.com/p/83879b4aa3fe</a></p>
 <p>Latex学习<br><a href="https://www.cnblogs.com/zyg123/category/1415008.html" target="_blank" rel="noopener">https://www.cnblogs.com/zyg123/category/1415008.html</a></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>Ubuntu配置CUDA</title>
+    <url>/2020/06/03/Ubuntu%E9%85%8D%E7%BD%AECUDA/</url>
+    <content><![CDATA[<h1 id="Ubuntu-18-04安装cuda-10-1版本deb"><a href="#Ubuntu-18-04安装cuda-10-1版本deb" class="headerlink" title="Ubuntu 18.04安装cuda 10.1版本deb"></a>Ubuntu 18.04安装cuda 10.1版本deb</h1><ol>
+<li>进入存储路径 <code>cd Downloads/cuda</code>；</li>
+<li>安装库<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo dpkg --install cuda-repo-ubuntu1804-10-1-local-10.1.168-418.67_1.0-1_amd64.deb</span><br><span class="line">sudo apt-key add &#x2F;var&#x2F;cuda-repo-10-1-local-10.1.168-418.67</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install cuda</span><br></pre></td></tr></table></figure></li>
+<li>重启Reboot；</li>
+<li>配置环境变量 <code>sudo gedit ~/.bashrc</code><br>在bashrc末尾添加：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;cuda-10.1&#x2F;bin$&#123;PATH:+:$&#123;PATH&#125;&#125;</span><br><span class="line">export LD_LIBRARY_PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;cuda-10.1&#x2F;lib64$&#123;LD_LIBRARY_PATH:+:$&#123;LD_LIBRARY_PATH&#125;&#125;</span><br></pre></td></tr></table></figure></li>
+<li>重启环境变量 <code>source ~/.bashrc</code>；</li>
+<li>验证。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cuda-install-samples-10.1.sh ~</span><br><span class="line">cd ~&#x2F;NVIDIA_CUDA-10.1_Samples&#x2F;5_Simulations&#x2F;nbody</span><br><span class="line">make</span><br><span class="line">.&#x2F;nbody</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h1 id="Ubuntu-18-04安装cudnn7-6-2版本deb"><a href="#Ubuntu-18-04安装cudnn7-6-2版本deb" class="headerlink" title="Ubuntu 18.04安装cudnn7.6.2版本deb"></a>Ubuntu 18.04安装cudnn7.6.2版本deb</h1><ol>
+<li>安装库<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo dpkg -i libcudnn7_7.6.2.24-1+cuda10.1_amd64.deb </span><br><span class="line">sudo dpkg -i libcudnn7-dev_7.6.2.24-1+cuda10.1_amd64.deb</span><br><span class="line">sudo dpkg -i libcudnn7-doc_7.6.2.24-1+cuda10.1_amd64.deb</span><br></pre></td></tr></table></figure></li>
+<li>验证（”Test passed!”）<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp -r &#x2F;usr&#x2F;src&#x2F;cudnn_samples_v7&#x2F; $HOME</span><br><span class="line">cd  $HOME&#x2F;cudnn_samples_v7&#x2F;mnistCUDNN</span><br><span class="line">make clean &amp;&amp; make</span><br><span class="line">.&#x2F;mnistCUDNN</span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <categories>
+        <category>ubuntu</category>
+      </categories>
+      <tags>
+        <tag>software</tag>
+      </tags>
   </entry>
   <entry>
     <title>brief特征</title>
@@ -1035,28 +1035,6 @@
       </tags>
   </entry>
   <entry>
-    <title>kmeans聚类</title>
-    <url>/2020/06/06/kmeans%E8%81%9A%E7%B1%BB/</url>
-    <content><![CDATA[<h1 id="K-means"><a href="#K-means" class="headerlink" title="K-means"></a>K-means</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/K-means.png" alt="K-means"></p>
-<p>算法流程：</p>
-<ol>
-<li>选取k个类中心（首次随机选取）；</li>
-<li>计算每个点到k个类中心的距离；</li>
-<li>将数据点分配给距离最近的一个类中心；</li>
-<li>计算新的类中心（对该类中所有点取均值）；</li>
-<li>重复2-4，直到满足终止条件：<ul>
-<li>不再有重新分配；</li>
-<li>最大迭代数；</li>
-<li>所有类中心移动小于某一个值。</li>
-</ul>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-  </entry>
-  <entry>
     <title>hog特征</title>
     <url>/2020/06/04/hog%E7%89%B9%E5%BE%81/</url>
     <content><![CDATA[<h1 id="HOG特征"><a href="#HOG特征" class="headerlink" title="HOG特征"></a>HOG特征</h1><ul>
@@ -1118,6 +1096,76 @@
       </categories>
       <tags>
         <tag>feature</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>kmeans聚类</title>
+    <url>/2020/06/06/kmeans%E8%81%9A%E7%B1%BB/</url>
+    <content><![CDATA[<h1 id="K-means"><a href="#K-means" class="headerlink" title="K-means"></a>K-means</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/K-means.png" alt="K-means"></p>
+<p>算法流程：</p>
+<ol>
+<li>选取k个类中心（首次随机选取）；</li>
+<li>计算每个点到k个类中心的距离；</li>
+<li>将数据点分配给距离最近的一个类中心；</li>
+<li>计算新的类中心（对该类中所有点取均值）；</li>
+<li>重复2-4，直到满足终止条件：<ul>
+<li>不再有重新分配；</li>
+<li>最大迭代数；</li>
+<li>所有类中心移动小于某一个值。</li>
+</ul>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>mysql</title>
+    <url>/2020/03/09/mysql/</url>
+    <content><![CDATA[<h1 id="mysql常用命令"><a href="#mysql常用命令" class="headerlink" title="mysql常用命令"></a>mysql常用命令</h1><h2 id="进入mysql："><a href="#进入mysql：" class="headerlink" title="进入mysql："></a>进入mysql：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure>
+<p>输入密码登录。</p>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><ol>
+<li>显示已存在数据库：<br><code>show databases;</code></li>
+<li>创建新数据库：<br><code>create database 数据库名称;</code></li>
+<li>切换到某数据库：<br><code>use 数据库名称;</code></li>
+<li>删除数据库：<br><code>drop database 数据库名称;</code></li>
+<li>退出数据库：<br><code>use mysql;</code></li>
+</ol>
+<h2 id="数据库表"><a href="#数据库表" class="headerlink" title="数据库表"></a>数据库表</h2><ol>
+<li>显示数据库中所有表：<br><code>show tables;</code></li>
+<li>创建新数据库表：<br><code>create table</code>数据库名称<code>(</code>列名<code>类型 ... , ...);</code></li>
+<li>查看某表结构：<br><code>show columns from 表名;</code> 或 <code>DESCRIBE 表名;</code></li>
+<li>删除数据库表：<br><code>drop tables 表名;</code></li>
+</ol>
+<hr>
+<h1 id="导入txt格式文件到MySQL8-0"><a href="#导入txt格式文件到MySQL8-0" class="headerlink" title="导入txt格式文件到MySQL8.0"></a>导入txt格式文件到MySQL8.0</h1><h2 id="命令行方式导入："><a href="#命令行方式导入：" class="headerlink" title="命令行方式导入："></a>命令行方式导入：</h2><p><strong>利用navicat中的查询语句进行命令操作</strong></p>
+<ol>
+<li>新建一个car_operation数据库：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE &#96;car_operation&#96; (</span><br><span class="line">  &#96;car_id&#96; varchar(6) NOT NULL COMMENT &#39;车辆标识&#39;,</span><br><span class="line">  &#96;clicking&#96; int(2) NOT NULL COMMENT &#39;触发事件：0&#x3D;变空车，1&#x3D;变载客，2&#x3D;设防，3&#x3D;撤防，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;operation_status&#96; int(2) NOT NULL COMMENT &#39;运营状态：0&#x3D;空车，1&#x3D;载客，2&#x3D;驻车，3&#x3D;停运，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;gps_time&#96; date NOT NULL COMMENT &#39;GPS时间：格式yyyymmddhhnnss，北京时间&#39;,</span><br><span class="line">  &#96;gps_longitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS经度：格式ddd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_latitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS纬度：格式dd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_speed&#96; int(4) NOT NULL COMMENT &#39;GPS速度：格式ddd，取值000-255内整数，以公里&#x2F;小时为单位&#39;,</span><br><span class="line">  &#96;gps_direction&#96; int(4) NOT NULL COMMENT &#39;GPS方位：格式ddd，取值000-360内整数，以度为单位&#39;,</span><br><span class="line">  &#96;gps_status&#96; int(2) NOT NULL COMMENT &#39;GPS状态：0&#x3D;无效，1&#x3D;有效&#39;</span><br><span class="line">) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Dynamic;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>因使用MySQL8.0，需要修改my.ini配置文件:</strong><br>在[mysqld]下添加一行 <code>secure_file_priv=&#39;&#39;</code>，重启MySQL服务器。</p>
+<ol start="2">
+<li><p>使用样例数据导入：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">LOAD DATA INFILE &#39;F:&#x2F;CQUPT&#x2F;Y81201&#x2F;SuperDatabase&#x2F;ADB&#x2F;20121130000001.txt&#39; REPLACE </span><br><span class="line">INTO TABLE car_operation </span><br><span class="line">FIELDS TERMINATED by&#39;,&#39; </span><br><span class="line">ENCLOSED by&#39;&quot;&#39;</span><br><span class="line">LINES TERMINATED by &#39;\r\n&#39;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用全部数据导入：（因数据有重复，删除car_id主键中的主键设置）</p>
+</li>
+</ol>
+<h2 id="通过GUI方式导入（速度超级慢）"><a href="#通过GUI方式导入（速度超级慢）" class="headerlink" title="通过GUI方式导入（速度超级慢）"></a>通过GUI方式导入（速度超级慢）</h2><ol>
+<li><p>创建<code>car_op_gui</code>数据库：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE &#96;car_op_gui&#96;(</span><br><span class="line">	&#96;car_id&#96; varchar(6) NOT NULL COMMENT &#39;车辆标识&#39;,</span><br><span class="line">  &#96;clicking&#96; int(2) NOT NULL COMMENT &#39;触发事件：0&#x3D;变空车，1&#x3D;变载客，2&#x3D;设防，3&#x3D;撤防，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;operation_status&#96; int(2) NOT NULL COMMENT &#39;运营状态：0&#x3D;空车，1&#x3D;载客，2&#x3D;驻车，3&#x3D;停运，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;gps_time&#96; date NOT NULL COMMENT &#39;GPS时间：格式yyyymmddhhnnss，北京时间&#39;,</span><br><span class="line">  &#96;gps_longitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS经度：格式ddd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_latitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS纬度：格式dd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_speed&#96; int(4) NOT NULL COMMENT &#39;GPS速度：格式ddd，取值000-255内整数，以公里&#x2F;小时为单位&#39;,</span><br><span class="line">  &#96;gps_direction&#96; int(4) NOT NULL COMMENT &#39;GPS方位：格式ddd，取值000-360内整数，以度为单位&#39;,</span><br><span class="line">  &#96;gps_status&#96; int(2) NOT NULL COMMENT &#39;GPS状态：0&#x3D;无效，1&#x3D;有效&#39;</span><br><span class="line">)ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Dynamic;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在该数据库右键选择导入向导<br> -&gt;选择txt格式<br> -&gt;选择数据源<br> -&gt;更改字段分隔符为“逗号，”<br> -&gt;下一步<br> -&gt;下一步<br> -&gt;更改目标字段<br> -&gt;追加，下一步<br> -&gt;开始</p>
+</li>
+<li><p>导入全部数据：（采用追加方式，目的删除之前样例数据）</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Manual</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
       </tags>
   </entry>
   <entry>
@@ -1308,52 +1356,53 @@
       </tags>
   </entry>
   <entry>
-    <title>mysql</title>
-    <url>/2020/03/09/mysql/</url>
-    <content><![CDATA[<h1 id="mysql常用命令"><a href="#mysql常用命令" class="headerlink" title="mysql常用命令"></a>mysql常用命令</h1><h2 id="进入mysql："><a href="#进入mysql：" class="headerlink" title="进入mysql："></a>进入mysql：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure>
-<p>输入密码登录。</p>
-<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><ol>
-<li>显示已存在数据库：<br><code>show databases;</code></li>
-<li>创建新数据库：<br><code>create database 数据库名称;</code></li>
-<li>切换到某数据库：<br><code>use 数据库名称;</code></li>
-<li>删除数据库：<br><code>drop database 数据库名称;</code></li>
-<li>退出数据库：<br><code>use mysql;</code></li>
-</ol>
-<h2 id="数据库表"><a href="#数据库表" class="headerlink" title="数据库表"></a>数据库表</h2><ol>
-<li>显示数据库中所有表：<br><code>show tables;</code></li>
-<li>创建新数据库表：<br><code>create table</code>数据库名称<code>(</code>列名<code>类型 ... , ...);</code></li>
-<li>查看某表结构：<br><code>show columns from 表名;</code> 或 <code>DESCRIBE 表名;</code></li>
-<li>删除数据库表：<br><code>drop tables 表名;</code></li>
-</ol>
-<hr>
-<h1 id="导入txt格式文件到MySQL8-0"><a href="#导入txt格式文件到MySQL8-0" class="headerlink" title="导入txt格式文件到MySQL8.0"></a>导入txt格式文件到MySQL8.0</h1><h2 id="命令行方式导入："><a href="#命令行方式导入：" class="headerlink" title="命令行方式导入："></a>命令行方式导入：</h2><p><strong>利用navicat中的查询语句进行命令操作</strong></p>
-<ol>
-<li>新建一个car_operation数据库：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE &#96;car_operation&#96; (</span><br><span class="line">  &#96;car_id&#96; varchar(6) NOT NULL COMMENT &#39;车辆标识&#39;,</span><br><span class="line">  &#96;clicking&#96; int(2) NOT NULL COMMENT &#39;触发事件：0&#x3D;变空车，1&#x3D;变载客，2&#x3D;设防，3&#x3D;撤防，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;operation_status&#96; int(2) NOT NULL COMMENT &#39;运营状态：0&#x3D;空车，1&#x3D;载客，2&#x3D;驻车，3&#x3D;停运，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;gps_time&#96; date NOT NULL COMMENT &#39;GPS时间：格式yyyymmddhhnnss，北京时间&#39;,</span><br><span class="line">  &#96;gps_longitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS经度：格式ddd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_latitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS纬度：格式dd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_speed&#96; int(4) NOT NULL COMMENT &#39;GPS速度：格式ddd，取值000-255内整数，以公里&#x2F;小时为单位&#39;,</span><br><span class="line">  &#96;gps_direction&#96; int(4) NOT NULL COMMENT &#39;GPS方位：格式ddd，取值000-360内整数，以度为单位&#39;,</span><br><span class="line">  &#96;gps_status&#96; int(2) NOT NULL COMMENT &#39;GPS状态：0&#x3D;无效，1&#x3D;有效&#39;</span><br><span class="line">) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Dynamic;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p><strong>因使用MySQL8.0，需要修改my.ini配置文件:</strong><br>在[mysqld]下添加一行 <code>secure_file_priv=&#39;&#39;</code>，重启MySQL服务器。</p>
-<ol start="2">
-<li><p>使用样例数据导入：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">LOAD DATA INFILE &#39;F:&#x2F;CQUPT&#x2F;Y81201&#x2F;SuperDatabase&#x2F;ADB&#x2F;20121130000001.txt&#39; REPLACE </span><br><span class="line">INTO TABLE car_operation </span><br><span class="line">FIELDS TERMINATED by&#39;,&#39; </span><br><span class="line">ENCLOSED by&#39;&quot;&#39;</span><br><span class="line">LINES TERMINATED by &#39;\r\n&#39;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用全部数据导入：（因数据有重复，删除car_id主键中的主键设置）</p>
-</li>
-</ol>
-<h2 id="通过GUI方式导入（速度超级慢）"><a href="#通过GUI方式导入（速度超级慢）" class="headerlink" title="通过GUI方式导入（速度超级慢）"></a>通过GUI方式导入（速度超级慢）</h2><ol>
-<li><p>创建<code>car_op_gui</code>数据库：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE &#96;car_op_gui&#96;(</span><br><span class="line">	&#96;car_id&#96; varchar(6) NOT NULL COMMENT &#39;车辆标识&#39;,</span><br><span class="line">  &#96;clicking&#96; int(2) NOT NULL COMMENT &#39;触发事件：0&#x3D;变空车，1&#x3D;变载客，2&#x3D;设防，3&#x3D;撤防，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;operation_status&#96; int(2) NOT NULL COMMENT &#39;运营状态：0&#x3D;空车，1&#x3D;载客，2&#x3D;驻车，3&#x3D;停运，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;gps_time&#96; date NOT NULL COMMENT &#39;GPS时间：格式yyyymmddhhnnss，北京时间&#39;,</span><br><span class="line">  &#96;gps_longitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS经度：格式ddd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_latitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS纬度：格式dd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_speed&#96; int(4) NOT NULL COMMENT &#39;GPS速度：格式ddd，取值000-255内整数，以公里&#x2F;小时为单位&#39;,</span><br><span class="line">  &#96;gps_direction&#96; int(4) NOT NULL COMMENT &#39;GPS方位：格式ddd，取值000-360内整数，以度为单位&#39;,</span><br><span class="line">  &#96;gps_status&#96; int(2) NOT NULL COMMENT &#39;GPS状态：0&#x3D;无效，1&#x3D;有效&#39;</span><br><span class="line">)ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Dynamic;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在该数据库右键选择导入向导<br> -&gt;选择txt格式<br> -&gt;选择数据源<br> -&gt;更改字段分隔符为“逗号，”<br> -&gt;下一步<br> -&gt;下一步<br> -&gt;更改目标字段<br> -&gt;追加，下一步<br> -&gt;开始</p>
-</li>
-<li><p>导入全部数据：（采用追加方式，目的删除之前样例数据）</p>
-</li>
-</ol>
+    <title>二进制运算</title>
+    <url>/2020/07/16/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BF%90%E7%AE%97/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">名称</th>
+<th align="center">表示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">&amp;</td>
+<td align="center">按位与</td>
+<td align="center">对应位均为1，才为1；否则为0</td>
+</tr>
+<tr>
+<td align="center">|</td>
+<td align="center">按位或</td>
+<td align="center">对应位有1，即为1；否则为0</td>
+</tr>
+<tr>
+<td align="center">^</td>
+<td align="center">按位异或</td>
+<td align="center">相同异或为1；不同异或为1</td>
+</tr>
+<tr>
+<td align="center">~</td>
+<td align="center">按位取反</td>
+<td align="center">1变0，0变1</td>
+</tr>
+<tr>
+<td align="center">&lt;&lt;</td>
+<td align="center">按位左移</td>
+<td align="center">左移，右边补0，相当*2</td>
+</tr>
+<tr>
+<td align="center">&gt;&gt;</td>
+<td align="center">有符号的右移</td>
+<td align="center">右移，左边补符号位，负数以原码形式参与运算</td>
+</tr>
+<tr>
+<td align="center">&gt;&gt;&gt;</td>
+<td align="center">无符号的右移</td>
+<td align="center">右移，左边补0，所有数据以无符号方式计算</td>
+</tr>
+</tbody></table>
 ]]></content>
-      <categories>
-        <category>Manual</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
-      </tags>
   </entry>
   <entry>
     <title>卷积神经网络</title>
@@ -1471,165 +1520,6 @@
       </tags>
   </entry>
   <entry>
-    <title>swift</title>
-    <url>/2020/06/30/swift/</url>
-    <content><![CDATA[<h1 id="playground"><a href="#playground" class="headerlink" title="playground"></a>playground</h1><p><em>所见及所得，可快速查看语法更改</em></p>
-<h1 id="Cocoa框架"><a href="#Cocoa框架" class="headerlink" title="Cocoa框架"></a>Cocoa框架</h1><p>Cocoa是<code>OS X</code>和<code>ios</code>操作系统的程序的运行环境。</p>
-<p>Cocoa拥有众多框架：Application、<strong>UIKit</strong>、Cocoa Touch、Media、Core Services/<strong>Foundation</strong>、Core OS。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Cocoa.png" alt="Cocoa"></p>
-<p>Foundation框架：</p>
-<h1 id="ios"><a href="#ios" class="headerlink" title="ios"></a>ios</h1><h2 id="SandBox"><a href="#SandBox" class="headerlink" title="SandBox"></a>SandBox</h2><p>ios中的沙盒机制是一种安全体系。每个app都有一个单独的文件系统/存储空间，而且只能在对应的文件系统中进行操作，即沙盒。所有的非代码文件（资源文件等）都保存在此。</p>
-<p>沙盒包含的目录：</p>
-<ul>
-<li>/AppName.app<ul>
-<li>应用程序的程序包目录；</li>
-<li>由于应用程序必须经过<strong>签名</strong>，所以不能在运行时对这个目录中的内容进行修改，否则会导致应用程序无法启动。</li>
-</ul>
-</li>
-<li>/Documents/<ul>
-<li>保存<strong>应用程序的重要数据文件和用户数据文件</strong>等；</li>
-<li>iTunes<strong>同步</strong>时会<strong>备份</strong>该目录。</li>
-</ul>
-</li>
-<li>/Library/Caches<ul>
-<li>保存应用程序使用时产生的支持文件和缓存文件，还有日志文件最好也放在这个目录；</li>
-<li>iTunes同步时<strong>不备份</strong>该目录。</li>
-</ul>
-</li>
-<li>/Library/Preferences<ul>
-<li>保存应用程序的偏好设置文件；</li>
-<li>使用<code>NSUserDefaults</code>类设置时创建，不应手动创建。</li>
-</ul>
-</li>
-<li>/tmp/<ul>
-<li>保存应用运行时所需要的临时数据；</li>
-<li>iphone<strong>重启时会清空</strong>该目录下所有文件。</li>
-</ul>
-</li>
-</ul>
-<p>查询app沙盒路径：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 在项目中执行代码打印获取</span><br><span class="line">let homeDir &#x3D; NSHomeDirectory() as Stringprintln(homeDir)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 1、获取沙盒根目录</span><br><span class="line">let homeDir &#x3D; NSHomeDirectory() as String</span><br><span class="line">&#x2F;&#x2F; 2、获取 Documents 目录</span><br><span class="line">let docDirs &#x3D; NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArraylet docDir &#x3D; docDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 3、获取 Caches 目录</span><br><span class="line">let cachesDirs &#x3D; NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true) as NSArraylet cachesDir &#x3D; cachesDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 4、获取 Library 目录</span><br><span class="line">let libDirs &#x3D; NSSearchPathForDirectoriesInDomains(.LibraryDirectory, .UserDomainMask, true) as NSArraylet libDir &#x3D; libDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 5、获取 tmp 目录</span><br><span class="line">let tmpDir &#x3D; NSTemporaryDirectory() as String</span><br></pre></td></tr></table></figure>
-
-<h3 id="NSFileManager"><a href="#NSFileManager" class="headerlink" title="NSFileManager"></a>NSFileManager</h3><p>通过<code>fileManager</code>对沙盒中的目录/文件进行操作。</p>
-<h3 id="NSBundle"><a href="#NSBundle" class="headerlink" title="NSBundle"></a>NSBundle</h3><p>app都是通过<code>bundle</code>进行封装的，可以将<code>bundle</code>理解为上述沙盒中的<code>AppName.app</code>文件。</p>
-<p>在<code>Finder</code>中，会把<code>bundle</code>当做文件显示，防止用户误操作，但其内部是一个目录，包含图像、媒体资源、编译的代码、nib文件等，这个目录称为<code>main bundle</code>。</p>
-<p><code>Cocaoa</code>提供了<code>NSBundle类</code>封装了<code>bundle</code>操作。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 获取应用程序的 main bundle</span><br><span class="line">var mainBundle &#x3D; NSBundle.mainBundle()</span><br><span class="line">&#x2F;&#x2F; 使用 main bundle 获取资源路径</span><br><span class="line">var testFilePath &#x3D; mainBundle.pathForResource(&quot;logo&quot;, ofType: &quot;png&quot;)</span><br></pre></td></tr></table></figure>
-
-<h1 id="KVC"><a href="#KVC" class="headerlink" title="KVC"></a>KVC</h1><h2 id="KVC设值"><a href="#KVC设值" class="headerlink" title="KVC设值"></a>KVC设值</h2><p>通过对象中对应的key，KVC在内部寻找key，并调用<code>setValue:属性值forKey:@&quot;name&quot;</code>，底层执行机制为：</p>
-<ol>
-<li>程序优先调用<code>set&lt;Key&gt;:属性值</code>方法，代码通过setter方法完成设置。*<key>指成员变量名，首字母大小写要符合KVC命名规则。*</li>
-<li>若没有找到<code>setName:</code>方法，<ol>
-<li>KVC机制会检查<code>+(BOOL)accessInstanceVariablesDirectly</code>方法有没有返回YES，默认返回YES；</li>
-<li>若重写该方法返回NO，会执行<code>setValue:forUndefinedKey</code>方法，一般不会这么做，当找不到时，会直接执行第4步。</li>
-<li>KVC机制会搜索该类中名为<key>的成员变量，无论该变量是在类接口处定义，还是在类实现处定义，无论使用怎样的访问修饰符，只要存在以<key>命名的变量，KVC都可对该成员变量赋值。</li>
-</ol>
-</li>
-<li>若该类既没有<code>set&lt;key&gt;:</code>方法，也没有<code>_&lt;key&gt;</code>和<code>_is&lt;key&gt;</code>成员变量，KVC机制会搜索<code>&lt;key&gt;</code>和<code>is&lt;key&gt;</code>的成员变量，并赋值。</li>
-<li>如果方法或成员变量都不存在，系统将会执行该对象的<code>setValue:forUndefinedKey:</code>方法，默认为抛出异常。</li>
-</ol>
-<h2 id="KVC取值"><a href="#KVC取值" class="headerlink" title="KVC取值"></a>KVC取值</h2><p>当调用<code>valueForKey:@&quot;name&quot;</code>时，KVC对key的搜索方式不同于<code>setValue:属性值forKey:@&quot;name&quot;</code>，其搜索方式为：</p>
-<ol>
-<li>首先，按<code>get&lt;key&gt;,&lt;key&gt;,is&lt;key&gt;</code>的顺序方法查找getter方法，找到就直接调用；如果是BOOL或Int等值类型，会将其包装成一个NSNumber对象。</li>
-<li>如果getter没有找到，KVC会查找<code>countOf&lt;Key&gt;, objectIn&lt;Key&gt;AtIndex或&lt;Key&gt;AtIndexes</code>格式的方法；<ol>
-<li>如果<code>countOf&lt;Key&gt;</code>和另外两个方法中的一个，那么就会返回一个可以响应NSArray所有方法的代理集合(NSkeyValueArray，是NSArray的子类)；</li>
-<li>调用该代理集合的方法，或给该代理发送属于NSArray的方法，就会以<code>countOf&lt;Key&gt;, objectIn&lt;Key&gt;AtIndex或&lt;Key&gt;AtIndexes</code>方法组合的形式调用；</li>
-<li>可选方法<code>get&lt;Key&gt;:range:</code>。</li>
-</ol>
-</li>
-<li>若没有找到，会同时查找<code>countOf&lt;Key&gt;, enumeratorOf&lt;Key&gt;, memberOf&lt;Key&gt;</code>格式的方法；<ol>
-<li>如果找到这三个方法，则返回一个可响应NSSet所有方法的代理集合；</li>
-<li>给该代理集合发送NSSet的消息，就会以<code>countOf&lt;Key&gt;, enumeratorOf&lt;Key&gt;, memberOf&lt;Key&gt;</code>组合的形式调用。</li>
-</ol>
-</li>
-<li>若还没找到，检查类方法<code>+(BOOL)accessInstanceVariablesDirectly</code>；<ol>
-<li>若返回YES（默认），按照<code>_&lt;Key&gt;, _is&lt;Key&gt;, &lt;Key&gt;, is&lt;Key&gt;</code>的顺序搜索成员变量名；</li>
-<li>如重写了类方法<code>+(BOOL)accessInstanceVariablesDirectly</code>，返回NO，便直接调用<code>valueForUndefinedKey:</code>方法，默认抛出异常。</li>
-</ol>
-</li>
-</ol>
-<h2 id="KVC处理数值和结构体类型属性"><a href="#KVC处理数值和结构体类型属性" class="headerlink" title="KVC处理数值和结构体类型属性"></a>KVC处理数值和结构体类型属性</h2><p><code>valueForKey:</code>总是返回一个🆔对象，若原本变量类型为值类型或结构体，返回值会封装成NSNumber或NSValue对象。<br><code>setValue:forKey:</code>需要手动将值类型转换为NSNumber或NSValue类型。</p>
-<p>因为传递进去和取出来的都是id类型，所以需要开发者自己担保类型的正确性，运行时Objective-C在发送消息时会检查类型，如果错误会直接抛出异常。</p>
-<h2 id="KVC处理集合"><a href="#KVC处理集合" class="headerlink" title="KVC处理集合"></a>KVC处理集合</h2><p>简单集合运算符：@avg，@count，@max，@min，@sum。<br>对象运算符：能以数组的方式返回指定的内容。</p>
-<ul>
-<li><code>@distinctUnionOfObjects</code>：返回元素唯一，类似Set；</li>
-<li><code>@unionOfObjects</code>：返回全部元素。</li>
-</ul>
-<h2 id="KVC处理字典"><a href="#KVC处理字典" class="headerlink" title="KVC处理字典"></a>KVC处理字典</h2><p>当对NSDictionary对象使用KVC时，<code>valueForKey:</code>表现行为和<code>objectForKey:</code>一样，常使用<code>valueForKeyPath:</code>来访问多层嵌套的字典。</p>
-<p><code>dictionaryWithValuesForKeys:</code>指输入一组key，返回这组key对应的属性，再组成一个字典。<br><code>setValuesForKeysWithDictionary</code>用来修改Model中对应key的属性。</p>
-<h2 id="KVC处理异常"><a href="#KVC处理异常" class="headerlink" title="KVC处理异常"></a>KVC处理异常</h2><p>KVC处理nil异常：重写<code>setNilValueForKey:</code>方法。</p>
-<p>KVC处理UndefinedKey异常：重写<code>forUndefinedKey</code>方法。</p>
-<h2 id="KVC使用场景"><a href="#KVC使用场景" class="headerlink" title="KVC使用场景"></a>KVC使用场景</h2><ul>
-<li>动态地取值和设值；</li>
-<li>访问和修改私有变量；</li>
-<li>Model和字典转换：通常和runtime组合使用；</li>
-<li>修改部分控件的内部属性；</li>
-<li>操作集合：<code>valueForKey:</code>方法的特殊实现，如NSArray和NSSet容器类；</li>
-<li>实现高阶消息传递<code>valueForKey:</code>传递给容器的每一个对象，结果添加到返回的容器中；</li>
-</ul>
-<h1 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h1><p><code>Key-Value Observing</code>，键值观察，是基于KVC实现的，是一种<strong>观察者模式的衍生</strong>。</p>
-<p><strong>基本思想：</strong>对目标对象的某属性添加观察，当该属性发生变化时，通过触发观察者对象实现的KVO接口方法，自动的通知观察者。</p>
-<p>KVO可以通过监听key，来获得value的变化，用来在对象之间监听状态变化。<br>KVO的原理是修改被观察者的setter方法。<br>KVO的定义都是对NSObject的扩展来实现的，OC中有个显式的NSKeyValueObserving类别名，对于所有继承NSObject的类型，都可使用KVO。</p>
-<p>KVO中，观察者和被观察者的改变发生在<strong>同一线程</strong>上，需要确保线程安全。</p>
-<h2 id="注册与解除注册"><a href="#注册与解除注册" class="headerlink" title="注册与解除注册"></a>注册与解除注册</h2><p>若已经拥有可供键值观察属性的类，即可通过在该类的对象(被观察对象)上调用名为NSKeyValueObserverRegistration的category方法将观察者对象与被观察者对象注册与解除注册。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;</span><br><span class="line">- (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath;</span><br></pre></td></tr></table></figure>
-<p>其中：</p>
-<ul>
-<li>observer:观察者，也就是KVO通知的订阅者；</li>
-<li>observeValueForKeyPath:ofObject:change:context:方法；</li>
-<li>keyPath：描述将要观察的属性，相对于被观察者；</li>
-<li>options：KVO的一些属性配置；<ul>
-<li>NSKeyValueObservingOptionNew：change字典包括改变后的值；</li>
-<li>NSKeyValueObservingOptionOld:change字典包括改变前的值；</li>
-<li>NSKeyValueObservingOptionInitial:注册后立刻触发KVO通知；</li>
-<li>NSKeyValueObservingOptionPrior:值改变前是否也要通知（这个key决定了是否在改变前改变后通知两次）</li>
-</ul>
-</li>
-<li>context: 上下文，传递到订阅者的函数中，用来区分消息。</li>
-</ul>
-<p>系统通过重写dealloc方法来<strong>释放资源</strong>。</p>
-<h2 id="KVO实现"><a href="#KVO实现" class="headerlink" title="KVO实现"></a>KVO实现</h2><p>KVO是通过<code>isa-swizzling</code>实现的，基本流程为：</p>
-<ul>
-<li>编译器自动为被观察者对象创造一个派生类，并将被观察对象的isa指向该派生类；</li>
-<li>若用户注册了对此目标对象的某一个属性的观察，派生类会重写该方法(只重写注册观察者的属性方法)，并在其中添加通知对象；</li>
-<li>OC在发送消息时，通过isa指针找到当前对象所属的类对象，类对象中保存着当前对象的实例方法，因此向此对象发送消息，实际上是发送到了派生类对象的方法；</li>
-<li>由于编译器对派生类的方法进行了override，并添加了通知对象，因此会向注册的对象发送通知。</li>
-</ul>
-<h2 id="手动KVO"><a href="#手动KVO" class="headerlink" title="手动KVO"></a>手动KVO</h2><ul>
-<li><code>- (void)willChangeValueForKey:(NSString *)key;</code>：将要发生改变；</li>
-<li><code>- (void)didChangeValueForKey:(NSString *)key;</code>：已经发生改变；<br>在不用的时候，一定要<strong>解除注册</strong>，否则会导致内存泄漏。</li>
-</ul>
-<p>每当监听的keyPath发生变化，就会在<code>-(void)observeValueForKeyPath:</code>函数中进行回调：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)observeValueForKeyPath:(NSString *)keyPath</span><br><span class="line">                      ofObject:(id)object</span><br><span class="line">                        change:(NSDictionary *)change</span><br><span class="line">                       context:(void *)context</span><br></pre></td></tr></table></figure>
-
-<p><em>键值观察依赖键</em></p>
-<h2 id="禁用KVO"><a href="#禁用KVO" class="headerlink" title="禁用KVO"></a>禁用KVO</h2><p>实现类方法<code>automaticallyNotifiesObserversForKey</code>返回NO，实现属性的setter方法，不调用<code>willChangeValueForKey:</code>和<code>didChangeValueForKey:</code>方法。</p>
-<h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1><p>在swift中有专门的指针类型，均被定义为<strong>unsafe</strong>：</p>
-<ul>
-<li><code>UnsafePointer&lt;Pointee&gt;</code>：类似于C语言中的<code>const Pointee *</code>，只能访问内存，不能修改内存；</li>
-<li><code>UnsafeMutablePointer&lt;Pointee&gt;</code>：类似于C语言中的<code>Pointee *</code>，可访问和修改内存；</li>
-<li><code>UnsafeRawPointer</code>：类似于<code>const void *</code>，只读，不支持泛型；</li>
-<li><code>UnsafeMutableRawPointer</code>：类似于void，可读可写，不支持泛型。</li>
-</ul>
-<p>获取变量的指针：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 获取可变的变量指针, value参数接受变量地址，取决于body闭包的返回值</span><br><span class="line">@inlinable public func withUnsafeMutablePointer&lt;T, Result&gt;(to value: inout T, _ body: (UnsafeMutablePointer&lt;T&gt;) throws -&gt; Result) rethrows -&gt; Result</span><br><span class="line">&#x2F;&#x2F; 获取不可变的变量指针, value参数接受变量，取决于body闭包的返回值</span><br><span class="line">@inlinable public func withUnsafePointer&lt;T, Result&gt;(to value: T, _ body: (UnsafePointer&lt;T&gt;) throws -&gt; Result) rethrows -&gt; Result</span><br><span class="line">&#x2F;&#x2F; 获取不可变的变量指针, value参数接受变量地址，取决于body闭包的返回值</span><br><span class="line">@inlinable public func withUnsafePointer&lt;T, Result&gt;(to value: inout T, _ body: (UnsafePointer&lt;T&gt;) throws -&gt; Result) rethrows -&gt; Result</span><br></pre></td></tr></table></figure>
-
-<p>分配内存创建指针：</p>
-<ul>
-<li>malloc</li>
-<li>allocate：只有<code>UnsafeMutableRawPointer</code>和<code>UnsafeMutablePointer&lt;T&gt;</code>才有此分配方法。</li>
-</ul>
-<p>参考：</p>
-<ul>
-<li><a href="https://numbbbbb.gitbooks.io/-the-swift-programming-language-/" target="_blank" rel="noopener">https://numbbbbb.gitbooks.io/-the-swift-programming-language-/</a></li>
-<li><a href="https://www.cnblogs.com/zjoch/p/4702873.html" target="_blank" rel="noopener">https://www.cnblogs.com/zjoch/p/4702873.html</a></li>
-<li><a href="https://blog.csdn.net/Listron/article/details/80197347" target="_blank" rel="noopener">https://blog.csdn.net/Listron/article/details/80197347</a></li>
-<li><a href="https://www.jianshu.com/p/2cef1e80042c" target="_blank" rel="noopener">https://www.jianshu.com/p/2cef1e80042c</a></li>
-<li><a href="https://www.jianshu.com/p/b9f020a8b4c9" target="_blank" rel="noopener">https://www.jianshu.com/p/b9f020a8b4c9</a></li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
     <title>图像分类问题</title>
     <url>/2020/07/05/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<h1 id="CNN网络进化-结构演化"><a href="#CNN网络进化-结构演化" class="headerlink" title="CNN网络进化/结构演化"></a>CNN网络进化/结构演化</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/CNN%E7%BB%93%E6%9E%84%E6%BC%94%E5%8C%96.png" alt="CNN结构演化"></p>
@@ -1712,175 +1602,6 @@
       </categories>
   </entry>
   <entry>
-    <title>二进制运算</title>
-    <url>/2020/07/16/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BF%90%E7%AE%97/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">符号</th>
-<th align="center">名称</th>
-<th align="center">表示</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">&amp;</td>
-<td align="center">按位与</td>
-<td align="center">对应位均为1，才为1；否则为0</td>
-</tr>
-<tr>
-<td align="center">|</td>
-<td align="center">按位或</td>
-<td align="center">对应位有1，即为1；否则为0</td>
-</tr>
-<tr>
-<td align="center">^</td>
-<td align="center">按位异或</td>
-<td align="center">相同异或为1；不同异或为1</td>
-</tr>
-<tr>
-<td align="center">~</td>
-<td align="center">按位取反</td>
-<td align="center">1变0，0变1</td>
-</tr>
-<tr>
-<td align="center">&lt;&lt;</td>
-<td align="center">按位左移</td>
-<td align="center">左移，右边补0，相当*2</td>
-</tr>
-<tr>
-<td align="center">&gt;&gt;</td>
-<td align="center">有符号的右移</td>
-<td align="center">右移，左边补符号位，负数以原码形式参与运算</td>
-</tr>
-<tr>
-<td align="center">&gt;&gt;&gt;</td>
-<td align="center">无符号的右移</td>
-<td align="center">右移，左边补0，所有数据以无符号方式计算</td>
-</tr>
-</tbody></table>
-]]></content>
-  </entry>
-  <entry>
-    <title>图像特征</title>
-    <url>/2020/05/25/%E5%9B%BE%E5%83%8F%E7%89%B9%E5%BE%81/</url>
-    <content><![CDATA[<h1 id="颜色特征"><a href="#颜色特征" class="headerlink" title="颜色特征"></a>颜色特征</h1><p>RGB图像3通道分解：</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/3Dtensor.png" alt="3Dtensor"></p>
-<h2 id="量化颜色直方图"><a href="#量化颜色直方图" class="headerlink" title="量化颜色直方图"></a>量化颜色直方图</h2><p>RGB、HSV等颜色空间适用。</p>
-<h2 id="聚类颜色直方图"><a href="#聚类颜色直方图" class="headerlink" title="聚类颜色直方图"></a>聚类颜色直方图</h2><p>Lab等颜色空间适用。</p>
-<hr>
-<h1 id="几何特征"><a href="#几何特征" class="headerlink" title="几何特征"></a>几何特征</h1><h2 id="边缘Edge"><a href="#边缘Edge" class="headerlink" title="边缘Edge"></a>边缘Edge</h2><p>像素明显变化的区域 -&gt; 一阶导数的极值区域。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%BE%B9%E7%BC%98%E7%89%B9%E5%BE%81.png" alt="边缘特征"></p>
-<h3 id="边缘提取"><a href="#边缘提取" class="headerlink" title="边缘提取"></a>边缘提取</h3><p>导数对噪声敏感 -&gt; 先高斯去噪，再使用一阶导数获取极值。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96.png" alt="边缘提取"></p>
-<ul>
-<li>高斯滤波一阶导：<br>  $$ h_x(x,y) = \frac{\partial h(x,y)}{\partial x} = \frac{-x}{2\Pi \sigma^4} e^{-\frac{x^2+y^2}{2\sigma^2}} $$<br>  $$ h_y(x,y) = \frac{\partial h(x,y)}{\partial y} = \frac{-y}{2\Pi \sigma^4} e^{-\frac{x^2+y^2}{2\sigma^2}} $$</li>
-<li>梯度幅值/强度：<br>  $$ h_x(x,y)^2 + h_y(x,y)^2 $$</li>
-<li>梯度增加最快的方向：<br>  $$ \arctan(\frac{h_y(x,y)}{h_x(x,y)}) $$</li>
-</ul>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%BE%B9%E7%BC%98%E6%A2%AF%E5%BA%A6%E8%A7%A3%E6%9E%90.png" alt="边缘梯度解析"></p>
-<h3 id="Gabor"><a href="#Gabor" class="headerlink" title="Gabor"></a>Gabor</h3><p>Gabor是一个<strong>用于边缘提取的线性滤波器</strong>，其频率和方向表达与人类视觉系统类似，能够提供<strong>良好的方向选择和尺度选择特性，而且对光照变化不敏感</strong>，适用于纹理分析。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Gabor.png" alt="Gabor"></p>
-<p>使用一个三角函数与一个高斯函数叠加即可得到一个Gabor滤波器。</p>
-<p>Gabor滤波器组：多频域/尺度、多方向<br>  <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/3%E5%B0%BA%E5%BA%A68%E6%96%B9%E5%90%91.png" alt="3尺度8方向"></p>
-<ul>
-<li><p>频域：属于加窗傅立叶变换</p>
-</li>
-<li><p>空域：一个高斯核函数和正弦平面波的乘积</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/gabor%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%BB%84.png" alt="gabor滤波器组"></p>
-</li>
-</ul>
-<h2 id="角点"><a href="#角点" class="headerlink" title="角点"></a>角点</h2><h3 id="Harris角点"><a href="#Harris角点" class="headerlink" title="Harris角点"></a>Harris角点</h3><p>在任何方向上移动小观察窗，导致大的像素变动。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Harris%E8%A7%92%E7%82%B9.png" alt="Harris角点"><br>$ E(u,v) = \sum_{x,y} w(x,y)[I(x+u,y+v)-I(x,y)]^2 $</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Harris%E8%A7%92%E7%82%B9%E6%A3%80%E6%B5%8B.png" alt="Harris角点检测"></p>
-<p>$$ E(u,v) \cong [u,v] M [u,v]^T<br>M = \sum_{x,y} w(x,y)[I(x+u,y+v)-I(x,y)]^2<br>M \rightarrow \lambda_{max},\lambda_{min} $$</p>
-<ul>
-<li>图像中直线：一个特征值大，一个特征值小；</li>
-<li>图像中平面：两个特征值都小，且近似相等；</li>
-<li>图像中角点：两个特征值都大，且近似相等。</li>
-</ul>
-<h3 id="Fast角点（快速角点特征检测）"><a href="#Fast角点（快速角点特征检测）" class="headerlink" title="Fast角点（快速角点特征检测）"></a>Fast角点（快速角点特征检测）</h3><p>对兴趣点所在圆上的16个像素点进行判断，若判断后的当前中心像素点为暗或亮，将决定其是否为角点。</p>
-<ul>
-<li>确定一个阈值t，观察某像素点为中心的一个半径为3像素的离散化的圆，该圆边界上有16个像素；</li>
-<li>若在这个圆的边界上有n（一般取12）个连续的像素点，它们的像素值比$ I_p + t $大/小，则p就是一个角点。</li>
-</ul>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/fast%E8%A7%92%E7%82%B9.png" alt="fast角点"></p>
-<p>特点：</p>
-<ul>
-<li>时间复杂度小，检测效果好；</li>
-<li>不产生多尺度特征，没有方向信息，失去旋转不变性。</li>
-</ul>
-<h2 id="斑点（二阶导）"><a href="#斑点（二阶导）" class="headerlink" title="斑点（二阶导）"></a>斑点（二阶导）</h2><p>Laplace梯度：<br>    一阶导极值点-&gt;二阶导零点，对噪声敏感</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Laplace%E6%A2%AF%E5%BA%A6.png" alt="Laplace梯度"></p>
-<h3 id="高斯拉普拉斯LoG"><a href="#高斯拉普拉斯LoG" class="headerlink" title="高斯拉普拉斯LoG"></a>高斯拉普拉斯LoG</h3><p>Laplacian of Gaussian：先对图像进行高斯卷积滤波($\sigma$小)降噪，再采用Laplace蒜子进行边缘检测(细节)。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/LoG.png" alt="LoG"></p>
-<p>LoG -&gt; 极值点 -&gt; 斑点</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/blob.png" alt="blob"></p>
-<p>参考：<br><a href="https://blog.csdn.net/Zachary_Co/article/details/78831806" target="_blank" rel="noopener">https://blog.csdn.net/Zachary_Co/article/details/78831806</a></p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>feature</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>图像颜色空间</title>
-    <url>/2020/04/25/%E5%9B%BE%E5%83%8F%E9%A2%9C%E8%89%B2%E7%A9%BA%E9%97%B4/</url>
-    <content><![CDATA[<h1 id="颜色空间"><a href="#颜色空间" class="headerlink" title="颜色空间"></a>颜色空间</h1><h2 id="RGB颜色空间"><a href="#RGB颜色空间" class="headerlink" title="RGB颜色空间"></a>RGB颜色空间</h2><p>三颜色通道：</p>
-<ul>
-<li>Red通道；</li>
-<li>Green通道；</li>
-<li>Blue通道。<br>一个像素颜色值为(b,g,r)，取值范围[0,255]或[0.0,1.0]<br>加法混色，用于彩色显示器。</li>
-</ul>
-<h2 id="CMY-K-颜色空间"><a href="#CMY-K-颜色空间" class="headerlink" title="CMY(K)颜色空间"></a>CMY(K)颜色空间</h2><p>四通道：</p>
-<ul>
-<li>Cyan通道；</li>
-<li>Magenta通道；</li>
-<li>Yellow通道；</li>
-<li>Key通道。<br>一个像素颜色值为(c,m,y,k)，取值范围[0,255]或[0.0,1.0]<br>减法混色，用于印刷。</li>
-</ul>
-<h2 id="HSV颜色空间"><a href="#HSV颜色空间" class="headerlink" title="HSV颜色空间"></a>HSV颜色空间</h2><p>三要素：</p>
-<ul>
-<li>H/Hue：色调，颜色种类；</li>
-<li>S/Saturation：饱和度，颜色纯度；</li>
-<li>V/Value：明亮度，颜色明亮度。<br>一个像素颜色值为(h,s,v)，取值范围[0,255]或[0.0,1.0]<br>符合人类视觉概念，用于画家调色。</li>
-</ul>
-<h2 id="CIE-XYZ颜色空间"><a href="#CIE-XYZ颜色空间" class="headerlink" title="CIE-XYZ颜色空间"></a>CIE-XYZ颜色空间</h2><p>基于人类颜色视觉的直接测定，是其他颜色空间的基础。于1931年由国际照明协会定义。</p>
-<p>3颜色刺激值通道：</p>
-<ul>
-<li>X，Y，Z：基本对应R，G，B；</li>
-<li>一种波的刺激等于几种波的刺激整合。</li>
-</ul>
-<p>人类视觉系统（视锥细胞）：</p>
-<ul>
-<li>短波（S,420-440nm）；</li>
-<li>中波（M,530-540nm）；</li>
-<li>长波（L,560-580nm）。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>图论</title>
-    <url>/2020/07/01/%E5%9B%BE%E8%AE%BA/</url>
-    <content><![CDATA[<h1 id="深度优先遍历DFS"><a href="#深度优先遍历DFS" class="headerlink" title="深度优先遍历DFS"></a>深度优先遍历DFS</h1><p>思想：</p>
-<ol>
-<li>找一个未被访问过的顶点作为起始顶点，沿着当前顶点的边走到未访问过的顶点；</li>
-<li>当没有找到未访问过的结点时，回到上一个顶点，继续寻找未访问结点；</li>
-<li>直到所有顶点都被访问。</li>
-</ol>
-<h1 id="广度优先遍历BFS"><a href="#广度优先遍历BFS" class="headerlink" title="广度优先遍历BFS"></a>广度优先遍历BFS</h1><p>思想：类似于树的层次遍历</p>
-<ol>
-<li>找一个未被访问过的顶点作为起始顶点；</li>
-<li>找到顶点的所有的邻接点，放入队列中；</li>
-<li>从队列中依次取出结点，查找该结点的所有未被访问过的邻接点，存放到队列中；</li>
-<li>直到队列为空。</li>
-</ol>
-]]></content>
-  </entry>
-  <entry>
     <title>图像特征表示</title>
     <url>/2020/04/13/%E5%9B%BE%E5%83%8F%E7%89%B9%E5%BE%81%E8%A1%A8%E7%A4%BA/</url>
     <content><![CDATA[<h1 id="基于关键点的特征描述子"><a href="#基于关键点的特征描述子" class="headerlink" title="基于关键点的特征描述子"></a>基于关键点的特征描述子</h1><h2 id="特征点-关键点-兴趣点"><a href="#特征点-关键点-兴趣点" class="headerlink" title="特征点/关键点/兴趣点"></a>特征点/关键点/兴趣点</h2><p>不同视角图片之间的映射；<br>稳定局部特征点：</p>
@@ -1956,6 +1677,126 @@
 </ul>
 <p>参考：</p>
 <p><a href="https://baike.baidu.com/item/SIFT/1396275?fr=aladdin" target="_blank" rel="noopener">https://baike.baidu.com/item/SIFT/1396275?fr=aladdin</a><br><a href="https://blog.csdn.net/u010440456/article/details/81483145" target="_blank" rel="noopener">https://blog.csdn.net/u010440456/article/details/81483145</a></p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>feature</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>图像颜色空间</title>
+    <url>/2020/04/25/%E5%9B%BE%E5%83%8F%E9%A2%9C%E8%89%B2%E7%A9%BA%E9%97%B4/</url>
+    <content><![CDATA[<h1 id="颜色空间"><a href="#颜色空间" class="headerlink" title="颜色空间"></a>颜色空间</h1><h2 id="RGB颜色空间"><a href="#RGB颜色空间" class="headerlink" title="RGB颜色空间"></a>RGB颜色空间</h2><p>三颜色通道：</p>
+<ul>
+<li>Red通道；</li>
+<li>Green通道；</li>
+<li>Blue通道。<br>一个像素颜色值为(b,g,r)，取值范围[0,255]或[0.0,1.0]<br>加法混色，用于彩色显示器。</li>
+</ul>
+<h2 id="CMY-K-颜色空间"><a href="#CMY-K-颜色空间" class="headerlink" title="CMY(K)颜色空间"></a>CMY(K)颜色空间</h2><p>四通道：</p>
+<ul>
+<li>Cyan通道；</li>
+<li>Magenta通道；</li>
+<li>Yellow通道；</li>
+<li>Key通道。<br>一个像素颜色值为(c,m,y,k)，取值范围[0,255]或[0.0,1.0]<br>减法混色，用于印刷。</li>
+</ul>
+<h2 id="HSV颜色空间"><a href="#HSV颜色空间" class="headerlink" title="HSV颜色空间"></a>HSV颜色空间</h2><p>三要素：</p>
+<ul>
+<li>H/Hue：色调，颜色种类；</li>
+<li>S/Saturation：饱和度，颜色纯度；</li>
+<li>V/Value：明亮度，颜色明亮度。<br>一个像素颜色值为(h,s,v)，取值范围[0,255]或[0.0,1.0]<br>符合人类视觉概念，用于画家调色。</li>
+</ul>
+<h2 id="CIE-XYZ颜色空间"><a href="#CIE-XYZ颜色空间" class="headerlink" title="CIE-XYZ颜色空间"></a>CIE-XYZ颜色空间</h2><p>基于人类颜色视觉的直接测定，是其他颜色空间的基础。于1931年由国际照明协会定义。</p>
+<p>3颜色刺激值通道：</p>
+<ul>
+<li>X，Y，Z：基本对应R，G，B；</li>
+<li>一种波的刺激等于几种波的刺激整合。</li>
+</ul>
+<p>人类视觉系统（视锥细胞）：</p>
+<ul>
+<li>短波（S,420-440nm）；</li>
+<li>中波（M,530-540nm）；</li>
+<li>长波（L,560-580nm）。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>图论</title>
+    <url>/2020/07/01/%E5%9B%BE%E8%AE%BA/</url>
+    <content><![CDATA[<h1 id="深度优先遍历DFS"><a href="#深度优先遍历DFS" class="headerlink" title="深度优先遍历DFS"></a>深度优先遍历DFS</h1><p>思想：</p>
+<ol>
+<li>找一个未被访问过的顶点作为起始顶点，沿着当前顶点的边走到未访问过的顶点；</li>
+<li>当没有找到未访问过的结点时，回到上一个顶点，继续寻找未访问结点；</li>
+<li>直到所有顶点都被访问。</li>
+</ol>
+<h1 id="广度优先遍历BFS"><a href="#广度优先遍历BFS" class="headerlink" title="广度优先遍历BFS"></a>广度优先遍历BFS</h1><p>思想：类似于树的层次遍历</p>
+<ol>
+<li>找一个未被访问过的顶点作为起始顶点；</li>
+<li>找到顶点的所有的邻接点，放入队列中；</li>
+<li>从队列中依次取出结点，查找该结点的所有未被访问过的邻接点，存放到队列中；</li>
+<li>直到队列为空。</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>图像特征</title>
+    <url>/2020/05/25/%E5%9B%BE%E5%83%8F%E7%89%B9%E5%BE%81/</url>
+    <content><![CDATA[<h1 id="颜色特征"><a href="#颜色特征" class="headerlink" title="颜色特征"></a>颜色特征</h1><p>RGB图像3通道分解：</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/3Dtensor.png" alt="3Dtensor"></p>
+<h2 id="量化颜色直方图"><a href="#量化颜色直方图" class="headerlink" title="量化颜色直方图"></a>量化颜色直方图</h2><p>RGB、HSV等颜色空间适用。</p>
+<h2 id="聚类颜色直方图"><a href="#聚类颜色直方图" class="headerlink" title="聚类颜色直方图"></a>聚类颜色直方图</h2><p>Lab等颜色空间适用。</p>
+<hr>
+<h1 id="几何特征"><a href="#几何特征" class="headerlink" title="几何特征"></a>几何特征</h1><h2 id="边缘Edge"><a href="#边缘Edge" class="headerlink" title="边缘Edge"></a>边缘Edge</h2><p>像素明显变化的区域 -&gt; 一阶导数的极值区域。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%BE%B9%E7%BC%98%E7%89%B9%E5%BE%81.png" alt="边缘特征"></p>
+<h3 id="边缘提取"><a href="#边缘提取" class="headerlink" title="边缘提取"></a>边缘提取</h3><p>导数对噪声敏感 -&gt; 先高斯去噪，再使用一阶导数获取极值。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96.png" alt="边缘提取"></p>
+<ul>
+<li>高斯滤波一阶导：<br>  $$ h_x(x,y) = \frac{\partial h(x,y)}{\partial x} = \frac{-x}{2\Pi \sigma^4} e^{-\frac{x^2+y^2}{2\sigma^2}} $$<br>  $$ h_y(x,y) = \frac{\partial h(x,y)}{\partial y} = \frac{-y}{2\Pi \sigma^4} e^{-\frac{x^2+y^2}{2\sigma^2}} $$</li>
+<li>梯度幅值/强度：<br>  $$ h_x(x,y)^2 + h_y(x,y)^2 $$</li>
+<li>梯度增加最快的方向：<br>  $$ \arctan(\frac{h_y(x,y)}{h_x(x,y)}) $$</li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%BE%B9%E7%BC%98%E6%A2%AF%E5%BA%A6%E8%A7%A3%E6%9E%90.png" alt="边缘梯度解析"></p>
+<h3 id="Gabor"><a href="#Gabor" class="headerlink" title="Gabor"></a>Gabor</h3><p>Gabor是一个<strong>用于边缘提取的线性滤波器</strong>，其频率和方向表达与人类视觉系统类似，能够提供<strong>良好的方向选择和尺度选择特性，而且对光照变化不敏感</strong>，适用于纹理分析。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Gabor.png" alt="Gabor"></p>
+<p>使用一个三角函数与一个高斯函数叠加即可得到一个Gabor滤波器。</p>
+<p>Gabor滤波器组：多频域/尺度、多方向<br>  <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/3%E5%B0%BA%E5%BA%A68%E6%96%B9%E5%90%91.png" alt="3尺度8方向"></p>
+<ul>
+<li><p>频域：属于加窗傅立叶变换</p>
+</li>
+<li><p>空域：一个高斯核函数和正弦平面波的乘积</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/gabor%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%BB%84.png" alt="gabor滤波器组"></p>
+</li>
+</ul>
+<h2 id="角点"><a href="#角点" class="headerlink" title="角点"></a>角点</h2><h3 id="Harris角点"><a href="#Harris角点" class="headerlink" title="Harris角点"></a>Harris角点</h3><p>在任何方向上移动小观察窗，导致大的像素变动。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Harris%E8%A7%92%E7%82%B9.png" alt="Harris角点"><br>$ E(u,v) = \sum_{x,y} w(x,y)[I(x+u,y+v)-I(x,y)]^2 $</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Harris%E8%A7%92%E7%82%B9%E6%A3%80%E6%B5%8B.png" alt="Harris角点检测"></p>
+<p>$$ E(u,v) \cong [u,v] M [u,v]^T<br>M = \sum_{x,y} w(x,y)[I(x+u,y+v)-I(x,y)]^2<br>M \rightarrow \lambda_{max},\lambda_{min} $$</p>
+<ul>
+<li>图像中直线：一个特征值大，一个特征值小；</li>
+<li>图像中平面：两个特征值都小，且近似相等；</li>
+<li>图像中角点：两个特征值都大，且近似相等。</li>
+</ul>
+<h3 id="Fast角点（快速角点特征检测）"><a href="#Fast角点（快速角点特征检测）" class="headerlink" title="Fast角点（快速角点特征检测）"></a>Fast角点（快速角点特征检测）</h3><p>对兴趣点所在圆上的16个像素点进行判断，若判断后的当前中心像素点为暗或亮，将决定其是否为角点。</p>
+<ul>
+<li>确定一个阈值t，观察某像素点为中心的一个半径为3像素的离散化的圆，该圆边界上有16个像素；</li>
+<li>若在这个圆的边界上有n（一般取12）个连续的像素点，它们的像素值比$ I_p + t $大/小，则p就是一个角点。</li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/fast%E8%A7%92%E7%82%B9.png" alt="fast角点"></p>
+<p>特点：</p>
+<ul>
+<li>时间复杂度小，检测效果好；</li>
+<li>不产生多尺度特征，没有方向信息，失去旋转不变性。</li>
+</ul>
+<h2 id="斑点（二阶导）"><a href="#斑点（二阶导）" class="headerlink" title="斑点（二阶导）"></a>斑点（二阶导）</h2><p>Laplace梯度：<br>    一阶导极值点-&gt;二阶导零点，对噪声敏感</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Laplace%E6%A2%AF%E5%BA%A6.png" alt="Laplace梯度"></p>
+<h3 id="高斯拉普拉斯LoG"><a href="#高斯拉普拉斯LoG" class="headerlink" title="高斯拉普拉斯LoG"></a>高斯拉普拉斯LoG</h3><p>Laplacian of Gaussian：先对图像进行高斯卷积滤波($\sigma$小)降噪，再采用Laplace蒜子进行边缘检测(细节)。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/LoG.png" alt="LoG"></p>
+<p>LoG -&gt; 极值点 -&gt; 斑点</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/blob.png" alt="blob"></p>
+<p>参考：<br><a href="https://blog.csdn.net/Zachary_Co/article/details/78831806" target="_blank" rel="noopener">https://blog.csdn.net/Zachary_Co/article/details/78831806</a></p>
 ]]></content>
       <categories>
         <category>image</category>
@@ -2060,38 +1901,6 @@
 </ul>
 <p><em>绝对意义的瞬时频率其实是不存在的，只是时间分辨率有限的近似分析结果。</em></p>
 <h2 id=""><a href="#" class="headerlink" title=""></a><a href="/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/" title="小波变换">小波变换</a></h2><p>reference:<br><a href="https://blog.csdn.net/asd20172016/article/details/80904634" target="_blank" rel="noopener">https://blog.csdn.net/asd20172016/article/details/80904634</a><br><a href="https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html</a><br><a href="https://zhuanlan.zhihu.com/p/23607336" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/23607336</a></p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>多尺度变换</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>小波变换</title>
-    <url>/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/</url>
-    <content><![CDATA[<h1 id="连续小波变换CWT"><a href="#连续小波变换CWT" class="headerlink" title="连续小波变换CWT"></a>连续小波变换CWT</h1><p>将无限长的三角函数基转换为有限长的会衰减的小波基，不仅能获取频率，还可定位到时间。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2.png" alt="小波变换"></p>
-<p>思路：</p>
-<ol>
-<li>取一个小波，将其与原始信号的开始一节进行比较；</li>
-<li>计算数值F，F表示小波与所取一节信号的相似程度，计算结果取决于所选小波的形状；</li>
-<li>向右移动小波，重复步骤1和步骤2，直至覆盖整个信号；</li>
-<li>伸展小波，重复步骤1-3，对齐；</li>
-<li>对于所有缩放，重复步骤1-4，进行压缩。</li>
-</ol>
-<h1 id="离散小波变换DWT"><a href="#离散小波变换DWT" class="headerlink" title="离散小波变换DWT"></a>离散小波变换DWT</h1><p>离散小波变换的有效方法是使用滤波器，由Mallat于1988年提出。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%A4%9A%E5%B1%82%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="多层小波分解和重构"></p>
-<h2 id="小波分解"><a href="#小波分解" class="headerlink" title="小波分解"></a>小波分解</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%A6%BB%E6%95%A3%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="离散小波分解示意图"></p>
-<p>S表示原始的输入信号，通过两个互补的滤波器组，一个低通滤波器，得到信号的近似值A，另一个高通滤波器，得到该滤波器的细节值D。</p>
-<h2 id="小波重构"><a href="#小波重构" class="headerlink" title="小波重构"></a>小波重构</h2><p>利用小波分解的系数还原出原始信号，也叫逆离散小波变换IDWT/小波合成。</p>
-<h1 id="二维离散小波变换"><a href="#二维离散小波变换" class="headerlink" title="二维离散小波变换"></a>二维离散小波变换</h1><p>将二维信号在不同尺度进行分解，得到原始信号的近似值和细节。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BA%8C%E7%BB%B4%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="二维小波分解和重构"></p>
-<p>分解的结果为**近似分量cA、水平细节分量cH、垂直细节分量cV、对角细节分量cD。</p>
-<h1 id="常见小波函数"><a href="#常见小波函数" class="headerlink" title="常见小波函数"></a>常见小波函数</h1><p>Haar系列，Daubechies系列，Moret系列，Sym系列，Meyer系列，Coif系列</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%B3%A2%E5%87%BD%E6%95%B0.png" alt="常用小波函数"></p>
-<p>参考：<br><a href="https://www.cnblogs.com/keye/p/7809207.html" target="_blank" rel="noopener">https://www.cnblogs.com/keye/p/7809207.html</a><br><a href="https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html</a></p>
 ]]></content>
       <categories>
         <category>image</category>
@@ -2278,6 +2087,110 @@
       </categories>
   </entry>
   <entry>
+    <title>小波变换</title>
+    <url>/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/</url>
+    <content><![CDATA[<h1 id="连续小波变换CWT"><a href="#连续小波变换CWT" class="headerlink" title="连续小波变换CWT"></a>连续小波变换CWT</h1><p>将无限长的三角函数基转换为有限长的会衰减的小波基，不仅能获取频率，还可定位到时间。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2.png" alt="小波变换"></p>
+<p>思路：</p>
+<ol>
+<li>取一个小波，将其与原始信号的开始一节进行比较；</li>
+<li>计算数值F，F表示小波与所取一节信号的相似程度，计算结果取决于所选小波的形状；</li>
+<li>向右移动小波，重复步骤1和步骤2，直至覆盖整个信号；</li>
+<li>伸展小波，重复步骤1-3，对齐；</li>
+<li>对于所有缩放，重复步骤1-4，进行压缩。</li>
+</ol>
+<h1 id="离散小波变换DWT"><a href="#离散小波变换DWT" class="headerlink" title="离散小波变换DWT"></a>离散小波变换DWT</h1><p>离散小波变换的有效方法是使用滤波器，由Mallat于1988年提出。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%A4%9A%E5%B1%82%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="多层小波分解和重构"></p>
+<h2 id="小波分解"><a href="#小波分解" class="headerlink" title="小波分解"></a>小波分解</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%A6%BB%E6%95%A3%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="离散小波分解示意图"></p>
+<p>S表示原始的输入信号，通过两个互补的滤波器组，一个低通滤波器，得到信号的近似值A，另一个高通滤波器，得到该滤波器的细节值D。</p>
+<h2 id="小波重构"><a href="#小波重构" class="headerlink" title="小波重构"></a>小波重构</h2><p>利用小波分解的系数还原出原始信号，也叫逆离散小波变换IDWT/小波合成。</p>
+<h1 id="二维离散小波变换"><a href="#二维离散小波变换" class="headerlink" title="二维离散小波变换"></a>二维离散小波变换</h1><p>将二维信号在不同尺度进行分解，得到原始信号的近似值和细节。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BA%8C%E7%BB%B4%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="二维小波分解和重构"></p>
+<p>分解的结果为**近似分量cA、水平细节分量cH、垂直细节分量cV、对角细节分量cD。</p>
+<h1 id="常见小波函数"><a href="#常见小波函数" class="headerlink" title="常见小波函数"></a>常见小波函数</h1><p>Haar系列，Daubechies系列，Moret系列，Sym系列，Meyer系列，Coif系列</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%B3%A2%E5%87%BD%E6%95%B0.png" alt="常用小波函数"></p>
+<p>参考：<br><a href="https://www.cnblogs.com/keye/p/7809207.html" target="_blank" rel="noopener">https://www.cnblogs.com/keye/p/7809207.html</a><br><a href="https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html</a></p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>多尺度变换</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我与世界只差一个你</title>
+    <url>/2020/03/09/%E6%88%91%E4%B8%8E%E4%B8%96%E7%95%8C%E5%8F%AA%E5%B7%AE%E4%B8%80%E4%B8%AA%E4%BD%A0/</url>
+    <content><![CDATA[<blockquote><p>世界说大很大，说小很小。大到走了那么久，还没跟对的人相遇，小到围着喜欢的人绕了一圈，就看到了全世界。</p>
+<p>愿你能因为某个人的出现而让世界丰盈，愿你的生活如同贺卡上烫金的祝辞欢脱，愿这悠长岁月温柔安好，有回忆煮酒，愿你没有软肋，也不需要铠甲，愿我们和爱的人一起浪费人生，热泪盈框，长生不老。我与世界只差一个你，因为是你，晚一点没关系。</p>
+<p>一个有了女朋友的人就不应该再出去混局了，女人如衣服，兄弟如手足，那是古人说的话，不给你衣服穿，你还有脸出门吗。</p>
+<p>你先闭嘴，我说咱能不那么作么，有时间列那么多不平等条约，好好让脑袋多装点实在东西吧，别把矫情当优点，长那么低调活得这么得瑟，以为全天下都欠着你呀。人一大好青年，被你训得话都说不出一句，这么个谈恋爱法，智商是往负250上靠吗，中情局怎么没抓你啊！</p>
+<p>你的过去怎样我不想知道，你的未来如何我也不想参与。你难道一点都看不出来我不想理你吗？你还犯着贱得把脸贴过来。干吗，我屁股上装了一整个南极你感觉不到冷啊。</p>
+<p>银行司机兼保镖，行动人形立牌，抗压人肉沙包</p>
+<p>她不是霸道，只是有主见；她不是强势，只是给自己安全感；她不是神勇铁金刚，那点脾气只是用来掩饰她心底的脆弱罢了。如果你懂她，就该让她去决定她能决定的，放弃她可以放弃的，在她有所期待的时候不要让她失望，在她脆弱的时候扶她一把，在她每次说她很好的时候就别真的离开了，就该知道她能一直欺负你霸占你所有的时间，是因为她爱你！</p>
+<p>要有多幸运，两个人才能健康无事地执手偕老。平行时空里，飞机上的人都回了家，自此谁都别忘了，能拥抱到身边的人才是最奢侈的事。</p>
+<p>一百个人，有一百个对爱情的态度。我们谁都会受伤，也都会在爱里成熟，不依赖天长地久的承诺，不抱有唯我独尊的自负，在一百次冲动之前，看看自己在这段感情里的收获，别轻易觉得爱可弃，心可医，一个人能行。最好能记着，别人给的爱，都是无辜的。</p>
+<footer><strong>随手转发正能量</strong><cite>张皓宸</cite></footer></blockquote>
+
+<hr>
+<blockquote><p>我送了你那么多的巧克力，你都给我退回来了，就跟数学最后一道选择题我辛辛苦苦算了好几页草稿纸，结果ABCD里都没有我要的答案。我喜欢你这么久，明知道是死路，也还是硬着头皮走，马上就要毕业了，我觉得如果不再争取一下久永远失去你了。</p>
+<p>有时我会想，我们明明是见面就互掐，特别见不得彼此好的人啊，但为什么现在会有种期待感呢，我好期待我骂你一句后你会回什么，期待我们再比一项东西我输给你后你那得意洋洋的样子，期待你今天会走哪条路，校服里面会穿哪件衣服。慢慢地，我就想迫不及待在人群里找到你，但后来我发现，不用找，我一眼就能看到你。</p>
+<p>每个人的青春其实都是一本精彩的书，残酷的，悲伤的，幸运的，幸福的，要说尽其中的遗憾，怎么能用几句话说得清。只是那时的我们啊，以为只要对饮一杯酒，一起吃一碗三块钱的面，就可以永远。后来才发现，时间是永恒的敌人，永远跟有没有勇气没关系，跟牵了多久的手也没有关系，它能给人无穷尽的生命，也能给两个人最长的距离，能让你忘记所有快乐的细节，却偏偏记得痛是多么的苦骨铭心。</p>
+<p>我们一起追过的剧里，江直树是真的爱着袁湘琴，李大仁是真的爱着程又青，志明是真的爱着春娇。但你别忘了，那时的我，是真的爱着你。</p>
+<footer><strong>念念 相忘</strong><cite>张皓宸</cite></footer></blockquote>
+
+<hr>
+<blockquote><p>人一生会遇到约2920万人，两个人相爱的概率是0.000049，所以你不爱我，我不怪你。</p>
+<p>爱一个人的时候，多巴胺分泌旺盛，我们都会不自觉地把对方完美化，但最后真正在一起了，就会发现对方身上漏洞百出，累感不爱。择偶靠来电，但恋爱，必须要靠信任。</p>
+<p>看着光影里的…，卸下那一身精致后，留下的跟凡人一样的血肉，冷的时候需要人为她添一件衣服，热了要人牵着她冲进灌满冷气的商场，她一个人那么久，其实根本不行。</p>
+<p>从喜欢到愿意共同面对生活还是有很长的一段距离的。我们的生活，需要为五斗米折腰，灾难频现，要经得起时间考验，还不能放任自流，随时要踩死一只只小强以及小三小四小五，明明那么辛苦，最后，你还得说一句，爱情该走下神坛，要走向最普通的生活。确实，当你神经百战之后，再经历这些，就会觉得太微不足道了，这些连年征战就是你的油盐酱醋茶。</p>
+<p>我的身旁总有健，我的回忆里也总是他的身影，而他的温柔总像无意间在哪绕了点路，要稍稍慢一拍才回传达给我，如今的我才能慢慢察觉到那份笨拙的温柔，当时的自己总是无法那么坦率，害怕被伤害而没能坚持到最后的人，是我；没能相信他的温柔就中途放弃的人，是我；决定单方面闭上眼睛就不再回头的人，是我；他一直在认真的投球，没能好好接住的人，是我。</p>
+<p>别轻易弄丢那个最适合你的人，后悔了？别怕，反正爱啊，总是有遗憾，干了这杯，无醉不欢。</p>
+<p>现实无法倒流，没那么多机会给你重来。</p>
+<footer><strong>无醉 不欢</strong><cite>张皓宸</cite></footer></blockquote>
+
+<hr>
+<blockquote><p>处女龟毛男：形容斤斤计较、做事拖泥带水的人。一般处女座、摩羯座居多。</p>
+<p>平时见不到面的时候迟迟不回我信息，跟他见面了却能一直玩弄手机，都说人在爱情里智商为零，但他却很清醒，知道承诺就是嘴上功夫，不用去兑现的，他也知道什么时候该热情什么时候该冷静。我又不傻，男人就两样东西给你，钱给不了，那就给时间，时间都不给，那就是不爱啊，我有心理准备的。</p>
+<p>这个吻，是我每天工作的一部分。感情用事是种心理缺陷，所谓粉丝，不过是指望着别人幸福来意淫自己的美好生活。</p>
+<p>Tony在糖糖面前彻底现了原形，他并不是暖男，而是彻头彻尾的渣男，全身注满了人前一套背后一套的负能量，嘴上说不在意网上的恶意评论，但背地里刷着微博骂人家全家。</p>
+<p>从Tony参加选秀比赛出道，顾涛就一直带着他，八年来，看着他从一个默默无闻的新人到现在成了别人眼里的风景，两个人一起受过欺负排挤，吃过常人没吃过的苦，睡过清贫的小房子，最苦时抱头痛哭过，也因为一部戏爆红而酩酊大醉过。所以他自负，他知道；他心机满腹，他知道；他要强，他也知道；他害怕失败，他更知道。Tony最红的时候说过不会亏待他，但每年只送他一部最新的iPhone，顾涛从没在Tony身上赚过什么大钱，也没跟他提过任何需求，拿着经纪公司给的薪水，在所有人都以为一人得道、鸡犬升天的时候，却靠着老母亲留下的房子维持着普通人的生活。</p>
+<p>如若最后遇到下像是黑夜中静谧的星空，那当初跋涉的这一路，崴脚的石子，走过冒失的风雪，在此刻都成了过眼烟云。夜风徐徐，望着那片星空，心里有一个可以想念的人。–《唐顿庄园》有感</p>
+<footer><strong>Ctrl + Alt + Del</strong><cite>张皓宸</cite></footer></blockquote>
+
+<hr>
+<blockquote><p>如果真的为了一个人撕心裂肺哭过一次，那么那个人就会从至关重要的人变成可有可无的人，因为那个人能把自己伤害到那个样子的机会只有一次。那一次之后，即使自己还爱他，可是总有一些东西真的改变了。</p>
+<p>毕业如一场告别的宴席，几杯酒下肚后就各自回家了，留在桌上的是彼此要做一辈子好朋友的誓言，带走的是我们终会把各自遗忘然后再去遇见别人的明天。</p>
+<p>世界上每天都有许多爱情故事发生，或遗憾，或悲伤，或幸福，或虚假，每个善男信女向空中抛出“我想爱”的信号，撞上了一些人，避开了一些人，经历了抛物线最高的高点，也落回最初的原点。当故事要结局的时候，才发现过去那些所谓遇见分离，最后都会化为平淡，再轰轰烈烈的我爱你你爱我，归根结底，都会落入平淡。</p>
+<p>我觉得我不是喜欢你，而是习惯有你；我觉得我不是失去了你，而是失去了最好的青春。</p>
+<footer><strong>没在一起 挺好的</strong><cite>张皓宸</cite></footer></blockquote>
+
+<hr>
+<p><code>Drama Queen 作做女王</code></p>
+<blockquote><p>现代男人的焦虑与恐慌，在工作繁重收入高的人群中尤为常见，他们除非遇上自己称心如意的人，否则绝不轻易谈恋爱，若是碰上一个情商爆表的成熟女性，那就分分钟闪婚，最怕的就是遇上胸大无脑，脸美但吵的Drama queen ，要是不小心掉入她们的桃花阵，势必没有富足的时间制造浪漫逗她们开心。</p>
+<p>老板在公司是出了名的辛辣刁钻，没人能逃得过她温婉笑容下的锋利匕首，特别擅用全世界通用逼死人不偿命的沟通黄金二字——呵呵——让你体无完肤。</p>
+<p>一个女人喜欢你，其实不在乎你们去了哪，做了什么，而是跟你在一起的时候，你有没有让她觉得，你是在乎她的。</p>
+<p>最好的浪漫，就是平淡的相处。你知道对方就在那里，很踏实，所有的时间都得以安放，像是忘记你们正在谈恋爱。</p>
+<p>就像是本来生活里所有地方都充斥着的回忆，突然之间跟你一点关系都没有了，曾经一同走过的地方、一度养成的习惯，全变成了伤疤，一碰就疼，此前天地都不怕，现在最怕回忆翻滚。</p>
+<p>冬天赖床的时候，明明已经醒了，也知道不能再睡了，但还是舍不得温暖的被窝，那时觉得没关系，就再睡一下吧，因为你知道，你总会起床的。</p>
+<p>多希望现在认识你，而不是当初，我不知道你有没有真心喜欢过我，但没关系，因为我爱上你了。<br>在爱情面前，我们都不是好人，不然我怎么会允许你就这样从我身边离开，而我也不敢在你背后大声叫住你，“请再看我一眼，再抱我一次。”纵使此生我们都不会再见面，但我仍希望你过得好，至少比我好，不然我会不开心。</p>
+<p>那个时候我们都以为爱是你喜欢我，我喜欢你，以为爱是我所希望的就是你所希望的，希望爱是两人份的炸鸡，是一个香喷喷的屁，是被手肘压住的长发，是开在土地里卑微的花，后来才知道，爱是金风玉露一相逢，便胜却人间无数，是相看两不厌，以陪伴互为终点；爱是舒服的沉默，是和有趣的人一起浪费人生，是灵魂伴侣，是原来你也在这里。</p>
+<footer><strong>还好最后是 你</strong><cite>张皓宸</cite></footer></blockquote>
+
+<hr>
+<blockquote><p>这个世界上的爱情分为多种，一种是心灵伴侣，靠一碗鸡汤秉承爱就是不见也不散；一种是卑微如尘，对方给你一巴掌，你还会关心Ta手为什么这么凉；另一种是彼此折磨，两个人像周瑜打黄盖，一个愿打一个愿挨；还有一种是无间道宫心计，互相猜，好像瞅准了看谁先出轨似的；最后一种，是心照不宣的暧昧，就像电影里说，你想和她上床，她也想和你上床，你们都知道总有一天你们会上床，但不知道你们会在哪一天上床，这就是最好的时光。</p>
+<p>她在不同男人面前变成不同的女人，遇到保护欲强的，就二十四小时装脆弱，看3D《泰坦尼克》哭，看3D《史瑞克》哭；遇到动漫爱好者，就穿着女仆装约会，一、二次元无障碍转换；遇到霸道总裁，就每天娇滴滴被阵风都能吹跑；遇到花心男，就成了耐追的绿茶婊；遇到色胚，就把自己捆好放床上。</p>
+<p>有些人沦为平庸浅薄，金玉其外，而败絮其中。可不经意间，有一天你会遇到一个彩虹般绚丽的人，从此以后，其他人就不过是匆匆浮云。</p>
+<p>人嘛，就是要在关键时刻不要脸，我们平时就是乖太久，才会在爱降临的时候，按部就班，像是经不起一点委屈的温顺兔子，被鸡汤洗脑，高喊着要在爱里活出自己的口号，一遇到刁难就折腰。其实在爱面前，我们什么都不是，我们并没有想象的那么伟大，清风能醉人，尘埃能致命。既然如此，不如彻底放肆，破坏规则，最是青春留不住，青春也不须留。</p>
+<p>这个世界从不缺好的故事，故事的结局，静香没有嫁给大雄，晴子可能也就负责打开樱木花道的初恋大门，有人曾牵手，但不会到最后。就像刚好在赶不同的列车，可能就与缘分失之交臂，抑或是原本以为能长久同行的人，结果提前下了车，看似遗憾，但人生海海，总要允许有人错过你，才能赶上最好的相遇。</p>
+<p>我们谁都会受伤，也都会在爱里成熟，不依赖天长地久的承诺，不抱有唯我独尊的自负。<br>在一百次冲动之前，看看自己在这段感情里的收获，别轻易觉得爱可弃，心可医，一个人能行。</p>
+<p>时间是永恒的敌人，永远跟有没有勇气没关系，跟牵了多久的手也没有关系，它能给人无穷尽的生命，也能给两个人最长的距离，能让你忘记所有快乐的细节，却偏偏记得痛是多么刻骨铭心。</p>
+<footer><strong>和你赶上最好的相遇</strong><cite>张皓宸</cite></footer></blockquote>]]></content>
+      <categories>
+        <category>reading</category>
+      </categories>
+  </entry>
+  <entry>
     <title>数学公式</title>
     <url>/2020/04/25/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/</url>
     <content><![CDATA[<h1 id="欧拉公式"><a href="#欧拉公式" class="headerlink" title="欧拉公式"></a>欧拉公式</h1><p>$e^{ix} = cos{x} + isin{x}$</p>
@@ -2306,62 +2219,6 @@
 ]]></content>
       <categories>
         <category>Math</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>深度学习</title>
-    <url>/2020/06/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h1 id="深度学习与神经网络的区别"><a href="#深度学习与神经网络的区别" class="headerlink" title="深度学习与神经网络的区别"></a>深度学习与神经网络的区别</h1><ul>
-<li>网络架构：3-5层$\longrightarrow$上千层</li>
-<li>激活函数：sigmoid$\longrightarrow$ReLU</li>
-<li>层间连接：全连接$\longrightarrow$权值共享、ResNet</li>
-<li>梯度下降：SGD$\longrightarrow$Adam<br>   一般先用Adam快速验证，再精调SGD进行极致优化。</li>
-<li>目标函数：MSE$\longrightarrow$CE</li>
-<li>除过拟合：凭经验$\longrightarrow$Dropout</li>
-</ul>
-<h1 id="SoftMax"><a href="#SoftMax" class="headerlink" title="SoftMax"></a>SoftMax</h1><p>SoftMax层的作用是突出最大值，并转换成概率的形式。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/softMax.jpg" alt="softMax"></p>
-<p>将一些输入映射为0-1之间的实数，并且归一化保证和为1，并且按照概率分布，即分值大的值取到的概率大，分值小的值偶尔取到。</p>
-<p>假定现有一个数组V，v_i 表示V中第i个元素，那么这个元素的soft-max值为$s_i = \frac{e^i}{\sum_j e^j}$</p>
-<h1 id="梯度消失问题"><a href="#梯度消失问题" class="headerlink" title="梯度消失问题"></a>梯度消失问题</h1><p>随着网络层数的增加，网络发生了退化(degradation)的现象：</p>
-<ul>
-<li>随着网络层数的增多，训练集loss逐渐下降，然后趋于饱和；</li>
-<li>当再增加网络深度时，训练集loss反而会增大；</li>
-<li>不是过拟合，因为在过拟合中训练loss是一直减小的。</li>
-</ul>
-<p>梯度消失的原因：</p>
-<ul>
-<li>神经元的激活函数采用了Sigmoid函数；</li>
-<li>大部分情况下$|w| &lt; 1$，而Sigmoid的导数$\sigma’ &lt; \frac{1}{4}$。</li>
-</ul>
-<p>2006年，Hinton等用受限玻尔兹曼机RBM预训练的方式解决梯度消失的问题；<br>2015年，开始使用<a href="/2020/06/05/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/" title="ReLU">ReLU</a>激活函数。</p>
-<h1 id="目标函数-损失函数-代价函数"><a href="#目标函数-损失函数-代价函数" class="headerlink" title="目标函数/损失函数/代价函数"></a>目标函数/损失函数/代价函数</h1><h2 id="均方误差"><a href="#均方误差" class="headerlink" title="均方误差"></a>均方误差</h2><p>$$\sum_{i=1}^n (y_i - \widehat{y}_i)^2$$</p>
-<p>预测得到的结果与真实值间的误差的平方和的平均值。</p>
-<h2 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h2><p>$$-\sum_{i=1}^n \widehat{y}_i ln y_i = 0$$</p>
-<p>计算出的y值不可能为0，可避免计算困难。<br>交叉熵目标函数的最优值搜索空间的“地形”更陡，更有利于快速找到最优值。</p>
-<h1 id="学习步长"><a href="#学习步长" class="headerlink" title="学习步长"></a>学习步长</h1><ul>
-<li>若学习步长过大，则目标函数可能不降低；</li>
-<li>若学习步长过小，训练过程可能非常缓慢。</li>
-</ul>
-<p>解决方法：训练几轮后按一些因素调整学习步长。</p>
-<h1 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h1><p>对于每个隐层神经元，把逐渐向非线性函数映射后向取值区间极限饱和区靠拢的输入分布强制拉回到均值为0方差为1的比较标准的正态分布，使得非线性变换函数的输入值落入对输入比较敏感的区域，以此避免梯度消失问题。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Batch_Normalization.png" alt="Batch_Normalization"></p>
-<ul>
-<li>在每次SGD时，通过mini-batch来对相应的activation做规范化操作，使得输出信号各维度的均值为0，方差为1；</li>
-<li>最后的<code>scale and shift</code>是为了让因训练所需而刻意加入的BN能够还原最初的输入。</li>
-</ul>
-<h1 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h1><p>当目标函数在<code>验证集</code>上不再减小时，训练就应该停止了，不能一味追求<code>训练集</code>的误差减小。</p>
-<p>权重衰减：因为在BP中很多权重是无用的，因此对于原梯度下降$w \leftarrow w - \eta \frac{\partial L}{\partial w}$将权重衰减为$w \leftarrow (1-\lambda)w - \eta \frac{\partial L}{\partial w}$，其中，$\lambda$为衰减率，随着训练持续越来越小。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Dropout.jpg" alt="Dropout"></p>
-<ul>
-<li>每次更新参数前，按照一定的比例来删减部分神经元；</li>
-<li>Dropout是集成学习的一种，使用一小块数据来训练一系列“子网络”。</li>
-</ul>
-<p><strong>测试时，要使用所有神经元，并且权重要按照同衰减比例缩小。</strong></p>
-<p>参考：<br><a href="https://www.cnblogs.com/guoyaohua/p/8724433.html" target="_blank" rel="noopener">https://www.cnblogs.com/guoyaohua/p/8724433.html</a></p>
-]]></content>
-      <categories>
-        <category>deeplearning</category>
       </categories>
   </entry>
   <entry>
@@ -2560,76 +2417,219 @@
       </categories>
   </entry>
   <entry>
-    <title>我与世界只差一个你</title>
-    <url>/2020/03/09/%E6%88%91%E4%B8%8E%E4%B8%96%E7%95%8C%E5%8F%AA%E5%B7%AE%E4%B8%80%E4%B8%AA%E4%BD%A0/</url>
-    <content><![CDATA[<blockquote><p>世界说大很大，说小很小。大到走了那么久，还没跟对的人相遇，小到围着喜欢的人绕了一圈，就看到了全世界。</p>
-<p>愿你能因为某个人的出现而让世界丰盈，愿你的生活如同贺卡上烫金的祝辞欢脱，愿这悠长岁月温柔安好，有回忆煮酒，愿你没有软肋，也不需要铠甲，愿我们和爱的人一起浪费人生，热泪盈框，长生不老。我与世界只差一个你，因为是你，晚一点没关系。</p>
-<p>一个有了女朋友的人就不应该再出去混局了，女人如衣服，兄弟如手足，那是古人说的话，不给你衣服穿，你还有脸出门吗。</p>
-<p>你先闭嘴，我说咱能不那么作么，有时间列那么多不平等条约，好好让脑袋多装点实在东西吧，别把矫情当优点，长那么低调活得这么得瑟，以为全天下都欠着你呀。人一大好青年，被你训得话都说不出一句，这么个谈恋爱法，智商是往负250上靠吗，中情局怎么没抓你啊！</p>
-<p>你的过去怎样我不想知道，你的未来如何我也不想参与。你难道一点都看不出来我不想理你吗？你还犯着贱得把脸贴过来。干吗，我屁股上装了一整个南极你感觉不到冷啊。</p>
-<p>银行司机兼保镖，行动人形立牌，抗压人肉沙包</p>
-<p>她不是霸道，只是有主见；她不是强势，只是给自己安全感；她不是神勇铁金刚，那点脾气只是用来掩饰她心底的脆弱罢了。如果你懂她，就该让她去决定她能决定的，放弃她可以放弃的，在她有所期待的时候不要让她失望，在她脆弱的时候扶她一把，在她每次说她很好的时候就别真的离开了，就该知道她能一直欺负你霸占你所有的时间，是因为她爱你！</p>
-<p>要有多幸运，两个人才能健康无事地执手偕老。平行时空里，飞机上的人都回了家，自此谁都别忘了，能拥抱到身边的人才是最奢侈的事。</p>
-<p>一百个人，有一百个对爱情的态度。我们谁都会受伤，也都会在爱里成熟，不依赖天长地久的承诺，不抱有唯我独尊的自负，在一百次冲动之前，看看自己在这段感情里的收获，别轻易觉得爱可弃，心可医，一个人能行。最好能记着，别人给的爱，都是无辜的。</p>
-<footer><strong>随手转发正能量</strong><cite>张皓宸</cite></footer></blockquote>
-
-<hr>
-<blockquote><p>我送了你那么多的巧克力，你都给我退回来了，就跟数学最后一道选择题我辛辛苦苦算了好几页草稿纸，结果ABCD里都没有我要的答案。我喜欢你这么久，明知道是死路，也还是硬着头皮走，马上就要毕业了，我觉得如果不再争取一下久永远失去你了。</p>
-<p>有时我会想，我们明明是见面就互掐，特别见不得彼此好的人啊，但为什么现在会有种期待感呢，我好期待我骂你一句后你会回什么，期待我们再比一项东西我输给你后你那得意洋洋的样子，期待你今天会走哪条路，校服里面会穿哪件衣服。慢慢地，我就想迫不及待在人群里找到你，但后来我发现，不用找，我一眼就能看到你。</p>
-<p>每个人的青春其实都是一本精彩的书，残酷的，悲伤的，幸运的，幸福的，要说尽其中的遗憾，怎么能用几句话说得清。只是那时的我们啊，以为只要对饮一杯酒，一起吃一碗三块钱的面，就可以永远。后来才发现，时间是永恒的敌人，永远跟有没有勇气没关系，跟牵了多久的手也没有关系，它能给人无穷尽的生命，也能给两个人最长的距离，能让你忘记所有快乐的细节，却偏偏记得痛是多么的苦骨铭心。</p>
-<p>我们一起追过的剧里，江直树是真的爱着袁湘琴，李大仁是真的爱着程又青，志明是真的爱着春娇。但你别忘了，那时的我，是真的爱着你。</p>
-<footer><strong>念念 相忘</strong><cite>张皓宸</cite></footer></blockquote>
-
-<hr>
-<blockquote><p>人一生会遇到约2920万人，两个人相爱的概率是0.000049，所以你不爱我，我不怪你。</p>
-<p>爱一个人的时候，多巴胺分泌旺盛，我们都会不自觉地把对方完美化，但最后真正在一起了，就会发现对方身上漏洞百出，累感不爱。择偶靠来电，但恋爱，必须要靠信任。</p>
-<p>看着光影里的…，卸下那一身精致后，留下的跟凡人一样的血肉，冷的时候需要人为她添一件衣服，热了要人牵着她冲进灌满冷气的商场，她一个人那么久，其实根本不行。</p>
-<p>从喜欢到愿意共同面对生活还是有很长的一段距离的。我们的生活，需要为五斗米折腰，灾难频现，要经得起时间考验，还不能放任自流，随时要踩死一只只小强以及小三小四小五，明明那么辛苦，最后，你还得说一句，爱情该走下神坛，要走向最普通的生活。确实，当你神经百战之后，再经历这些，就会觉得太微不足道了，这些连年征战就是你的油盐酱醋茶。</p>
-<p>我的身旁总有健，我的回忆里也总是他的身影，而他的温柔总像无意间在哪绕了点路，要稍稍慢一拍才回传达给我，如今的我才能慢慢察觉到那份笨拙的温柔，当时的自己总是无法那么坦率，害怕被伤害而没能坚持到最后的人，是我；没能相信他的温柔就中途放弃的人，是我；决定单方面闭上眼睛就不再回头的人，是我；他一直在认真的投球，没能好好接住的人，是我。</p>
-<p>别轻易弄丢那个最适合你的人，后悔了？别怕，反正爱啊，总是有遗憾，干了这杯，无醉不欢。</p>
-<p>现实无法倒流，没那么多机会给你重来。</p>
-<footer><strong>无醉 不欢</strong><cite>张皓宸</cite></footer></blockquote>
-
-<hr>
-<blockquote><p>处女龟毛男：形容斤斤计较、做事拖泥带水的人。一般处女座、摩羯座居多。</p>
-<p>平时见不到面的时候迟迟不回我信息，跟他见面了却能一直玩弄手机，都说人在爱情里智商为零，但他却很清醒，知道承诺就是嘴上功夫，不用去兑现的，他也知道什么时候该热情什么时候该冷静。我又不傻，男人就两样东西给你，钱给不了，那就给时间，时间都不给，那就是不爱啊，我有心理准备的。</p>
-<p>这个吻，是我每天工作的一部分。感情用事是种心理缺陷，所谓粉丝，不过是指望着别人幸福来意淫自己的美好生活。</p>
-<p>Tony在糖糖面前彻底现了原形，他并不是暖男，而是彻头彻尾的渣男，全身注满了人前一套背后一套的负能量，嘴上说不在意网上的恶意评论，但背地里刷着微博骂人家全家。</p>
-<p>从Tony参加选秀比赛出道，顾涛就一直带着他，八年来，看着他从一个默默无闻的新人到现在成了别人眼里的风景，两个人一起受过欺负排挤，吃过常人没吃过的苦，睡过清贫的小房子，最苦时抱头痛哭过，也因为一部戏爆红而酩酊大醉过。所以他自负，他知道；他心机满腹，他知道；他要强，他也知道；他害怕失败，他更知道。Tony最红的时候说过不会亏待他，但每年只送他一部最新的iPhone，顾涛从没在Tony身上赚过什么大钱，也没跟他提过任何需求，拿着经纪公司给的薪水，在所有人都以为一人得道、鸡犬升天的时候，却靠着老母亲留下的房子维持着普通人的生活。</p>
-<p>如若最后遇到下像是黑夜中静谧的星空，那当初跋涉的这一路，崴脚的石子，走过冒失的风雪，在此刻都成了过眼烟云。夜风徐徐，望着那片星空，心里有一个可以想念的人。–《唐顿庄园》有感</p>
-<footer><strong>Ctrl + Alt + Del</strong><cite>张皓宸</cite></footer></blockquote>
-
-<hr>
-<blockquote><p>如果真的为了一个人撕心裂肺哭过一次，那么那个人就会从至关重要的人变成可有可无的人，因为那个人能把自己伤害到那个样子的机会只有一次。那一次之后，即使自己还爱他，可是总有一些东西真的改变了。</p>
-<p>毕业如一场告别的宴席，几杯酒下肚后就各自回家了，留在桌上的是彼此要做一辈子好朋友的誓言，带走的是我们终会把各自遗忘然后再去遇见别人的明天。</p>
-<p>世界上每天都有许多爱情故事发生，或遗憾，或悲伤，或幸福，或虚假，每个善男信女向空中抛出“我想爱”的信号，撞上了一些人，避开了一些人，经历了抛物线最高的高点，也落回最初的原点。当故事要结局的时候，才发现过去那些所谓遇见分离，最后都会化为平淡，再轰轰烈烈的我爱你你爱我，归根结底，都会落入平淡。</p>
-<p>我觉得我不是喜欢你，而是习惯有你；我觉得我不是失去了你，而是失去了最好的青春。</p>
-<footer><strong>没在一起 挺好的</strong><cite>张皓宸</cite></footer></blockquote>
-
-<hr>
-<p><code>Drama Queen 作做女王</code></p>
-<blockquote><p>现代男人的焦虑与恐慌，在工作繁重收入高的人群中尤为常见，他们除非遇上自己称心如意的人，否则绝不轻易谈恋爱，若是碰上一个情商爆表的成熟女性，那就分分钟闪婚，最怕的就是遇上胸大无脑，脸美但吵的Drama queen ，要是不小心掉入她们的桃花阵，势必没有富足的时间制造浪漫逗她们开心。</p>
-<p>老板在公司是出了名的辛辣刁钻，没人能逃得过她温婉笑容下的锋利匕首，特别擅用全世界通用逼死人不偿命的沟通黄金二字——呵呵——让你体无完肤。</p>
-<p>一个女人喜欢你，其实不在乎你们去了哪，做了什么，而是跟你在一起的时候，你有没有让她觉得，你是在乎她的。</p>
-<p>最好的浪漫，就是平淡的相处。你知道对方就在那里，很踏实，所有的时间都得以安放，像是忘记你们正在谈恋爱。</p>
-<p>就像是本来生活里所有地方都充斥着的回忆，突然之间跟你一点关系都没有了，曾经一同走过的地方、一度养成的习惯，全变成了伤疤，一碰就疼，此前天地都不怕，现在最怕回忆翻滚。</p>
-<p>冬天赖床的时候，明明已经醒了，也知道不能再睡了，但还是舍不得温暖的被窝，那时觉得没关系，就再睡一下吧，因为你知道，你总会起床的。</p>
-<p>多希望现在认识你，而不是当初，我不知道你有没有真心喜欢过我，但没关系，因为我爱上你了。<br>在爱情面前，我们都不是好人，不然我怎么会允许你就这样从我身边离开，而我也不敢在你背后大声叫住你，“请再看我一眼，再抱我一次。”纵使此生我们都不会再见面，但我仍希望你过得好，至少比我好，不然我会不开心。</p>
-<p>那个时候我们都以为爱是你喜欢我，我喜欢你，以为爱是我所希望的就是你所希望的，希望爱是两人份的炸鸡，是一个香喷喷的屁，是被手肘压住的长发，是开在土地里卑微的花，后来才知道，爱是金风玉露一相逢，便胜却人间无数，是相看两不厌，以陪伴互为终点；爱是舒服的沉默，是和有趣的人一起浪费人生，是灵魂伴侣，是原来你也在这里。</p>
-<footer><strong>还好最后是 你</strong><cite>张皓宸</cite></footer></blockquote>
-
-<hr>
-<blockquote><p>这个世界上的爱情分为多种，一种是心灵伴侣，靠一碗鸡汤秉承爱就是不见也不散；一种是卑微如尘，对方给你一巴掌，你还会关心Ta手为什么这么凉；另一种是彼此折磨，两个人像周瑜打黄盖，一个愿打一个愿挨；还有一种是无间道宫心计，互相猜，好像瞅准了看谁先出轨似的；最后一种，是心照不宣的暧昧，就像电影里说，你想和她上床，她也想和你上床，你们都知道总有一天你们会上床，但不知道你们会在哪一天上床，这就是最好的时光。</p>
-<p>她在不同男人面前变成不同的女人，遇到保护欲强的，就二十四小时装脆弱，看3D《泰坦尼克》哭，看3D《史瑞克》哭；遇到动漫爱好者，就穿着女仆装约会，一、二次元无障碍转换；遇到霸道总裁，就每天娇滴滴被阵风都能吹跑；遇到花心男，就成了耐追的绿茶婊；遇到色胚，就把自己捆好放床上。</p>
-<p>有些人沦为平庸浅薄，金玉其外，而败絮其中。可不经意间，有一天你会遇到一个彩虹般绚丽的人，从此以后，其他人就不过是匆匆浮云。</p>
-<p>人嘛，就是要在关键时刻不要脸，我们平时就是乖太久，才会在爱降临的时候，按部就班，像是经不起一点委屈的温顺兔子，被鸡汤洗脑，高喊着要在爱里活出自己的口号，一遇到刁难就折腰。其实在爱面前，我们什么都不是，我们并没有想象的那么伟大，清风能醉人，尘埃能致命。既然如此，不如彻底放肆，破坏规则，最是青春留不住，青春也不须留。</p>
-<p>这个世界从不缺好的故事，故事的结局，静香没有嫁给大雄，晴子可能也就负责打开樱木花道的初恋大门，有人曾牵手，但不会到最后。就像刚好在赶不同的列车，可能就与缘分失之交臂，抑或是原本以为能长久同行的人，结果提前下了车，看似遗憾，但人生海海，总要允许有人错过你，才能赶上最好的相遇。</p>
-<p>我们谁都会受伤，也都会在爱里成熟，不依赖天长地久的承诺，不抱有唯我独尊的自负。<br>在一百次冲动之前，看看自己在这段感情里的收获，别轻易觉得爱可弃，心可医，一个人能行。</p>
-<p>时间是永恒的敌人，永远跟有没有勇气没关系，跟牵了多久的手也没有关系，它能给人无穷尽的生命，也能给两个人最长的距离，能让你忘记所有快乐的细节，却偏偏记得痛是多么刻骨铭心。</p>
-<footer><strong>和你赶上最好的相遇</strong><cite>张皓宸</cite></footer></blockquote>]]></content>
+    <title>深度学习</title>
+    <url>/2020/06/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h1 id="深度学习与神经网络的区别"><a href="#深度学习与神经网络的区别" class="headerlink" title="深度学习与神经网络的区别"></a>深度学习与神经网络的区别</h1><ul>
+<li>网络架构：3-5层$\longrightarrow$上千层</li>
+<li>激活函数：sigmoid$\longrightarrow$ReLU</li>
+<li>层间连接：全连接$\longrightarrow$权值共享、ResNet</li>
+<li>梯度下降：SGD$\longrightarrow$Adam<br>   一般先用Adam快速验证，再精调SGD进行极致优化。</li>
+<li>目标函数：MSE$\longrightarrow$CE</li>
+<li>除过拟合：凭经验$\longrightarrow$Dropout</li>
+</ul>
+<h1 id="SoftMax"><a href="#SoftMax" class="headerlink" title="SoftMax"></a>SoftMax</h1><p>SoftMax层的作用是突出最大值，并转换成概率的形式。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/softMax.jpg" alt="softMax"></p>
+<p>将一些输入映射为0-1之间的实数，并且归一化保证和为1，并且按照概率分布，即分值大的值取到的概率大，分值小的值偶尔取到。</p>
+<p>假定现有一个数组V，v_i 表示V中第i个元素，那么这个元素的soft-max值为$s_i = \frac{e^i}{\sum_j e^j}$</p>
+<h1 id="梯度消失问题"><a href="#梯度消失问题" class="headerlink" title="梯度消失问题"></a>梯度消失问题</h1><p>随着网络层数的增加，网络发生了退化(degradation)的现象：</p>
+<ul>
+<li>随着网络层数的增多，训练集loss逐渐下降，然后趋于饱和；</li>
+<li>当再增加网络深度时，训练集loss反而会增大；</li>
+<li>不是过拟合，因为在过拟合中训练loss是一直减小的。</li>
+</ul>
+<p>梯度消失的原因：</p>
+<ul>
+<li>神经元的激活函数采用了Sigmoid函数；</li>
+<li>大部分情况下$|w| &lt; 1$，而Sigmoid的导数$\sigma’ &lt; \frac{1}{4}$。</li>
+</ul>
+<p>2006年，Hinton等用受限玻尔兹曼机RBM预训练的方式解决梯度消失的问题；<br>2015年，开始使用<a href="/2020/06/05/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/" title="ReLU">ReLU</a>激活函数。</p>
+<h1 id="目标函数-损失函数-代价函数"><a href="#目标函数-损失函数-代价函数" class="headerlink" title="目标函数/损失函数/代价函数"></a>目标函数/损失函数/代价函数</h1><h2 id="均方误差"><a href="#均方误差" class="headerlink" title="均方误差"></a>均方误差</h2><p>$$\sum_{i=1}^n (y_i - \widehat{y}_i)^2$$</p>
+<p>预测得到的结果与真实值间的误差的平方和的平均值。</p>
+<h2 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h2><p>$$-\sum_{i=1}^n \widehat{y}_i ln y_i = 0$$</p>
+<p>计算出的y值不可能为0，可避免计算困难。<br>交叉熵目标函数的最优值搜索空间的“地形”更陡，更有利于快速找到最优值。</p>
+<h1 id="学习步长"><a href="#学习步长" class="headerlink" title="学习步长"></a>学习步长</h1><ul>
+<li>若学习步长过大，则目标函数可能不降低；</li>
+<li>若学习步长过小，训练过程可能非常缓慢。</li>
+</ul>
+<p>解决方法：训练几轮后按一些因素调整学习步长。</p>
+<h1 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h1><p>对于每个隐层神经元，把逐渐向非线性函数映射后向取值区间极限饱和区靠拢的输入分布强制拉回到均值为0方差为1的比较标准的正态分布，使得非线性变换函数的输入值落入对输入比较敏感的区域，以此避免梯度消失问题。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Batch_Normalization.png" alt="Batch_Normalization"></p>
+<ul>
+<li>在每次SGD时，通过mini-batch来对相应的activation做规范化操作，使得输出信号各维度的均值为0，方差为1；</li>
+<li>最后的<code>scale and shift</code>是为了让因训练所需而刻意加入的BN能够还原最初的输入。</li>
+</ul>
+<h1 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h1><p>当目标函数在<code>验证集</code>上不再减小时，训练就应该停止了，不能一味追求<code>训练集</code>的误差减小。</p>
+<p>权重衰减：因为在BP中很多权重是无用的，因此对于原梯度下降$w \leftarrow w - \eta \frac{\partial L}{\partial w}$将权重衰减为$w \leftarrow (1-\lambda)w - \eta \frac{\partial L}{\partial w}$，其中，$\lambda$为衰减率，随着训练持续越来越小。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Dropout.jpg" alt="Dropout"></p>
+<ul>
+<li>每次更新参数前，按照一定的比例来删减部分神经元；</li>
+<li>Dropout是集成学习的一种，使用一小块数据来训练一系列“子网络”。</li>
+</ul>
+<p><strong>测试时，要使用所有神经元，并且权重要按照同衰减比例缩小。</strong></p>
+<p>参考：<br><a href="https://www.cnblogs.com/guoyaohua/p/8724433.html" target="_blank" rel="noopener">https://www.cnblogs.com/guoyaohua/p/8724433.html</a></p>
+]]></content>
       <categories>
-        <category>reading</category>
+        <category>deeplearning</category>
       </categories>
+  </entry>
+  <entry>
+    <title>swift</title>
+    <url>/2020/06/30/swift/</url>
+    <content><![CDATA[<h1 id="playground"><a href="#playground" class="headerlink" title="playground"></a>playground</h1><p><em>所见及所得，可快速查看语法更改</em></p>
+<h1 id="Cocoa框架"><a href="#Cocoa框架" class="headerlink" title="Cocoa框架"></a>Cocoa框架</h1><p>Cocoa是<code>OS X</code>和<code>ios</code>操作系统的程序的运行环境。</p>
+<p>Cocoa拥有众多框架：Application、<strong>UIKit</strong>、Cocoa Touch、Media、Core Services/<strong>Foundation</strong>、Core OS。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Cocoa.png" alt="Cocoa"></p>
+<p>Foundation框架：</p>
+<h1 id="ios"><a href="#ios" class="headerlink" title="ios"></a>ios</h1><h2 id="SandBox"><a href="#SandBox" class="headerlink" title="SandBox"></a>SandBox</h2><p>ios中的沙盒机制是一种安全体系。每个app都有一个单独的文件系统/存储空间，而且只能在对应的文件系统中进行操作，即沙盒。所有的非代码文件（资源文件等）都保存在此。</p>
+<p>沙盒包含的目录：</p>
+<ul>
+<li>/AppName.app<ul>
+<li>应用程序的程序包目录；</li>
+<li>由于应用程序必须经过<strong>签名</strong>，所以不能在运行时对这个目录中的内容进行修改，否则会导致应用程序无法启动。</li>
+</ul>
+</li>
+<li>/Documents/<ul>
+<li>保存<strong>应用程序的重要数据文件和用户数据文件</strong>等；</li>
+<li>iTunes<strong>同步</strong>时会<strong>备份</strong>该目录。</li>
+</ul>
+</li>
+<li>/Library/Caches<ul>
+<li>保存应用程序使用时产生的支持文件和缓存文件，还有日志文件最好也放在这个目录；</li>
+<li>iTunes同步时<strong>不备份</strong>该目录。</li>
+</ul>
+</li>
+<li>/Library/Preferences<ul>
+<li>保存应用程序的偏好设置文件；</li>
+<li>使用<code>NSUserDefaults</code>类设置时创建，不应手动创建。</li>
+</ul>
+</li>
+<li>/tmp/<ul>
+<li>保存应用运行时所需要的临时数据；</li>
+<li>iphone<strong>重启时会清空</strong>该目录下所有文件。</li>
+</ul>
+</li>
+</ul>
+<p>查询app沙盒路径：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 在项目中执行代码打印获取</span><br><span class="line">let homeDir &#x3D; NSHomeDirectory() as Stringprintln(homeDir)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 1、获取沙盒根目录</span><br><span class="line">let homeDir &#x3D; NSHomeDirectory() as String</span><br><span class="line">&#x2F;&#x2F; 2、获取 Documents 目录</span><br><span class="line">let docDirs &#x3D; NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArraylet docDir &#x3D; docDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 3、获取 Caches 目录</span><br><span class="line">let cachesDirs &#x3D; NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true) as NSArraylet cachesDir &#x3D; cachesDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 4、获取 Library 目录</span><br><span class="line">let libDirs &#x3D; NSSearchPathForDirectoriesInDomains(.LibraryDirectory, .UserDomainMask, true) as NSArraylet libDir &#x3D; libDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 5、获取 tmp 目录</span><br><span class="line">let tmpDir &#x3D; NSTemporaryDirectory() as String</span><br></pre></td></tr></table></figure>
+
+<h3 id="NSFileManager"><a href="#NSFileManager" class="headerlink" title="NSFileManager"></a>NSFileManager</h3><p>通过<code>fileManager</code>对沙盒中的目录/文件进行操作。</p>
+<h3 id="NSBundle"><a href="#NSBundle" class="headerlink" title="NSBundle"></a>NSBundle</h3><p>app都是通过<code>bundle</code>进行封装的，可以将<code>bundle</code>理解为上述沙盒中的<code>AppName.app</code>文件。</p>
+<p>在<code>Finder</code>中，会把<code>bundle</code>当做文件显示，防止用户误操作，但其内部是一个目录，包含图像、媒体资源、编译的代码、nib文件等，这个目录称为<code>main bundle</code>。</p>
+<p><code>Cocaoa</code>提供了<code>NSBundle类</code>封装了<code>bundle</code>操作。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 获取应用程序的 main bundle</span><br><span class="line">var mainBundle &#x3D; NSBundle.mainBundle()</span><br><span class="line">&#x2F;&#x2F; 使用 main bundle 获取资源路径</span><br><span class="line">var testFilePath &#x3D; mainBundle.pathForResource(&quot;logo&quot;, ofType: &quot;png&quot;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="KVC"><a href="#KVC" class="headerlink" title="KVC"></a>KVC</h1><h2 id="KVC设值"><a href="#KVC设值" class="headerlink" title="KVC设值"></a>KVC设值</h2><p>通过对象中对应的key，KVC在内部寻找key，并调用<code>setValue:属性值forKey:@&quot;name&quot;</code>，底层执行机制为：</p>
+<ol>
+<li>程序优先调用<code>set&lt;Key&gt;:属性值</code>方法，代码通过setter方法完成设置。*<key>指成员变量名，首字母大小写要符合KVC命名规则。*</li>
+<li>若没有找到<code>setName:</code>方法，<ol>
+<li>KVC机制会检查<code>+(BOOL)accessInstanceVariablesDirectly</code>方法有没有返回YES，默认返回YES；</li>
+<li>若重写该方法返回NO，会执行<code>setValue:forUndefinedKey</code>方法，一般不会这么做，当找不到时，会直接执行第4步。</li>
+<li>KVC机制会搜索该类中名为<key>的成员变量，无论该变量是在类接口处定义，还是在类实现处定义，无论使用怎样的访问修饰符，只要存在以<key>命名的变量，KVC都可对该成员变量赋值。</li>
+</ol>
+</li>
+<li>若该类既没有<code>set&lt;key&gt;:</code>方法，也没有<code>_&lt;key&gt;</code>和<code>_is&lt;key&gt;</code>成员变量，KVC机制会搜索<code>&lt;key&gt;</code>和<code>is&lt;key&gt;</code>的成员变量，并赋值。</li>
+<li>如果方法或成员变量都不存在，系统将会执行该对象的<code>setValue:forUndefinedKey:</code>方法，默认为抛出异常。</li>
+</ol>
+<h2 id="KVC取值"><a href="#KVC取值" class="headerlink" title="KVC取值"></a>KVC取值</h2><p>当调用<code>valueForKey:@&quot;name&quot;</code>时，KVC对key的搜索方式不同于<code>setValue:属性值forKey:@&quot;name&quot;</code>，其搜索方式为：</p>
+<ol>
+<li>首先，按<code>get&lt;key&gt;,&lt;key&gt;,is&lt;key&gt;</code>的顺序方法查找getter方法，找到就直接调用；如果是BOOL或Int等值类型，会将其包装成一个NSNumber对象。</li>
+<li>如果getter没有找到，KVC会查找<code>countOf&lt;Key&gt;, objectIn&lt;Key&gt;AtIndex或&lt;Key&gt;AtIndexes</code>格式的方法；<ol>
+<li>如果<code>countOf&lt;Key&gt;</code>和另外两个方法中的一个，那么就会返回一个可以响应NSArray所有方法的代理集合(NSkeyValueArray，是NSArray的子类)；</li>
+<li>调用该代理集合的方法，或给该代理发送属于NSArray的方法，就会以<code>countOf&lt;Key&gt;, objectIn&lt;Key&gt;AtIndex或&lt;Key&gt;AtIndexes</code>方法组合的形式调用；</li>
+<li>可选方法<code>get&lt;Key&gt;:range:</code>。</li>
+</ol>
+</li>
+<li>若没有找到，会同时查找<code>countOf&lt;Key&gt;, enumeratorOf&lt;Key&gt;, memberOf&lt;Key&gt;</code>格式的方法；<ol>
+<li>如果找到这三个方法，则返回一个可响应NSSet所有方法的代理集合；</li>
+<li>给该代理集合发送NSSet的消息，就会以<code>countOf&lt;Key&gt;, enumeratorOf&lt;Key&gt;, memberOf&lt;Key&gt;</code>组合的形式调用。</li>
+</ol>
+</li>
+<li>若还没找到，检查类方法<code>+(BOOL)accessInstanceVariablesDirectly</code>；<ol>
+<li>若返回YES（默认），按照<code>_&lt;Key&gt;, _is&lt;Key&gt;, &lt;Key&gt;, is&lt;Key&gt;</code>的顺序搜索成员变量名；</li>
+<li>如重写了类方法<code>+(BOOL)accessInstanceVariablesDirectly</code>，返回NO，便直接调用<code>valueForUndefinedKey:</code>方法，默认抛出异常。</li>
+</ol>
+</li>
+</ol>
+<h2 id="KVC处理数值和结构体类型属性"><a href="#KVC处理数值和结构体类型属性" class="headerlink" title="KVC处理数值和结构体类型属性"></a>KVC处理数值和结构体类型属性</h2><p><code>valueForKey:</code>总是返回一个🆔对象，若原本变量类型为值类型或结构体，返回值会封装成NSNumber或NSValue对象。<br><code>setValue:forKey:</code>需要手动将值类型转换为NSNumber或NSValue类型。</p>
+<p>因为传递进去和取出来的都是id类型，所以需要开发者自己担保类型的正确性，运行时Objective-C在发送消息时会检查类型，如果错误会直接抛出异常。</p>
+<h2 id="KVC处理集合"><a href="#KVC处理集合" class="headerlink" title="KVC处理集合"></a>KVC处理集合</h2><p>简单集合运算符：@avg，@count，@max，@min，@sum。<br>对象运算符：能以数组的方式返回指定的内容。</p>
+<ul>
+<li><code>@distinctUnionOfObjects</code>：返回元素唯一，类似Set；</li>
+<li><code>@unionOfObjects</code>：返回全部元素。</li>
+</ul>
+<h2 id="KVC处理字典"><a href="#KVC处理字典" class="headerlink" title="KVC处理字典"></a>KVC处理字典</h2><p>当对NSDictionary对象使用KVC时，<code>valueForKey:</code>表现行为和<code>objectForKey:</code>一样，常使用<code>valueForKeyPath:</code>来访问多层嵌套的字典。</p>
+<p><code>dictionaryWithValuesForKeys:</code>指输入一组key，返回这组key对应的属性，再组成一个字典。<br><code>setValuesForKeysWithDictionary</code>用来修改Model中对应key的属性。</p>
+<h2 id="KVC处理异常"><a href="#KVC处理异常" class="headerlink" title="KVC处理异常"></a>KVC处理异常</h2><p>KVC处理nil异常：重写<code>setNilValueForKey:</code>方法。</p>
+<p>KVC处理UndefinedKey异常：重写<code>forUndefinedKey</code>方法。</p>
+<h2 id="KVC使用场景"><a href="#KVC使用场景" class="headerlink" title="KVC使用场景"></a>KVC使用场景</h2><ul>
+<li>动态地取值和设值；</li>
+<li>访问和修改私有变量；</li>
+<li>Model和字典转换：通常和runtime组合使用；</li>
+<li>修改部分控件的内部属性；</li>
+<li>操作集合：<code>valueForKey:</code>方法的特殊实现，如NSArray和NSSet容器类；</li>
+<li>实现高阶消息传递<code>valueForKey:</code>传递给容器的每一个对象，结果添加到返回的容器中；</li>
+</ul>
+<h1 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h1><p><code>Key-Value Observing</code>，键值观察，是基于KVC实现的，是一种<strong>观察者模式的衍生</strong>。</p>
+<p><strong>基本思想：</strong>对目标对象的某属性添加观察，当该属性发生变化时，通过触发观察者对象实现的KVO接口方法，自动的通知观察者。</p>
+<p>KVO可以通过监听key，来获得value的变化，用来在对象之间监听状态变化。<br>KVO的原理是修改被观察者的setter方法。<br>KVO的定义都是对NSObject的扩展来实现的，OC中有个显式的NSKeyValueObserving类别名，对于所有继承NSObject的类型，都可使用KVO。</p>
+<p>KVO中，观察者和被观察者的改变发生在<strong>同一线程</strong>上，需要确保线程安全。</p>
+<h2 id="注册与解除注册"><a href="#注册与解除注册" class="headerlink" title="注册与解除注册"></a>注册与解除注册</h2><p>若已经拥有可供键值观察属性的类，即可通过在该类的对象(被观察对象)上调用名为NSKeyValueObserverRegistration的category方法将观察者对象与被观察者对象注册与解除注册。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;</span><br><span class="line">- (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath;</span><br></pre></td></tr></table></figure>
+<p>其中：</p>
+<ul>
+<li>observer:观察者，也就是KVO通知的订阅者；</li>
+<li>observeValueForKeyPath:ofObject:change:context:方法；</li>
+<li>keyPath：描述将要观察的属性，相对于被观察者；</li>
+<li>options：KVO的一些属性配置；<ul>
+<li>NSKeyValueObservingOptionNew：change字典包括改变后的值；</li>
+<li>NSKeyValueObservingOptionOld:change字典包括改变前的值；</li>
+<li>NSKeyValueObservingOptionInitial:注册后立刻触发KVO通知；</li>
+<li>NSKeyValueObservingOptionPrior:值改变前是否也要通知（这个key决定了是否在改变前改变后通知两次）</li>
+</ul>
+</li>
+<li>context: 上下文，传递到订阅者的函数中，用来区分消息。</li>
+</ul>
+<p>系统通过重写dealloc方法来<strong>释放资源</strong>。</p>
+<h2 id="KVO实现"><a href="#KVO实现" class="headerlink" title="KVO实现"></a>KVO实现</h2><p>KVO是通过<code>isa-swizzling</code>实现的，基本流程为：</p>
+<ul>
+<li>编译器自动为被观察者对象创造一个派生类，并将被观察对象的isa指向该派生类；</li>
+<li>若用户注册了对此目标对象的某一个属性的观察，派生类会重写该方法(只重写注册观察者的属性方法)，并在其中添加通知对象；</li>
+<li>OC在发送消息时，通过isa指针找到当前对象所属的类对象，类对象中保存着当前对象的实例方法，因此向此对象发送消息，实际上是发送到了派生类对象的方法；</li>
+<li>由于编译器对派生类的方法进行了override，并添加了通知对象，因此会向注册的对象发送通知。</li>
+</ul>
+<h2 id="手动KVO"><a href="#手动KVO" class="headerlink" title="手动KVO"></a>手动KVO</h2><ul>
+<li><code>- (void)willChangeValueForKey:(NSString *)key;</code>：将要发生改变；</li>
+<li><code>- (void)didChangeValueForKey:(NSString *)key;</code>：已经发生改变；<br>在不用的时候，一定要<strong>解除注册</strong>，否则会导致内存泄漏。</li>
+</ul>
+<p>每当监听的keyPath发生变化，就会在<code>-(void)observeValueForKeyPath:</code>函数中进行回调：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)observeValueForKeyPath:(NSString *)keyPath</span><br><span class="line">                      ofObject:(id)object</span><br><span class="line">                        change:(NSDictionary *)change</span><br><span class="line">                       context:(void *)context</span><br></pre></td></tr></table></figure>
+
+<p><em>键值观察依赖键</em></p>
+<h2 id="禁用KVO"><a href="#禁用KVO" class="headerlink" title="禁用KVO"></a>禁用KVO</h2><p>实现类方法<code>automaticallyNotifiesObserversForKey</code>返回NO，实现属性的setter方法，不调用<code>willChangeValueForKey:</code>和<code>didChangeValueForKey:</code>方法。</p>
+<h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1><p>在swift中有专门的指针类型，均被定义为<strong>unsafe</strong>：</p>
+<ul>
+<li><code>UnsafePointer&lt;Pointee&gt;</code>：类似于C语言中的<code>const Pointee *</code>，只能访问内存，不能修改内存；</li>
+<li><code>UnsafeMutablePointer&lt;Pointee&gt;</code>：类似于C语言中的<code>Pointee *</code>，可访问和修改内存；</li>
+<li><code>UnsafeRawPointer</code>：类似于<code>const void *</code>，只读，不支持泛型；</li>
+<li><code>UnsafeMutableRawPointer</code>：类似于void，可读可写，不支持泛型。</li>
+</ul>
+<p>获取变量的指针：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 获取可变的变量指针, value参数接受变量地址，取决于body闭包的返回值</span><br><span class="line">@inlinable public func withUnsafeMutablePointer&lt;T, Result&gt;(to value: inout T, _ body: (UnsafeMutablePointer&lt;T&gt;) throws -&gt; Result) rethrows -&gt; Result</span><br><span class="line">&#x2F;&#x2F; 获取不可变的变量指针, value参数接受变量，取决于body闭包的返回值</span><br><span class="line">@inlinable public func withUnsafePointer&lt;T, Result&gt;(to value: T, _ body: (UnsafePointer&lt;T&gt;) throws -&gt; Result) rethrows -&gt; Result</span><br><span class="line">&#x2F;&#x2F; 获取不可变的变量指针, value参数接受变量地址，取决于body闭包的返回值</span><br><span class="line">@inlinable public func withUnsafePointer&lt;T, Result&gt;(to value: inout T, _ body: (UnsafePointer&lt;T&gt;) throws -&gt; Result) rethrows -&gt; Result</span><br></pre></td></tr></table></figure>
+
+<p>分配内存创建指针：</p>
+<ul>
+<li>malloc</li>
+<li>allocate：只有<code>UnsafeMutableRawPointer</code>和<code>UnsafeMutablePointer&lt;T&gt;</code>才有此分配方法。</li>
+</ul>
+<p>参考：</p>
+<ul>
+<li><a href="https://numbbbbb.gitbooks.io/-the-swift-programming-language-/" target="_blank" rel="noopener">https://numbbbbb.gitbooks.io/-the-swift-programming-language-/</a></li>
+<li><a href="https://www.cnblogs.com/zjoch/p/4702873.html" target="_blank" rel="noopener">https://www.cnblogs.com/zjoch/p/4702873.html</a></li>
+<li><a href="https://blog.csdn.net/Listron/article/details/80197347" target="_blank" rel="noopener">https://blog.csdn.net/Listron/article/details/80197347</a></li>
+<li><a href="https://www.jianshu.com/p/2cef1e80042c" target="_blank" rel="noopener">https://www.jianshu.com/p/2cef1e80042c</a></li>
+<li><a href="https://www.jianshu.com/p/b9f020a8b4c9" target="_blank" rel="noopener">https://www.jianshu.com/p/b9f020a8b4c9</a></li>
+</ul>
+]]></content>
   </entry>
   <entry>
     <title>服务器连接</title>
@@ -2683,6 +2683,18 @@
 <p>$$JS(P||Q) = \frac{1}{2} KL(P(x)||\frac{P(x)+Q(x)}{2}) + \frac{1}{2} KL(Q(x)||\frac{P(x)+Q(x)}{2})$$</p>
 <p>KL散度具有对称性，其取值区间为[0,1]。</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>皮囊</title>
+    <url>/2020/03/09/%E7%9A%AE%E5%9B%8A/</url>
+    <content><![CDATA[<p>本来是抱着一个很轻松的心情翻开这本书的，但是在看完几页之后愈感沉重，以至于不得不分到几天时间才能看完。总体来说，这种书写得很厚重，只有在经历了人生的坡坡坎坎之后才能有此积淀。我觉得这本书最出彩的地方在于它可以主动去勾起你的回忆，以及对人生的思考。人生在世，我们每个人都披了一层皮囊，以此区别于不同的人，为其注入各种不同的思想，活出自己的精彩人生。</p>
+<p>倔强而又骄傲的母亲，为了完成与心爱之人的约定，执着又顽强的坚定的遵从自己的内心。活出了女性的坚持与美丽。与之对应的是爱面子的父亲，在重病期间依旧想的是如何撑起这个家，他将一生全部奉献给了这个家。这是国内传统家庭的真实写照，男主外女主内，在父亲病重后由儿子撑起这个家，在这种交替中，完成了一种身份的转变，责任的交接。</p>
+<p>“张美丽”和“阿小”是当时在那个大环境下的必然产物，是人的内心欲望使然，是人们开始过上美好富裕生活的必然转变，他们是活在了那个特殊的年代，因此显得与周围人格格不入，也正是由于有了这些人的存在，为我们的时代发展转变做出了自己的贡献，我们在现代这个大环境下才活得那么的自然。</p>
+<p>“天才文展”与“厚朴”是我们基本都会遇到的，一个被尊奉为天才，一个充满正能力，有理想，是我们每个人都渴望成为的那类人的分解。“天才文展”学习好，够坚持，有目标，但是活得过于压抑；“厚朴”每天活在自己的想象中，快乐，虚假，脱离了实际。这两类人又是两种互补人格，以两个人的结局与自己形成鲜明对比，告诫我们要如何选择自己的人生。</p>
+]]></content>
+      <categories>
+        <category>reading</category>
+      </categories>
   </entry>
   <entry>
     <title>激活函数</title>
@@ -2831,7 +2843,7 @@
 <p>目标函数：</p>
 <ul>
 <li>生成器loss：$-\mathbb{E}_{x \sim P_g}[f_w(x)]$</li>
-<li>判别器loss：${\mathbb{E}<em>{x \sim P_g}[f_w(x)]}-{\mathbb{E}</em>{x \sim P_r}[f_w(x)]}$</li>
+<li>判别器loss：$\mathbb{E}<em>{x \sim P_g}[f_w(x)]-{\mathbb{E}</em>{x \sim P_r}[f_w(x)]$</li>
 </ul>
 <p>创新点：</p>
 <ol>
@@ -2874,16 +2886,49 @@
 ]]></content>
   </entry>
   <entry>
-    <title>皮囊</title>
-    <url>/2020/03/09/%E7%9A%AE%E5%9B%8A/</url>
-    <content><![CDATA[<p>本来是抱着一个很轻松的心情翻开这本书的，但是在看完几页之后愈感沉重，以至于不得不分到几天时间才能看完。总体来说，这种书写得很厚重，只有在经历了人生的坡坡坎坎之后才能有此积淀。我觉得这本书最出彩的地方在于它可以主动去勾起你的回忆，以及对人生的思考。人生在世，我们每个人都披了一层皮囊，以此区别于不同的人，为其注入各种不同的思想，活出自己的精彩人生。</p>
-<p>倔强而又骄傲的母亲，为了完成与心爱之人的约定，执着又顽强的坚定的遵从自己的内心。活出了女性的坚持与美丽。与之对应的是爱面子的父亲，在重病期间依旧想的是如何撑起这个家，他将一生全部奉献给了这个家。这是国内传统家庭的真实写照，男主外女主内，在父亲病重后由儿子撑起这个家，在这种交替中，完成了一种身份的转变，责任的交接。</p>
-<p>“张美丽”和“阿小”是当时在那个大环境下的必然产物，是人的内心欲望使然，是人们开始过上美好富裕生活的必然转变，他们是活在了那个特殊的年代，因此显得与周围人格格不入，也正是由于有了这些人的存在，为我们的时代发展转变做出了自己的贡献，我们在现代这个大环境下才活得那么的自然。</p>
-<p>“天才文展”与“厚朴”是我们基本都会遇到的，一个被尊奉为天才，一个充满正能力，有理想，是我们每个人都渴望成为的那类人的分解。“天才文展”学习好，够坚持，有目标，但是活得过于压抑；“厚朴”每天活在自己的想象中，快乐，虚假，脱离了实际。这两类人又是两种互补人格，以两个人的结局与自己形成鲜明对比，告诫我们要如何选择自己的人生。</p>
+    <title>监督学习</title>
+    <url>/2020/06/05/%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h1 id="Delta学习规则"><a href="#Delta学习规则" class="headerlink" title="Delta学习规则"></a>Delta学习规则</h1><p>通过神经元的实际输出，与期望输出的差别，来调整连接权重。</p>
+<p>$$\bigtriangleup w_{ij} = a \cdot (d_i - y_i) x_j(t)$$</p>
+<p>其中,</p>
+<ul>
+<li>$\bigtriangleup w_{ij}$表示神经元j到神经元i的连接权重增量；</li>
+<li>$d_i$是神经元i的期望输出；</li>
+<li>$y_i$是神经元i的实际输出；</li>
+<li>$x_i$是神经元j的状态；</li>
+<li>$a$表示学习速率。</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>目标检测DPM</title>
+    <url>/2020/06/02/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8BDPM/</url>
+    <content><![CDATA[<h1 id="DPM"><a href="#DPM" class="headerlink" title="DPM"></a>DPM</h1><p>该模型包含了一个<code>8*8</code>分辨率的根滤波器(Root filter)，和<code>4*4</code>分辨率的组件滤波器(Part filter)，和高斯滤波后的2倍空间模型。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM.png" alt="DPM"></p>
+<p><em>中间分辨率为左图的2倍，梯度更加精细。</em></p>
+<p><em>自行车DPM检测：</em></p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%87%AA%E8%A1%8C%E8%BD%A6DPM.png" alt="自行车DPM"></p>
+<h2 id="响应分数"><a href="#响应分数" class="headerlink" title="响应分数"></a>响应分数</h2><p>$$ score(x_0, y_0, l_0) = R_{0,l_0}(x_0, y_0) + \sum_{i=1}^n D_{i,l_0-\lambda}(2(x_0,y_0)+v_i) + b $$</p>
+<p>其中，$x_0,y_0,l_0$分布为锚点的横坐标、纵坐标、尺度；<br>$R_{0,l_0}(x_0,y_0)$为跟模型的响应分数；<br>$D_{i,l_0-\lambda}(2(x_0,y_0)+v_i)$为部件模型的响应分数；<br>b为不同模型组件间的偏移系数，使其与根模型对齐；<br>$2(x_0,y_0)$表示组件模型的像素为原始的2倍。</p>
+<h2 id="检测流程"><a href="#检测流程" class="headerlink" title="检测流程"></a>检测流程</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM%E6%A3%80%E6%B5%8B%E6%B5%81%E7%A8%8B.png" alt="DPM检测流程"></p>
+<ol>
+<li>对输入图像，提取其DPM特征图，然后将原图像进行高斯金字塔上采样，然后提取其DPM特征图；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM_31D%E7%89%B9%E5%BE%81.png" alt="DPM_31D特征"></li>
+<li>对原图像的DPM特征图和训练好的<code>Root filter</code>做卷积操作，得到<code>Root filter</code>的响应图；</li>
+<li>对2倍图像的DPM特征图和训练好的<code>Part filter</code>做卷积，得到<code>Part filter</code>的响应图；</li>
+<li>对其精细高斯金字塔做下采样操作，使<code>Root filter</code>响应图和<code>Part filter</code>响应图具有相同分辨率；</li>
+<li>对其进行加权平均，得到最终响应图。<em>亮度越大响应值越大</em></li>
+</ol>
+<h2 id="Latent-SVM"><a href="#Latent-SVM" class="headerlink" title="Latent SVM"></a>Latent SVM</h2><a href="/2020/06/02/svm/" title="Latent-SVM">Latent-SVM</a>
+
+<p>DPM选择最大的正样本，但是其latent变量较多，如<code>bounding box</code>在HOG特征金字塔中的level，某样本属于哪一类component。<br>即有一张正样本图像，标注了<code>bounding box</code>，我们要在某一位置、某一尺度，提取出最大正样本作为某一component的正样本。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM-SVM.png" alt="DPM-SVM"></p>
 ]]></content>
       <categories>
-        <category>reading</category>
+        <category>image</category>
       </categories>
+      <tags>
+        <tag>object detection</tag>
+      </tags>
   </entry>
   <entry>
     <title>直方图均衡化</title>
@@ -2937,182 +2982,6 @@
 <p>If I got a chance to study here, I would spare no effort to do research of my major, build up systematic view of management and achieve self value .</p>
 <p>That’s all. Thank you.</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>监督学习</title>
-    <url>/2020/06/05/%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h1 id="Delta学习规则"><a href="#Delta学习规则" class="headerlink" title="Delta学习规则"></a>Delta学习规则</h1><p>通过神经元的实际输出，与期望输出的差别，来调整连接权重。</p>
-<p>$$\bigtriangleup w_{ij} = a \cdot (d_i - y_i) x_j(t)$$</p>
-<p>其中,</p>
-<ul>
-<li>$\bigtriangleup w_{ij}$表示神经元j到神经元i的连接权重增量；</li>
-<li>$d_i$是神经元i的期望输出；</li>
-<li>$y_i$是神经元i的实际输出；</li>
-<li>$x_i$是神经元j的状态；</li>
-<li>$a$表示学习速率。</li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>目标检测DPM</title>
-    <url>/2020/06/02/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8BDPM/</url>
-    <content><![CDATA[<h1 id="DPM"><a href="#DPM" class="headerlink" title="DPM"></a>DPM</h1><p>该模型包含了一个<code>8*8</code>分辨率的根滤波器(Root filter)，和<code>4*4</code>分辨率的组件滤波器(Part filter)，和高斯滤波后的2倍空间模型。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM.png" alt="DPM"></p>
-<p><em>中间分辨率为左图的2倍，梯度更加精细。</em></p>
-<p><em>自行车DPM检测：</em></p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%87%AA%E8%A1%8C%E8%BD%A6DPM.png" alt="自行车DPM"></p>
-<h2 id="响应分数"><a href="#响应分数" class="headerlink" title="响应分数"></a>响应分数</h2><p>$$ score(x_0, y_0, l_0) = R_{0,l_0}(x_0, y_0) + \sum_{i=1}^n D_{i,l_0-\lambda}(2(x_0,y_0)+v_i) + b $$</p>
-<p>其中，$x_0,y_0,l_0$分布为锚点的横坐标、纵坐标、尺度；<br>$R_{0,l_0}(x_0,y_0)$为跟模型的响应分数；<br>$D_{i,l_0-\lambda}(2(x_0,y_0)+v_i)$为部件模型的响应分数；<br>b为不同模型组件间的偏移系数，使其与根模型对齐；<br>$2(x_0,y_0)$表示组件模型的像素为原始的2倍。</p>
-<h2 id="检测流程"><a href="#检测流程" class="headerlink" title="检测流程"></a>检测流程</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM%E6%A3%80%E6%B5%8B%E6%B5%81%E7%A8%8B.png" alt="DPM检测流程"></p>
-<ol>
-<li>对输入图像，提取其DPM特征图，然后将原图像进行高斯金字塔上采样，然后提取其DPM特征图；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM_31D%E7%89%B9%E5%BE%81.png" alt="DPM_31D特征"></li>
-<li>对原图像的DPM特征图和训练好的<code>Root filter</code>做卷积操作，得到<code>Root filter</code>的响应图；</li>
-<li>对2倍图像的DPM特征图和训练好的<code>Part filter</code>做卷积，得到<code>Part filter</code>的响应图；</li>
-<li>对其精细高斯金字塔做下采样操作，使<code>Root filter</code>响应图和<code>Part filter</code>响应图具有相同分辨率；</li>
-<li>对其进行加权平均，得到最终响应图。<em>亮度越大响应值越大</em></li>
-</ol>
-<h2 id="Latent-SVM"><a href="#Latent-SVM" class="headerlink" title="Latent SVM"></a>Latent SVM</h2><a href="/2020/06/02/svm/" title="Latent-SVM">Latent-SVM</a>
-
-<p>DPM选择最大的正样本，但是其latent变量较多，如<code>bounding box</code>在HOG特征金字塔中的level，某样本属于哪一类component。<br>即有一张正样本图像，标注了<code>bounding box</code>，我们要在某一位置、某一尺度，提取出最大正样本作为某一component的正样本。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM-SVM.png" alt="DPM-SVM"></p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>object detection</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>科学上网</title>
-    <url>/2020/03/09/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</url>
-    <content><![CDATA[<h1 id="服务器配置"><a href="#服务器配置" class="headerlink" title="服务器配置"></a>服务器配置</h1><h2 id="购买服务器"><a href="#购买服务器" class="headerlink" title="购买服务器"></a>购买服务器</h2><p>在<a href="https://my.vultr.com" target="_blank" rel="noopener">vultr</a>注册并创建一个国外的服务器，本人使用的是 <code>Ubuntu1604</code> 版本的服务器。</p>
-<h2 id="V2Ray配置"><a href="#V2Ray配置" class="headerlink" title="V2Ray配置"></a>V2Ray配置</h2><ul>
-<li><p>安装 <code>V2Ray</code>，安装后输入 <code>v2ray</code> 即可进行配置：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;KiriKira&#x2F;v2ray.fun&#x2F;kiriMod&#x2F;install.sh &amp;&amp; bash install.sh</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>卸载脚本</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;KiriKira&#x2F;v2ray.fun&#x2F;kiriMod&#x2F;uninstall.sh &amp;&amp; bash uninstall.sh</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="进行加速配置："><a href="#进行加速配置：" class="headerlink" title="进行加速配置："></a>进行加速配置：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget —no-check-certificate https:&#x2F;&#x2F;github.com&#x2F;teddysun&#x2F;across&#x2F;raw&#x2F;master&#x2F;bbr.sh</span><br></pre></td></tr></table></figure>
-<ol>
-<li>更改加速权限：<code>chmod +x bbr.sh</code>；</li>
-<li>开始进行配置：<code>./bbr.sh</code>；</li>
-<li>安装后重启；</li>
-<li>验证加速设置 <code>lsmod | grep bbr</code>，出现 <code>tcp_bbr</code>。</li>
-</ol>
-<h2 id="SSR配置（不建议使用）"><a href="#SSR配置（不建议使用）" class="headerlink" title="SSR配置（不建议使用）"></a>SSR配置（不建议使用）</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ToyoDAdoubi&#x2F;doubi&#x2F;master&#x2F;ssr.sh &amp;&amp; chmod +x ssr.sh &amp;&amp; bash ssr.sh</span><br></pre></td></tr></table></figure>
-<p>修改时使用 <code>bash ssr.sh</code> 进入管理界面。</p>
-<hr>
-<h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><h2 id="Mac推荐使用-V2RayU-进行配置"><a href="#Mac推荐使用-V2RayU-进行配置" class="headerlink" title="Mac推荐使用 V2RayU 进行配置"></a>Mac推荐使用 <code>V2RayU</code> 进行配置</h2><h2 id="Chrome管理插件-Proxy-SwitchyOmega"><a href="#Chrome管理插件-Proxy-SwitchyOmega" class="headerlink" title="Chrome管理插件 Proxy SwitchyOmega"></a>Chrome管理插件 <code>Proxy SwitchyOmega</code></h2><ol>
-<li>先配置Proxy文件，端口号根据自己设定自行更改；</li>
-</ol>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Proxy%E9%85%8D%E7%BD%AE.png" alt="Proxy配置"></p>
-<ol start="2">
-<li>再配置Switch文件，并添加规则；</li>
-</ol>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Switch%E9%85%8D%E7%BD%AE.png" alt="Switch配置"><br>规则链接：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;gfwlist&#x2F;gfwlist&#x2F;master&#x2F;gfwlist.txt</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>可自定添加规则定制，如添加YouTube设置；<br>在Switch配置文件中，选择 <code>Add condition</code> ，在域名前更改为 * ，并更改 <code>Profile</code>。</li>
-</ol>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%87%AA%E5%AE%9A%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE.png" alt="自定规则配置"></p>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>程序设计与算法</title>
-    <url>/2020/01/02/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E4%B8%8E%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="程序设计与算法-郭炜-北京大学"><a href="#程序设计与算法-郭炜-北京大学" class="headerlink" title="程序设计与算法 郭炜-北京大学"></a>程序设计与算法 郭炜-北京大学</h1><p>网课地址：<a href="https://www.icourse163.org/learn/PKU-1001894005?tid=1206483202#/learn/announce" target="_blank" rel="noopener">https://www.icourse163.org/learn/PKU-1001894005?tid=1206483202#/learn/announce</a></p>
-<ul>
-<li>有公式套公式，多数题目要分情况讨论；</li>
-<li>浮点数比较大小不能使用==，要看其差值是否小于某一极小值。</li>
-</ul>
-<h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><p><code>完美立方、生理周期、称硬币(真假)、熄灯问题</code></p>
-<p>基于逐个尝试答案的一种问题求解策略。合理缩小范围以减少计算量。</p>
-<p><em>称硬币 ABCD EFGH；ABCI EFJK；ABIJ EFGH</em></p>
-<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p><code>求阶乘、汉诺塔问题、N皇后，逆波兰表达式、表达式求值，上台阶/爬楼梯、放苹果、算24</code></p>
-<p>一个函数调用（栈）其自身。</p>
-<p>用途：</p>
-<ol>
-<li>替代多重循环；</li>
-<li>解决本来就是用递归形式定义的问题；</li>
-<li>将问题分解为规模更小的子问题进行求解。</li>
-</ol>
-<h2 id="二分算法"><a href="#二分算法" class="headerlink" title="二分算法"></a>二分算法</h2><p><code>二分查找函数、二分法求方程的根（区间内单调才可求）、一对数、农夫和奶牛</code></p>
-<ul>
-<li>数组必须为有序数组；</li>
-<li>为防止(L+R)过大溢出，应将中间元素下标设置为$mid = L + \frac{R - L}{2}$。</li>
-</ul>
-<p>一般题解方法：</p>
-<ol>
-<li>枚举/穷举；</li>
-<li>先排序，再进行二分查找；</li>
-<li>先排序，使用双指针进行查找遍历。</li>
-</ol>
-<h2 id="分治（常用递归实现）"><a href="#分治（常用递归实现）" class="headerlink" title="分治（常用递归实现）"></a>分治（常用递归实现）</h2><p><code>称假币、输出前m大的数、求排列的逆序数</code></p>
-<p>将一个任务，分成形式和原任务相同，但规模更小的几个部分任务，或只需<strong>选一部分完成</strong>，然后再处理完成后几部分结果，实现整个任务的完成。</p>
-<h2 id="动态规划："><a href="#动态规划：" class="headerlink" title="动态规划："></a>动态规划：</h2><p><code>数字三角形、最长上升子序列、最长公共子序列、最佳加法表达式、Help Jimmy、滑雪、神奇的口袋、0-1背包问题、分蛋糕</code></p>
-<ul>
-<li>避免重复计算：数字三角形的记忆递归型动归程序（使用数组存储中间计算）；递归转成递推（利用数组从底层依次向上）。</li>
-<li>递推到动规的一般转化方法：递归函数有n个参数，就定义一个n维的数组，数组的下标是递归函数参数的取值范围，数组元素的值是递归函数的返回值，这样就可以从边界值开始，逐步填充数组，相当于计算递归函数的逆过程。</li>
-</ul>
-<p>动规解题的一般思路：</p>
-<ol>
-<li>将原问题分解为若干子问题：<ul>
-<li>将原问题分解为若干子问题，子问题和原问题形式相同或类似，只是规模变小了；</li>
-<li>子问题的解一旦求出就会被保存，因此，每个子问题只需求解一次即可。</li>
-</ul>
-</li>
-<li>确定状态：<br> <em>将与子问题相关的各个变量的一组取值称为一个“状态”。</em><br> 一个状态对应于一个或多个子问题，所谓某个状态下的值，即是该状态所对应的子问题的解。</li>
-<li>确定一些初始状态（边界状态）的值；</li>
-<li>确定状态转移方程。</li>
-</ol>
-<p>能用动规解决的问题的特点：</p>
-<ul>
-<li>问题具有最优子结构特性，即求最优解、最值等问题；</li>
-<li>无后效性，即一旦该状态值确定，就可用此值推出下一个状态的值，而无需再使用之前确定该状态的值。</li>
-</ul>
-<p>动规的两种常用形式：</p>
-<ol>
-<li>递归型<ul>
-<li>优点：直观、易编写；</li>
-<li>缺点：会因递归层数深而爆栈、函数调用带来额外时间开销，无法使用滚动数组节省空间。</li>
-</ul>
-</li>
-<li>递推型<br> 效率高，可使用滚动数组节省空间。</li>
-</ol>
-<h2 id="深度优先搜索："><a href="#深度优先搜索：" class="headerlink" title="深度优先搜索："></a>深度优先搜索：</h2><p><code>城堡问题、踩方格、寻路问题、生日蛋糕</code></p>
-<p>在图上寻找路径：从起点出发，选取一条路走，走不通就回退。用栈进行存储。</p>
-<p>图的表示方法：</p>
-<ul>
-<li>二维数组，时间复杂度O(n^2)；</li>
-<li>邻接表，时间复杂度O(n+e),e为边的数目。</li>
-</ul>
-<p>优化：</p>
-<ul>
-<li>最优性剪枝；</li>
-<li>可行性剪枝；</li>
-</ul>
-<h2 id="广度优先搜索："><a href="#广度优先搜索：" class="headerlink" title="广度优先搜索："></a>广度优先搜索：</h2><p><code>抓住那头牛、迷宫问题、八数码</code></p>
-<p><em>对于很多深度优先搜索案例进行最优性剪枝后很像广度优先搜索</em></p>
-<p>从起点开始给结点进行分层，按层进行遍历。用队列进行存储，需要大量存储空间。</p>
-<h2 id="贪心算法："><a href="#贪心算法：" class="headerlink" title="贪心算法："></a>贪心算法：</h2><p><code>圣诞老人的礼物、电影节、分配畜栏、放置雷达、钓鱼</code></p>
-<a href="/2020/06/04/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/" title="贪心算法">贪心算法</a>
-
-<ul>
-<li>每一步行动总是按某种指标选取最优的操作来进行，该指标只看眼前，并不考虑以后可能造成的影响。</li>
-<li>贪心算法需要证明其正确性。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法与数据结构</category>
-      </categories>
   </entry>
   <entry>
     <title>神经网络</title>
@@ -3211,6 +3080,48 @@
       </categories>
   </entry>
   <entry>
+    <title>科学上网</title>
+    <url>/2020/03/09/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</url>
+    <content><![CDATA[<h1 id="服务器配置"><a href="#服务器配置" class="headerlink" title="服务器配置"></a>服务器配置</h1><h2 id="购买服务器"><a href="#购买服务器" class="headerlink" title="购买服务器"></a>购买服务器</h2><p>在<a href="https://my.vultr.com" target="_blank" rel="noopener">vultr</a>注册并创建一个国外的服务器，本人使用的是 <code>Ubuntu1604</code> 版本的服务器。</p>
+<h2 id="V2Ray配置"><a href="#V2Ray配置" class="headerlink" title="V2Ray配置"></a>V2Ray配置</h2><ul>
+<li><p>安装 <code>V2Ray</code>，安装后输入 <code>v2ray</code> 即可进行配置：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;KiriKira&#x2F;v2ray.fun&#x2F;kiriMod&#x2F;install.sh &amp;&amp; bash install.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>卸载脚本</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;KiriKira&#x2F;v2ray.fun&#x2F;kiriMod&#x2F;uninstall.sh &amp;&amp; bash uninstall.sh</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="进行加速配置："><a href="#进行加速配置：" class="headerlink" title="进行加速配置："></a>进行加速配置：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget —no-check-certificate https:&#x2F;&#x2F;github.com&#x2F;teddysun&#x2F;across&#x2F;raw&#x2F;master&#x2F;bbr.sh</span><br></pre></td></tr></table></figure>
+<ol>
+<li>更改加速权限：<code>chmod +x bbr.sh</code>；</li>
+<li>开始进行配置：<code>./bbr.sh</code>；</li>
+<li>安装后重启；</li>
+<li>验证加速设置 <code>lsmod | grep bbr</code>，出现 <code>tcp_bbr</code>。</li>
+</ol>
+<h2 id="SSR配置（不建议使用）"><a href="#SSR配置（不建议使用）" class="headerlink" title="SSR配置（不建议使用）"></a>SSR配置（不建议使用）</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ToyoDAdoubi&#x2F;doubi&#x2F;master&#x2F;ssr.sh &amp;&amp; chmod +x ssr.sh &amp;&amp; bash ssr.sh</span><br></pre></td></tr></table></figure>
+<p>修改时使用 <code>bash ssr.sh</code> 进入管理界面。</p>
+<hr>
+<h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><h2 id="Mac推荐使用-V2RayU-进行配置"><a href="#Mac推荐使用-V2RayU-进行配置" class="headerlink" title="Mac推荐使用 V2RayU 进行配置"></a>Mac推荐使用 <code>V2RayU</code> 进行配置</h2><h2 id="Chrome管理插件-Proxy-SwitchyOmega"><a href="#Chrome管理插件-Proxy-SwitchyOmega" class="headerlink" title="Chrome管理插件 Proxy SwitchyOmega"></a>Chrome管理插件 <code>Proxy SwitchyOmega</code></h2><ol>
+<li>先配置Proxy文件，端口号根据自己设定自行更改；</li>
+</ol>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Proxy%E9%85%8D%E7%BD%AE.png" alt="Proxy配置"></p>
+<ol start="2">
+<li>再配置Switch文件，并添加规则；</li>
+</ol>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Switch%E9%85%8D%E7%BD%AE.png" alt="Switch配置"><br>规则链接：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;gfwlist&#x2F;gfwlist&#x2F;master&#x2F;gfwlist.txt</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>可自定添加规则定制，如添加YouTube设置；<br>在Switch配置文件中，选择 <code>Add condition</code> ，在域名前更改为 * ，并更改 <code>Profile</code>。</li>
+</ol>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%87%AA%E5%AE%9A%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE.png" alt="自定规则配置"></p>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+  </entry>
+  <entry>
     <title>稀疏表示</title>
     <url>/2020/03/16/%E7%A8%80%E7%96%8F%E8%A1%A8%E7%A4%BA/</url>
     <content><![CDATA[<h1 id="简单理解"><a href="#简单理解" class="headerlink" title="简单理解"></a>简单理解</h1><p>就是给定一组数据，我们要尽可能的用更少的数据来表示该数据。稀疏表示对应一个超完备字典，利用少量数据与字典的矩阵乘法运算来表示该组数据。<br>即假如原本包含5个值，我们用SR，只用4个值就可以表示。(此处借用一张导师给的example)<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/sr%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3.jpg" alt="sr简单理解"></p>
@@ -3268,6 +3179,137 @@
       <tags>
         <tag>稀疏表示</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>程序设计与算法</title>
+    <url>/2020/01/02/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E4%B8%8E%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="程序设计与算法-郭炜-北京大学"><a href="#程序设计与算法-郭炜-北京大学" class="headerlink" title="程序设计与算法 郭炜-北京大学"></a>程序设计与算法 郭炜-北京大学</h1><p>网课地址：<a href="https://www.icourse163.org/learn/PKU-1001894005?tid=1206483202#/learn/announce" target="_blank" rel="noopener">https://www.icourse163.org/learn/PKU-1001894005?tid=1206483202#/learn/announce</a></p>
+<ul>
+<li>有公式套公式，多数题目要分情况讨论；</li>
+<li>浮点数比较大小不能使用==，要看其差值是否小于某一极小值。</li>
+</ul>
+<h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><p><code>完美立方、生理周期、称硬币(真假)、熄灯问题</code></p>
+<p>基于逐个尝试答案的一种问题求解策略。合理缩小范围以减少计算量。</p>
+<p><em>称硬币 ABCD EFGH；ABCI EFJK；ABIJ EFGH</em></p>
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p><code>求阶乘、汉诺塔问题、N皇后，逆波兰表达式、表达式求值，上台阶/爬楼梯、放苹果、算24</code></p>
+<p>一个函数调用（栈）其自身。</p>
+<p>用途：</p>
+<ol>
+<li>替代多重循环；</li>
+<li>解决本来就是用递归形式定义的问题；</li>
+<li>将问题分解为规模更小的子问题进行求解。</li>
+</ol>
+<h2 id="二分算法"><a href="#二分算法" class="headerlink" title="二分算法"></a>二分算法</h2><p><code>二分查找函数、二分法求方程的根（区间内单调才可求）、一对数、农夫和奶牛</code></p>
+<ul>
+<li>数组必须为有序数组；</li>
+<li>为防止(L+R)过大溢出，应将中间元素下标设置为$mid = L + \frac{R - L}{2}$。</li>
+</ul>
+<p>一般题解方法：</p>
+<ol>
+<li>枚举/穷举；</li>
+<li>先排序，再进行二分查找；</li>
+<li>先排序，使用双指针进行查找遍历。</li>
+</ol>
+<h2 id="分治（常用递归实现）"><a href="#分治（常用递归实现）" class="headerlink" title="分治（常用递归实现）"></a>分治（常用递归实现）</h2><p><code>称假币、输出前m大的数、求排列的逆序数</code></p>
+<p>将一个任务，分成形式和原任务相同，但规模更小的几个部分任务，或只需<strong>选一部分完成</strong>，然后再处理完成后几部分结果，实现整个任务的完成。</p>
+<h2 id="动态规划："><a href="#动态规划：" class="headerlink" title="动态规划："></a>动态规划：</h2><p><code>数字三角形、最长上升子序列、最长公共子序列、最佳加法表达式、Help Jimmy、滑雪、神奇的口袋、0-1背包问题、分蛋糕</code></p>
+<ul>
+<li>避免重复计算：数字三角形的记忆递归型动归程序（使用数组存储中间计算）；递归转成递推（利用数组从底层依次向上）。</li>
+<li>递推到动规的一般转化方法：递归函数有n个参数，就定义一个n维的数组，数组的下标是递归函数参数的取值范围，数组元素的值是递归函数的返回值，这样就可以从边界值开始，逐步填充数组，相当于计算递归函数的逆过程。</li>
+</ul>
+<p>动规解题的一般思路：</p>
+<ol>
+<li>将原问题分解为若干子问题：<ul>
+<li>将原问题分解为若干子问题，子问题和原问题形式相同或类似，只是规模变小了；</li>
+<li>子问题的解一旦求出就会被保存，因此，每个子问题只需求解一次即可。</li>
+</ul>
+</li>
+<li>确定状态：<br> <em>将与子问题相关的各个变量的一组取值称为一个“状态”。</em><br> 一个状态对应于一个或多个子问题，所谓某个状态下的值，即是该状态所对应的子问题的解。</li>
+<li>确定一些初始状态（边界状态）的值；</li>
+<li>确定状态转移方程。</li>
+</ol>
+<p>能用动规解决的问题的特点：</p>
+<ul>
+<li>问题具有最优子结构特性，即求最优解、最值等问题；</li>
+<li>无后效性，即一旦该状态值确定，就可用此值推出下一个状态的值，而无需再使用之前确定该状态的值。</li>
+</ul>
+<p>动规的两种常用形式：</p>
+<ol>
+<li>递归型<ul>
+<li>优点：直观、易编写；</li>
+<li>缺点：会因递归层数深而爆栈、函数调用带来额外时间开销，无法使用滚动数组节省空间。</li>
+</ul>
+</li>
+<li>递推型<br> 效率高，可使用滚动数组节省空间。</li>
+</ol>
+<h2 id="深度优先搜索："><a href="#深度优先搜索：" class="headerlink" title="深度优先搜索："></a>深度优先搜索：</h2><p><code>城堡问题、踩方格、寻路问题、生日蛋糕</code></p>
+<p>在图上寻找路径：从起点出发，选取一条路走，走不通就回退。用栈进行存储。</p>
+<p>图的表示方法：</p>
+<ul>
+<li>二维数组，时间复杂度O(n^2)；</li>
+<li>邻接表，时间复杂度O(n+e),e为边的数目。</li>
+</ul>
+<p>优化：</p>
+<ul>
+<li>最优性剪枝；</li>
+<li>可行性剪枝；</li>
+</ul>
+<h2 id="广度优先搜索："><a href="#广度优先搜索：" class="headerlink" title="广度优先搜索："></a>广度优先搜索：</h2><p><code>抓住那头牛、迷宫问题、八数码</code></p>
+<p><em>对于很多深度优先搜索案例进行最优性剪枝后很像广度优先搜索</em></p>
+<p>从起点开始给结点进行分层，按层进行遍历。用队列进行存储，需要大量存储空间。</p>
+<h2 id="贪心算法："><a href="#贪心算法：" class="headerlink" title="贪心算法："></a>贪心算法：</h2><p><code>圣诞老人的礼物、电影节、分配畜栏、放置雷达、钓鱼</code></p>
+<a href="/2020/06/04/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/" title="贪心算法">贪心算法</a>
+
+<ul>
+<li>每一步行动总是按某种指标选取最优的操作来进行，该指标只看眼前，并不考虑以后可能造成的影响。</li>
+<li>贪心算法需要证明其正确性。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法与数据结构</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>自编码机</title>
+    <url>/2020/06/23/%E8%87%AA%E7%BC%96%E7%A0%81%E6%9C%BA/</url>
+    <content><![CDATA[<h1 id="编码与解码"><a href="#编码与解码" class="headerlink" title="编码与解码"></a>编码与解码</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BC%96%E7%A0%81%E4%B8%8E%E8%A7%A3%E7%A0%81.png" alt="编码与解码"></p>
+<p>左侧将原始图像编码为向量，右侧通过解卷积层“解码”，还原回原始图像。</p>
+<p><em>可以用尽可能多的图像来训练网络，当保存了某张图像的编码向量，可用解码组件重建。</em></p>
+<h1 id="经典自编码机VAE"><a href="#经典自编码机VAE" class="headerlink" title="经典自编码机VAE"></a>经典自编码机VAE</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE.png" alt="VAE"></p>
+<p><em>通过编码向量，创造潜在向量，或实现连续、平滑的潜在空间表示。</em></p>
+<p>通过给编码网络添加一个约束，使其所产生的潜在向量大体上服从单位高斯分布。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E7%BA%A6%E6%9D%9F.png" alt="VAE约束"></p>
+<p>如图，只需从单位高斯分布中采样出一个潜在向量，并将其传递到解码器，就可以生成一张新的图像了。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E9%87%87%E6%A0%B7.png" alt="VAE采样"></p>
+<p>基本思路：</p>
+<ul>
+<li>假定输入数据的数据集D的分布完全由一组隐变量z操控，并且，该组隐变量间相互独立且服从高斯分布；</li>
+<li>VAE让encoder学习输入数据的隐变量模型，即学习该组隐变量的高斯概率分布的参数：隐变量高斯分布的均值$\mu$和方差$\theta$的$log$值；</li>
+<li>隐变量z通过对参数的正态分布中采样得到：$z \sim N(\mu, \theta)$；</li>
+<li>通过decoder对隐变量进行解码，重构函数。</li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E5%88%86%E5%B8%83.png" alt="VAE分布"></p>
+<p>总体目标函数：<br>    $\mathcal{L}(x,\widehat{x}) + \sum_j KL(q_j(z|x)||p(z))$</p>
+<p>误差：误差项精确度及潜在变量在单位高斯分布上的契合程度。</p>
+<ul>
+<li>生成误差，用以衡量网络重构图像精准度的均方误差；</li>
+<li>潜在误差，用以衡量潜在变量在单位高斯分布上的契合程度的KL散度。</li>
+</ul>
+<h2 id="参数调整"><a href="#参数调整" class="headerlink" title="参数调整"></a>参数调整</h2><p><em>VAE模型并没有真正的用$z \sim N(\mu,\theta)$来采样得到z变量：因为采样后无法对$(\mu,\theta)$进行求导。</em></p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_Reparameterization.png" alt="VAE_Reparameterization"></p>
+<p>一般先采样一个标准的高斯分布/正态分布$\epsilon \sim N(0,1)$，然后令$z=\mu+\epsilon*\theta$，这样得到的z就服从$z \sim N(\mu,\theta)$，同时也可正常对$(\mu,\theta)$求导。</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
+<li>优点：遵循“编码-解码”模式，能直接将生成的图像同原始图像进行对比；</li>
+<li>缺点：直接采用均方误差，导致其神经网络倾向生成较为模糊的图像。</li>
+</ul>
+<h1 id="VAE和GAN的区别"><a href="#VAE和GAN的区别" class="headerlink" title="VAE和GAN的区别"></a>VAE和GAN的区别</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_vs_GAN.png" alt="VAE_vs_GAN"></p>
+<p>GAN是VAE后半部分再加上一个鉴别网络，导致完全不同的训练方式。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://blog.csdn.net/weixin_40955254/article/details/82315224" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40955254/article/details/82315224</a></li>
+<li><a href="https://blog.csdn.net/weixin_40955254/article/details/82315909?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40955254/article/details/82315909?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase</a></li>
+</ul>
+]]></content>
   </entry>
   <entry>
     <title>级联分类器</title>
@@ -3699,116 +3741,6 @@
 <li><a href="https://www.jianshu.com/p/a9a960677508" target="_blank" rel="noopener">https://www.jianshu.com/p/a9a960677508</a></li>
 <li><a href="https://blog.csdn.net/u013967628/article/details/85210036" target="_blank" rel="noopener">https://blog.csdn.net/u013967628/article/details/85210036</a></li>
 <li><a href="https://www.jianshu.com/p/afb516bc4519" target="_blank" rel="noopener">https://www.jianshu.com/p/afb516bc4519</a></li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>贪心算法</title>
-    <url>/2020/06/04/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="贪心算法-贪婪算法"><a href="#贪心算法-贪婪算法" class="headerlink" title="贪心算法/贪婪算法"></a>贪心算法/贪婪算法</h1><p>贪心算法，在每一个选择过程中都选择<strong>当前最优解</strong>，从而希望最终结果达到最优的算法。</p>
-<h2 id="算法实现步骤："><a href="#算法实现步骤：" class="headerlink" title="算法实现步骤："></a>算法实现步骤：</h2><ol>
-<li>创建数学模型来描述问题；</li>
-<li>把求解的问题<strong>分成若干个子问题</strong>；</li>
-<li>对每一子问题求解，得到子问题的<strong>局部最优解</strong>；</li>
-<li>把子问题的解局部最优解合成所求问题的一个解。</li>
-</ol>
-<p><strong>贪心算法的实现，要根据具体问题具体分析。</strong></p>
-<h2 id="常用解决的问题："><a href="#常用解决的问题：" class="headerlink" title="常用解决的问题："></a>常用解决的问题：</h2><ul>
-<li>贪心算法可以解决一些最优化问题，如：求图中的最小生成树、求哈夫曼编码、旅行推销员问题等。</li>
-<li>对于其它问题，贪心算法一般不能得到我们所要求的答案，常用作辅助算法或直接解决一些要求结果不是特别严格的问题。</li>
-<li>一旦一个问题可以通过贪心算法来解决，那么贪心算法一般是解决该问题的最好方法。</li>
-</ul>
-<h2 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h2><ul>
-<li>对解决问题具有高效性；</li>
-<li>所得结果更接近于最优结果。</li>
-</ul>
-<h2 id="贪心算法与动态规划的不同"><a href="#贪心算法与动态规划的不同" class="headerlink" title="贪心算法与动态规划的不同"></a>贪心算法与动态规划的不同</h2><ul>
-<li>贪心算法要求对每个子问题的解决方案都要做出选择，且不能回退；</li>
-<li>动态规划会保存之前的运算结果，并依据以前的结果对当前方案进行选择，可回退。</li>
-</ul>
-<p>换个思路，就是贪心算法有一个优先级的问题；动态规划则是使用一个数组来进行记录当前方案，会对每一种方法进行尝试。</p>
-]]></content>
-      <categories>
-        <category>算法与数据结构</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>金字塔变换</title>
-    <url>/2020/05/14/%E9%87%91%E5%AD%97%E5%A1%94%E5%8F%98%E6%8D%A2/</url>
-    <content><![CDATA[<h1 id="高斯金字塔"><a href="#高斯金字塔" class="headerlink" title="高斯金字塔"></a>高斯金字塔</h1><p>在传统金字塔的基础上，对每一层用不同的参数$\sigma$做高斯模糊，使得每一层金字塔有多张高斯模糊图像，这样的一组图像称为一个$octave$。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E6%96%AF%E9%87%91%E5%AD%97%E5%A1%94.png" alt="高斯金字塔"></p>
-<p>$octave(i+1)$的第一张（从下往上）图像是由$octave(i)$中的倒数第三张图像降采样得到。</p>
-<p>高斯金字塔的构建：</p>
-<ol>
-<li>对图像做不同尺度的高斯模糊；</li>
-<li>对图像做降采样(隔点采样)。</li>
-</ol>
-<p>金字塔的层数根据图像的原始大小和塔顶图像的大小共同决定。<br>为使其尺度体现连续性，高斯金字塔在简单降采样的基础上添加了高斯滤波。</p>
-<h2 id="高斯模糊"><a href="#高斯模糊" class="headerlink" title="高斯模糊"></a>高斯模糊</h2><p>高斯模糊是一种图像滤波器，使用正态分布(高斯函数)计算模糊模板，并使用该模板与原图像做卷积运算，达到模糊图像的目的。</p>
-<p>每个像素的值都是周围相邻像素值的加权平均：原始像素的值有最大的高斯分布值，具有最大的权重，相邻像素随着距离原始像素越来越远，其权重也越来越小。</p>
-<p>优点：</p>
-<ul>
-<li>比其它的均衡模糊滤波器更好的保留了边缘效果。<br>缺点：</li>
-<li>因模板矩阵的关系而造成边缘图像缺失，$\theta$越大，缺失像素越多，丢弃模板会造成黑边；</li>
-<li>当$\theta$变大时，高斯模板(高斯核)和卷积运算量将大幅度提高。</li>
-</ul>
-<p><em>理论上来讲，图像中每个像素点的分布都不为零，即每个像素的计算都需要包含整幅图像。</em><br><em>在实际应用中，在计算高斯函数的离散近似时，在大概$3\theta$距离之外的像素都可以看作不起作用，即高斯模板矩阵的大小$(6\theta+1) * (6\theta+1)$。大尺度对应于图像的概貌特征，小尺度对应于图像的细节特征。</em><br><em>为了确保模板矩阵中的元素在[0,1]之间，需将模板矩阵归一化。</em></p>
-<h3 id="分离高斯模糊"><a href="#分离高斯模糊" class="headerlink" title="分离高斯模糊"></a>分离高斯模糊</h3><p>高斯函数的可分离性是指使用二维矩阵变换得到的效果可通过在水平方向进行一维高斯矩阵变换加上竖直方向的一维高斯矩阵变换得到。</p>
-<p>根据高斯函数的可分离性，可对二维高斯模糊函数进行改进：两次一维的高斯卷积将消除二维高斯矩阵所产生的边缘。</p>
-<h1 id="高斯差分金字塔"><a href="#高斯差分金字塔" class="headerlink" title="高斯差分金字塔"></a>高斯差分金字塔</h1><p>高斯差分函数，Difference of Gaussian，简称DoG算子，可产生较强的边缘响应。</p>
-<p>在实际计算时，使用<strong>高斯金字塔每组中相邻上下两层图像相减，得到高斯差分图像</strong>，进行极值检测。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/LoG_DoG.jpg" alt="LoG_DoG"></p>
-<p>由于高斯差分的计算更加简单，因此常用DoG算子近似替代LoG算子。</p>
-<a href="/2020/05/25/%E5%9B%BE%E5%83%8F%E7%89%B9%E5%BE%81/" title="高斯拉普拉斯LoG">高斯拉普拉斯LoG</a>
-
-<h1 id="拉普拉斯金字塔"><a href="#拉普拉斯金字塔" class="headerlink" title="拉普拉斯金字塔"></a>拉普拉斯金字塔</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E9%87%91%E5%AD%97%E5%A1%94.png" alt="拉普拉斯金字塔"><br>保留所有层在卷积和下采样过程中丢失的高频信息，用于图像恢复。</p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>多尺度变换</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>自编码机</title>
-    <url>/2020/06/23/%E8%87%AA%E7%BC%96%E7%A0%81%E6%9C%BA/</url>
-    <content><![CDATA[<h1 id="编码与解码"><a href="#编码与解码" class="headerlink" title="编码与解码"></a>编码与解码</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BC%96%E7%A0%81%E4%B8%8E%E8%A7%A3%E7%A0%81.png" alt="编码与解码"></p>
-<p>左侧将原始图像编码为向量，右侧通过解卷积层“解码”，还原回原始图像。</p>
-<p><em>可以用尽可能多的图像来训练网络，当保存了某张图像的编码向量，可用解码组件重建。</em></p>
-<h1 id="经典自编码机VAE"><a href="#经典自编码机VAE" class="headerlink" title="经典自编码机VAE"></a>经典自编码机VAE</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE.png" alt="VAE"></p>
-<p><em>通过编码向量，创造潜在向量，或实现连续、平滑的潜在空间表示。</em></p>
-<p>通过给编码网络添加一个约束，使其所产生的潜在向量大体上服从单位高斯分布。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E7%BA%A6%E6%9D%9F.png" alt="VAE约束"></p>
-<p>如图，只需从单位高斯分布中采样出一个潜在向量，并将其传递到解码器，就可以生成一张新的图像了。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E9%87%87%E6%A0%B7.png" alt="VAE采样"></p>
-<p>基本思路：</p>
-<ul>
-<li>假定输入数据的数据集D的分布完全由一组隐变量z操控，并且，该组隐变量间相互独立且服从高斯分布；</li>
-<li>VAE让encoder学习输入数据的隐变量模型，即学习该组隐变量的高斯概率分布的参数：隐变量高斯分布的均值$\mu$和方差$\theta$的$log$值；</li>
-<li>隐变量z通过对参数的正态分布中采样得到：$z \sim N(\mu, \theta)$；</li>
-<li>通过decoder对隐变量进行解码，重构函数。</li>
-</ul>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E5%88%86%E5%B8%83.png" alt="VAE分布"></p>
-<p>总体目标函数：<br>    $\mathcal{L}(x,\widehat{x}) + \sum_j KL(q_j(z|x)||p(z))$</p>
-<p>误差：误差项精确度及潜在变量在单位高斯分布上的契合程度。</p>
-<ul>
-<li>生成误差，用以衡量网络重构图像精准度的均方误差；</li>
-<li>潜在误差，用以衡量潜在变量在单位高斯分布上的契合程度的KL散度。</li>
-</ul>
-<h2 id="参数调整"><a href="#参数调整" class="headerlink" title="参数调整"></a>参数调整</h2><p><em>VAE模型并没有真正的用$z \sim N(\mu,\theta)$来采样得到z变量：因为采样后无法对$(\mu,\theta)$进行求导。</em></p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_Reparameterization.png" alt="VAE_Reparameterization"></p>
-<p>一般先采样一个标准的高斯分布/正态分布$\epsilon \sim N(0,1)$，然后令$z=\mu+\epsilon*\theta$，这样得到的z就服从$z \sim N(\mu,\theta)$，同时也可正常对$(\mu,\theta)$求导。</p>
-<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
-<li>优点：遵循“编码-解码”模式，能直接将生成的图像同原始图像进行对比；</li>
-<li>缺点：直接采用均方误差，导致其神经网络倾向生成较为模糊的图像。</li>
-</ul>
-<h1 id="VAE和GAN的区别"><a href="#VAE和GAN的区别" class="headerlink" title="VAE和GAN的区别"></a>VAE和GAN的区别</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_vs_GAN.png" alt="VAE_vs_GAN"></p>
-<p>GAN是VAE后半部分再加上一个鉴别网络，导致完全不同的训练方式。</p>
-<p>参考：</p>
-<ul>
-<li><a href="https://blog.csdn.net/weixin_40955254/article/details/82315224" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40955254/article/details/82315224</a></li>
-<li><a href="https://blog.csdn.net/weixin_40955254/article/details/82315909?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40955254/article/details/82315909?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase</a></li>
 </ul>
 ]]></content>
   </entry>
@@ -4324,5 +4256,73 @@
 <li><a href="http://c.biancheng.net/view/1331.html" target="_blank" rel="noopener">http://c.biancheng.net/view/1331.html</a></li>
 </ul>
 ]]></content>
+  </entry>
+  <entry>
+    <title>金字塔变换</title>
+    <url>/2020/05/14/%E9%87%91%E5%AD%97%E5%A1%94%E5%8F%98%E6%8D%A2/</url>
+    <content><![CDATA[<h1 id="高斯金字塔"><a href="#高斯金字塔" class="headerlink" title="高斯金字塔"></a>高斯金字塔</h1><p>在传统金字塔的基础上，对每一层用不同的参数$\sigma$做高斯模糊，使得每一层金字塔有多张高斯模糊图像，这样的一组图像称为一个$octave$。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E6%96%AF%E9%87%91%E5%AD%97%E5%A1%94.png" alt="高斯金字塔"></p>
+<p>$octave(i+1)$的第一张（从下往上）图像是由$octave(i)$中的倒数第三张图像降采样得到。</p>
+<p>高斯金字塔的构建：</p>
+<ol>
+<li>对图像做不同尺度的高斯模糊；</li>
+<li>对图像做降采样(隔点采样)。</li>
+</ol>
+<p>金字塔的层数根据图像的原始大小和塔顶图像的大小共同决定。<br>为使其尺度体现连续性，高斯金字塔在简单降采样的基础上添加了高斯滤波。</p>
+<h2 id="高斯模糊"><a href="#高斯模糊" class="headerlink" title="高斯模糊"></a>高斯模糊</h2><p>高斯模糊是一种图像滤波器，使用正态分布(高斯函数)计算模糊模板，并使用该模板与原图像做卷积运算，达到模糊图像的目的。</p>
+<p>每个像素的值都是周围相邻像素值的加权平均：原始像素的值有最大的高斯分布值，具有最大的权重，相邻像素随着距离原始像素越来越远，其权重也越来越小。</p>
+<p>优点：</p>
+<ul>
+<li>比其它的均衡模糊滤波器更好的保留了边缘效果。<br>缺点：</li>
+<li>因模板矩阵的关系而造成边缘图像缺失，$\theta$越大，缺失像素越多，丢弃模板会造成黑边；</li>
+<li>当$\theta$变大时，高斯模板(高斯核)和卷积运算量将大幅度提高。</li>
+</ul>
+<p><em>理论上来讲，图像中每个像素点的分布都不为零，即每个像素的计算都需要包含整幅图像。</em><br><em>在实际应用中，在计算高斯函数的离散近似时，在大概$3\theta$距离之外的像素都可以看作不起作用，即高斯模板矩阵的大小$(6\theta+1) * (6\theta+1)$。大尺度对应于图像的概貌特征，小尺度对应于图像的细节特征。</em><br><em>为了确保模板矩阵中的元素在[0,1]之间，需将模板矩阵归一化。</em></p>
+<h3 id="分离高斯模糊"><a href="#分离高斯模糊" class="headerlink" title="分离高斯模糊"></a>分离高斯模糊</h3><p>高斯函数的可分离性是指使用二维矩阵变换得到的效果可通过在水平方向进行一维高斯矩阵变换加上竖直方向的一维高斯矩阵变换得到。</p>
+<p>根据高斯函数的可分离性，可对二维高斯模糊函数进行改进：两次一维的高斯卷积将消除二维高斯矩阵所产生的边缘。</p>
+<h1 id="高斯差分金字塔"><a href="#高斯差分金字塔" class="headerlink" title="高斯差分金字塔"></a>高斯差分金字塔</h1><p>高斯差分函数，Difference of Gaussian，简称DoG算子，可产生较强的边缘响应。</p>
+<p>在实际计算时，使用<strong>高斯金字塔每组中相邻上下两层图像相减，得到高斯差分图像</strong>，进行极值检测。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/LoG_DoG.jpg" alt="LoG_DoG"></p>
+<p>由于高斯差分的计算更加简单，因此常用DoG算子近似替代LoG算子。</p>
+<a href="/2020/05/25/%E5%9B%BE%E5%83%8F%E7%89%B9%E5%BE%81/" title="高斯拉普拉斯LoG">高斯拉普拉斯LoG</a>
+
+<h1 id="拉普拉斯金字塔"><a href="#拉普拉斯金字塔" class="headerlink" title="拉普拉斯金字塔"></a>拉普拉斯金字塔</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E9%87%91%E5%AD%97%E5%A1%94.png" alt="拉普拉斯金字塔"><br>保留所有层在卷积和下采样过程中丢失的高频信息，用于图像恢复。</p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>多尺度变换</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>贪心算法</title>
+    <url>/2020/06/04/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="贪心算法-贪婪算法"><a href="#贪心算法-贪婪算法" class="headerlink" title="贪心算法/贪婪算法"></a>贪心算法/贪婪算法</h1><p>贪心算法，在每一个选择过程中都选择<strong>当前最优解</strong>，从而希望最终结果达到最优的算法。</p>
+<h2 id="算法实现步骤："><a href="#算法实现步骤：" class="headerlink" title="算法实现步骤："></a>算法实现步骤：</h2><ol>
+<li>创建数学模型来描述问题；</li>
+<li>把求解的问题<strong>分成若干个子问题</strong>；</li>
+<li>对每一子问题求解，得到子问题的<strong>局部最优解</strong>；</li>
+<li>把子问题的解局部最优解合成所求问题的一个解。</li>
+</ol>
+<p><strong>贪心算法的实现，要根据具体问题具体分析。</strong></p>
+<h2 id="常用解决的问题："><a href="#常用解决的问题：" class="headerlink" title="常用解决的问题："></a>常用解决的问题：</h2><ul>
+<li>贪心算法可以解决一些最优化问题，如：求图中的最小生成树、求哈夫曼编码、旅行推销员问题等。</li>
+<li>对于其它问题，贪心算法一般不能得到我们所要求的答案，常用作辅助算法或直接解决一些要求结果不是特别严格的问题。</li>
+<li>一旦一个问题可以通过贪心算法来解决，那么贪心算法一般是解决该问题的最好方法。</li>
+</ul>
+<h2 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h2><ul>
+<li>对解决问题具有高效性；</li>
+<li>所得结果更接近于最优结果。</li>
+</ul>
+<h2 id="贪心算法与动态规划的不同"><a href="#贪心算法与动态规划的不同" class="headerlink" title="贪心算法与动态规划的不同"></a>贪心算法与动态规划的不同</h2><ul>
+<li>贪心算法要求对每个子问题的解决方案都要做出选择，且不能回退；</li>
+<li>动态规划会保存之前的运算结果，并依据以前的结果对当前方案进行选择，可回退。</li>
+</ul>
+<p>换个思路，就是贪心算法有一个优先级的问题；动态规划则是使用一个数组来进行记录当前方案，会对每一种方法进行尝试。</p>
+]]></content>
+      <categories>
+        <category>算法与数据结构</category>
+      </categories>
   </entry>
 </search>
