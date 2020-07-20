@@ -456,71 +456,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Markdown</title>
-    <url>/2020/03/09/Markdown/</url>
-    <content><![CDATA[<h1 id="md基本标记符号"><a href="#md基本标记符号" class="headerlink" title="md基本标记符号"></a>md基本标记符号</h1><ol>
-<li><p>标题<br>支持六级标题，一般在#后跟个空格再写标题内容。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>代码</p>
-</li>
-</ol>
-<ul>
-<li>单行代码<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;代码内容&#96;</span><br></pre></td></tr></table></figure></li>
-<li>多行代码，代码之间分别用三个反引号包起来，且两边的反引号单独占一行。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(&#96;&#96;&#96;)</span><br><span class="line">  代码...</span><br><span class="line">  代码...</span><br><span class="line">  代码...</span><br><span class="line">(&#96;&#96;&#96;)</span><br></pre></td></tr></table></figure>
-注：为了防止转译，前后三个反引号处加了小括号</li>
-</ul>
-<ol start="3">
-<li><p>字体</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">*倾斜*</span><br><span class="line">**加粗**</span><br><span class="line">***斜体加粗***</span><br><span class="line">~~加删除线~~</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>图片</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![图片alt](图片地址 &#39;&#39;图片title&#39;&#39;)</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li>图片alt就是显示在图片下面的文字，相当于对图片内容的解释；</li>
-<li>图片title是图片的标题，当鼠标移到图片上时显示的内容。title可不加；</li>
-<li>github和md文件关联的图片地址是有一定的格式的，不显示可将blob改为raw。</li>
-</ul>
-<ol start="5">
-<li>表格<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">表头|表头|表头</span><br><span class="line">---|:--:|--:</span><br><span class="line">内容|内容|内容</span><br><span class="line">内容|内容|内容</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li>第二行分割表头和内容；</li>
-<li>- 有一个就行，为了对齐，多加了几个；</li>
-<li>文字默认居左，-两边加：表示文字居中，-右边加：表示文字居右；</li>
-<li>原生的语法两边都要用 <code>|</code> 包起来。</li>
-</ul>
-<ol start="6">
-<li><p>引用<br>在引用的文字前加&gt;即可。引用也可以嵌套，如加两个&gt;&gt;三个&gt;&gt;&gt;</p>
-</li>
-<li><p>分割线<br>三个或者三个以上的 - 或者 * 均可。</p>
-</li>
-<li><p>超链接</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[超链接名](超链接地址 &quot;超链接title&quot;)</span><br></pre></td></tr></table></figure>
-<p>Markdown本身语法不支持链接在新页面中打开，可用html的a标签代替。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;a href&#x3D;&quot;超链接地址&quot; target&#x3D;&quot;_blank&quot;&gt;超链接名&lt;&#x2F;a&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>列表</p>
-</li>
-</ol>
-<ul>
-<li>无序列表<br>无序列表用 <code>- + *</code> 任何一种均可，但与内容之间都要有一个空格<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- 列表内容</span><br><span class="line">+ 列表内容</span><br><span class="line">* 列表内容</span><br></pre></td></tr></table></figure></li>
-<li>有序列表<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 列表内容</span><br><span class="line">2. 列表内容</span><br><span class="line">3. 列表内容</span><br></pre></td></tr></table></figure></li>
-<li>列表嵌套<br>上一级与下一级间加3个空格即可。</li>
-</ul>
-<ol start="10">
-<li>流程图（GitHub貌似不支持）<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始</span><br><span class="line">op&#x3D;&gt;operation: My Operation</span><br><span class="line">cond&#x3D;&gt;condition: Yes or No?</span><br><span class="line">e&#x3D;&gt;end</span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br><span class="line">&amp;</span><br></pre></td></tr></table></figure></li>
-</ol>
-]]></content>
-      <categories>
-        <category>Manual</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MVVM设计模式</title>
     <url>/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<h1 id="MVC模式"><a href="#MVC模式" class="headerlink" title="MVC模式"></a>MVC模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvc.png" alt="mvc"></p>
@@ -1009,6 +944,76 @@
       </tags>
   </entry>
   <entry>
+    <title>kmeans聚类</title>
+    <url>/2020/06/06/kmeans%E8%81%9A%E7%B1%BB/</url>
+    <content><![CDATA[<h1 id="K-means"><a href="#K-means" class="headerlink" title="K-means"></a>K-means</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/K-means.png" alt="K-means"></p>
+<p>算法流程：</p>
+<ol>
+<li>选取k个类中心（首次随机选取）；</li>
+<li>计算每个点到k个类中心的距离；</li>
+<li>将数据点分配给距离最近的一个类中心；</li>
+<li>计算新的类中心（对该类中所有点取均值）；</li>
+<li>重复2-4，直到满足终止条件：<ul>
+<li>不再有重新分配；</li>
+<li>最大迭代数；</li>
+<li>所有类中心移动小于某一个值。</li>
+</ul>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>mysql</title>
+    <url>/2020/03/09/mysql/</url>
+    <content><![CDATA[<h1 id="mysql常用命令"><a href="#mysql常用命令" class="headerlink" title="mysql常用命令"></a>mysql常用命令</h1><h2 id="进入mysql："><a href="#进入mysql：" class="headerlink" title="进入mysql："></a>进入mysql：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure>
+<p>输入密码登录。</p>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><ol>
+<li>显示已存在数据库：<br><code>show databases;</code></li>
+<li>创建新数据库：<br><code>create database 数据库名称;</code></li>
+<li>切换到某数据库：<br><code>use 数据库名称;</code></li>
+<li>删除数据库：<br><code>drop database 数据库名称;</code></li>
+<li>退出数据库：<br><code>use mysql;</code></li>
+</ol>
+<h2 id="数据库表"><a href="#数据库表" class="headerlink" title="数据库表"></a>数据库表</h2><ol>
+<li>显示数据库中所有表：<br><code>show tables;</code></li>
+<li>创建新数据库表：<br><code>create table</code>数据库名称<code>(</code>列名<code>类型 ... , ...);</code></li>
+<li>查看某表结构：<br><code>show columns from 表名;</code> 或 <code>DESCRIBE 表名;</code></li>
+<li>删除数据库表：<br><code>drop tables 表名;</code></li>
+</ol>
+<hr>
+<h1 id="导入txt格式文件到MySQL8-0"><a href="#导入txt格式文件到MySQL8-0" class="headerlink" title="导入txt格式文件到MySQL8.0"></a>导入txt格式文件到MySQL8.0</h1><h2 id="命令行方式导入："><a href="#命令行方式导入：" class="headerlink" title="命令行方式导入："></a>命令行方式导入：</h2><p><strong>利用navicat中的查询语句进行命令操作</strong></p>
+<ol>
+<li>新建一个car_operation数据库：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE &#96;car_operation&#96; (</span><br><span class="line">  &#96;car_id&#96; varchar(6) NOT NULL COMMENT &#39;车辆标识&#39;,</span><br><span class="line">  &#96;clicking&#96; int(2) NOT NULL COMMENT &#39;触发事件：0&#x3D;变空车，1&#x3D;变载客，2&#x3D;设防，3&#x3D;撤防，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;operation_status&#96; int(2) NOT NULL COMMENT &#39;运营状态：0&#x3D;空车，1&#x3D;载客，2&#x3D;驻车，3&#x3D;停运，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;gps_time&#96; date NOT NULL COMMENT &#39;GPS时间：格式yyyymmddhhnnss，北京时间&#39;,</span><br><span class="line">  &#96;gps_longitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS经度：格式ddd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_latitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS纬度：格式dd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_speed&#96; int(4) NOT NULL COMMENT &#39;GPS速度：格式ddd，取值000-255内整数，以公里&#x2F;小时为单位&#39;,</span><br><span class="line">  &#96;gps_direction&#96; int(4) NOT NULL COMMENT &#39;GPS方位：格式ddd，取值000-360内整数，以度为单位&#39;,</span><br><span class="line">  &#96;gps_status&#96; int(2) NOT NULL COMMENT &#39;GPS状态：0&#x3D;无效，1&#x3D;有效&#39;</span><br><span class="line">) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Dynamic;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>因使用MySQL8.0，需要修改my.ini配置文件:</strong><br>在[mysqld]下添加一行 <code>secure_file_priv=&#39;&#39;</code>，重启MySQL服务器。</p>
+<ol start="2">
+<li><p>使用样例数据导入：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">LOAD DATA INFILE &#39;F:&#x2F;CQUPT&#x2F;Y81201&#x2F;SuperDatabase&#x2F;ADB&#x2F;20121130000001.txt&#39; REPLACE </span><br><span class="line">INTO TABLE car_operation </span><br><span class="line">FIELDS TERMINATED by&#39;,&#39; </span><br><span class="line">ENCLOSED by&#39;&quot;&#39;</span><br><span class="line">LINES TERMINATED by &#39;\r\n&#39;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用全部数据导入：（因数据有重复，删除car_id主键中的主键设置）</p>
+</li>
+</ol>
+<h2 id="通过GUI方式导入（速度超级慢）"><a href="#通过GUI方式导入（速度超级慢）" class="headerlink" title="通过GUI方式导入（速度超级慢）"></a>通过GUI方式导入（速度超级慢）</h2><ol>
+<li><p>创建<code>car_op_gui</code>数据库：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE &#96;car_op_gui&#96;(</span><br><span class="line">	&#96;car_id&#96; varchar(6) NOT NULL COMMENT &#39;车辆标识&#39;,</span><br><span class="line">  &#96;clicking&#96; int(2) NOT NULL COMMENT &#39;触发事件：0&#x3D;变空车，1&#x3D;变载客，2&#x3D;设防，3&#x3D;撤防，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;operation_status&#96; int(2) NOT NULL COMMENT &#39;运营状态：0&#x3D;空车，1&#x3D;载客，2&#x3D;驻车，3&#x3D;停运，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;gps_time&#96; date NOT NULL COMMENT &#39;GPS时间：格式yyyymmddhhnnss，北京时间&#39;,</span><br><span class="line">  &#96;gps_longitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS经度：格式ddd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_latitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS纬度：格式dd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_speed&#96; int(4) NOT NULL COMMENT &#39;GPS速度：格式ddd，取值000-255内整数，以公里&#x2F;小时为单位&#39;,</span><br><span class="line">  &#96;gps_direction&#96; int(4) NOT NULL COMMENT &#39;GPS方位：格式ddd，取值000-360内整数，以度为单位&#39;,</span><br><span class="line">  &#96;gps_status&#96; int(2) NOT NULL COMMENT &#39;GPS状态：0&#x3D;无效，1&#x3D;有效&#39;</span><br><span class="line">)ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Dynamic;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在该数据库右键选择导入向导<br> -&gt;选择txt格式<br> -&gt;选择数据源<br> -&gt;更改字段分隔符为“逗号，”<br> -&gt;下一步<br> -&gt;下一步<br> -&gt;更改目标字段<br> -&gt;追加，下一步<br> -&gt;开始</p>
+</li>
+<li><p>导入全部数据：（采用追加方式，目的删除之前样例数据）</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Manual</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>haar特征</title>
     <url>/2020/06/04/haar%E7%89%B9%E5%BE%81/</url>
     <content><![CDATA[<h1 id="Haar-like特征"><a href="#Haar-like特征" class="headerlink" title="Haar-like特征"></a>Haar-like特征</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Haar%E7%89%B9%E5%BE%81.png" alt="Haar特征"></p>
@@ -1033,28 +1038,6 @@
       <tags>
         <tag>feature</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>kmeans聚类</title>
-    <url>/2020/06/06/kmeans%E8%81%9A%E7%B1%BB/</url>
-    <content><![CDATA[<h1 id="K-means"><a href="#K-means" class="headerlink" title="K-means"></a>K-means</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/K-means.png" alt="K-means"></p>
-<p>算法流程：</p>
-<ol>
-<li>选取k个类中心（首次随机选取）；</li>
-<li>计算每个点到k个类中心的距离；</li>
-<li>将数据点分配给距离最近的一个类中心；</li>
-<li>计算新的类中心（对该类中所有点取均值）；</li>
-<li>重复2-4，直到满足终止条件：<ul>
-<li>不再有重新分配；</li>
-<li>最大迭代数；</li>
-<li>所有类中心移动小于某一个值。</li>
-</ul>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
   </entry>
   <entry>
     <title>hog特征</title>
@@ -1118,54 +1101,6 @@
       </categories>
       <tags>
         <tag>feature</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>mysql</title>
-    <url>/2020/03/09/mysql/</url>
-    <content><![CDATA[<h1 id="mysql常用命令"><a href="#mysql常用命令" class="headerlink" title="mysql常用命令"></a>mysql常用命令</h1><h2 id="进入mysql："><a href="#进入mysql：" class="headerlink" title="进入mysql："></a>进入mysql：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure>
-<p>输入密码登录。</p>
-<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><ol>
-<li>显示已存在数据库：<br><code>show databases;</code></li>
-<li>创建新数据库：<br><code>create database 数据库名称;</code></li>
-<li>切换到某数据库：<br><code>use 数据库名称;</code></li>
-<li>删除数据库：<br><code>drop database 数据库名称;</code></li>
-<li>退出数据库：<br><code>use mysql;</code></li>
-</ol>
-<h2 id="数据库表"><a href="#数据库表" class="headerlink" title="数据库表"></a>数据库表</h2><ol>
-<li>显示数据库中所有表：<br><code>show tables;</code></li>
-<li>创建新数据库表：<br><code>create table</code>数据库名称<code>(</code>列名<code>类型 ... , ...);</code></li>
-<li>查看某表结构：<br><code>show columns from 表名;</code> 或 <code>DESCRIBE 表名;</code></li>
-<li>删除数据库表：<br><code>drop tables 表名;</code></li>
-</ol>
-<hr>
-<h1 id="导入txt格式文件到MySQL8-0"><a href="#导入txt格式文件到MySQL8-0" class="headerlink" title="导入txt格式文件到MySQL8.0"></a>导入txt格式文件到MySQL8.0</h1><h2 id="命令行方式导入："><a href="#命令行方式导入：" class="headerlink" title="命令行方式导入："></a>命令行方式导入：</h2><p><strong>利用navicat中的查询语句进行命令操作</strong></p>
-<ol>
-<li>新建一个car_operation数据库：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE &#96;car_operation&#96; (</span><br><span class="line">  &#96;car_id&#96; varchar(6) NOT NULL COMMENT &#39;车辆标识&#39;,</span><br><span class="line">  &#96;clicking&#96; int(2) NOT NULL COMMENT &#39;触发事件：0&#x3D;变空车，1&#x3D;变载客，2&#x3D;设防，3&#x3D;撤防，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;operation_status&#96; int(2) NOT NULL COMMENT &#39;运营状态：0&#x3D;空车，1&#x3D;载客，2&#x3D;驻车，3&#x3D;停运，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;gps_time&#96; date NOT NULL COMMENT &#39;GPS时间：格式yyyymmddhhnnss，北京时间&#39;,</span><br><span class="line">  &#96;gps_longitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS经度：格式ddd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_latitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS纬度：格式dd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_speed&#96; int(4) NOT NULL COMMENT &#39;GPS速度：格式ddd，取值000-255内整数，以公里&#x2F;小时为单位&#39;,</span><br><span class="line">  &#96;gps_direction&#96; int(4) NOT NULL COMMENT &#39;GPS方位：格式ddd，取值000-360内整数，以度为单位&#39;,</span><br><span class="line">  &#96;gps_status&#96; int(2) NOT NULL COMMENT &#39;GPS状态：0&#x3D;无效，1&#x3D;有效&#39;</span><br><span class="line">) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Dynamic;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p><strong>因使用MySQL8.0，需要修改my.ini配置文件:</strong><br>在[mysqld]下添加一行 <code>secure_file_priv=&#39;&#39;</code>，重启MySQL服务器。</p>
-<ol start="2">
-<li><p>使用样例数据导入：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">LOAD DATA INFILE &#39;F:&#x2F;CQUPT&#x2F;Y81201&#x2F;SuperDatabase&#x2F;ADB&#x2F;20121130000001.txt&#39; REPLACE </span><br><span class="line">INTO TABLE car_operation </span><br><span class="line">FIELDS TERMINATED by&#39;,&#39; </span><br><span class="line">ENCLOSED by&#39;&quot;&#39;</span><br><span class="line">LINES TERMINATED by &#39;\r\n&#39;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用全部数据导入：（因数据有重复，删除car_id主键中的主键设置）</p>
-</li>
-</ol>
-<h2 id="通过GUI方式导入（速度超级慢）"><a href="#通过GUI方式导入（速度超级慢）" class="headerlink" title="通过GUI方式导入（速度超级慢）"></a>通过GUI方式导入（速度超级慢）</h2><ol>
-<li><p>创建<code>car_op_gui</code>数据库：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE &#96;car_op_gui&#96;(</span><br><span class="line">	&#96;car_id&#96; varchar(6) NOT NULL COMMENT &#39;车辆标识&#39;,</span><br><span class="line">  &#96;clicking&#96; int(2) NOT NULL COMMENT &#39;触发事件：0&#x3D;变空车，1&#x3D;变载客，2&#x3D;设防，3&#x3D;撤防，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;operation_status&#96; int(2) NOT NULL COMMENT &#39;运营状态：0&#x3D;空车，1&#x3D;载客，2&#x3D;驻车，3&#x3D;停运，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;gps_time&#96; date NOT NULL COMMENT &#39;GPS时间：格式yyyymmddhhnnss，北京时间&#39;,</span><br><span class="line">  &#96;gps_longitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS经度：格式ddd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_latitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS纬度：格式dd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_speed&#96; int(4) NOT NULL COMMENT &#39;GPS速度：格式ddd，取值000-255内整数，以公里&#x2F;小时为单位&#39;,</span><br><span class="line">  &#96;gps_direction&#96; int(4) NOT NULL COMMENT &#39;GPS方位：格式ddd，取值000-360内整数，以度为单位&#39;,</span><br><span class="line">  &#96;gps_status&#96; int(2) NOT NULL COMMENT &#39;GPS状态：0&#x3D;无效，1&#x3D;有效&#39;</span><br><span class="line">)ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Dynamic;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在该数据库右键选择导入向导<br> -&gt;选择txt格式<br> -&gt;选择数据源<br> -&gt;更改字段分隔符为“逗号，”<br> -&gt;下一步<br> -&gt;下一步<br> -&gt;更改目标字段<br> -&gt;追加，下一步<br> -&gt;开始</p>
-</li>
-<li><p>导入全部数据：（采用追加方式，目的删除之前样例数据）</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Manual</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
       </tags>
   </entry>
   <entry>
@@ -1353,6 +1288,71 @@
       </categories>
       <tags>
         <tag>分类器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown</title>
+    <url>/2020/03/09/Markdown/</url>
+    <content><![CDATA[<h1 id="md基本标记符号"><a href="#md基本标记符号" class="headerlink" title="md基本标记符号"></a>md基本标记符号</h1><ol>
+<li><p>标题<br>支持六级标题，一般在#后跟个空格再写标题内容。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>代码</p>
+</li>
+</ol>
+<ul>
+<li>单行代码<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;代码内容&#96;</span><br></pre></td></tr></table></figure></li>
+<li>多行代码，代码之间分别用三个反引号包起来，且两边的反引号单独占一行。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(&#96;&#96;&#96;)</span><br><span class="line">  代码...</span><br><span class="line">  代码...</span><br><span class="line">  代码...</span><br><span class="line">(&#96;&#96;&#96;)</span><br></pre></td></tr></table></figure>
+注：为了防止转译，前后三个反引号处加了小括号</li>
+</ul>
+<ol start="3">
+<li><p>字体</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">*倾斜*</span><br><span class="line">**加粗**</span><br><span class="line">***斜体加粗***</span><br><span class="line">~~加删除线~~</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>图片</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![图片alt](图片地址 &#39;&#39;图片title&#39;&#39;)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>图片alt就是显示在图片下面的文字，相当于对图片内容的解释；</li>
+<li>图片title是图片的标题，当鼠标移到图片上时显示的内容。title可不加；</li>
+<li>github和md文件关联的图片地址是有一定的格式的，不显示可将blob改为raw。</li>
+</ul>
+<ol start="5">
+<li>表格<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">表头|表头|表头</span><br><span class="line">---|:--:|--:</span><br><span class="line">内容|内容|内容</span><br><span class="line">内容|内容|内容</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>第二行分割表头和内容；</li>
+<li>- 有一个就行，为了对齐，多加了几个；</li>
+<li>文字默认居左，-两边加：表示文字居中，-右边加：表示文字居右；</li>
+<li>原生的语法两边都要用 <code>|</code> 包起来。</li>
+</ul>
+<ol start="6">
+<li><p>引用<br>在引用的文字前加&gt;即可。引用也可以嵌套，如加两个&gt;&gt;三个&gt;&gt;&gt;</p>
+</li>
+<li><p>分割线<br>三个或者三个以上的 - 或者 * 均可。</p>
+</li>
+<li><p>超链接</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[超链接名](超链接地址 &quot;超链接title&quot;)</span><br></pre></td></tr></table></figure>
+<p>Markdown本身语法不支持链接在新页面中打开，可用html的a标签代替。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;a href&#x3D;&quot;超链接地址&quot; target&#x3D;&quot;_blank&quot;&gt;超链接名&lt;&#x2F;a&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>列表</p>
+</li>
+</ol>
+<ul>
+<li>无序列表<br>无序列表用 <code>- + *</code> 任何一种均可，但与内容之间都要有一个空格<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- 列表内容</span><br><span class="line">+ 列表内容</span><br><span class="line">* 列表内容</span><br></pre></td></tr></table></figure></li>
+<li>有序列表<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 列表内容</span><br><span class="line">2. 列表内容</span><br><span class="line">3. 列表内容</span><br></pre></td></tr></table></figure></li>
+<li>列表嵌套<br>上一级与下一级间加3个空格即可。</li>
+</ul>
+<ol start="10">
+<li>流程图（GitHub貌似不支持）<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始</span><br><span class="line">op&#x3D;&gt;operation: My Operation</span><br><span class="line">cond&#x3D;&gt;condition: Yes or No?</span><br><span class="line">e&#x3D;&gt;end</span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br><span class="line">&amp;</span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Manual</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -1631,6 +1631,70 @@
       </tags>
   </entry>
   <entry>
+    <title>图像增强</title>
+    <url>/2020/04/13/%E5%9B%BE%E5%83%8F%E5%A2%9E%E5%BC%BA/</url>
+    <content><![CDATA[<h1 id="图像增强目标"><a href="#图像增强目标" class="headerlink" title="图像增强目标"></a>图像增强目标</h1><ul>
+<li>改善图像视觉效果；</li>
+<li>抑制无用信息，提高图像的使用价值；</li>
+<li>转换为更适合人或机器分析处理的形式。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>图像增强</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>图像分割</title>
+    <url>/2020/05/28/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/</url>
+    <content><![CDATA[<h1 id="图像分割"><a href="#图像分割" class="headerlink" title="图像分割"></a>图像分割</h1><p>图像分割：根据灰度、颜色、纹理、形状等特征，将图像划分为若干互不交叠的区域，并使这些特征在同一区域内呈现出相似性，在不同区域间呈现出明显的差异。</p>
+<p>经典数字图像分割算法一般基于灰度值的两个基本特性：</p>
+<ul>
+<li>不连续性；</li>
+<li>相似性。</li>
+</ul>
+<p>前景/背景分割：</p>
+<ul>
+<li>前景一般包含物体；</li>
+<li>需要交互提供初始标记。</li>
+</ul>
+<h2 id="基于阈值的分割方法"><a href="#基于阈值的分割方法" class="headerlink" title="基于阈值的分割方法"></a>基于阈值的分割方法</h2><p>基本思想：基于图像的灰度特征来计算一个或多个灰度阈值，并将图像中每个像素的灰度值与阈值相比较，最后将像素根据比较结果分到合适的类别中。</p>
+<p>设定某一灰度阈值T，将图像分为两部分：大于T的像素群和小于T的像素群，选定一个<strong>合适的阈值</strong>即可将图像准确地分割开。</p>
+<h2 id="基于边缘的分割方法"><a href="#基于边缘的分割方法" class="headerlink" title="基于边缘的分割方法"></a>基于边缘的分割方法</h2><p>边缘，是指图像中两个不同区域的边界线上连续的像素点的集合，是图像局部特征不连续性的反映，体现了灰度、颜色、纹理等图像特性的<strong>突变</strong>。</p>
+<p>基本思路：先确定图像中的边缘像素，然后再把这些像素连接在一起构成所需的区域边界。</p>
+<hr>
+<h1 id="传统图像分割方法"><a href="#传统图像分割方法" class="headerlink" title="传统图像分割方法"></a>传统图像分割方法</h1><h2 id="基于区域的分割方法"><a href="#基于区域的分割方法" class="headerlink" title="基于区域的分割方法"></a>基于区域的分割方法</h2><p>将图像按照相似性准则分成不同的区域。</p>
+<h3 id="区域生长法"><a href="#区域生长法" class="headerlink" title="区域生长法"></a>区域生长法</h3><p>根据一种事先定义的准则，将像素或子区域聚合成更大区域的过程，并且要充分保证分割后的区域满足以下条件：</p>
+<ul>
+<li>内部连通、互斥；</li>
+<li>各子集的并集能构成全集。</li>
+</ul>
+<p>区域生长的条件：根据像素灰度间的连续性定义的一些相似性准则；<br>区域生长停止的条件：一个终止规则。</p>
+<p>区域生长法定义了最大像素灰度值距离，当待加入像素点的灰度值和已分割好的区域所有像素点的平均灰度的差的绝对值不大于最大像素灰度值距离时，该像素点加入到该分割区域；相反，则区域生长算法停止。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8C%BA%E5%9F%9F%E7%94%9F%E9%95%BF.png" alt="区域生长"></p>
+<h3 id="分水岭方法"><a href="#分水岭方法" class="headerlink" title="分水岭方法"></a>分水岭方法</h3><p>将图像中的<strong>边缘</strong>转化为<strong>山脉</strong>，将<strong>均匀区域</strong>转化为<strong>山谷</strong>。</p>
+<p>在分割过程中，该方法会将临近像素间的相似性作为重要的参考依据，从而将在<strong>空间位置上相近</strong>，并且<strong>灰度值相近</strong>的像素点互相连接起来，构成一个封闭的轮廓。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%88%86%E6%B0%B4%E5%B2%AD.png" alt="分水岭"></p>
+<p>操作步骤：</p>
+<ol>
+<li>彩色图像灰度化；</li>
+<li>求梯度图；</li>
+<li>进行分水岭算法，求得分段图像的边缘线。</li>
+</ol>
+<h2 id="基于图论的分割方法"><a href="#基于图论的分割方法" class="headerlink" title="基于图论的分割方法"></a>基于图论的分割方法</h2><p>将图像分割问题与图的最小割mincut问题联系。将图像映射为带权无向图，图中每个节点对应于图像中的每个像素，每条边的权值对应相邻像素间在灰度、颜色、纹理等方面的非负相似度。</p>
+<a href="/2020/06/06/GraphCuts%E5%88%86%E5%89%B2/" title="GraphCuts分割">GraphCuts分割</a>
+
+<a href="/2020/06/06/GrabCut%E5%88%86%E5%89%B2/" title="GrabCut分割">GrabCut分割</a>]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>图像分割</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>图像分类问题</title>
     <url>/2020/07/05/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<h1 id="CNN网络进化-结构演化"><a href="#CNN网络进化-结构演化" class="headerlink" title="CNN网络进化/结构演化"></a>CNN网络进化/结构演化</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/CNN%E7%BB%93%E6%9E%84%E6%BC%94%E5%8C%96.png" alt="CNN结构演化"></p>
@@ -1682,68 +1746,19 @@
 ]]></content>
   </entry>
   <entry>
-    <title>图像分割</title>
-    <url>/2020/05/28/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/</url>
-    <content><![CDATA[<h1 id="图像分割"><a href="#图像分割" class="headerlink" title="图像分割"></a>图像分割</h1><p>图像分割：根据灰度、颜色、纹理、形状等特征，将图像划分为若干互不交叠的区域，并使这些特征在同一区域内呈现出相似性，在不同区域间呈现出明显的差异。</p>
-<p>经典数字图像分割算法一般基于灰度值的两个基本特性：</p>
+    <title>图像格式</title>
+    <url>/2020/06/05/%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="图片存储格式"><a href="#图片存储格式" class="headerlink" title="图片存储格式"></a>图片存储格式</h1><p>常用存储格式：<br>  bmp,jpg,png,tiff,gif,<br>  pcx,tga,exif,fpx,svg,<br>  psd,cdr,pcd,dxf,ufo,<br>  eps,ai,raw,WMF,webp等。</p>
 <ul>
-<li>不连续性；</li>
-<li>相似性。</li>
-</ul>
-<p>前景/背景分割：</p>
-<ul>
-<li>前景一般包含物体；</li>
-<li>需要交互提供初始标记。</li>
-</ul>
-<h2 id="基于阈值的分割方法"><a href="#基于阈值的分割方法" class="headerlink" title="基于阈值的分割方法"></a>基于阈值的分割方法</h2><p>基本思想：基于图像的灰度特征来计算一个或多个灰度阈值，并将图像中每个像素的灰度值与阈值相比较，最后将像素根据比较结果分到合适的类别中。</p>
-<p>设定某一灰度阈值T，将图像分为两部分：大于T的像素群和小于T的像素群，选定一个<strong>合适的阈值</strong>即可将图像准确地分割开。</p>
-<h2 id="基于边缘的分割方法"><a href="#基于边缘的分割方法" class="headerlink" title="基于边缘的分割方法"></a>基于边缘的分割方法</h2><p>边缘，是指图像中两个不同区域的边界线上连续的像素点的集合，是图像局部特征不连续性的反映，体现了灰度、颜色、纹理等图像特性的<strong>突变</strong>。</p>
-<p>基本思路：先确定图像中的边缘像素，然后再把这些像素连接在一起构成所需的区域边界。</p>
-<hr>
-<h1 id="传统图像分割方法"><a href="#传统图像分割方法" class="headerlink" title="传统图像分割方法"></a>传统图像分割方法</h1><h2 id="基于区域的分割方法"><a href="#基于区域的分割方法" class="headerlink" title="基于区域的分割方法"></a>基于区域的分割方法</h2><p>将图像按照相似性准则分成不同的区域。</p>
-<h3 id="区域生长法"><a href="#区域生长法" class="headerlink" title="区域生长法"></a>区域生长法</h3><p>根据一种事先定义的准则，将像素或子区域聚合成更大区域的过程，并且要充分保证分割后的区域满足以下条件：</p>
-<ul>
-<li>内部连通、互斥；</li>
-<li>各子集的并集能构成全集。</li>
-</ul>
-<p>区域生长的条件：根据像素灰度间的连续性定义的一些相似性准则；<br>区域生长停止的条件：一个终止规则。</p>
-<p>区域生长法定义了最大像素灰度值距离，当待加入像素点的灰度值和已分割好的区域所有像素点的平均灰度的差的绝对值不大于最大像素灰度值距离时，该像素点加入到该分割区域；相反，则区域生长算法停止。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8C%BA%E5%9F%9F%E7%94%9F%E9%95%BF.png" alt="区域生长"></p>
-<h3 id="分水岭方法"><a href="#分水岭方法" class="headerlink" title="分水岭方法"></a>分水岭方法</h3><p>将图像中的<strong>边缘</strong>转化为<strong>山脉</strong>，将<strong>均匀区域</strong>转化为<strong>山谷</strong>。</p>
-<p>在分割过程中，该方法会将临近像素间的相似性作为重要的参考依据，从而将在<strong>空间位置上相近</strong>，并且<strong>灰度值相近</strong>的像素点互相连接起来，构成一个封闭的轮廓。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%88%86%E6%B0%B4%E5%B2%AD.png" alt="分水岭"></p>
-<p>操作步骤：</p>
-<ol>
-<li>彩色图像灰度化；</li>
-<li>求梯度图；</li>
-<li>进行分水岭算法，求得分段图像的边缘线。</li>
-</ol>
-<h2 id="基于图论的分割方法"><a href="#基于图论的分割方法" class="headerlink" title="基于图论的分割方法"></a>基于图论的分割方法</h2><p>将图像分割问题与图的最小割mincut问题联系。将图像映射为带权无向图，图中每个节点对应于图像中的每个像素，每条边的权值对应相邻像素间在灰度、颜色、纹理等方面的非负相似度。</p>
-<a href="/2020/06/06/GraphCuts%E5%88%86%E5%89%B2/" title="GraphCuts分割">GraphCuts分割</a>
-
-<a href="/2020/06/06/GrabCut%E5%88%86%E5%89%B2/" title="GrabCut分割">GrabCut分割</a>]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>图像分割</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>图像增强</title>
-    <url>/2020/04/13/%E5%9B%BE%E5%83%8F%E5%A2%9E%E5%BC%BA/</url>
-    <content><![CDATA[<h1 id="图像增强目标"><a href="#图像增强目标" class="headerlink" title="图像增强目标"></a>图像增强目标</h1><ul>
-<li>改善图像视觉效果；</li>
-<li>抑制无用信息，提高图像的使用价值；</li>
-<li>转换为更适合人或机器分析处理的形式。</li>
+<li>BMP：采用位映射存储，占用空间大。</li>
+<li>JPG：常用有损压缩格式，压缩比例可达10:1-40:1。</li>
+<li>PNG：无损压缩图像文件格式，比GIF小30%。</li>
+<li>GIF：基于LZW算法的连续色调的无损压缩格式，压缩率一般在50%左右。</li>
 </ul>
 ]]></content>
       <categories>
         <category>image</category>
       </categories>
-      <tags>
-        <tag>图像增强</tag>
-      </tags>
   </entry>
   <entry>
     <title>图像特征</title>
@@ -1807,60 +1822,6 @@
       <tags>
         <tag>feature</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>图像格式</title>
-    <url>/2020/06/05/%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F/</url>
-    <content><![CDATA[<h1 id="图片存储格式"><a href="#图片存储格式" class="headerlink" title="图片存储格式"></a>图片存储格式</h1><p>常用存储格式：<br>  bmp,jpg,png,tiff,gif,<br>  pcx,tga,exif,fpx,svg,<br>  psd,cdr,pcd,dxf,ufo,<br>  eps,ai,raw,WMF,webp等。</p>
-<ul>
-<li>BMP：采用位映射存储，占用空间大。</li>
-<li>JPG：常用有损压缩格式，压缩比例可达10:1-40:1。</li>
-<li>PNG：无损压缩图像文件格式，比GIF小30%。</li>
-<li>GIF：基于LZW算法的连续色调的无损压缩格式，压缩率一般在50%左右。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>图像颜色空间</title>
-    <url>/2020/04/25/%E5%9B%BE%E5%83%8F%E9%A2%9C%E8%89%B2%E7%A9%BA%E9%97%B4/</url>
-    <content><![CDATA[<h1 id="颜色空间"><a href="#颜色空间" class="headerlink" title="颜色空间"></a>颜色空间</h1><h2 id="RGB颜色空间"><a href="#RGB颜色空间" class="headerlink" title="RGB颜色空间"></a>RGB颜色空间</h2><p>三颜色通道：</p>
-<ul>
-<li>Red通道；</li>
-<li>Green通道；</li>
-<li>Blue通道。<br>一个像素颜色值为(b,g,r)，取值范围[0,255]或[0.0,1.0]<br>加法混色，用于彩色显示器。</li>
-</ul>
-<h2 id="CMY-K-颜色空间"><a href="#CMY-K-颜色空间" class="headerlink" title="CMY(K)颜色空间"></a>CMY(K)颜色空间</h2><p>四通道：</p>
-<ul>
-<li>Cyan通道；</li>
-<li>Magenta通道；</li>
-<li>Yellow通道；</li>
-<li>Key通道。<br>一个像素颜色值为(c,m,y,k)，取值范围[0,255]或[0.0,1.0]<br>减法混色，用于印刷。</li>
-</ul>
-<h2 id="HSV颜色空间"><a href="#HSV颜色空间" class="headerlink" title="HSV颜色空间"></a>HSV颜色空间</h2><p>三要素：</p>
-<ul>
-<li>H/Hue：色调，颜色种类；</li>
-<li>S/Saturation：饱和度，颜色纯度；</li>
-<li>V/Value：明亮度，颜色明亮度。<br>一个像素颜色值为(h,s,v)，取值范围[0,255]或[0.0,1.0]<br>符合人类视觉概念，用于画家调色。</li>
-</ul>
-<h2 id="CIE-XYZ颜色空间"><a href="#CIE-XYZ颜色空间" class="headerlink" title="CIE-XYZ颜色空间"></a>CIE-XYZ颜色空间</h2><p>基于人类颜色视觉的直接测定，是其他颜色空间的基础。于1931年由国际照明协会定义。</p>
-<p>3颜色刺激值通道：</p>
-<ul>
-<li>X，Y，Z：基本对应R，G，B；</li>
-<li>一种波的刺激等于几种波的刺激整合。</li>
-</ul>
-<p>人类视觉系统（视锥细胞）：</p>
-<ul>
-<li>短波（S,420-440nm）；</li>
-<li>中波（M,530-540nm）；</li>
-<li>长波（L,560-580nm）。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
   </entry>
   <entry>
     <title>图像特征表示</title>
@@ -1947,6 +1908,149 @@
       </tags>
   </entry>
   <entry>
+    <title>图像颜色空间</title>
+    <url>/2020/04/25/%E5%9B%BE%E5%83%8F%E9%A2%9C%E8%89%B2%E7%A9%BA%E9%97%B4/</url>
+    <content><![CDATA[<h1 id="颜色空间"><a href="#颜色空间" class="headerlink" title="颜色空间"></a>颜色空间</h1><h2 id="RGB颜色空间"><a href="#RGB颜色空间" class="headerlink" title="RGB颜色空间"></a>RGB颜色空间</h2><p>三颜色通道：</p>
+<ul>
+<li>Red通道；</li>
+<li>Green通道；</li>
+<li>Blue通道。<br>一个像素颜色值为(b,g,r)，取值范围[0,255]或[0.0,1.0]<br>加法混色，用于彩色显示器。</li>
+</ul>
+<h2 id="CMY-K-颜色空间"><a href="#CMY-K-颜色空间" class="headerlink" title="CMY(K)颜色空间"></a>CMY(K)颜色空间</h2><p>四通道：</p>
+<ul>
+<li>Cyan通道；</li>
+<li>Magenta通道；</li>
+<li>Yellow通道；</li>
+<li>Key通道。<br>一个像素颜色值为(c,m,y,k)，取值范围[0,255]或[0.0,1.0]<br>减法混色，用于印刷。</li>
+</ul>
+<h2 id="HSV颜色空间"><a href="#HSV颜色空间" class="headerlink" title="HSV颜色空间"></a>HSV颜色空间</h2><p>三要素：</p>
+<ul>
+<li>H/Hue：色调，颜色种类；</li>
+<li>S/Saturation：饱和度，颜色纯度；</li>
+<li>V/Value：明亮度，颜色明亮度。<br>一个像素颜色值为(h,s,v)，取值范围[0,255]或[0.0,1.0]<br>符合人类视觉概念，用于画家调色。</li>
+</ul>
+<h2 id="CIE-XYZ颜色空间"><a href="#CIE-XYZ颜色空间" class="headerlink" title="CIE-XYZ颜色空间"></a>CIE-XYZ颜色空间</h2><p>基于人类颜色视觉的直接测定，是其他颜色空间的基础。于1931年由国际照明协会定义。</p>
+<p>3颜色刺激值通道：</p>
+<ul>
+<li>X，Y，Z：基本对应R，G，B；</li>
+<li>一种波的刺激等于几种波的刺激整合。</li>
+</ul>
+<p>人类视觉系统（视锥细胞）：</p>
+<ul>
+<li>短波（S,420-440nm）；</li>
+<li>中波（M,530-540nm）；</li>
+<li>长波（L,560-580nm）。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>多尺度变换</title>
+    <url>/2020/04/09/%E5%A4%9A%E5%B0%BA%E5%BA%A6%E5%8F%98%E6%8D%A2/</url>
+    <content><![CDATA[<h1 id="空间域处理：卷积"><a href="#空间域处理：卷积" class="headerlink" title="空间域处理：卷积"></a>空间域处理：卷积</h1><h2 id="点运算"><a href="#点运算" class="headerlink" title="点运算"></a>点运算</h2><h3 id="直方图（特征提取方法）"><a href="#直方图（特征提取方法）" class="headerlink" title="直方图（特征提取方法）"></a>直方图（特征提取方法）</h3><p>是对图片数据/特征分布的一种统计，对数据区间/空间进行量化。<br><em>全黑为0</em></p>
+<a href="/2020/06/06/%E7%9B%B4%E6%96%B9%E5%9B%BE%E5%9D%87%E8%A1%A1%E5%8C%96/" title="直方图均衡化">直方图均衡化</a>
+
+<h2 id="形态学运算"><a href="#形态学运算" class="headerlink" title="形态学运算"></a>形态学运算</h2><ul>
+<li><p>膨胀：图像中高亮部分进行膨胀，类似于领域扩展；</p>
+</li>
+<li><p>腐蚀：源图像高亮部分被腐蚀，类似于被蚕食。</p>
+</li>
+<li><p>开运算：先腐蚀再膨胀，可去除目标外的孤立点；</p>
+</li>
+<li><p>闭运算：先膨胀再腐蚀，可去除目标内的孔。</p>
+</li>
+</ul>
+<h2 id="临域运算"><a href="#临域运算" class="headerlink" title="临域运算"></a>临域运算</h2><h3 id="滤波-卷积"><a href="#滤波-卷积" class="headerlink" title="滤波/卷积"></a>滤波/卷积</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8D%B7%E7%A7%AF.gif" alt="卷积"><br>使用模版，对源图像中的每个位置进行卷积计算，按照一定步长进行滑动，可进行padding填充。</p>
+<p>padding边界填充策略：</p>
+<ul>
+<li>zero-padding补零；</li>
+<li>replication边界复制；</li>
+<li>reflection镜像；</li>
+<li>wraparound块复制。</li>
+</ul>
+<h4 id="均值滤波"><a href="#均值滤波" class="headerlink" title="均值滤波"></a>均值滤波</h4><ul>
+<li>计算卷积内的像素值</li>
+<li>取平均值作为卷积输出。</li>
+</ul>
+<p>既没有很好的去除噪声点，也破坏了图像的细节，使图像变得模糊。</p>
+<h4 id="平滑中值滤波"><a href="#平滑中值滤波" class="headerlink" title="平滑中值滤波"></a>平滑中值滤波</h4><ul>
+<li>卷积内的像素值从小到达排序；</li>
+<li>取中间值作为卷积输出。</li>
+</ul>
+<p>可有效去除椒盐噪声(黑白点)。</p>
+<h4 id="平滑高斯滤波"><a href="#平滑高斯滤波" class="headerlink" title="平滑高斯滤波"></a>平滑高斯滤波</h4><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E6%96%AF%E6%BB%A4%E6%B3%A2.png" alt="高斯滤波"><br>$$ G_{\sigma}=\frac{1}{2\Pi\sigma^2}e^{-\frac{x^2+y^2}{2\sigma^2}} $$<br>$ \sigma $ 越小，关注区域越集中。</p>
+<p>可有效去除高斯噪声，模拟人眼，关注于中心区域。</p>
+<p><strong>分解特性/级联高斯</strong><br>将2D卷积拆分成两个1D卷积，可提高计算效率。</p>
+<h4 id="梯度Prewitt滤波-卷积"><a href="#梯度Prewitt滤波-卷积" class="headerlink" title="梯度Prewitt滤波/卷积"></a>梯度Prewitt滤波/卷积</h4><ul>
+<li>水平梯度/垂直边缘：$ [-1,0,1] * {[1,1,1]}^T $</li>
+<li>垂直梯度/水平边缘：$ [1,1,1] * {[-1,0,1]}^T $</li>
+</ul>
+<h4 id="梯度Sobel滤波-卷积"><a href="#梯度Sobel滤波-卷积" class="headerlink" title="梯度Sobel滤波/卷积"></a>梯度Sobel滤波/卷积</h4><ul>
+<li>水平梯度/垂直边缘：$ [-1,0,1] * {[1,2,1]}^T $</li>
+<li>垂直梯度/水平边缘：$ [1,2,1] * {[-1,0,1]}^T $</li>
+</ul>
+<h4 id="梯度Laplacian滤波-卷积"><a href="#梯度Laplacian滤波-卷积" class="headerlink" title="梯度Laplacian滤波/卷积"></a>梯度Laplacian滤波/卷积</h4><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%A2%AF%E5%BA%A6Laplacian%E6%BB%A4%E6%B3%A2.png" alt="梯度Laplacian滤波"></p>
+<ul>
+<li>使用二阶微分蒜子；</li>
+<li>团块检测：周边高于/低于中心点；</li>
+<li>边缘检测：像素值快速变化的区域。</li>
+</ul>
+<h3 id="金字塔"><a href="#金字塔" class="headerlink" title="金字塔"></a>金字塔</h3><a href="/2020/05/14/%E9%87%91%E5%AD%97%E5%A1%94%E5%8F%98%E6%8D%A2/" title="金字塔变换">金字塔变换</a>
+
+<hr>
+<h1 id="频率域处理-提高卷积效率-：乘法"><a href="#频率域处理-提高卷积效率-：乘法" class="headerlink" title="频率域处理(提高卷积效率)：乘法"></a>频率域处理(提高卷积效率)：乘法</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%82%85%E7%AB%8B%E5%8F%B6%E5%8F%98%E6%8D%A2.png" alt="傅立叶变换"></p>
+<p>一个信号可由足够多个不同频率和幅值的正余弦波组成。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BF%A1%E5%8F%B7%E5%88%86%E8%A7%A3.png" alt="信号分解"></p>
+<h2 id="傅立叶变换"><a href="#傅立叶变换" class="headerlink" title="傅立叶变换"></a>傅立叶变换</h2><p>一系列符合欧拉公式$e^{ix} = \cos{x} + i\sin{x}$的点的运动叠加。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%82%85%E7%AB%8B%E5%8F%B6%E5%8F%98%E6%8D%A2%E6%AC%A7%E6%8B%89%E5%8F%A0%E5%8A%A0.png" alt="傅立叶变换欧拉叠加"></p>
+<p>矩形波/傅立叶逆变换：$f(t)=\frac{1}{2\Pi} \int_{-\infty}^{\infty} F(\omega)e^{i \omega t}d{\omega}$</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%9F%A9%E5%BD%A2%E6%B3%A2.png" alt="矩形波"></p>
+<table>
+<thead>
+<tr>
+<th align="center">傅立叶</th>
+<th align="center">公式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">连续傅立叶变换</td>
+<td align="center">$$H(\omega)= \int_{-\infty}^{\infty} h(x)e^{-j \omega x} d{x} = \int_{-\infty}^{\infty} h(x)[\cos{x} - {j\omega}\sin{x}] d{x}$$</td>
+</tr>
+<tr>
+<td align="center">离散傅立叶变换</td>
+<td align="center">$$X(\omega)=\sum_{-\infty}^{\infty}x_n e^{-i \omega n}$$</td>
+</tr>
+<tr>
+<td align="center">二维离散傅立叶变换</td>
+<td align="center">$$F(u,v) = \sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x,y)e^{-j2\Pi(\frac{ux}{M} = \frac{vy}{N})}$$</td>
+</tr>
+</tbody></table>
+<p><strong>低通滤波器获取图像的概貌</strong>，去除了图像的高频部分/细节信息，如中值滤波。<br><strong>高通滤波获取图像的边缘信息</strong>，如拉普拉斯滤波。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%BB%A4%E6%B3%A2.png" alt="滤波"></p>
+<h3 id="基于傅立叶变换的滤波"><a href="#基于傅立叶变换的滤波" class="headerlink" title="基于傅立叶变换的滤波"></a>基于傅立叶变换的滤波</h3><p>傅里叶变换处理非平稳信号有天生缺陷，它只能获取一段信号总体上包含哪些频率的成分，但是对各成分出现的时刻并无所知。因此时域相差很大的两个信号，可能频谱图一样。</p>
+<h4 id="相位滤波"><a href="#相位滤波" class="headerlink" title="相位滤波"></a>相位滤波</h4><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%9B%B8%E4%BD%8D%E6%BB%A4%E6%B3%A2.png" alt="相位滤波"></p>
+<h4 id="频谱滤波"><a href="#频谱滤波" class="headerlink" title="频谱滤波"></a>频谱滤波</h4><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%A2%91%E8%B0%B1%E6%BB%A4%E6%B3%A2.png" alt="频谱滤波"></p>
+<h3 id="短时傅立叶变换STFT"><a href="#短时傅立叶变换STFT" class="headerlink" title="短时傅立叶变换STFT"></a>短时傅立叶变换STFT</h3><p>对傅立叶变换添加窗格（添加时域信息），默认窗格内的信号是平稳的。<br>对窗格内的信号分段进行傅立叶变换，但窗格大小难以设置。</p>
+<p>特点：</p>
+<ul>
+<li>窄窗口时间分辨率高、频率分辨率低；</li>
+<li>宽窗口时间分辨率低、频率分辨率高；</li>
+<li>对时变的非稳态信号，高频适合小窗口，低频适合大窗口；</li>
+<li>STFT窗口固定。</li>
+</ul>
+<p><em>绝对意义的瞬时频率其实是不存在的，只是时间分辨率有限的近似分析结果。</em></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a href="/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/" title="小波变换">小波变换</a></h2><p>reference:<br><a href="https://blog.csdn.net/asd20172016/article/details/80904634" target="_blank" rel="noopener">https://blog.csdn.net/asd20172016/article/details/80904634</a><br><a href="https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html</a><br><a href="https://zhuanlan.zhihu.com/p/23607336" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/23607336</a></p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>多尺度变换</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>图论</title>
     <url>/2020/07/01/%E5%9B%BE%E8%AE%BA/</url>
     <content><![CDATA[<h1 id="深度优先遍历DFS"><a href="#深度优先遍历DFS" class="headerlink" title="深度优先遍历DFS"></a>深度优先遍历DFS</h1><p>思想：</p>
@@ -1963,6 +2067,38 @@
 <li>直到队列为空。</li>
 </ol>
 ]]></content>
+  </entry>
+  <entry>
+    <title>小波变换</title>
+    <url>/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/</url>
+    <content><![CDATA[<h1 id="连续小波变换CWT"><a href="#连续小波变换CWT" class="headerlink" title="连续小波变换CWT"></a>连续小波变换CWT</h1><p>将无限长的三角函数基转换为有限长的会衰减的小波基，不仅能获取频率，还可定位到时间。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2.png" alt="小波变换"></p>
+<p>思路：</p>
+<ol>
+<li>取一个小波，将其与原始信号的开始一节进行比较；</li>
+<li>计算数值F，F表示小波与所取一节信号的相似程度，计算结果取决于所选小波的形状；</li>
+<li>向右移动小波，重复步骤1和步骤2，直至覆盖整个信号；</li>
+<li>伸展小波，重复步骤1-3，对齐；</li>
+<li>对于所有缩放，重复步骤1-4，进行压缩。</li>
+</ol>
+<h1 id="离散小波变换DWT"><a href="#离散小波变换DWT" class="headerlink" title="离散小波变换DWT"></a>离散小波变换DWT</h1><p>离散小波变换的有效方法是使用滤波器，由Mallat于1988年提出。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%A4%9A%E5%B1%82%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="多层小波分解和重构"></p>
+<h2 id="小波分解"><a href="#小波分解" class="headerlink" title="小波分解"></a>小波分解</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%A6%BB%E6%95%A3%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="离散小波分解示意图"></p>
+<p>S表示原始的输入信号，通过两个互补的滤波器组，一个低通滤波器，得到信号的近似值A，另一个高通滤波器，得到该滤波器的细节值D。</p>
+<h2 id="小波重构"><a href="#小波重构" class="headerlink" title="小波重构"></a>小波重构</h2><p>利用小波分解的系数还原出原始信号，也叫逆离散小波变换IDWT/小波合成。</p>
+<h1 id="二维离散小波变换"><a href="#二维离散小波变换" class="headerlink" title="二维离散小波变换"></a>二维离散小波变换</h1><p>将二维信号在不同尺度进行分解，得到原始信号的近似值和细节。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BA%8C%E7%BB%B4%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="二维小波分解和重构"></p>
+<p>分解的结果为**近似分量cA、水平细节分量cH、垂直细节分量cV、对角细节分量cD。</p>
+<h1 id="常见小波函数"><a href="#常见小波函数" class="headerlink" title="常见小波函数"></a>常见小波函数</h1><p>Haar系列，Daubechies系列，Moret系列，Sym系列，Meyer系列，Coif系列</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%B3%A2%E5%87%BD%E6%95%B0.png" alt="常用小波函数"></p>
+<p>参考：<br><a href="https://www.cnblogs.com/keye/p/7809207.html" target="_blank" rel="noopener">https://www.cnblogs.com/keye/p/7809207.html</a><br><a href="https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html</a></p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>多尺度变换</tag>
+      </tags>
   </entry>
   <entry>
     <title>局部二值LBP</title>
@@ -2142,173 +2278,6 @@
       </categories>
   </entry>
   <entry>
-    <title>小波变换</title>
-    <url>/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/</url>
-    <content><![CDATA[<h1 id="连续小波变换CWT"><a href="#连续小波变换CWT" class="headerlink" title="连续小波变换CWT"></a>连续小波变换CWT</h1><p>将无限长的三角函数基转换为有限长的会衰减的小波基，不仅能获取频率，还可定位到时间。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2.png" alt="小波变换"></p>
-<p>思路：</p>
-<ol>
-<li>取一个小波，将其与原始信号的开始一节进行比较；</li>
-<li>计算数值F，F表示小波与所取一节信号的相似程度，计算结果取决于所选小波的形状；</li>
-<li>向右移动小波，重复步骤1和步骤2，直至覆盖整个信号；</li>
-<li>伸展小波，重复步骤1-3，对齐；</li>
-<li>对于所有缩放，重复步骤1-4，进行压缩。</li>
-</ol>
-<h1 id="离散小波变换DWT"><a href="#离散小波变换DWT" class="headerlink" title="离散小波变换DWT"></a>离散小波变换DWT</h1><p>离散小波变换的有效方法是使用滤波器，由Mallat于1988年提出。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%A4%9A%E5%B1%82%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="多层小波分解和重构"></p>
-<h2 id="小波分解"><a href="#小波分解" class="headerlink" title="小波分解"></a>小波分解</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%A6%BB%E6%95%A3%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="离散小波分解示意图"></p>
-<p>S表示原始的输入信号，通过两个互补的滤波器组，一个低通滤波器，得到信号的近似值A，另一个高通滤波器，得到该滤波器的细节值D。</p>
-<h2 id="小波重构"><a href="#小波重构" class="headerlink" title="小波重构"></a>小波重构</h2><p>利用小波分解的系数还原出原始信号，也叫逆离散小波变换IDWT/小波合成。</p>
-<h1 id="二维离散小波变换"><a href="#二维离散小波变换" class="headerlink" title="二维离散小波变换"></a>二维离散小波变换</h1><p>将二维信号在不同尺度进行分解，得到原始信号的近似值和细节。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BA%8C%E7%BB%B4%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="二维小波分解和重构"></p>
-<p>分解的结果为**近似分量cA、水平细节分量cH、垂直细节分量cV、对角细节分量cD。</p>
-<h1 id="常见小波函数"><a href="#常见小波函数" class="headerlink" title="常见小波函数"></a>常见小波函数</h1><p>Haar系列，Daubechies系列，Moret系列，Sym系列，Meyer系列，Coif系列</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%B3%A2%E5%87%BD%E6%95%B0.png" alt="常用小波函数"></p>
-<p>参考：<br><a href="https://www.cnblogs.com/keye/p/7809207.html" target="_blank" rel="noopener">https://www.cnblogs.com/keye/p/7809207.html</a><br><a href="https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html</a></p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>多尺度变换</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>多尺度变换</title>
-    <url>/2020/04/09/%E5%A4%9A%E5%B0%BA%E5%BA%A6%E5%8F%98%E6%8D%A2/</url>
-    <content><![CDATA[<h1 id="空间域处理：卷积"><a href="#空间域处理：卷积" class="headerlink" title="空间域处理：卷积"></a>空间域处理：卷积</h1><h2 id="点运算"><a href="#点运算" class="headerlink" title="点运算"></a>点运算</h2><h3 id="直方图（特征提取方法）"><a href="#直方图（特征提取方法）" class="headerlink" title="直方图（特征提取方法）"></a>直方图（特征提取方法）</h3><p>是对图片数据/特征分布的一种统计，对数据区间/空间进行量化。<br><em>全黑为0</em></p>
-<a href="/2020/06/06/%E7%9B%B4%E6%96%B9%E5%9B%BE%E5%9D%87%E8%A1%A1%E5%8C%96/" title="直方图均衡化">直方图均衡化</a>
-
-<h2 id="形态学运算"><a href="#形态学运算" class="headerlink" title="形态学运算"></a>形态学运算</h2><ul>
-<li><p>膨胀：图像中高亮部分进行膨胀，类似于领域扩展；</p>
-</li>
-<li><p>腐蚀：源图像高亮部分被腐蚀，类似于被蚕食。</p>
-</li>
-<li><p>开运算：先腐蚀再膨胀，可去除目标外的孤立点；</p>
-</li>
-<li><p>闭运算：先膨胀再腐蚀，可去除目标内的孔。</p>
-</li>
-</ul>
-<h2 id="临域运算"><a href="#临域运算" class="headerlink" title="临域运算"></a>临域运算</h2><h3 id="滤波-卷积"><a href="#滤波-卷积" class="headerlink" title="滤波/卷积"></a>滤波/卷积</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8D%B7%E7%A7%AF.gif" alt="卷积"><br>使用模版，对源图像中的每个位置进行卷积计算，按照一定步长进行滑动，可进行padding填充。</p>
-<p>padding边界填充策略：</p>
-<ul>
-<li>zero-padding补零；</li>
-<li>replication边界复制；</li>
-<li>reflection镜像；</li>
-<li>wraparound块复制。</li>
-</ul>
-<h4 id="均值滤波"><a href="#均值滤波" class="headerlink" title="均值滤波"></a>均值滤波</h4><ul>
-<li>计算卷积内的像素值</li>
-<li>取平均值作为卷积输出。</li>
-</ul>
-<p>既没有很好的去除噪声点，也破坏了图像的细节，使图像变得模糊。</p>
-<h4 id="平滑中值滤波"><a href="#平滑中值滤波" class="headerlink" title="平滑中值滤波"></a>平滑中值滤波</h4><ul>
-<li>卷积内的像素值从小到达排序；</li>
-<li>取中间值作为卷积输出。</li>
-</ul>
-<p>可有效去除椒盐噪声(黑白点)。</p>
-<h4 id="平滑高斯滤波"><a href="#平滑高斯滤波" class="headerlink" title="平滑高斯滤波"></a>平滑高斯滤波</h4><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E6%96%AF%E6%BB%A4%E6%B3%A2.png" alt="高斯滤波"><br>$$ G_{\sigma}=\frac{1}{2\Pi\sigma^2}e^{-\frac{x^2+y^2}{2\sigma^2}} $$<br>$ \sigma $ 越小，关注区域越集中。</p>
-<p>可有效去除高斯噪声，模拟人眼，关注于中心区域。</p>
-<p><strong>分解特性/级联高斯</strong><br>将2D卷积拆分成两个1D卷积，可提高计算效率。</p>
-<h4 id="梯度Prewitt滤波-卷积"><a href="#梯度Prewitt滤波-卷积" class="headerlink" title="梯度Prewitt滤波/卷积"></a>梯度Prewitt滤波/卷积</h4><ul>
-<li>水平梯度/垂直边缘：$ [-1,0,1] * {[1,1,1]}^T $</li>
-<li>垂直梯度/水平边缘：$ [1,1,1] * {[-1,0,1]}^T $</li>
-</ul>
-<h4 id="梯度Sobel滤波-卷积"><a href="#梯度Sobel滤波-卷积" class="headerlink" title="梯度Sobel滤波/卷积"></a>梯度Sobel滤波/卷积</h4><ul>
-<li>水平梯度/垂直边缘：$ [-1,0,1] * {[1,2,1]}^T $</li>
-<li>垂直梯度/水平边缘：$ [1,2,1] * {[-1,0,1]}^T $</li>
-</ul>
-<h4 id="梯度Laplacian滤波-卷积"><a href="#梯度Laplacian滤波-卷积" class="headerlink" title="梯度Laplacian滤波/卷积"></a>梯度Laplacian滤波/卷积</h4><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%A2%AF%E5%BA%A6Laplacian%E6%BB%A4%E6%B3%A2.png" alt="梯度Laplacian滤波"></p>
-<ul>
-<li>使用二阶微分蒜子；</li>
-<li>团块检测：周边高于/低于中心点；</li>
-<li>边缘检测：像素值快速变化的区域。</li>
-</ul>
-<h3 id="金字塔"><a href="#金字塔" class="headerlink" title="金字塔"></a>金字塔</h3><a href="/2020/05/14/%E9%87%91%E5%AD%97%E5%A1%94%E5%8F%98%E6%8D%A2/" title="金字塔变换">金字塔变换</a>
-
-<hr>
-<h1 id="频率域处理-提高卷积效率-：乘法"><a href="#频率域处理-提高卷积效率-：乘法" class="headerlink" title="频率域处理(提高卷积效率)：乘法"></a>频率域处理(提高卷积效率)：乘法</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%82%85%E7%AB%8B%E5%8F%B6%E5%8F%98%E6%8D%A2.png" alt="傅立叶变换"></p>
-<p>一个信号可由足够多个不同频率和幅值的正余弦波组成。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BF%A1%E5%8F%B7%E5%88%86%E8%A7%A3.png" alt="信号分解"></p>
-<h2 id="傅立叶变换"><a href="#傅立叶变换" class="headerlink" title="傅立叶变换"></a>傅立叶变换</h2><p>一系列符合欧拉公式$e^{ix} = \cos{x} + i\sin{x}$的点的运动叠加。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%82%85%E7%AB%8B%E5%8F%B6%E5%8F%98%E6%8D%A2%E6%AC%A7%E6%8B%89%E5%8F%A0%E5%8A%A0.png" alt="傅立叶变换欧拉叠加"></p>
-<p>矩形波/傅立叶逆变换：$f(t)=\frac{1}{2\Pi} \int_{-\infty}^{\infty} F(\omega)e^{i \omega t}d{\omega}$</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%9F%A9%E5%BD%A2%E6%B3%A2.png" alt="矩形波"></p>
-<table>
-<thead>
-<tr>
-<th align="center">傅立叶</th>
-<th align="center">公式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">连续傅立叶变换</td>
-<td align="center">$$H(\omega)= \int_{-\infty}^{\infty} h(x)e^{-j \omega x} d{x} = \int_{-\infty}^{\infty} h(x)[\cos{x} - {j\omega}\sin{x}] d{x}$$</td>
-</tr>
-<tr>
-<td align="center">离散傅立叶变换</td>
-<td align="center">$$X(\omega)=\sum_{-\infty}^{\infty}x_n e^{-i \omega n}$$</td>
-</tr>
-<tr>
-<td align="center">二维离散傅立叶变换</td>
-<td align="center">$$F(u,v) = \sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x,y)e^{-j2\Pi(\frac{ux}{M} = \frac{vy}{N})}$$</td>
-</tr>
-</tbody></table>
-<p><strong>低通滤波器获取图像的概貌</strong>，去除了图像的高频部分/细节信息，如中值滤波。<br><strong>高通滤波获取图像的边缘信息</strong>，如拉普拉斯滤波。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%BB%A4%E6%B3%A2.png" alt="滤波"></p>
-<h3 id="基于傅立叶变换的滤波"><a href="#基于傅立叶变换的滤波" class="headerlink" title="基于傅立叶变换的滤波"></a>基于傅立叶变换的滤波</h3><p>傅里叶变换处理非平稳信号有天生缺陷，它只能获取一段信号总体上包含哪些频率的成分，但是对各成分出现的时刻并无所知。因此时域相差很大的两个信号，可能频谱图一样。</p>
-<h4 id="相位滤波"><a href="#相位滤波" class="headerlink" title="相位滤波"></a>相位滤波</h4><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%9B%B8%E4%BD%8D%E6%BB%A4%E6%B3%A2.png" alt="相位滤波"></p>
-<h4 id="频谱滤波"><a href="#频谱滤波" class="headerlink" title="频谱滤波"></a>频谱滤波</h4><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%A2%91%E8%B0%B1%E6%BB%A4%E6%B3%A2.png" alt="频谱滤波"></p>
-<h3 id="短时傅立叶变换STFT"><a href="#短时傅立叶变换STFT" class="headerlink" title="短时傅立叶变换STFT"></a>短时傅立叶变换STFT</h3><p>对傅立叶变换添加窗格（添加时域信息），默认窗格内的信号是平稳的。<br>对窗格内的信号分段进行傅立叶变换，但窗格大小难以设置。</p>
-<p>特点：</p>
-<ul>
-<li>窄窗口时间分辨率高、频率分辨率低；</li>
-<li>宽窗口时间分辨率低、频率分辨率高；</li>
-<li>对时变的非稳态信号，高频适合小窗口，低频适合大窗口；</li>
-<li>STFT窗口固定。</li>
-</ul>
-<p><em>绝对意义的瞬时频率其实是不存在的，只是时间分辨率有限的近似分析结果。</em></p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a href="/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/" title="小波变换">小波变换</a></h2><p>reference:<br><a href="https://blog.csdn.net/asd20172016/article/details/80904634" target="_blank" rel="noopener">https://blog.csdn.net/asd20172016/article/details/80904634</a><br><a href="https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html</a><br><a href="https://zhuanlan.zhihu.com/p/23607336" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/23607336</a></p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>多尺度变换</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数学公式</title>
-    <url>/2020/04/25/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/</url>
-    <content><![CDATA[<h1 id="欧拉公式"><a href="#欧拉公式" class="headerlink" title="欧拉公式"></a>欧拉公式</h1><p>$e^{ix} = cos{x} + isin{x}$</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F.png" alt="欧拉公式"></p>
-<h1 id="链式求导法则"><a href="#链式求导法则" class="headerlink" title="链式求导法则"></a>链式求导法则</h1><p>$$(f(g(x)))’ = f’(g(x)) g’(x)$$</p>
-<p>或</p>
-<p>$$\frac{dy}{dx} = \frac{dy}{dz} \cdot \frac{dz}{dx}$$</p>
-<h1 id="极大似然估计MLE"><a href="#极大似然估计MLE" class="headerlink" title="极大似然估计MLE"></a>极大似然估计MLE</h1><ol>
-<li>样本集中的样本都是独立同分布iid的，可以只考虑一类样本集D，来估计参数向量$\theta$。</li>
-</ol>
-<p>$D = {x_1, x_2, … ,x_N}$</p>
-<ol start="2">
-<li>似然函数(likelihood function)：联合概率密度函数$p(D| \theta )$称为相对于$\theta$的似然函数。</li>
-</ol>
-<p>$l(\theta) = p(D|\theta) = p(x_1, x_2,…,x_N | \theta) = \prod_{i=1}^N p(x_i | \theta)$</p>
-<p>当$\widehat{\theta}$是参数空间中<strong>使似然函数最大的$\widehat{\theta}$值</strong>，那么，$\widehat{\theta}$很可能是最可能的参数值，则$\widehat{\theta}$为$\theta$的极大似然估计量。</p>
-<ol start="3">
-<li>MLE：求解使得出现该组样本的概率最大的$\theta$值。</li>
-</ol>
-<p>$$\widehat{\theta} = arg\underset{\theta}max l(\theta) = arg\underset{\theta}max \prod_{i=1}^N p(x_i | \theta)$$</p>
-<ol start="4">
-<li>对数似然函数（便于分析）</li>
-</ol>
-<p>$$\widehat{\theta} = arg\underset{\theta}max H(\theta) = arg\underset{\theta}max ln l(\theta) = arg\underset{\theta}max \sum_{i=1}^N ln p(x_i|\theta)$$</p>
-<h1 id="Lipschitz连续"><a href="#Lipschitz连续" class="headerlink" title="Lipschitz连续"></a>Lipschitz连续</h1><p>在一个连续函数f上面额外施加一个限制，要求存在一个常数$K \geq 0$，使得定义域内的任意两个元素$x_1$和$x_2$都满足$|f(x_1) - f(x_2)| \leq K|x_1 - x_2|$，即f的导数的绝对值不超过K。</p>
-]]></content>
-      <categories>
-        <category>Math</category>
-      </categories>
-  </entry>
-  <entry>
     <title>我与世界只差一个你</title>
     <url>/2020/03/09/%E6%88%91%E4%B8%8E%E4%B8%96%E7%95%8C%E5%8F%AA%E5%B7%AE%E4%B8%80%E4%B8%AA%E4%BD%A0/</url>
     <content><![CDATA[<blockquote><p>世界说大很大，说小很小。大到走了那么久，还没跟对的人相遇，小到围着喜欢的人绕了一圈，就看到了全世界。</p>
@@ -2378,6 +2347,37 @@
 <footer><strong>和你赶上最好的相遇</strong><cite>张皓宸</cite></footer></blockquote>]]></content>
       <categories>
         <category>reading</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>数学公式</title>
+    <url>/2020/04/25/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="欧拉公式"><a href="#欧拉公式" class="headerlink" title="欧拉公式"></a>欧拉公式</h1><p>$e^{ix} = cos{x} + isin{x}$</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F.png" alt="欧拉公式"></p>
+<h1 id="链式求导法则"><a href="#链式求导法则" class="headerlink" title="链式求导法则"></a>链式求导法则</h1><p>$$(f(g(x)))’ = f’(g(x)) g’(x)$$</p>
+<p>或</p>
+<p>$$\frac{dy}{dx} = \frac{dy}{dz} \cdot \frac{dz}{dx}$$</p>
+<h1 id="极大似然估计MLE"><a href="#极大似然估计MLE" class="headerlink" title="极大似然估计MLE"></a>极大似然估计MLE</h1><ol>
+<li>样本集中的样本都是独立同分布iid的，可以只考虑一类样本集D，来估计参数向量$\theta$。</li>
+</ol>
+<p>$D = {x_1, x_2, … ,x_N}$</p>
+<ol start="2">
+<li>似然函数(likelihood function)：联合概率密度函数$p(D| \theta )$称为相对于$\theta$的似然函数。</li>
+</ol>
+<p>$l(\theta) = p(D|\theta) = p(x_1, x_2,…,x_N | \theta) = \prod_{i=1}^N p(x_i | \theta)$</p>
+<p>当$\widehat{\theta}$是参数空间中<strong>使似然函数最大的$\widehat{\theta}$值</strong>，那么，$\widehat{\theta}$很可能是最可能的参数值，则$\widehat{\theta}$为$\theta$的极大似然估计量。</p>
+<ol start="3">
+<li>MLE：求解使得出现该组样本的概率最大的$\theta$值。</li>
+</ol>
+<p>$$\widehat{\theta} = arg\underset{\theta}max l(\theta) = arg\underset{\theta}max \prod_{i=1}^N p(x_i | \theta)$$</p>
+<ol start="4">
+<li>对数似然函数（便于分析）</li>
+</ol>
+<p>$$\widehat{\theta} = arg\underset{\theta}max H(\theta) = arg\underset{\theta}max ln l(\theta) = arg\underset{\theta}max \sum_{i=1}^N ln p(x_i|\theta)$$</p>
+<h1 id="Lipschitz连续"><a href="#Lipschitz连续" class="headerlink" title="Lipschitz连续"></a>Lipschitz连续</h1><p>在一个连续函数f上面额外施加一个限制，要求存在一个常数$K \geq 0$，使得定义域内的任意两个元素$x_1$和$x_2$都满足$|f(x_1) - f(x_2)| \leq K|x_1 - x_2|$，即f的导数的绝对值不超过K。</p>
+]]></content>
+      <categories>
+        <category>Math</category>
       </categories>
   </entry>
   <entry>
@@ -2720,18 +2720,6 @@
       </categories>
   </entry>
   <entry>
-    <title>皮囊</title>
-    <url>/2020/03/09/%E7%9A%AE%E5%9B%8A/</url>
-    <content><![CDATA[<p>本来是抱着一个很轻松的心情翻开这本书的，但是在看完几页之后愈感沉重，以至于不得不分到几天时间才能看完。总体来说，这种书写得很厚重，只有在经历了人生的坡坡坎坎之后才能有此积淀。我觉得这本书最出彩的地方在于它可以主动去勾起你的回忆，以及对人生的思考。人生在世，我们每个人都披了一层皮囊，以此区别于不同的人，为其注入各种不同的思想，活出自己的精彩人生。</p>
-<p>倔强而又骄傲的母亲，为了完成与心爱之人的约定，执着又顽强的坚定的遵从自己的内心。活出了女性的坚持与美丽。与之对应的是爱面子的父亲，在重病期间依旧想的是如何撑起这个家，他将一生全部奉献给了这个家。这是国内传统家庭的真实写照，男主外女主内，在父亲病重后由儿子撑起这个家，在这种交替中，完成了一种身份的转变，责任的交接。</p>
-<p>“张美丽”和“阿小”是当时在那个大环境下的必然产物，是人的内心欲望使然，是人们开始过上美好富裕生活的必然转变，他们是活在了那个特殊的年代，因此显得与周围人格格不入，也正是由于有了这些人的存在，为我们的时代发展转变做出了自己的贡献，我们在现代这个大环境下才活得那么的自然。</p>
-<p>“天才文展”与“厚朴”是我们基本都会遇到的，一个被尊奉为天才，一个充满正能力，有理想，是我们每个人都渴望成为的那类人的分解。“天才文展”学习好，够坚持，有目标，但是活得过于压抑；“厚朴”每天活在自己的想象中，快乐，虚假，脱离了实际。这两类人又是两种互补人格，以两个人的结局与自己形成鲜明对比，告诫我们要如何选择自己的人生。</p>
-]]></content>
-      <categories>
-        <category>reading</category>
-      </categories>
-  </entry>
-  <entry>
     <title>生成对抗网络</title>
     <url>/2020/06/09/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C/</url>
     <content><![CDATA[<h1 id="生成式模型和判别式模型"><a href="#生成式模型和判别式模型" class="headerlink" title="生成式模型和判别式模型"></a>生成式模型和判别式模型</h1><ul>
@@ -2842,8 +2830,8 @@
 <p>Wasserstein距离相比KL散度、JS散度的优点：即便两个分布没有重叠，Wasserstein距离依然能反映$P_r$和$P_g$的距离。</p>
 <p>目标函数：</p>
 <ul>
-<li>生成器loss：$-\mathbb{E}_{x\sim P_g}[f_w(x)]$</li>
-<li>判别器loss：$\mathbb{E}<em>{x\sim P_g}[f_w(x)]-\mathbb{E}</em>{x\sim P_r}[f_w(x)]$</li>
+<li>生成器loss：$-\mathbb{E}_{x \sim P_g}[f_w(x)]$</li>
+<li>判别器loss：$$\mathbb{E}<em>{x \sim P_g}[f_w(x)] - \mathbb{E}</em>{x \sim P_r}[f_w(x)]$$</li>
 </ul>
 <p>创新点：</p>
 <ol>
@@ -2886,6 +2874,18 @@
 ]]></content>
   </entry>
   <entry>
+    <title>皮囊</title>
+    <url>/2020/03/09/%E7%9A%AE%E5%9B%8A/</url>
+    <content><![CDATA[<p>本来是抱着一个很轻松的心情翻开这本书的，但是在看完几页之后愈感沉重，以至于不得不分到几天时间才能看完。总体来说，这种书写得很厚重，只有在经历了人生的坡坡坎坎之后才能有此积淀。我觉得这本书最出彩的地方在于它可以主动去勾起你的回忆，以及对人生的思考。人生在世，我们每个人都披了一层皮囊，以此区别于不同的人，为其注入各种不同的思想，活出自己的精彩人生。</p>
+<p>倔强而又骄傲的母亲，为了完成与心爱之人的约定，执着又顽强的坚定的遵从自己的内心。活出了女性的坚持与美丽。与之对应的是爱面子的父亲，在重病期间依旧想的是如何撑起这个家，他将一生全部奉献给了这个家。这是国内传统家庭的真实写照，男主外女主内，在父亲病重后由儿子撑起这个家，在这种交替中，完成了一种身份的转变，责任的交接。</p>
+<p>“张美丽”和“阿小”是当时在那个大环境下的必然产物，是人的内心欲望使然，是人们开始过上美好富裕生活的必然转变，他们是活在了那个特殊的年代，因此显得与周围人格格不入，也正是由于有了这些人的存在，为我们的时代发展转变做出了自己的贡献，我们在现代这个大环境下才活得那么的自然。</p>
+<p>“天才文展”与“厚朴”是我们基本都会遇到的，一个被尊奉为天才，一个充满正能力，有理想，是我们每个人都渴望成为的那类人的分解。“天才文展”学习好，够坚持，有目标，但是活得过于压抑；“厚朴”每天活在自己的想象中，快乐，虚假，脱离了实际。这两类人又是两种互补人格，以两个人的结局与自己形成鲜明对比，告诫我们要如何选择自己的人生。</p>
+]]></content>
+      <categories>
+        <category>reading</category>
+      </categories>
+  </entry>
+  <entry>
     <title>监督学习</title>
     <url>/2020/06/05/%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<h1 id="Delta学习规则"><a href="#Delta学习规则" class="headerlink" title="Delta学习规则"></a>Delta学习规则</h1><p>通过神经元的实际输出，与期望输出的差别，来调整连接权重。</p>
@@ -2898,46 +2898,6 @@
 <li>$x_i$是神经元j的状态；</li>
 <li>$a$表示学习速率。</li>
 </ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>目标检测DPM</title>
-    <url>/2020/06/02/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8BDPM/</url>
-    <content><![CDATA[<h1 id="DPM"><a href="#DPM" class="headerlink" title="DPM"></a>DPM</h1><p>该模型包含了一个<code>8*8</code>分辨率的根滤波器(Root filter)，和<code>4*4</code>分辨率的组件滤波器(Part filter)，和高斯滤波后的2倍空间模型。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM.png" alt="DPM"></p>
-<p><em>中间分辨率为左图的2倍，梯度更加精细。</em></p>
-<p><em>自行车DPM检测：</em></p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%87%AA%E8%A1%8C%E8%BD%A6DPM.png" alt="自行车DPM"></p>
-<h2 id="响应分数"><a href="#响应分数" class="headerlink" title="响应分数"></a>响应分数</h2><p>$$ score(x_0, y_0, l_0) = R_{0,l_0}(x_0, y_0) + \sum_{i=1}^n D_{i,l_0-\lambda}(2(x_0,y_0)+v_i) + b $$</p>
-<p>其中，$x_0,y_0,l_0$分布为锚点的横坐标、纵坐标、尺度；<br>$R_{0,l_0}(x_0,y_0)$为跟模型的响应分数；<br>$D_{i,l_0-\lambda}(2(x_0,y_0)+v_i)$为部件模型的响应分数；<br>b为不同模型组件间的偏移系数，使其与根模型对齐；<br>$2(x_0,y_0)$表示组件模型的像素为原始的2倍。</p>
-<h2 id="检测流程"><a href="#检测流程" class="headerlink" title="检测流程"></a>检测流程</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM%E6%A3%80%E6%B5%8B%E6%B5%81%E7%A8%8B.png" alt="DPM检测流程"></p>
-<ol>
-<li>对输入图像，提取其DPM特征图，然后将原图像进行高斯金字塔上采样，然后提取其DPM特征图；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM_31D%E7%89%B9%E5%BE%81.png" alt="DPM_31D特征"></li>
-<li>对原图像的DPM特征图和训练好的<code>Root filter</code>做卷积操作，得到<code>Root filter</code>的响应图；</li>
-<li>对2倍图像的DPM特征图和训练好的<code>Part filter</code>做卷积，得到<code>Part filter</code>的响应图；</li>
-<li>对其精细高斯金字塔做下采样操作，使<code>Root filter</code>响应图和<code>Part filter</code>响应图具有相同分辨率；</li>
-<li>对其进行加权平均，得到最终响应图。<em>亮度越大响应值越大</em></li>
-</ol>
-<h2 id="Latent-SVM"><a href="#Latent-SVM" class="headerlink" title="Latent SVM"></a>Latent SVM</h2><a href="/2020/06/02/svm/" title="Latent-SVM">Latent-SVM</a>
-
-<p>DPM选择最大的正样本，但是其latent变量较多，如<code>bounding box</code>在HOG特征金字塔中的level，某样本属于哪一类component。<br>即有一张正样本图像，标注了<code>bounding box</code>，我们要在某一位置、某一尺度，提取出最大正样本作为某一component的正样本。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM-SVM.png" alt="DPM-SVM"></p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>object detection</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>研究生复试</title>
-    <url>/2018/03/15/%E7%A0%94%E7%A9%B6%E7%94%9F%E5%A4%8D%E8%AF%95/</url>
-    <content><![CDATA[<h1 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h1><p>Good morning, dear professors. It is my pleasure to be here for this interview. My name is …, I am 24 years old, born in …, hebei province. I have finished my graduate education in … university, majoring in software engineering.</p>
-<p>I have broad interests. In my spare time, I like riding, reading and especially in engineering such as software programming, website design. I like to ride a bike to relax when I am in a bad mood or I have no idea. In the past few years, I have accomplished two websites: one is the website of our online examination system, and the other is the website of my graduation design. Furthermore, I am interested in C programming language and have written some application programs. During the days preparing for postgraduate examination I insist on running everyday. Thanks to this, I could concentrate on my study .</p>
-<p>Although I have broad interests in many aspects and grasp the essential knowledge of the major, but I think at present, I can do many things in a superficial level, but not be competent to do things professionally owing to lack of ample knowledge and ability. So I think further study is still urgent for me to realize self-value. I think further education is still urgent for me to realize self-value. Life is precious. It is necessary to seize any chance for self-development, especially in this competitive modern world. In a word, I am looking forward to making a solid foundation for future profession after three years study here. </p>
-<p>If I got a chance to study here, I would spare no effort to do research of my major, build up systematic view of management and achieve self value .</p>
-<p>That’s all. Thank you.</p>
 ]]></content>
   </entry>
   <entry>
@@ -2984,46 +2944,44 @@
       </tags>
   </entry>
   <entry>
-    <title>科学上网</title>
-    <url>/2020/03/09/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</url>
-    <content><![CDATA[<h1 id="服务器配置"><a href="#服务器配置" class="headerlink" title="服务器配置"></a>服务器配置</h1><h2 id="购买服务器"><a href="#购买服务器" class="headerlink" title="购买服务器"></a>购买服务器</h2><p>在<a href="https://my.vultr.com" target="_blank" rel="noopener">vultr</a>注册并创建一个国外的服务器，本人使用的是 <code>Ubuntu1604</code> 版本的服务器。</p>
-<h2 id="V2Ray配置"><a href="#V2Ray配置" class="headerlink" title="V2Ray配置"></a>V2Ray配置</h2><ul>
-<li><p>安装 <code>V2Ray</code>，安装后输入 <code>v2ray</code> 即可进行配置：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;KiriKira&#x2F;v2ray.fun&#x2F;kiriMod&#x2F;install.sh &amp;&amp; bash install.sh</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>卸载脚本</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;KiriKira&#x2F;v2ray.fun&#x2F;kiriMod&#x2F;uninstall.sh &amp;&amp; bash uninstall.sh</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="进行加速配置："><a href="#进行加速配置：" class="headerlink" title="进行加速配置："></a>进行加速配置：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget —no-check-certificate https:&#x2F;&#x2F;github.com&#x2F;teddysun&#x2F;across&#x2F;raw&#x2F;master&#x2F;bbr.sh</span><br></pre></td></tr></table></figure>
+    <title>研究生复试</title>
+    <url>/2018/03/15/%E7%A0%94%E7%A9%B6%E7%94%9F%E5%A4%8D%E8%AF%95/</url>
+    <content><![CDATA[<h1 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h1><p>Good morning, dear professors. It is my pleasure to be here for this interview. My name is …, I am 24 years old, born in …, hebei province. I have finished my graduate education in … university, majoring in software engineering.</p>
+<p>I have broad interests. In my spare time, I like riding, reading and especially in engineering such as software programming, website design. I like to ride a bike to relax when I am in a bad mood or I have no idea. In the past few years, I have accomplished two websites: one is the website of our online examination system, and the other is the website of my graduation design. Furthermore, I am interested in C programming language and have written some application programs. During the days preparing for postgraduate examination I insist on running everyday. Thanks to this, I could concentrate on my study .</p>
+<p>Although I have broad interests in many aspects and grasp the essential knowledge of the major, but I think at present, I can do many things in a superficial level, but not be competent to do things professionally owing to lack of ample knowledge and ability. So I think further study is still urgent for me to realize self-value. I think further education is still urgent for me to realize self-value. Life is precious. It is necessary to seize any chance for self-development, especially in this competitive modern world. In a word, I am looking forward to making a solid foundation for future profession after three years study here. </p>
+<p>If I got a chance to study here, I would spare no effort to do research of my major, build up systematic view of management and achieve self value .</p>
+<p>That’s all. Thank you.</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>目标检测DPM</title>
+    <url>/2020/06/02/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8BDPM/</url>
+    <content><![CDATA[<h1 id="DPM"><a href="#DPM" class="headerlink" title="DPM"></a>DPM</h1><p>该模型包含了一个<code>8*8</code>分辨率的根滤波器(Root filter)，和<code>4*4</code>分辨率的组件滤波器(Part filter)，和高斯滤波后的2倍空间模型。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM.png" alt="DPM"></p>
+<p><em>中间分辨率为左图的2倍，梯度更加精细。</em></p>
+<p><em>自行车DPM检测：</em></p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%87%AA%E8%A1%8C%E8%BD%A6DPM.png" alt="自行车DPM"></p>
+<h2 id="响应分数"><a href="#响应分数" class="headerlink" title="响应分数"></a>响应分数</h2><p>$$ score(x_0, y_0, l_0) = R_{0,l_0}(x_0, y_0) + \sum_{i=1}^n D_{i,l_0-\lambda}(2(x_0,y_0)+v_i) + b $$</p>
+<p>其中，$x_0,y_0,l_0$分布为锚点的横坐标、纵坐标、尺度；<br>$R_{0,l_0}(x_0,y_0)$为跟模型的响应分数；<br>$D_{i,l_0-\lambda}(2(x_0,y_0)+v_i)$为部件模型的响应分数；<br>b为不同模型组件间的偏移系数，使其与根模型对齐；<br>$2(x_0,y_0)$表示组件模型的像素为原始的2倍。</p>
+<h2 id="检测流程"><a href="#检测流程" class="headerlink" title="检测流程"></a>检测流程</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM%E6%A3%80%E6%B5%8B%E6%B5%81%E7%A8%8B.png" alt="DPM检测流程"></p>
 <ol>
-<li>更改加速权限：<code>chmod +x bbr.sh</code>；</li>
-<li>开始进行配置：<code>./bbr.sh</code>；</li>
-<li>安装后重启；</li>
-<li>验证加速设置 <code>lsmod | grep bbr</code>，出现 <code>tcp_bbr</code>。</li>
+<li>对输入图像，提取其DPM特征图，然后将原图像进行高斯金字塔上采样，然后提取其DPM特征图；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM_31D%E7%89%B9%E5%BE%81.png" alt="DPM_31D特征"></li>
+<li>对原图像的DPM特征图和训练好的<code>Root filter</code>做卷积操作，得到<code>Root filter</code>的响应图；</li>
+<li>对2倍图像的DPM特征图和训练好的<code>Part filter</code>做卷积，得到<code>Part filter</code>的响应图；</li>
+<li>对其精细高斯金字塔做下采样操作，使<code>Root filter</code>响应图和<code>Part filter</code>响应图具有相同分辨率；</li>
+<li>对其进行加权平均，得到最终响应图。<em>亮度越大响应值越大</em></li>
 </ol>
-<h2 id="SSR配置（不建议使用）"><a href="#SSR配置（不建议使用）" class="headerlink" title="SSR配置（不建议使用）"></a>SSR配置（不建议使用）</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ToyoDAdoubi&#x2F;doubi&#x2F;master&#x2F;ssr.sh &amp;&amp; chmod +x ssr.sh &amp;&amp; bash ssr.sh</span><br></pre></td></tr></table></figure>
-<p>修改时使用 <code>bash ssr.sh</code> 进入管理界面。</p>
-<hr>
-<h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><h2 id="Mac推荐使用-V2RayU-进行配置"><a href="#Mac推荐使用-V2RayU-进行配置" class="headerlink" title="Mac推荐使用 V2RayU 进行配置"></a>Mac推荐使用 <code>V2RayU</code> 进行配置</h2><h2 id="Chrome管理插件-Proxy-SwitchyOmega"><a href="#Chrome管理插件-Proxy-SwitchyOmega" class="headerlink" title="Chrome管理插件 Proxy SwitchyOmega"></a>Chrome管理插件 <code>Proxy SwitchyOmega</code></h2><ol>
-<li>先配置Proxy文件，端口号根据自己设定自行更改；</li>
-</ol>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Proxy%E9%85%8D%E7%BD%AE.png" alt="Proxy配置"></p>
-<ol start="2">
-<li>再配置Switch文件，并添加规则；</li>
-</ol>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Switch%E9%85%8D%E7%BD%AE.png" alt="Switch配置"><br>规则链接：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;gfwlist&#x2F;gfwlist&#x2F;master&#x2F;gfwlist.txt</span><br></pre></td></tr></table></figure>
+<h2 id="Latent-SVM"><a href="#Latent-SVM" class="headerlink" title="Latent SVM"></a>Latent SVM</h2><a href="/2020/06/02/svm/" title="Latent-SVM">Latent-SVM</a>
 
-<ol start="3">
-<li>可自定添加规则定制，如添加YouTube设置；<br>在Switch配置文件中，选择 <code>Add condition</code> ，在域名前更改为 * ，并更改 <code>Profile</code>。</li>
-</ol>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%87%AA%E5%AE%9A%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE.png" alt="自定规则配置"></p>
+<p>DPM选择最大的正样本，但是其latent变量较多，如<code>bounding box</code>在HOG特征金字塔中的level，某样本属于哪一类component。<br>即有一张正样本图像，标注了<code>bounding box</code>，我们要在某一位置、某一尺度，提取出最大正样本作为某一component的正样本。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM-SVM.png" alt="DPM-SVM"></p>
 ]]></content>
       <categories>
-        <category>Ubuntu</category>
+        <category>image</category>
       </categories>
+      <tags>
+        <tag>object detection</tag>
+      </tags>
   </entry>
   <entry>
     <title>神经网络</title>
@@ -3119,6 +3077,48 @@
 ]]></content>
       <categories>
         <category>神经网络</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>科学上网</title>
+    <url>/2020/03/09/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</url>
+    <content><![CDATA[<h1 id="服务器配置"><a href="#服务器配置" class="headerlink" title="服务器配置"></a>服务器配置</h1><h2 id="购买服务器"><a href="#购买服务器" class="headerlink" title="购买服务器"></a>购买服务器</h2><p>在<a href="https://my.vultr.com" target="_blank" rel="noopener">vultr</a>注册并创建一个国外的服务器，本人使用的是 <code>Ubuntu1604</code> 版本的服务器。</p>
+<h2 id="V2Ray配置"><a href="#V2Ray配置" class="headerlink" title="V2Ray配置"></a>V2Ray配置</h2><ul>
+<li><p>安装 <code>V2Ray</code>，安装后输入 <code>v2ray</code> 即可进行配置：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;KiriKira&#x2F;v2ray.fun&#x2F;kiriMod&#x2F;install.sh &amp;&amp; bash install.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>卸载脚本</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;KiriKira&#x2F;v2ray.fun&#x2F;kiriMod&#x2F;uninstall.sh &amp;&amp; bash uninstall.sh</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="进行加速配置："><a href="#进行加速配置：" class="headerlink" title="进行加速配置："></a>进行加速配置：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget —no-check-certificate https:&#x2F;&#x2F;github.com&#x2F;teddysun&#x2F;across&#x2F;raw&#x2F;master&#x2F;bbr.sh</span><br></pre></td></tr></table></figure>
+<ol>
+<li>更改加速权限：<code>chmod +x bbr.sh</code>；</li>
+<li>开始进行配置：<code>./bbr.sh</code>；</li>
+<li>安装后重启；</li>
+<li>验证加速设置 <code>lsmod | grep bbr</code>，出现 <code>tcp_bbr</code>。</li>
+</ol>
+<h2 id="SSR配置（不建议使用）"><a href="#SSR配置（不建议使用）" class="headerlink" title="SSR配置（不建议使用）"></a>SSR配置（不建议使用）</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ToyoDAdoubi&#x2F;doubi&#x2F;master&#x2F;ssr.sh &amp;&amp; chmod +x ssr.sh &amp;&amp; bash ssr.sh</span><br></pre></td></tr></table></figure>
+<p>修改时使用 <code>bash ssr.sh</code> 进入管理界面。</p>
+<hr>
+<h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><h2 id="Mac推荐使用-V2RayU-进行配置"><a href="#Mac推荐使用-V2RayU-进行配置" class="headerlink" title="Mac推荐使用 V2RayU 进行配置"></a>Mac推荐使用 <code>V2RayU</code> 进行配置</h2><h2 id="Chrome管理插件-Proxy-SwitchyOmega"><a href="#Chrome管理插件-Proxy-SwitchyOmega" class="headerlink" title="Chrome管理插件 Proxy SwitchyOmega"></a>Chrome管理插件 <code>Proxy SwitchyOmega</code></h2><ol>
+<li>先配置Proxy文件，端口号根据自己设定自行更改；</li>
+</ol>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Proxy%E9%85%8D%E7%BD%AE.png" alt="Proxy配置"></p>
+<ol start="2">
+<li>再配置Switch文件，并添加规则；</li>
+</ol>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Switch%E9%85%8D%E7%BD%AE.png" alt="Switch配置"><br>规则链接：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;gfwlist&#x2F;gfwlist&#x2F;master&#x2F;gfwlist.txt</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>可自定添加规则定制，如添加YouTube设置；<br>在Switch配置文件中，选择 <code>Add condition</code> ，在域名前更改为 * ，并更改 <code>Profile</code>。</li>
+</ol>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%87%AA%E5%AE%9A%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE.png" alt="自定规则配置"></p>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
       </categories>
   </entry>
   <entry>
@@ -3745,6 +3745,196 @@
 ]]></content>
   </entry>
   <entry>
+    <title>贪心算法</title>
+    <url>/2020/06/04/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="贪心算法-贪婪算法"><a href="#贪心算法-贪婪算法" class="headerlink" title="贪心算法/贪婪算法"></a>贪心算法/贪婪算法</h1><p>贪心算法，在每一个选择过程中都选择<strong>当前最优解</strong>，从而希望最终结果达到最优的算法。</p>
+<h2 id="算法实现步骤："><a href="#算法实现步骤：" class="headerlink" title="算法实现步骤："></a>算法实现步骤：</h2><ol>
+<li>创建数学模型来描述问题；</li>
+<li>把求解的问题<strong>分成若干个子问题</strong>；</li>
+<li>对每一子问题求解，得到子问题的<strong>局部最优解</strong>；</li>
+<li>把子问题的解局部最优解合成所求问题的一个解。</li>
+</ol>
+<p><strong>贪心算法的实现，要根据具体问题具体分析。</strong></p>
+<h2 id="常用解决的问题："><a href="#常用解决的问题：" class="headerlink" title="常用解决的问题："></a>常用解决的问题：</h2><ul>
+<li>贪心算法可以解决一些最优化问题，如：求图中的最小生成树、求哈夫曼编码、旅行推销员问题等。</li>
+<li>对于其它问题，贪心算法一般不能得到我们所要求的答案，常用作辅助算法或直接解决一些要求结果不是特别严格的问题。</li>
+<li>一旦一个问题可以通过贪心算法来解决，那么贪心算法一般是解决该问题的最好方法。</li>
+</ul>
+<h2 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h2><ul>
+<li>对解决问题具有高效性；</li>
+<li>所得结果更接近于最优结果。</li>
+</ul>
+<h2 id="贪心算法与动态规划的不同"><a href="#贪心算法与动态规划的不同" class="headerlink" title="贪心算法与动态规划的不同"></a>贪心算法与动态规划的不同</h2><ul>
+<li>贪心算法要求对每个子问题的解决方案都要做出选择，且不能回退；</li>
+<li>动态规划会保存之前的运算结果，并依据以前的结果对当前方案进行选择，可回退。</li>
+</ul>
+<p>换个思路，就是贪心算法有一个优先级的问题；动态规划则是使用一个数组来进行记录当前方案，会对每一种方法进行尝试。</p>
+]]></content>
+      <categories>
+        <category>算法与数据结构</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>金字塔变换</title>
+    <url>/2020/05/14/%E9%87%91%E5%AD%97%E5%A1%94%E5%8F%98%E6%8D%A2/</url>
+    <content><![CDATA[<h1 id="高斯金字塔"><a href="#高斯金字塔" class="headerlink" title="高斯金字塔"></a>高斯金字塔</h1><p>在传统金字塔的基础上，对每一层用不同的参数$\sigma$做高斯模糊，使得每一层金字塔有多张高斯模糊图像，这样的一组图像称为一个$octave$。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E6%96%AF%E9%87%91%E5%AD%97%E5%A1%94.png" alt="高斯金字塔"></p>
+<p>$octave(i+1)$的第一张（从下往上）图像是由$octave(i)$中的倒数第三张图像降采样得到。</p>
+<p>高斯金字塔的构建：</p>
+<ol>
+<li>对图像做不同尺度的高斯模糊；</li>
+<li>对图像做降采样(隔点采样)。</li>
+</ol>
+<p>金字塔的层数根据图像的原始大小和塔顶图像的大小共同决定。<br>为使其尺度体现连续性，高斯金字塔在简单降采样的基础上添加了高斯滤波。</p>
+<h2 id="高斯模糊"><a href="#高斯模糊" class="headerlink" title="高斯模糊"></a>高斯模糊</h2><p>高斯模糊是一种图像滤波器，使用正态分布(高斯函数)计算模糊模板，并使用该模板与原图像做卷积运算，达到模糊图像的目的。</p>
+<p>每个像素的值都是周围相邻像素值的加权平均：原始像素的值有最大的高斯分布值，具有最大的权重，相邻像素随着距离原始像素越来越远，其权重也越来越小。</p>
+<p>优点：</p>
+<ul>
+<li>比其它的均衡模糊滤波器更好的保留了边缘效果。<br>缺点：</li>
+<li>因模板矩阵的关系而造成边缘图像缺失，$\theta$越大，缺失像素越多，丢弃模板会造成黑边；</li>
+<li>当$\theta$变大时，高斯模板(高斯核)和卷积运算量将大幅度提高。</li>
+</ul>
+<p><em>理论上来讲，图像中每个像素点的分布都不为零，即每个像素的计算都需要包含整幅图像。</em><br><em>在实际应用中，在计算高斯函数的离散近似时，在大概$3\theta$距离之外的像素都可以看作不起作用，即高斯模板矩阵的大小$(6\theta+1) * (6\theta+1)$。大尺度对应于图像的概貌特征，小尺度对应于图像的细节特征。</em><br><em>为了确保模板矩阵中的元素在[0,1]之间，需将模板矩阵归一化。</em></p>
+<h3 id="分离高斯模糊"><a href="#分离高斯模糊" class="headerlink" title="分离高斯模糊"></a>分离高斯模糊</h3><p>高斯函数的可分离性是指使用二维矩阵变换得到的效果可通过在水平方向进行一维高斯矩阵变换加上竖直方向的一维高斯矩阵变换得到。</p>
+<p>根据高斯函数的可分离性，可对二维高斯模糊函数进行改进：两次一维的高斯卷积将消除二维高斯矩阵所产生的边缘。</p>
+<h1 id="高斯差分金字塔"><a href="#高斯差分金字塔" class="headerlink" title="高斯差分金字塔"></a>高斯差分金字塔</h1><p>高斯差分函数，Difference of Gaussian，简称DoG算子，可产生较强的边缘响应。</p>
+<p>在实际计算时，使用<strong>高斯金字塔每组中相邻上下两层图像相减，得到高斯差分图像</strong>，进行极值检测。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/LoG_DoG.jpg" alt="LoG_DoG"></p>
+<p>由于高斯差分的计算更加简单，因此常用DoG算子近似替代LoG算子。</p>
+<a href="/2020/05/25/%E5%9B%BE%E5%83%8F%E7%89%B9%E5%BE%81/" title="高斯拉普拉斯LoG">高斯拉普拉斯LoG</a>
+
+<h1 id="拉普拉斯金字塔"><a href="#拉普拉斯金字塔" class="headerlink" title="拉普拉斯金字塔"></a>拉普拉斯金字塔</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E9%87%91%E5%AD%97%E5%A1%94.png" alt="拉普拉斯金字塔"><br>保留所有层在卷积和下采样过程中丢失的高频信息，用于图像恢复。</p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>多尺度变换</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>面向对象设计原则</title>
+    <url>/2020/07/12/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</url>
+    <content><![CDATA[<h1 id="开闭原则OCP"><a href="#开闭原则OCP" class="headerlink" title="开闭原则OCP"></a>开闭原则OCP</h1><p>软件实体应当对扩展开放，对修改关闭。当应用的<strong>需求改变</strong>时，在<strong>不修改软件实体的源代码</strong>或二进制代码的前提下，可以<strong>扩展模块的功能</strong>，使满足新的需求。</p>
+<p><strong>软件实体</strong>包括：项目中划分出的模块、类与接口、方法。</p>
+<h2 id="开闭原则的作用"><a href="#开闭原则的作用" class="headerlink" title="开闭原则的作用"></a>开闭原则的作用</h2><p>OCP是OOP的终极目标，使软件实体拥有一定的适应性和灵活性的同时具备稳定性和延续性。</p>
+<ol>
+<li>对软件测试的影响：测试时只需对扩展代码进行测试即可。</li>
+<li>提高代码的可复用性：粒度越小，被复用的可能性越大；在OOP中，根据原子和抽象编程可提高代码的可复用性。</li>
+<li>提高软件的可维护性：稳定性高、延续性强，软件易于开发和维护。</li>
+</ol>
+<h2 id="开闭原则的实现方法"><a href="#开闭原则的实现方法" class="headerlink" title="开闭原则的实现方法"></a>开闭原则的实现方法</h2><p>可通过“<strong>抽象约束、封装变化</strong>”来实现OCP，即通过接口或抽象类为软件实体定义一个相对稳定的抽象层，<strong>将相同的可变因素封装在相同的具体实现类</strong>中。</p>
+<p>因为抽象灵活性好，适应性广，只要抽象的合理，基本可以保持软件架构的稳定。<br>软件中易变的细节可从抽象派生来的实现类进行扩展。当软件需求发生变化时，只需根据需求重新派生一个实现类来扩展即可。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Windows%E6%A1%8C%E9%9D%A2%E4%B8%BB%E9%A2%98%E7%B1%BB%E5%9B%BE.png" alt="Windows桌面主题类图"></p>
+<h1 id="里式替换原则LSP"><a href="#里式替换原则LSP" class="headerlink" title="里式替换原则LSP"></a>里式替换原则LSP</h1><p>继承必须确保超类所拥有的性质在子类中仍然成立。</p>
+<p>LSP主要阐述了<strong>有关继承的一些原则</strong>，即何时应使用继承，什么时候不应该使用继承，及其中蕴含的原理。<br>LSP是继承复用的基础，反映了<strong>基类与子类间的关系</strong>，是对OCP的补充，是<strong>对实现抽象化的具体步骤的规范</strong>。</p>
+<h2 id="里式替换原则的作用"><a href="#里式替换原则的作用" class="headerlink" title="里式替换原则的作用"></a>里式替换原则的作用</h2><ol>
+<li>LSP是实现OCP的重要方式之一。</li>
+<li>LSP克服了继承中重写父类造成的可复用性变差的缺点。</li>
+<li>LSP是动作正确性的保证，即类的扩展不会给已有的系统引入新的错误，降低了代码出错的可能性。</li>
+</ol>
+<h2 id="里式替换原则的实现方法"><a href="#里式替换原则的实现方法" class="headerlink" title="里式替换原则的实现方法"></a>里式替换原则的实现方法</h2><p>LSP简单来讲，子类可以扩展父类的功能，但不能改变父类原有的功能，即子类继承父类时，除添加新的方法完成新增功能外，<strong>尽量不要重写父类的方法</strong>。</p>
+<p><em>重写父类方法，会使整个继承体系的可复用性变差，特别是运用多态频繁时，程序运行出错的概率会非常大。</em></p>
+<p>当程序违背了LSP，应取消原来的继承关系，重新设计它们间的关系。</p>
+<p><em>鸟一般都会飞行，但新西兰的几维鸟由于翅膀退化无法飞行。假如要设计一个实例，计算几维鸟飞行花费的时间。结果会发生“除零异常”或是“无穷大”。</em><br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%87%A0%E7%BB%B4%E9%B8%9F%E4%B8%8D%E6%98%AF%E9%B8%9F.png" alt="几维鸟不是鸟"></p>
+<h1 id="依赖倒置原则DIP"><a href="#依赖倒置原则DIP" class="headerlink" title="依赖倒置原则DIP"></a>依赖倒置原则DIP</h1><p>高层模块不应该依赖低层模块，两者都应该依赖其抽象；抽象不应该依赖细节，细节应该依赖抽象。即<strong>要面向接口编程，不要面向实现编程</strong>。</p>
+<p>在软件设计中，细节(具体的实现类)具有多变性，而抽象层(接口或抽象类)相对稳定，因此以抽象为基础搭建起来的架构要比以细节为基础搭建起来的架构要稳定。</p>
+<p>使用接口或抽象类的目的是<strong>制定好规范和契约</strong>，而不去涉及任何具体的操作，把<strong>展现细节的任务交给其实现类</strong>去完成。</p>
+<h2 id="依赖倒置原则的作用"><a href="#依赖倒置原则的作用" class="headerlink" title="依赖倒置原则的作用"></a>依赖倒置原则的作用</h2><p>DIP是实现OCP的重要途径之一，降低了客户与实现模块之间的耦合。</p>
+<ul>
+<li>DIP可降低类间的耦合性；</li>
+<li>DIP可提高系统的稳定性；</li>
+<li>DIP可减少并行开发引起的风险；</li>
+<li>DIP可提高代码的可读性和可维护性。</li>
+</ul>
+<h2 id="依赖倒置原则的实现方法"><a href="#依赖倒置原则的实现方法" class="headerlink" title="依赖倒置原则的实现方法"></a>依赖倒置原则的实现方法</h2><ol>
+<li>每个类尽量提供接口或抽象类，或者两者均有；</li>
+<li>变量的声明类型尽量是接口或抽象类；</li>
+<li>任何类都不应该从具体类派生；</li>
+<li>使用继承时尽量遵循DIP。</li>
+</ol>
+<h1 id="单一职责原则SRP-单一功能原则"><a href="#单一职责原则SRP-单一功能原则" class="headerlink" title="单一职责原则SRP / 单一功能原则"></a>单一职责原则SRP / 单一功能原则</h1><p>SRP规定<strong>一个类应该有且仅有一个引起它变化的原因(职责)</strong>，否则，类应该被拆分。</p>
+<p>SRP提出对象不应该承担太多职责，如果一个对象承担了太多的职责，至少存在以下两个缺点：</p>
+<ol>
+<li>一个职责的变化可能会削弱/抑制这个类实现其它职责的能力；</li>
+<li>当客户端需要该对象的某一个职责时，不得不将其它不需要的职责全部包含进来，从而造成冗余代码或代码的浪费。</li>
+</ol>
+<h2 id="单一职责的优点"><a href="#单一职责的优点" class="headerlink" title="单一职责的优点"></a>单一职责的优点</h2><p>SRP的核心就是<strong>控制类的粒度大小</strong>，将对象解耦，提高其内聚性。</p>
+<ul>
+<li>降低类的复杂度。一个类只负责一项职责，其逻辑肯定要比负责多项职责简单。</li>
+<li>提高类的可读性。复杂性降低，自然其可读性会提高。</li>
+<li>提高系统的可维护性。可读性提高，自然更容易维护。</li>
+<li>变更引起的风险降低。变更是必然的，若遵守SRP，当修改一个功能时，可显著降低对其它功能的影响。</li>
+</ul>
+<h2 id="单一职责原则的实现方法"><a href="#单一职责原则的实现方法" class="headerlink" title="单一职责原则的实现方法"></a>单一职责原则的实现方法</h2><p>SRP是最简单但又最难运用的原则，需要设计人员发现类的不同职责，并将其分离，再封装到不同的类或模块中。<br>发现类的多重职责需要设计人员具有较强的分析设计能力和相关重构经验。</p>
+<h1 id="接口隔离原则ISP"><a href="#接口隔离原则ISP" class="headerlink" title="接口隔离原则ISP"></a>接口隔离原则ISP</h1><p>客户端不应该被迫依赖于它不使用的方法。一个类对另一个类的依赖应该建立在最小的接口上。<br>要为各个类建立它们需要的<strong>专用接口</strong>，而不是试图去建立一个庞大的接口供所有依赖它的类去调用。</p>
+<p>ISP要求程序员尽量将臃肿庞大的<strong>接口拆分成更小的和更具体的接口</strong>，让接口中只包含客户感兴趣的方法。</p>
+<h2 id="SRP和ISP的区别"><a href="#SRP和ISP的区别" class="headerlink" title="SRP和ISP的区别"></a>SRP和ISP的区别</h2><p>SRP和ISP都是为了提高类的内聚性，降低它们之间的耦合性，体现了封装的思想。</p>
+<ul>
+<li>SRP注重的是职责；ISP注重的是对接口的依赖；</li>
+<li>SRP主要是约束类，针对的是程序中的实现和细节；ISP主要约束接口，主要针对抽象和程序整体框架的构建。</li>
+</ul>
+<h2 id="接口隔离原则的优点"><a href="#接口隔离原则的优点" class="headerlink" title="接口隔离原则的优点"></a>接口隔离原则的优点</h2><p>ISP是为了约束接口，降低类对接口的依赖性。</p>
+<ul>
+<li>将臃肿庞大的接口分解为多个粒度小的接口，可预防外来变更的扩散，提高系统的灵活性和可维护性。</li>
+<li>ISP提高了系统的内聚性，减少了对外交互，降低了系统的耦合性。</li>
+<li>若接口的粒度大小定义合理，能保证系统的稳定性；但如果定义过小，则会造成接口数量过多，使设计复杂化；如果定义多大，灵活性降低，无法提高定制服务，给整体项目带来无法预料的风险。</li>
+<li>使用<strong>多个专门的接口能体现对象的层次</strong>，因为可以通过接口的继承，实现对总接口的定义。</li>
+<li>能减少项目工程中的代码冗余。过大的大接口里面通常放置许多不用的方法，当实现该接口时被迫设计冗余的代码。</li>
+</ul>
+<h2 id="接口隔离原则的实现方法"><a href="#接口隔离原则的实现方法" class="headerlink" title="接口隔离原则的实现方法"></a>接口隔离原则的实现方法</h2><ul>
+<li>接口尽量小，但要有限度。一个接口只服务于一个子模块或业务逻辑。</li>
+<li>为依赖接口的类定制服务。只提供调用者需要的方法，屏蔽不需要的方法。</li>
+<li>了解环境，拒绝盲从。每个项目或产品都有选定的环境因素，环境不同，接口拆分的标准就不同深度了解业务逻辑。</li>
+<li>提高内聚，减少对外交互。使接口用最少的方法去完成最多的事。</li>
+</ul>
+<h1 id="迪米特法则LoD-最少知识原则LKP"><a href="#迪米特法则LoD-最少知识原则LKP" class="headerlink" title="迪米特法则LoD / 最少知识原则LKP"></a>迪米特法则LoD / 最少知识原则LKP</h1><p>只与你的直接朋友交谈，不跟“陌生人”说话。<em>朋友可以为当前对象本身、当前对象的成员对象、当前对象所创建的对象、当前对象的方法参数等，这些对象同当前对象存在关联、聚合或组合关系，可以直接访问这些对象的方法。</em><br>如果两个软件实体无法直接通信，那就不应当发生直接的相互调用，可通过第三方转发该调用。</p>
+<p>其目的是降低类之间的耦合度，提高模块的相对独立性。</p>
+<h2 id="迪米特法则的优点"><a href="#迪米特法则的优点" class="headerlink" title="迪米特法则的优点"></a>迪米特法则的优点</h2><p>LoD要求<strong>限制软件实体间通信的宽度和深度</strong>。</p>
+<ul>
+<li>降低了类之间的耦合度，提高了模块的相对独立性。</li>
+<li>由于亲合度降低，从而提高了类的可复用率和系统的扩展性。</li>
+</ul>
+<p>过度使用LoD会使系统产生大量的中介类，从而增加系统的复杂性，使模块间的通信效率降低。<br>在采用LoD时需要<strong>反复权衡</strong>，确保高内聚和低耦合的同时，保证系统的结构清晰。</p>
+<h2 id="迪米特法则的实现方法"><a href="#迪米特法则的实现方法" class="headerlink" title="迪米特法则的实现方法"></a>迪米特法则的实现方法</h2><ul>
+<li>从依赖者的角度来说，<strong>只依赖应该依赖的对象</strong>。</li>
+<li>从被依赖者的角度说，<strong>只暴露应该暴露的方法</strong>。</li>
+</ul>
+<p>注意事项：</p>
+<ul>
+<li>在类的划分上，应创建弱耦合的类。</li>
+<li>在类的结构设计上，尽量降低类成员的访问权限。</li>
+<li>在类的设计上，优先考虑将一个类设置成不变类。</li>
+<li>在对其它类的引用上，将引用其它对象的次数降到最低。</li>
+<li>不暴露类的属性成员，提供对应的访问器(set和get方法)。</li>
+<li>谨慎使用序列化Serializable功能。</li>
+</ul>
+<h1 id="合成复用原则CRP-组合-聚合复用原则CARP"><a href="#合成复用原则CRP-组合-聚合复用原则CARP" class="headerlink" title="合成复用原则CRP / 组合/聚合复用原则CARP"></a>合成复用原则CRP / 组合/聚合复用原则CARP</h1><p>要求在软件复用时，要尽量<strong>先使用组合或聚合等关联关系</strong>来实现，其次才考虑使用继承关系来实现。</p>
+<p>如果要使用继承管理，必须要个遵守LSP。</p>
+<p><em>CRP和LSP相辅相成，两者都是OCP的具体实现规范。</em></p>
+<h2 id="合成复用原则的重要性"><a href="#合成复用原则的重要性" class="headerlink" title="合成复用原则的重要性"></a>合成复用原则的重要性</h2><p>通常类的复用分为继承复用和合成复用两种</p>
+<ul>
+<li>继承复用：简单、易实现；<ul>
+<li>继承复用破坏了类的封装性。因为继承会将父类的实现细节暴露给子类，父类对子类是透明的，又称<code>白箱复用</code>。</li>
+<li>子类与父类的耦合度高。父类的实现的任何改变会导致子类的实现发生改变，不利于类的扩展和维护。</li>
+<li>限制类复用的灵活性。从父类继承的实现是静态的，在编译时已定义，在运行时不能发生变化。</li>
+</ul>
+</li>
+<li>组合/聚合复用：可将已有对象纳入新对象，使之成为新对象的一部分，新对象可调用已有对象的功能；<ul>
+<li>维持了类的封装性。因为成分对象的内部细节是新对象看不见的，又称<code>黑箱复用</code>。</li>
+<li>新旧类的耦合度低。复用所需的依赖较少，新对象存取成分对象的唯一方法是通过成分对象的接口。</li>
+<li>复用的灵活性高。复用可在运行时动态进行，新对象可动态地引用与成分对象类型相同的对象。</li>
+</ul>
+</li>
+</ul>
+<h2 id="合成复用原则的实现方法"><a href="#合成复用原则的实现方法" class="headerlink" title="合成复用原则的实现方法"></a>合成复用原则的实现方法</h2><p>CRP通过将已有对象纳入新对象中，作为新对象的成员对象来实现，新对象可调用已有对象的功能，从而达到复用。</p>
+<hr>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://c.biancheng.net/view/1331.html" target="_blank" rel="noopener">http://c.biancheng.net/view/1331.html</a></li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
     <title>软件设计模式</title>
     <url>/2020/07/09/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<h1 id="软件设计模式概述"><a href="#软件设计模式概述" class="headerlink" title="软件设计模式概述"></a>软件设计模式概述</h1><p>GoF合作出版了《设计模式：可复用面向对象软件的基础》，共收录23种设计模式，从此树立了软件设计领域的里程碑，人称GoF设计模式。<br>这23种设计模式的本质是面向对象设计原则的实际应用，是对类的封装性、继承性、多态性，及类的关联关系和组合关系的充分理解。</p>
@@ -4134,195 +4324,5 @@
 <li><a href="https://www.jianshu.com/p/4475b2e1f9ae" target="_blank" rel="noopener">https://www.jianshu.com/p/4475b2e1f9ae</a></li>
 </ul>
 ]]></content>
-  </entry>
-  <entry>
-    <title>金字塔变换</title>
-    <url>/2020/05/14/%E9%87%91%E5%AD%97%E5%A1%94%E5%8F%98%E6%8D%A2/</url>
-    <content><![CDATA[<h1 id="高斯金字塔"><a href="#高斯金字塔" class="headerlink" title="高斯金字塔"></a>高斯金字塔</h1><p>在传统金字塔的基础上，对每一层用不同的参数$\sigma$做高斯模糊，使得每一层金字塔有多张高斯模糊图像，这样的一组图像称为一个$octave$。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E6%96%AF%E9%87%91%E5%AD%97%E5%A1%94.png" alt="高斯金字塔"></p>
-<p>$octave(i+1)$的第一张（从下往上）图像是由$octave(i)$中的倒数第三张图像降采样得到。</p>
-<p>高斯金字塔的构建：</p>
-<ol>
-<li>对图像做不同尺度的高斯模糊；</li>
-<li>对图像做降采样(隔点采样)。</li>
-</ol>
-<p>金字塔的层数根据图像的原始大小和塔顶图像的大小共同决定。<br>为使其尺度体现连续性，高斯金字塔在简单降采样的基础上添加了高斯滤波。</p>
-<h2 id="高斯模糊"><a href="#高斯模糊" class="headerlink" title="高斯模糊"></a>高斯模糊</h2><p>高斯模糊是一种图像滤波器，使用正态分布(高斯函数)计算模糊模板，并使用该模板与原图像做卷积运算，达到模糊图像的目的。</p>
-<p>每个像素的值都是周围相邻像素值的加权平均：原始像素的值有最大的高斯分布值，具有最大的权重，相邻像素随着距离原始像素越来越远，其权重也越来越小。</p>
-<p>优点：</p>
-<ul>
-<li>比其它的均衡模糊滤波器更好的保留了边缘效果。<br>缺点：</li>
-<li>因模板矩阵的关系而造成边缘图像缺失，$\theta$越大，缺失像素越多，丢弃模板会造成黑边；</li>
-<li>当$\theta$变大时，高斯模板(高斯核)和卷积运算量将大幅度提高。</li>
-</ul>
-<p><em>理论上来讲，图像中每个像素点的分布都不为零，即每个像素的计算都需要包含整幅图像。</em><br><em>在实际应用中，在计算高斯函数的离散近似时，在大概$3\theta$距离之外的像素都可以看作不起作用，即高斯模板矩阵的大小$(6\theta+1) * (6\theta+1)$。大尺度对应于图像的概貌特征，小尺度对应于图像的细节特征。</em><br><em>为了确保模板矩阵中的元素在[0,1]之间，需将模板矩阵归一化。</em></p>
-<h3 id="分离高斯模糊"><a href="#分离高斯模糊" class="headerlink" title="分离高斯模糊"></a>分离高斯模糊</h3><p>高斯函数的可分离性是指使用二维矩阵变换得到的效果可通过在水平方向进行一维高斯矩阵变换加上竖直方向的一维高斯矩阵变换得到。</p>
-<p>根据高斯函数的可分离性，可对二维高斯模糊函数进行改进：两次一维的高斯卷积将消除二维高斯矩阵所产生的边缘。</p>
-<h1 id="高斯差分金字塔"><a href="#高斯差分金字塔" class="headerlink" title="高斯差分金字塔"></a>高斯差分金字塔</h1><p>高斯差分函数，Difference of Gaussian，简称DoG算子，可产生较强的边缘响应。</p>
-<p>在实际计算时，使用<strong>高斯金字塔每组中相邻上下两层图像相减，得到高斯差分图像</strong>，进行极值检测。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/LoG_DoG.jpg" alt="LoG_DoG"></p>
-<p>由于高斯差分的计算更加简单，因此常用DoG算子近似替代LoG算子。</p>
-<a href="/2020/05/25/%E5%9B%BE%E5%83%8F%E7%89%B9%E5%BE%81/" title="高斯拉普拉斯LoG">高斯拉普拉斯LoG</a>
-
-<h1 id="拉普拉斯金字塔"><a href="#拉普拉斯金字塔" class="headerlink" title="拉普拉斯金字塔"></a>拉普拉斯金字塔</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E9%87%91%E5%AD%97%E5%A1%94.png" alt="拉普拉斯金字塔"><br>保留所有层在卷积和下采样过程中丢失的高频信息，用于图像恢复。</p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>多尺度变换</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>面向对象设计原则</title>
-    <url>/2020/07/12/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</url>
-    <content><![CDATA[<h1 id="开闭原则OCP"><a href="#开闭原则OCP" class="headerlink" title="开闭原则OCP"></a>开闭原则OCP</h1><p>软件实体应当对扩展开放，对修改关闭。当应用的<strong>需求改变</strong>时，在<strong>不修改软件实体的源代码</strong>或二进制代码的前提下，可以<strong>扩展模块的功能</strong>，使满足新的需求。</p>
-<p><strong>软件实体</strong>包括：项目中划分出的模块、类与接口、方法。</p>
-<h2 id="开闭原则的作用"><a href="#开闭原则的作用" class="headerlink" title="开闭原则的作用"></a>开闭原则的作用</h2><p>OCP是OOP的终极目标，使软件实体拥有一定的适应性和灵活性的同时具备稳定性和延续性。</p>
-<ol>
-<li>对软件测试的影响：测试时只需对扩展代码进行测试即可。</li>
-<li>提高代码的可复用性：粒度越小，被复用的可能性越大；在OOP中，根据原子和抽象编程可提高代码的可复用性。</li>
-<li>提高软件的可维护性：稳定性高、延续性强，软件易于开发和维护。</li>
-</ol>
-<h2 id="开闭原则的实现方法"><a href="#开闭原则的实现方法" class="headerlink" title="开闭原则的实现方法"></a>开闭原则的实现方法</h2><p>可通过“<strong>抽象约束、封装变化</strong>”来实现OCP，即通过接口或抽象类为软件实体定义一个相对稳定的抽象层，<strong>将相同的可变因素封装在相同的具体实现类</strong>中。</p>
-<p>因为抽象灵活性好，适应性广，只要抽象的合理，基本可以保持软件架构的稳定。<br>软件中易变的细节可从抽象派生来的实现类进行扩展。当软件需求发生变化时，只需根据需求重新派生一个实现类来扩展即可。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Windows%E6%A1%8C%E9%9D%A2%E4%B8%BB%E9%A2%98%E7%B1%BB%E5%9B%BE.png" alt="Windows桌面主题类图"></p>
-<h1 id="里式替换原则LSP"><a href="#里式替换原则LSP" class="headerlink" title="里式替换原则LSP"></a>里式替换原则LSP</h1><p>继承必须确保超类所拥有的性质在子类中仍然成立。</p>
-<p>LSP主要阐述了<strong>有关继承的一些原则</strong>，即何时应使用继承，什么时候不应该使用继承，及其中蕴含的原理。<br>LSP是继承复用的基础，反映了<strong>基类与子类间的关系</strong>，是对OCP的补充，是<strong>对实现抽象化的具体步骤的规范</strong>。</p>
-<h2 id="里式替换原则的作用"><a href="#里式替换原则的作用" class="headerlink" title="里式替换原则的作用"></a>里式替换原则的作用</h2><ol>
-<li>LSP是实现OCP的重要方式之一。</li>
-<li>LSP克服了继承中重写父类造成的可复用性变差的缺点。</li>
-<li>LSP是动作正确性的保证，即类的扩展不会给已有的系统引入新的错误，降低了代码出错的可能性。</li>
-</ol>
-<h2 id="里式替换原则的实现方法"><a href="#里式替换原则的实现方法" class="headerlink" title="里式替换原则的实现方法"></a>里式替换原则的实现方法</h2><p>LSP简单来讲，子类可以扩展父类的功能，但不能改变父类原有的功能，即子类继承父类时，除添加新的方法完成新增功能外，<strong>尽量不要重写父类的方法</strong>。</p>
-<p><em>重写父类方法，会使整个继承体系的可复用性变差，特别是运用多态频繁时，程序运行出错的概率会非常大。</em></p>
-<p>当程序违背了LSP，应取消原来的继承关系，重新设计它们间的关系。</p>
-<p><em>鸟一般都会飞行，但新西兰的几维鸟由于翅膀退化无法飞行。假如要设计一个实例，计算几维鸟飞行花费的时间。结果会发生“除零异常”或是“无穷大”。</em><br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%87%A0%E7%BB%B4%E9%B8%9F%E4%B8%8D%E6%98%AF%E9%B8%9F.png" alt="几维鸟不是鸟"></p>
-<h1 id="依赖倒置原则DIP"><a href="#依赖倒置原则DIP" class="headerlink" title="依赖倒置原则DIP"></a>依赖倒置原则DIP</h1><p>高层模块不应该依赖低层模块，两者都应该依赖其抽象；抽象不应该依赖细节，细节应该依赖抽象。即<strong>要面向接口编程，不要面向实现编程</strong>。</p>
-<p>在软件设计中，细节(具体的实现类)具有多变性，而抽象层(接口或抽象类)相对稳定，因此以抽象为基础搭建起来的架构要比以细节为基础搭建起来的架构要稳定。</p>
-<p>使用接口或抽象类的目的是<strong>制定好规范和契约</strong>，而不去涉及任何具体的操作，把<strong>展现细节的任务交给其实现类</strong>去完成。</p>
-<h2 id="依赖倒置原则的作用"><a href="#依赖倒置原则的作用" class="headerlink" title="依赖倒置原则的作用"></a>依赖倒置原则的作用</h2><p>DIP是实现OCP的重要途径之一，降低了客户与实现模块之间的耦合。</p>
-<ul>
-<li>DIP可降低类间的耦合性；</li>
-<li>DIP可提高系统的稳定性；</li>
-<li>DIP可减少并行开发引起的风险；</li>
-<li>DIP可提高代码的可读性和可维护性。</li>
-</ul>
-<h2 id="依赖倒置原则的实现方法"><a href="#依赖倒置原则的实现方法" class="headerlink" title="依赖倒置原则的实现方法"></a>依赖倒置原则的实现方法</h2><ol>
-<li>每个类尽量提供接口或抽象类，或者两者均有；</li>
-<li>变量的声明类型尽量是接口或抽象类；</li>
-<li>任何类都不应该从具体类派生；</li>
-<li>使用继承时尽量遵循DIP。</li>
-</ol>
-<h1 id="单一职责原则SRP-单一功能原则"><a href="#单一职责原则SRP-单一功能原则" class="headerlink" title="单一职责原则SRP / 单一功能原则"></a>单一职责原则SRP / 单一功能原则</h1><p>SRP规定<strong>一个类应该有且仅有一个引起它变化的原因(职责)</strong>，否则，类应该被拆分。</p>
-<p>SRP提出对象不应该承担太多职责，如果一个对象承担了太多的职责，至少存在以下两个缺点：</p>
-<ol>
-<li>一个职责的变化可能会削弱/抑制这个类实现其它职责的能力；</li>
-<li>当客户端需要该对象的某一个职责时，不得不将其它不需要的职责全部包含进来，从而造成冗余代码或代码的浪费。</li>
-</ol>
-<h2 id="单一职责的优点"><a href="#单一职责的优点" class="headerlink" title="单一职责的优点"></a>单一职责的优点</h2><p>SRP的核心就是<strong>控制类的粒度大小</strong>，将对象解耦，提高其内聚性。</p>
-<ul>
-<li>降低类的复杂度。一个类只负责一项职责，其逻辑肯定要比负责多项职责简单。</li>
-<li>提高类的可读性。复杂性降低，自然其可读性会提高。</li>
-<li>提高系统的可维护性。可读性提高，自然更容易维护。</li>
-<li>变更引起的风险降低。变更是必然的，若遵守SRP，当修改一个功能时，可显著降低对其它功能的影响。</li>
-</ul>
-<h2 id="单一职责原则的实现方法"><a href="#单一职责原则的实现方法" class="headerlink" title="单一职责原则的实现方法"></a>单一职责原则的实现方法</h2><p>SRP是最简单但又最难运用的原则，需要设计人员发现类的不同职责，并将其分离，再封装到不同的类或模块中。<br>发现类的多重职责需要设计人员具有较强的分析设计能力和相关重构经验。</p>
-<h1 id="接口隔离原则ISP"><a href="#接口隔离原则ISP" class="headerlink" title="接口隔离原则ISP"></a>接口隔离原则ISP</h1><p>客户端不应该被迫依赖于它不使用的方法。一个类对另一个类的依赖应该建立在最小的接口上。<br>要为各个类建立它们需要的<strong>专用接口</strong>，而不是试图去建立一个庞大的接口供所有依赖它的类去调用。</p>
-<p>ISP要求程序员尽量将臃肿庞大的<strong>接口拆分成更小的和更具体的接口</strong>，让接口中只包含客户感兴趣的方法。</p>
-<h2 id="SRP和ISP的区别"><a href="#SRP和ISP的区别" class="headerlink" title="SRP和ISP的区别"></a>SRP和ISP的区别</h2><p>SRP和ISP都是为了提高类的内聚性，降低它们之间的耦合性，体现了封装的思想。</p>
-<ul>
-<li>SRP注重的是职责；ISP注重的是对接口的依赖；</li>
-<li>SRP主要是约束类，针对的是程序中的实现和细节；ISP主要约束接口，主要针对抽象和程序整体框架的构建。</li>
-</ul>
-<h2 id="接口隔离原则的优点"><a href="#接口隔离原则的优点" class="headerlink" title="接口隔离原则的优点"></a>接口隔离原则的优点</h2><p>ISP是为了约束接口，降低类对接口的依赖性。</p>
-<ul>
-<li>将臃肿庞大的接口分解为多个粒度小的接口，可预防外来变更的扩散，提高系统的灵活性和可维护性。</li>
-<li>ISP提高了系统的内聚性，减少了对外交互，降低了系统的耦合性。</li>
-<li>若接口的粒度大小定义合理，能保证系统的稳定性；但如果定义过小，则会造成接口数量过多，使设计复杂化；如果定义多大，灵活性降低，无法提高定制服务，给整体项目带来无法预料的风险。</li>
-<li>使用<strong>多个专门的接口能体现对象的层次</strong>，因为可以通过接口的继承，实现对总接口的定义。</li>
-<li>能减少项目工程中的代码冗余。过大的大接口里面通常放置许多不用的方法，当实现该接口时被迫设计冗余的代码。</li>
-</ul>
-<h2 id="接口隔离原则的实现方法"><a href="#接口隔离原则的实现方法" class="headerlink" title="接口隔离原则的实现方法"></a>接口隔离原则的实现方法</h2><ul>
-<li>接口尽量小，但要有限度。一个接口只服务于一个子模块或业务逻辑。</li>
-<li>为依赖接口的类定制服务。只提供调用者需要的方法，屏蔽不需要的方法。</li>
-<li>了解环境，拒绝盲从。每个项目或产品都有选定的环境因素，环境不同，接口拆分的标准就不同深度了解业务逻辑。</li>
-<li>提高内聚，减少对外交互。使接口用最少的方法去完成最多的事。</li>
-</ul>
-<h1 id="迪米特法则LoD-最少知识原则LKP"><a href="#迪米特法则LoD-最少知识原则LKP" class="headerlink" title="迪米特法则LoD / 最少知识原则LKP"></a>迪米特法则LoD / 最少知识原则LKP</h1><p>只与你的直接朋友交谈，不跟“陌生人”说话。<em>朋友可以为当前对象本身、当前对象的成员对象、当前对象所创建的对象、当前对象的方法参数等，这些对象同当前对象存在关联、聚合或组合关系，可以直接访问这些对象的方法。</em><br>如果两个软件实体无法直接通信，那就不应当发生直接的相互调用，可通过第三方转发该调用。</p>
-<p>其目的是降低类之间的耦合度，提高模块的相对独立性。</p>
-<h2 id="迪米特法则的优点"><a href="#迪米特法则的优点" class="headerlink" title="迪米特法则的优点"></a>迪米特法则的优点</h2><p>LoD要求<strong>限制软件实体间通信的宽度和深度</strong>。</p>
-<ul>
-<li>降低了类之间的耦合度，提高了模块的相对独立性。</li>
-<li>由于亲合度降低，从而提高了类的可复用率和系统的扩展性。</li>
-</ul>
-<p>过度使用LoD会使系统产生大量的中介类，从而增加系统的复杂性，使模块间的通信效率降低。<br>在采用LoD时需要<strong>反复权衡</strong>，确保高内聚和低耦合的同时，保证系统的结构清晰。</p>
-<h2 id="迪米特法则的实现方法"><a href="#迪米特法则的实现方法" class="headerlink" title="迪米特法则的实现方法"></a>迪米特法则的实现方法</h2><ul>
-<li>从依赖者的角度来说，<strong>只依赖应该依赖的对象</strong>。</li>
-<li>从被依赖者的角度说，<strong>只暴露应该暴露的方法</strong>。</li>
-</ul>
-<p>注意事项：</p>
-<ul>
-<li>在类的划分上，应创建弱耦合的类。</li>
-<li>在类的结构设计上，尽量降低类成员的访问权限。</li>
-<li>在类的设计上，优先考虑将一个类设置成不变类。</li>
-<li>在对其它类的引用上，将引用其它对象的次数降到最低。</li>
-<li>不暴露类的属性成员，提供对应的访问器(set和get方法)。</li>
-<li>谨慎使用序列化Serializable功能。</li>
-</ul>
-<h1 id="合成复用原则CRP-组合-聚合复用原则CARP"><a href="#合成复用原则CRP-组合-聚合复用原则CARP" class="headerlink" title="合成复用原则CRP / 组合/聚合复用原则CARP"></a>合成复用原则CRP / 组合/聚合复用原则CARP</h1><p>要求在软件复用时，要尽量<strong>先使用组合或聚合等关联关系</strong>来实现，其次才考虑使用继承关系来实现。</p>
-<p>如果要使用继承管理，必须要个遵守LSP。</p>
-<p><em>CRP和LSP相辅相成，两者都是OCP的具体实现规范。</em></p>
-<h2 id="合成复用原则的重要性"><a href="#合成复用原则的重要性" class="headerlink" title="合成复用原则的重要性"></a>合成复用原则的重要性</h2><p>通常类的复用分为继承复用和合成复用两种</p>
-<ul>
-<li>继承复用：简单、易实现；<ul>
-<li>继承复用破坏了类的封装性。因为继承会将父类的实现细节暴露给子类，父类对子类是透明的，又称<code>白箱复用</code>。</li>
-<li>子类与父类的耦合度高。父类的实现的任何改变会导致子类的实现发生改变，不利于类的扩展和维护。</li>
-<li>限制类复用的灵活性。从父类继承的实现是静态的，在编译时已定义，在运行时不能发生变化。</li>
-</ul>
-</li>
-<li>组合/聚合复用：可将已有对象纳入新对象，使之成为新对象的一部分，新对象可调用已有对象的功能；<ul>
-<li>维持了类的封装性。因为成分对象的内部细节是新对象看不见的，又称<code>黑箱复用</code>。</li>
-<li>新旧类的耦合度低。复用所需的依赖较少，新对象存取成分对象的唯一方法是通过成分对象的接口。</li>
-<li>复用的灵活性高。复用可在运行时动态进行，新对象可动态地引用与成分对象类型相同的对象。</li>
-</ul>
-</li>
-</ul>
-<h2 id="合成复用原则的实现方法"><a href="#合成复用原则的实现方法" class="headerlink" title="合成复用原则的实现方法"></a>合成复用原则的实现方法</h2><p>CRP通过将已有对象纳入新对象中，作为新对象的成员对象来实现，新对象可调用已有对象的功能，从而达到复用。</p>
-<hr>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="http://c.biancheng.net/view/1331.html" target="_blank" rel="noopener">http://c.biancheng.net/view/1331.html</a></li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>贪心算法</title>
-    <url>/2020/06/04/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="贪心算法-贪婪算法"><a href="#贪心算法-贪婪算法" class="headerlink" title="贪心算法/贪婪算法"></a>贪心算法/贪婪算法</h1><p>贪心算法，在每一个选择过程中都选择<strong>当前最优解</strong>，从而希望最终结果达到最优的算法。</p>
-<h2 id="算法实现步骤："><a href="#算法实现步骤：" class="headerlink" title="算法实现步骤："></a>算法实现步骤：</h2><ol>
-<li>创建数学模型来描述问题；</li>
-<li>把求解的问题<strong>分成若干个子问题</strong>；</li>
-<li>对每一子问题求解，得到子问题的<strong>局部最优解</strong>；</li>
-<li>把子问题的解局部最优解合成所求问题的一个解。</li>
-</ol>
-<p><strong>贪心算法的实现，要根据具体问题具体分析。</strong></p>
-<h2 id="常用解决的问题："><a href="#常用解决的问题：" class="headerlink" title="常用解决的问题："></a>常用解决的问题：</h2><ul>
-<li>贪心算法可以解决一些最优化问题，如：求图中的最小生成树、求哈夫曼编码、旅行推销员问题等。</li>
-<li>对于其它问题，贪心算法一般不能得到我们所要求的答案，常用作辅助算法或直接解决一些要求结果不是特别严格的问题。</li>
-<li>一旦一个问题可以通过贪心算法来解决，那么贪心算法一般是解决该问题的最好方法。</li>
-</ul>
-<h2 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h2><ul>
-<li>对解决问题具有高效性；</li>
-<li>所得结果更接近于最优结果。</li>
-</ul>
-<h2 id="贪心算法与动态规划的不同"><a href="#贪心算法与动态规划的不同" class="headerlink" title="贪心算法与动态规划的不同"></a>贪心算法与动态规划的不同</h2><ul>
-<li>贪心算法要求对每个子问题的解决方案都要做出选择，且不能回退；</li>
-<li>动态规划会保存之前的运算结果，并依据以前的结果对当前方案进行选择，可回退。</li>
-</ul>
-<p>换个思路，就是贪心算法有一个优先级的问题；动态规划则是使用一个数组来进行记录当前方案，会对每一种方法进行尝试。</p>
-]]></content>
-      <categories>
-        <category>算法与数据结构</category>
-      </categories>
   </entry>
 </search>
