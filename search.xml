@@ -35,64 +35,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Hexo博客</title>
-    <url>/2020/03/09/Hexo%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h1 id="Hexo-GitHub-Pages搭建个人博客"><a href="#Hexo-GitHub-Pages搭建个人博客" class="headerlink" title="Hexo + GitHub Pages搭建个人博客"></a>Hexo + GitHub Pages搭建个人博客</h1><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! </p>
-<h2 id="创建Hexo"><a href="#创建Hexo" class="headerlink" title="创建Hexo"></a>创建Hexo</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-
-<p><code>npm install</code> 报错，解决方案：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo rm -rf ~&#x2F;.node-gyp</span><br><span class="line">sudo npm cache clean -f</span><br><span class="line">sudo npm install -g n</span><br><span class="line">sudo n stable</span><br><span class="line">sudo npm i --unsafe-perm</span><br></pre></td></tr></table></figure>
-<p><em>配置后更新版本等会比较麻烦，不配置同样可以使用</em></p>
-<h2 id="配置GitHub"><a href="#配置GitHub" class="headerlink" title="配置GitHub"></a>配置GitHub</h2><p>编辑 <code>_config.yml</code> 配置文件：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:***&#x2F;***.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-
-<h2 id="部署博客"><a href="#部署博客" class="headerlink" title="部署博客"></a>部署博客</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
-<p><code>ERROR Deployer not found: git</code> 报错，解决方案：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-
-<p>遇到 <code>xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</code> 问题，安装插件：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
-
-<h2 id="配置域名"><a href="#配置域名" class="headerlink" title="配置域名"></a>配置域名</h2><p><em>本人使用的是<a href="https://www.aliyun.com/?utm_content=se_1000301881&accounttraceid=52e2158134cd4376ab19089abd0757e9llgh" target="_blank" rel="noopener">阿里云</a>的域名</em></p>
-<ol>
-<li>在终端中 <code>ping ***.github.io</code> 得到一个ip地址，copy下来；</li>
-<li>在阿里云域名设置中添加解析：<ul>
-<li>主机记录–www，记录类型–A，解析线路–默认不修改，<br>  记录值为 <code>步骤1</code> 中ping到的ip，TTL–默认不修改；</li>
-<li>主机记录–@，记录类型–A，解析线路–默认不修改，<br>  记录值为 <code>步骤1</code> 中ping到的ip，TTL–默认不修改；</li>
-</ul>
-</li>
-<li>在GitHub中打开username.github.io仓库中的设置，找到 <code>Custom domain</code> 将自己的域名填入其中，点击保存；</li>
-<li>在本地仓库中打开 <code>source</code> 文件夹，添加 <code>CNAME</code> 文件，内容为自己的域名；</li>
-<li>重新部署，等待几分钟即可访问。</li>
-</ol>
-<h2 id="博客美化"><a href="#博客美化" class="headerlink" title="博客美化"></a>博客美化</h2><p>网上有大量主题可供使用，按照主题配置修改即可。<br>本博客基于<a href="https://github.com/theme-next/hexo-theme-next" target="_blank" rel="noopener">Next主题</a>进行配置。</p>
-<h3 id="图标查询"><a href="#图标查询" class="headerlink" title="图标查询"></a><a href="https://fontawesome.dashgame.com" target="_blank" rel="noopener">图标查询</a></h3><p><a href="https://fontawesome.dashgame.com" target="_blank" rel="noopener">https://fontawesome.dashgame.com</a></p>
-<h3 id="安装插件："><a href="#安装插件：" class="headerlink" title="安装插件："></a>安装插件：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">npm install hexo-generator-feed --save</span><br><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
-
-<h2 id="图床"><a href="#图床" class="headerlink" title="图床"></a>图床</h2><ol>
-<li>在GitHub新建一个repositories用于存储图片；</li>
-<li>在个人GitHub账户中的 <code>Settings</code> 中选择 <code>Developer settings</code> 创建 <code>Personal access tokens</code>，勾选 <code>repo</code> 一栏即可；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/picgo-token.png" alt="picgo-token"></li>
-<li>安装PicGo；</li>
-<li>配置PicGo（使用了cdn加速）；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/picgo-github.png" alt="picgo-github"></li>
-<li>配置完成后即可上传图片了。</li>
-</ol>
-<h2 id="数学公式-最新版的直接在配置文件里的mathjax设为true即可"><a href="#数学公式-最新版的直接在配置文件里的mathjax设为true即可" class="headerlink" title="数学公式(最新版的直接在配置文件里的mathjax设为true即可)"></a>数学公式(最新版的直接在配置文件里的mathjax设为true即可)</h2><h3 id="安装插件：-1"><a href="#安装插件：-1" class="headerlink" title="安装插件："></a>安装插件：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-math --save</span><br></pre></td></tr></table></figure>
-
-<h3 id="评论"><a href="#评论" class="headerlink" title="评论"></a>评论</h3><p><a href="https://www.livere.com/login_form" target="_blank" rel="noopener">livere</a>，参考下面博客美化设置。</p>
-<h3 id="设置文章阴影效果"><a href="#设置文章阴影效果" class="headerlink" title="设置文章阴影效果"></a>设置文章阴影效果</h3><p>因为在网上没有找到适合新版本7.7的方法，自己摸索尝试解决：<br>找到 <code>/themes/next/source/css/_common/components/post/post.styl</code> 中的 <code>.use-motion</code> 块，修改</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (hexo-config(&#39;motion.transition.post_block&#39;)) &#123;</span><br><span class="line">  .post-block &#123;</span><br><span class="line">      opacity: 0;</span><br><span class="line">      background: transparent; &#x2F;&#x2F;透明</span><br><span class="line">  &#125;</span><br><span class="line">  .pagination, .comments &#123;</span><br><span class="line">    opacity: 0;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="http://shenzekun.cn/hexo的next主题个性化配置教程.html" target="_blank" rel="noopener">http://shenzekun.cn/hexo的next主题个性化配置教程.html</a><br><a href="https://zhuanlan.zhihu.com/p/30836436" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/30836436</a><br><a href="https://blog.csdn.net/nightmare_dimple/article/details/86661502" target="_blank" rel="noopener">https://blog.csdn.net/nightmare_dimple/article/details/86661502</a><br><a href="https://tieba.baidu.com/p/6440743671" target="_blank" rel="noopener">https://tieba.baidu.com/p/6440743671</a><br><a href="https://www.cnblogs.com/aoguai/p/11481253.html" target="_blank" rel="noopener">https://www.cnblogs.com/aoguai/p/11481253.html</a><br><a href="https://blog.uuk4.com/2019/05/09/hexo中插入数学公式/" target="_blank" rel="noopener">https://blog.uuk4.com/2019/05/09/hexo中插入数学公式/</a></p>
-]]></content>
-      <categories>
-        <category>Mac</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Alamofire框架</title>
     <url>/2020/06/22/Alamofire%E6%A1%86%E6%9E%B6/</url>
     <content><![CDATA[<h1 id="Alamofire（swift）"><a href="#Alamofire（swift）" class="headerlink" title="Alamofire（swift）"></a>Alamofire（swift）</h1><p>使用Cocoapods进行集成；</p>
@@ -189,6 +131,64 @@
       </categories>
       <tags>
         <tag>图像分割</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo博客</title>
+    <url>/2020/03/09/Hexo%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h1 id="Hexo-GitHub-Pages搭建个人博客"><a href="#Hexo-GitHub-Pages搭建个人博客" class="headerlink" title="Hexo + GitHub Pages搭建个人博客"></a>Hexo + GitHub Pages搭建个人博客</h1><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! </p>
+<h2 id="创建Hexo"><a href="#创建Hexo" class="headerlink" title="创建Hexo"></a>创建Hexo</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<p><code>npm install</code> 报错，解决方案：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo rm -rf ~&#x2F;.node-gyp</span><br><span class="line">sudo npm cache clean -f</span><br><span class="line">sudo npm install -g n</span><br><span class="line">sudo n stable</span><br><span class="line">sudo npm i --unsafe-perm</span><br></pre></td></tr></table></figure>
+<p><em>配置后更新版本等会比较麻烦，不配置同样可以使用</em></p>
+<h2 id="配置GitHub"><a href="#配置GitHub" class="headerlink" title="配置GitHub"></a>配置GitHub</h2><p>编辑 <code>_config.yml</code> 配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:***&#x2F;***.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+<h2 id="部署博客"><a href="#部署博客" class="headerlink" title="部署博客"></a>部署博客</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<p><code>ERROR Deployer not found: git</code> 报错，解决方案：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<p>遇到 <code>xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</code> 问题，安装插件：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置域名"><a href="#配置域名" class="headerlink" title="配置域名"></a>配置域名</h2><p><em>本人使用的是<a href="https://www.aliyun.com/?utm_content=se_1000301881&accounttraceid=52e2158134cd4376ab19089abd0757e9llgh" target="_blank" rel="noopener">阿里云</a>的域名</em></p>
+<ol>
+<li>在终端中 <code>ping ***.github.io</code> 得到一个ip地址，copy下来；</li>
+<li>在阿里云域名设置中添加解析：<ul>
+<li>主机记录–www，记录类型–A，解析线路–默认不修改，<br>  记录值为 <code>步骤1</code> 中ping到的ip，TTL–默认不修改；</li>
+<li>主机记录–@，记录类型–A，解析线路–默认不修改，<br>  记录值为 <code>步骤1</code> 中ping到的ip，TTL–默认不修改；</li>
+</ul>
+</li>
+<li>在GitHub中打开username.github.io仓库中的设置，找到 <code>Custom domain</code> 将自己的域名填入其中，点击保存；</li>
+<li>在本地仓库中打开 <code>source</code> 文件夹，添加 <code>CNAME</code> 文件，内容为自己的域名；</li>
+<li>重新部署，等待几分钟即可访问。</li>
+</ol>
+<h2 id="博客美化"><a href="#博客美化" class="headerlink" title="博客美化"></a>博客美化</h2><p>网上有大量主题可供使用，按照主题配置修改即可。<br>本博客基于<a href="https://github.com/theme-next/hexo-theme-next" target="_blank" rel="noopener">Next主题</a>进行配置。</p>
+<h3 id="图标查询"><a href="#图标查询" class="headerlink" title="图标查询"></a><a href="https://fontawesome.dashgame.com" target="_blank" rel="noopener">图标查询</a></h3><p><a href="https://fontawesome.dashgame.com" target="_blank" rel="noopener">https://fontawesome.dashgame.com</a></p>
+<h3 id="安装插件："><a href="#安装插件：" class="headerlink" title="安装插件："></a>安装插件：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">npm install hexo-generator-feed --save</span><br><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
+
+<h2 id="图床"><a href="#图床" class="headerlink" title="图床"></a>图床</h2><ol>
+<li>在GitHub新建一个repositories用于存储图片；</li>
+<li>在个人GitHub账户中的 <code>Settings</code> 中选择 <code>Developer settings</code> 创建 <code>Personal access tokens</code>，勾选 <code>repo</code> 一栏即可；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/picgo-token.png" alt="picgo-token"></li>
+<li>安装PicGo；</li>
+<li>配置PicGo（使用了cdn加速）；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/picgo-github.png" alt="picgo-github"></li>
+<li>配置完成后即可上传图片了。</li>
+</ol>
+<h2 id="数学公式-最新版的直接在配置文件里的mathjax设为true即可"><a href="#数学公式-最新版的直接在配置文件里的mathjax设为true即可" class="headerlink" title="数学公式(最新版的直接在配置文件里的mathjax设为true即可)"></a>数学公式(最新版的直接在配置文件里的mathjax设为true即可)</h2><h3 id="安装插件：-1"><a href="#安装插件：-1" class="headerlink" title="安装插件："></a>安装插件：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-math --save</span><br></pre></td></tr></table></figure>
+
+<h3 id="评论"><a href="#评论" class="headerlink" title="评论"></a>评论</h3><p><a href="https://www.livere.com/login_form" target="_blank" rel="noopener">livere</a>，参考下面博客美化设置。</p>
+<h3 id="设置文章阴影效果"><a href="#设置文章阴影效果" class="headerlink" title="设置文章阴影效果"></a>设置文章阴影效果</h3><p>因为在网上没有找到适合新版本7.7的方法，自己摸索尝试解决：<br>找到 <code>/themes/next/source/css/_common/components/post/post.styl</code> 中的 <code>.use-motion</code> 块，修改</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (hexo-config(&#39;motion.transition.post_block&#39;)) &#123;</span><br><span class="line">  .post-block &#123;</span><br><span class="line">      opacity: 0;</span><br><span class="line">      background: transparent; &#x2F;&#x2F;透明</span><br><span class="line">  &#125;</span><br><span class="line">  .pagination, .comments &#123;</span><br><span class="line">    opacity: 0;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="http://shenzekun.cn/hexo的next主题个性化配置教程.html" target="_blank" rel="noopener">http://shenzekun.cn/hexo的next主题个性化配置教程.html</a><br><a href="https://zhuanlan.zhihu.com/p/30836436" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/30836436</a><br><a href="https://blog.csdn.net/nightmare_dimple/article/details/86661502" target="_blank" rel="noopener">https://blog.csdn.net/nightmare_dimple/article/details/86661502</a><br><a href="https://tieba.baidu.com/p/6440743671" target="_blank" rel="noopener">https://tieba.baidu.com/p/6440743671</a><br><a href="https://www.cnblogs.com/aoguai/p/11481253.html" target="_blank" rel="noopener">https://www.cnblogs.com/aoguai/p/11481253.html</a><br><a href="https://blog.uuk4.com/2019/05/09/hexo中插入数学公式/" target="_blank" rel="noopener">https://blog.uuk4.com/2019/05/09/hexo中插入数学公式/</a></p>
+]]></content>
+      <categories>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -294,6 +294,40 @@
 ]]></content>
   </entry>
   <entry>
+    <title>Java测试</title>
+    <url>/2020/03/10/Java%E6%B5%8B%E8%AF%95/</url>
+    <content><![CDATA[<h1 id="开发者测试"><a href="#开发者测试" class="headerlink" title="开发者测试"></a>开发者测试</h1><p><em>插件 eclemma查询覆盖率，最新版eclipse已内置</em></p>
+<h2 id="利用junit进行测试，使用assert断言进行变异测试"><a href="#利用junit进行测试，使用assert断言进行变异测试" class="headerlink" title="利用junit进行测试，使用assert断言进行变异测试"></a>利用junit进行测试，使用assert断言进行变异测试</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Junit%E6%B5%8B%E8%AF%95.png" alt="Junit测试"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void testNextDay() &#123;</span><br><span class="line">	assertEquals(10&#x2F;15&#x2F;2019,10&#x2F;14,2019);</span><br><span class="line">	assertEquals(11&#x2F;1&#x2F;2019,10&#x2F;31,2019);</span><br><span class="line">	assertEquals(2&#x2F;29&#x2F;2000,2&#x2F;28,2000);</span><br><span class="line">	assertEquals(2&#x2F;29&#x2F;2004,2&#x2F;28,2004);</span><br><span class="line">	assertEquals(3&#x2F;1&#x2F;2001,2&#x2F;28,2001);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Test(expected&#x3D;ArithmeticException.class)</span><br><span class="line">&#x2F;&#x2F;抛出异常</span><br><span class="line">@Test(timeout&#x3D;毫秒)</span><br><span class="line">&#x2F;&#x2F;针对死循环进行测试</span><br><span class="line"></span><br><span class="line">@BeforeClass</span><br><span class="line">@AfterClass</span><br><span class="line">&#x2F;&#x2F;最先执行，static修饰</span><br><span class="line"></span><br><span class="line">@Before</span><br><span class="line">@After</span><br><span class="line">&#x2F;&#x2F;每个方法单独运行</span><br><span class="line">@Ignore</span><br><span class="line">&#x2F;&#x2F;该测试方法会被忽略</span><br><span class="line"></span><br><span class="line">@RunWith</span><br><span class="line">&#x2F;&#x2F;更改测试运行器org.junit.runner.Runner</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="移动应用测试"><a href="#移动应用测试" class="headerlink" title="移动应用测试"></a>移动应用测试</h1><h2 id="配置appium"><a href="#配置appium" class="headerlink" title="配置appium"></a>配置appium</h2><p>终端打开，输入：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb devices</span><br><span class="line">adb connect xxx.xxx.xxx.xxx:5555</span><br></pre></td></tr></table></figure>
+<p>将app的环境配置复制到appium中进行启动会话；</p>
+<h2 id="利用Android-SDK中的UI工具进行组建-控件的查询"><a href="#利用Android-SDK中的UI工具进行组建-控件的查询" class="headerlink" title="利用Android SDK中的UI工具进行组建/控件的查询"></a>利用Android SDK中的UI工具进行组建/控件的查询</h2><p><em>与appium兼容性很差，经常需要关闭appium后再打开</em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;通过id获取组件</span><br><span class="line">driver.findElementById(&quot;cn.etouch.ecalendar:id&#x2F;rl_toutiao_img&quot;).click();</span><br><span class="line">&#x2F;&#x2F;通过XPath获取组件</span><br><span class="line">driver.findElementByXPath(&quot;&#x2F;&#x2F;android.widget.TextView[@text&#x3D;&#39;头条&#39;]&quot;).click();</span><br><span class="line">driver.findElementById(&quot;cn.etouch.ecalendar:id&#x2F;fl_refresh_icon&quot;).click();</span><br><span class="line">&#x2F;&#x2F;返回</span><br><span class="line">driver.sendKeyEvent(AndroidKeyCode.BACK);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="自主可控测试"><a href="#自主可控测试" class="headerlink" title="自主可控测试"></a>自主可控测试</h1><h2 id="功能测试"><a href="#功能测试" class="headerlink" title="功能测试"></a>功能测试</h2><ul>
+<li>eclipse:<br>  driver.get(“url”);<br>  Thread.sleep(1000);</li>
+<li>word:<br>  打开操作文档，按要求查找网页中对应的元素进行输入等操作；</li>
+<li>chrome:<br>  F12 检索页面元素，获取元素xpath；</li>
+<li>eclipse:<br>  driver.findElement(By.xpath(“//*[@id=&quot;username&quot;]”)).sendKeys(“username”);</li>
+</ul>
+<h2 id="性能测试："><a href="#性能测试：" class="headerlink" title="性能测试："></a>性能测试：</h2><ul>
+<li>badboy录制脚本：<br>  输入网址，对测试部分进行录制，导出为jmeter文件</li>
+<li>JMeter:<br>  打开录制好的文件，更改名称，更改线程组相关设置，左侧右键add-&gt;LogicController-&gt;TransactionController;将Step移动到Transaction下面，在最后一个操作右键add-&gt;Timer-&gt;SynchronizingTimer;修改组人数为10；在最后操作上进行参数化设置${name}；</li>
+<li>创建csv文件：<br>  在文件右键add-&gt;ConfigElement-&gt;CSVDataSetConfig;修改VariableNames为对应的名称即可。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java框架</title>
     <url>/2020/03/10/Java%E6%A1%86%E6%9E%B6/</url>
     <content><![CDATA[<h1 id="Java集合框架图"><a href="#Java集合框架图" class="headerlink" title="Java集合框架图"></a>Java集合框架图</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E5%9B%BE.png" alt="Java集合框架图"></p>
@@ -383,40 +417,6 @@
 <hr>
 <h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
 <li><a href="https://www.runoob.com/java/java-collections.html" target="_blank" rel="noopener">https://www.runoob.com/java/java-collections.html</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java测试</title>
-    <url>/2020/03/10/Java%E6%B5%8B%E8%AF%95/</url>
-    <content><![CDATA[<h1 id="开发者测试"><a href="#开发者测试" class="headerlink" title="开发者测试"></a>开发者测试</h1><p><em>插件 eclemma查询覆盖率，最新版eclipse已内置</em></p>
-<h2 id="利用junit进行测试，使用assert断言进行变异测试"><a href="#利用junit进行测试，使用assert断言进行变异测试" class="headerlink" title="利用junit进行测试，使用assert断言进行变异测试"></a>利用junit进行测试，使用assert断言进行变异测试</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Junit%E6%B5%8B%E8%AF%95.png" alt="Junit测试"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void testNextDay() &#123;</span><br><span class="line">	assertEquals(10&#x2F;15&#x2F;2019,10&#x2F;14,2019);</span><br><span class="line">	assertEquals(11&#x2F;1&#x2F;2019,10&#x2F;31,2019);</span><br><span class="line">	assertEquals(2&#x2F;29&#x2F;2000,2&#x2F;28,2000);</span><br><span class="line">	assertEquals(2&#x2F;29&#x2F;2004,2&#x2F;28,2004);</span><br><span class="line">	assertEquals(3&#x2F;1&#x2F;2001,2&#x2F;28,2001);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Test(expected&#x3D;ArithmeticException.class)</span><br><span class="line">&#x2F;&#x2F;抛出异常</span><br><span class="line">@Test(timeout&#x3D;毫秒)</span><br><span class="line">&#x2F;&#x2F;针对死循环进行测试</span><br><span class="line"></span><br><span class="line">@BeforeClass</span><br><span class="line">@AfterClass</span><br><span class="line">&#x2F;&#x2F;最先执行，static修饰</span><br><span class="line"></span><br><span class="line">@Before</span><br><span class="line">@After</span><br><span class="line">&#x2F;&#x2F;每个方法单独运行</span><br><span class="line">@Ignore</span><br><span class="line">&#x2F;&#x2F;该测试方法会被忽略</span><br><span class="line"></span><br><span class="line">@RunWith</span><br><span class="line">&#x2F;&#x2F;更改测试运行器org.junit.runner.Runner</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="移动应用测试"><a href="#移动应用测试" class="headerlink" title="移动应用测试"></a>移动应用测试</h1><h2 id="配置appium"><a href="#配置appium" class="headerlink" title="配置appium"></a>配置appium</h2><p>终端打开，输入：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb devices</span><br><span class="line">adb connect xxx.xxx.xxx.xxx:5555</span><br></pre></td></tr></table></figure>
-<p>将app的环境配置复制到appium中进行启动会话；</p>
-<h2 id="利用Android-SDK中的UI工具进行组建-控件的查询"><a href="#利用Android-SDK中的UI工具进行组建-控件的查询" class="headerlink" title="利用Android SDK中的UI工具进行组建/控件的查询"></a>利用Android SDK中的UI工具进行组建/控件的查询</h2><p><em>与appium兼容性很差，经常需要关闭appium后再打开</em></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;通过id获取组件</span><br><span class="line">driver.findElementById(&quot;cn.etouch.ecalendar:id&#x2F;rl_toutiao_img&quot;).click();</span><br><span class="line">&#x2F;&#x2F;通过XPath获取组件</span><br><span class="line">driver.findElementByXPath(&quot;&#x2F;&#x2F;android.widget.TextView[@text&#x3D;&#39;头条&#39;]&quot;).click();</span><br><span class="line">driver.findElementById(&quot;cn.etouch.ecalendar:id&#x2F;fl_refresh_icon&quot;).click();</span><br><span class="line">&#x2F;&#x2F;返回</span><br><span class="line">driver.sendKeyEvent(AndroidKeyCode.BACK);</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="自主可控测试"><a href="#自主可控测试" class="headerlink" title="自主可控测试"></a>自主可控测试</h1><h2 id="功能测试"><a href="#功能测试" class="headerlink" title="功能测试"></a>功能测试</h2><ul>
-<li>eclipse:<br>  driver.get(“url”);<br>  Thread.sleep(1000);</li>
-<li>word:<br>  打开操作文档，按要求查找网页中对应的元素进行输入等操作；</li>
-<li>chrome:<br>  F12 检索页面元素，获取元素xpath；</li>
-<li>eclipse:<br>  driver.findElement(By.xpath(“//*[@id=&quot;username&quot;]”)).sendKeys(“username”);</li>
-</ul>
-<h2 id="性能测试："><a href="#性能测试：" class="headerlink" title="性能测试："></a>性能测试：</h2><ul>
-<li>badboy录制脚本：<br>  输入网址，对测试部分进行录制，导出为jmeter文件</li>
-<li>JMeter:<br>  打开录制好的文件，更改名称，更改线程组相关设置，左侧右键add-&gt;LogicController-&gt;TransactionController;将Step移动到Transaction下面，在最后一个操作右键add-&gt;Timer-&gt;SynchronizingTimer;修改组人数为10；在最后操作上进行参数化设置${name}；</li>
-<li>创建csv文件：<br>  在文件右键add-&gt;ConfigElement-&gt;CSVDataSetConfig;修改VariableNames为对应的名称即可。</li>
 </ul>
 ]]></content>
       <categories>
@@ -852,13 +852,6 @@
       </tags>
   </entry>
   <entry>
-    <title>VS-Code配置</title>
-    <url>/2020/06/06/VSCode%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<p>配置C环境<br><a href="https://www.jianshu.com/p/83879b4aa3fe" target="_blank" rel="noopener">https://www.jianshu.com/p/83879b4aa3fe</a></p>
-<p>Latex学习<br><a href="https://www.cnblogs.com/zyg123/category/1415008.html" target="_blank" rel="noopener">https://www.cnblogs.com/zyg123/category/1415008.html</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>Ubuntu配置CUDA</title>
     <url>/2020/06/03/Ubuntu%E9%85%8D%E7%BD%AECUDA/</url>
     <content><![CDATA[<h1 id="Ubuntu-18-04安装cuda-10-1版本deb"><a href="#Ubuntu-18-04安装cuda-10-1版本deb" class="headerlink" title="Ubuntu 18.04安装cuda 10.1版本deb"></a>Ubuntu 18.04安装cuda 10.1版本deb</h1><ol>
@@ -883,6 +876,13 @@
       <tags>
         <tag>software</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>VS-Code配置</title>
+    <url>/2020/06/06/VSCode%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<p>配置C环境<br><a href="https://www.jianshu.com/p/83879b4aa3fe" target="_blank" rel="noopener">https://www.jianshu.com/p/83879b4aa3fe</a></p>
+<p>Latex学习<br><a href="https://www.cnblogs.com/zyg123/category/1415008.html" target="_blank" rel="noopener">https://www.cnblogs.com/zyg123/category/1415008.html</a></p>
+]]></content>
   </entry>
   <entry>
     <title>brief特征</title>
@@ -1356,6 +1356,165 @@
       </tags>
   </entry>
   <entry>
+    <title>swift</title>
+    <url>/2020/06/30/swift/</url>
+    <content><![CDATA[<h1 id="playground"><a href="#playground" class="headerlink" title="playground"></a>playground</h1><p><em>所见及所得，可快速查看语法更改</em></p>
+<h1 id="Cocoa框架"><a href="#Cocoa框架" class="headerlink" title="Cocoa框架"></a>Cocoa框架</h1><p>Cocoa是<code>OS X</code>和<code>ios</code>操作系统的程序的运行环境。</p>
+<p>Cocoa拥有众多框架：Application、<strong>UIKit</strong>、Cocoa Touch、Media、Core Services/<strong>Foundation</strong>、Core OS。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Cocoa.png" alt="Cocoa"></p>
+<p>Foundation框架：</p>
+<h1 id="ios"><a href="#ios" class="headerlink" title="ios"></a>ios</h1><h2 id="SandBox"><a href="#SandBox" class="headerlink" title="SandBox"></a>SandBox</h2><p>ios中的沙盒机制是一种安全体系。每个app都有一个单独的文件系统/存储空间，而且只能在对应的文件系统中进行操作，即沙盒。所有的非代码文件（资源文件等）都保存在此。</p>
+<p>沙盒包含的目录：</p>
+<ul>
+<li>/AppName.app<ul>
+<li>应用程序的程序包目录；</li>
+<li>由于应用程序必须经过<strong>签名</strong>，所以不能在运行时对这个目录中的内容进行修改，否则会导致应用程序无法启动。</li>
+</ul>
+</li>
+<li>/Documents/<ul>
+<li>保存<strong>应用程序的重要数据文件和用户数据文件</strong>等；</li>
+<li>iTunes<strong>同步</strong>时会<strong>备份</strong>该目录。</li>
+</ul>
+</li>
+<li>/Library/Caches<ul>
+<li>保存应用程序使用时产生的支持文件和缓存文件，还有日志文件最好也放在这个目录；</li>
+<li>iTunes同步时<strong>不备份</strong>该目录。</li>
+</ul>
+</li>
+<li>/Library/Preferences<ul>
+<li>保存应用程序的偏好设置文件；</li>
+<li>使用<code>NSUserDefaults</code>类设置时创建，不应手动创建。</li>
+</ul>
+</li>
+<li>/tmp/<ul>
+<li>保存应用运行时所需要的临时数据；</li>
+<li>iphone<strong>重启时会清空</strong>该目录下所有文件。</li>
+</ul>
+</li>
+</ul>
+<p>查询app沙盒路径：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 在项目中执行代码打印获取</span><br><span class="line">let homeDir &#x3D; NSHomeDirectory() as Stringprintln(homeDir)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 1、获取沙盒根目录</span><br><span class="line">let homeDir &#x3D; NSHomeDirectory() as String</span><br><span class="line">&#x2F;&#x2F; 2、获取 Documents 目录</span><br><span class="line">let docDirs &#x3D; NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArraylet docDir &#x3D; docDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 3、获取 Caches 目录</span><br><span class="line">let cachesDirs &#x3D; NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true) as NSArraylet cachesDir &#x3D; cachesDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 4、获取 Library 目录</span><br><span class="line">let libDirs &#x3D; NSSearchPathForDirectoriesInDomains(.LibraryDirectory, .UserDomainMask, true) as NSArraylet libDir &#x3D; libDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 5、获取 tmp 目录</span><br><span class="line">let tmpDir &#x3D; NSTemporaryDirectory() as String</span><br></pre></td></tr></table></figure>
+
+<h3 id="NSFileManager"><a href="#NSFileManager" class="headerlink" title="NSFileManager"></a>NSFileManager</h3><p>通过<code>fileManager</code>对沙盒中的目录/文件进行操作。</p>
+<h3 id="NSBundle"><a href="#NSBundle" class="headerlink" title="NSBundle"></a>NSBundle</h3><p>app都是通过<code>bundle</code>进行封装的，可以将<code>bundle</code>理解为上述沙盒中的<code>AppName.app</code>文件。</p>
+<p>在<code>Finder</code>中，会把<code>bundle</code>当做文件显示，防止用户误操作，但其内部是一个目录，包含图像、媒体资源、编译的代码、nib文件等，这个目录称为<code>main bundle</code>。</p>
+<p><code>Cocaoa</code>提供了<code>NSBundle类</code>封装了<code>bundle</code>操作。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 获取应用程序的 main bundle</span><br><span class="line">var mainBundle &#x3D; NSBundle.mainBundle()</span><br><span class="line">&#x2F;&#x2F; 使用 main bundle 获取资源路径</span><br><span class="line">var testFilePath &#x3D; mainBundle.pathForResource(&quot;logo&quot;, ofType: &quot;png&quot;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="KVC"><a href="#KVC" class="headerlink" title="KVC"></a>KVC</h1><h2 id="KVC设值"><a href="#KVC设值" class="headerlink" title="KVC设值"></a>KVC设值</h2><p>通过对象中对应的key，KVC在内部寻找key，并调用<code>setValue:属性值forKey:@&quot;name&quot;</code>，底层执行机制为：</p>
+<ol>
+<li>程序优先调用<code>set&lt;Key&gt;:属性值</code>方法，代码通过setter方法完成设置。*<key>指成员变量名，首字母大小写要符合KVC命名规则。*</li>
+<li>若没有找到<code>setName:</code>方法，<ol>
+<li>KVC机制会检查<code>+(BOOL)accessInstanceVariablesDirectly</code>方法有没有返回YES，默认返回YES；</li>
+<li>若重写该方法返回NO，会执行<code>setValue:forUndefinedKey</code>方法，一般不会这么做，当找不到时，会直接执行第4步。</li>
+<li>KVC机制会搜索该类中名为<key>的成员变量，无论该变量是在类接口处定义，还是在类实现处定义，无论使用怎样的访问修饰符，只要存在以<key>命名的变量，KVC都可对该成员变量赋值。</li>
+</ol>
+</li>
+<li>若该类既没有<code>set&lt;key&gt;:</code>方法，也没有<code>_&lt;key&gt;</code>和<code>_is&lt;key&gt;</code>成员变量，KVC机制会搜索<code>&lt;key&gt;</code>和<code>is&lt;key&gt;</code>的成员变量，并赋值。</li>
+<li>如果方法或成员变量都不存在，系统将会执行该对象的<code>setValue:forUndefinedKey:</code>方法，默认为抛出异常。</li>
+</ol>
+<h2 id="KVC取值"><a href="#KVC取值" class="headerlink" title="KVC取值"></a>KVC取值</h2><p>当调用<code>valueForKey:@&quot;name&quot;</code>时，KVC对key的搜索方式不同于<code>setValue:属性值forKey:@&quot;name&quot;</code>，其搜索方式为：</p>
+<ol>
+<li>首先，按<code>get&lt;key&gt;,&lt;key&gt;,is&lt;key&gt;</code>的顺序方法查找getter方法，找到就直接调用；如果是BOOL或Int等值类型，会将其包装成一个NSNumber对象。</li>
+<li>如果getter没有找到，KVC会查找<code>countOf&lt;Key&gt;, objectIn&lt;Key&gt;AtIndex或&lt;Key&gt;AtIndexes</code>格式的方法；<ol>
+<li>如果<code>countOf&lt;Key&gt;</code>和另外两个方法中的一个，那么就会返回一个可以响应NSArray所有方法的代理集合(NSkeyValueArray，是NSArray的子类)；</li>
+<li>调用该代理集合的方法，或给该代理发送属于NSArray的方法，就会以<code>countOf&lt;Key&gt;, objectIn&lt;Key&gt;AtIndex或&lt;Key&gt;AtIndexes</code>方法组合的形式调用；</li>
+<li>可选方法<code>get&lt;Key&gt;:range:</code>。</li>
+</ol>
+</li>
+<li>若没有找到，会同时查找<code>countOf&lt;Key&gt;, enumeratorOf&lt;Key&gt;, memberOf&lt;Key&gt;</code>格式的方法；<ol>
+<li>如果找到这三个方法，则返回一个可响应NSSet所有方法的代理集合；</li>
+<li>给该代理集合发送NSSet的消息，就会以<code>countOf&lt;Key&gt;, enumeratorOf&lt;Key&gt;, memberOf&lt;Key&gt;</code>组合的形式调用。</li>
+</ol>
+</li>
+<li>若还没找到，检查类方法<code>+(BOOL)accessInstanceVariablesDirectly</code>；<ol>
+<li>若返回YES（默认），按照<code>_&lt;Key&gt;, _is&lt;Key&gt;, &lt;Key&gt;, is&lt;Key&gt;</code>的顺序搜索成员变量名；</li>
+<li>如重写了类方法<code>+(BOOL)accessInstanceVariablesDirectly</code>，返回NO，便直接调用<code>valueForUndefinedKey:</code>方法，默认抛出异常。</li>
+</ol>
+</li>
+</ol>
+<h2 id="KVC处理数值和结构体类型属性"><a href="#KVC处理数值和结构体类型属性" class="headerlink" title="KVC处理数值和结构体类型属性"></a>KVC处理数值和结构体类型属性</h2><p><code>valueForKey:</code>总是返回一个🆔对象，若原本变量类型为值类型或结构体，返回值会封装成NSNumber或NSValue对象。<br><code>setValue:forKey:</code>需要手动将值类型转换为NSNumber或NSValue类型。</p>
+<p>因为传递进去和取出来的都是id类型，所以需要开发者自己担保类型的正确性，运行时Objective-C在发送消息时会检查类型，如果错误会直接抛出异常。</p>
+<h2 id="KVC处理集合"><a href="#KVC处理集合" class="headerlink" title="KVC处理集合"></a>KVC处理集合</h2><p>简单集合运算符：@avg，@count，@max，@min，@sum。<br>对象运算符：能以数组的方式返回指定的内容。</p>
+<ul>
+<li><code>@distinctUnionOfObjects</code>：返回元素唯一，类似Set；</li>
+<li><code>@unionOfObjects</code>：返回全部元素。</li>
+</ul>
+<h2 id="KVC处理字典"><a href="#KVC处理字典" class="headerlink" title="KVC处理字典"></a>KVC处理字典</h2><p>当对NSDictionary对象使用KVC时，<code>valueForKey:</code>表现行为和<code>objectForKey:</code>一样，常使用<code>valueForKeyPath:</code>来访问多层嵌套的字典。</p>
+<p><code>dictionaryWithValuesForKeys:</code>指输入一组key，返回这组key对应的属性，再组成一个字典。<br><code>setValuesForKeysWithDictionary</code>用来修改Model中对应key的属性。</p>
+<h2 id="KVC处理异常"><a href="#KVC处理异常" class="headerlink" title="KVC处理异常"></a>KVC处理异常</h2><p>KVC处理nil异常：重写<code>setNilValueForKey:</code>方法。</p>
+<p>KVC处理UndefinedKey异常：重写<code>forUndefinedKey</code>方法。</p>
+<h2 id="KVC使用场景"><a href="#KVC使用场景" class="headerlink" title="KVC使用场景"></a>KVC使用场景</h2><ul>
+<li>动态地取值和设值；</li>
+<li>访问和修改私有变量；</li>
+<li>Model和字典转换：通常和runtime组合使用；</li>
+<li>修改部分控件的内部属性；</li>
+<li>操作集合：<code>valueForKey:</code>方法的特殊实现，如NSArray和NSSet容器类；</li>
+<li>实现高阶消息传递<code>valueForKey:</code>传递给容器的每一个对象，结果添加到返回的容器中；</li>
+</ul>
+<h1 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h1><p><code>Key-Value Observing</code>，键值观察，是基于KVC实现的，是一种<strong>观察者模式的衍生</strong>。</p>
+<p><strong>基本思想：</strong>对目标对象的某属性添加观察，当该属性发生变化时，通过触发观察者对象实现的KVO接口方法，自动的通知观察者。</p>
+<p>KVO可以通过监听key，来获得value的变化，用来在对象之间监听状态变化。<br>KVO的原理是修改被观察者的setter方法。<br>KVO的定义都是对NSObject的扩展来实现的，OC中有个显式的NSKeyValueObserving类别名，对于所有继承NSObject的类型，都可使用KVO。</p>
+<p>KVO中，观察者和被观察者的改变发生在<strong>同一线程</strong>上，需要确保线程安全。</p>
+<h2 id="注册与解除注册"><a href="#注册与解除注册" class="headerlink" title="注册与解除注册"></a>注册与解除注册</h2><p>若已经拥有可供键值观察属性的类，即可通过在该类的对象(被观察对象)上调用名为NSKeyValueObserverRegistration的category方法将观察者对象与被观察者对象注册与解除注册。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;</span><br><span class="line">- (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath;</span><br></pre></td></tr></table></figure>
+<p>其中：</p>
+<ul>
+<li>observer:观察者，也就是KVO通知的订阅者；</li>
+<li>observeValueForKeyPath:ofObject:change:context:方法；</li>
+<li>keyPath：描述将要观察的属性，相对于被观察者；</li>
+<li>options：KVO的一些属性配置；<ul>
+<li>NSKeyValueObservingOptionNew：change字典包括改变后的值；</li>
+<li>NSKeyValueObservingOptionOld:change字典包括改变前的值；</li>
+<li>NSKeyValueObservingOptionInitial:注册后立刻触发KVO通知；</li>
+<li>NSKeyValueObservingOptionPrior:值改变前是否也要通知（这个key决定了是否在改变前改变后通知两次）</li>
+</ul>
+</li>
+<li>context: 上下文，传递到订阅者的函数中，用来区分消息。</li>
+</ul>
+<p>系统通过重写dealloc方法来<strong>释放资源</strong>。</p>
+<h2 id="KVO实现"><a href="#KVO实现" class="headerlink" title="KVO实现"></a>KVO实现</h2><p>KVO是通过<code>isa-swizzling</code>实现的，基本流程为：</p>
+<ul>
+<li>编译器自动为被观察者对象创造一个派生类，并将被观察对象的isa指向该派生类；</li>
+<li>若用户注册了对此目标对象的某一个属性的观察，派生类会重写该方法(只重写注册观察者的属性方法)，并在其中添加通知对象；</li>
+<li>OC在发送消息时，通过isa指针找到当前对象所属的类对象，类对象中保存着当前对象的实例方法，因此向此对象发送消息，实际上是发送到了派生类对象的方法；</li>
+<li>由于编译器对派生类的方法进行了override，并添加了通知对象，因此会向注册的对象发送通知。</li>
+</ul>
+<h2 id="手动KVO"><a href="#手动KVO" class="headerlink" title="手动KVO"></a>手动KVO</h2><ul>
+<li><code>- (void)willChangeValueForKey:(NSString *)key;</code>：将要发生改变；</li>
+<li><code>- (void)didChangeValueForKey:(NSString *)key;</code>：已经发生改变；<br>在不用的时候，一定要<strong>解除注册</strong>，否则会导致内存泄漏。</li>
+</ul>
+<p>每当监听的keyPath发生变化，就会在<code>-(void)observeValueForKeyPath:</code>函数中进行回调：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)observeValueForKeyPath:(NSString *)keyPath</span><br><span class="line">                      ofObject:(id)object</span><br><span class="line">                        change:(NSDictionary *)change</span><br><span class="line">                       context:(void *)context</span><br></pre></td></tr></table></figure>
+
+<p><em>键值观察依赖键</em></p>
+<h2 id="禁用KVO"><a href="#禁用KVO" class="headerlink" title="禁用KVO"></a>禁用KVO</h2><p>实现类方法<code>automaticallyNotifiesObserversForKey</code>返回NO，实现属性的setter方法，不调用<code>willChangeValueForKey:</code>和<code>didChangeValueForKey:</code>方法。</p>
+<h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1><p>在swift中有专门的指针类型，均被定义为<strong>unsafe</strong>：</p>
+<ul>
+<li><code>UnsafePointer&lt;Pointee&gt;</code>：类似于C语言中的<code>const Pointee *</code>，只能访问内存，不能修改内存；</li>
+<li><code>UnsafeMutablePointer&lt;Pointee&gt;</code>：类似于C语言中的<code>Pointee *</code>，可访问和修改内存；</li>
+<li><code>UnsafeRawPointer</code>：类似于<code>const void *</code>，只读，不支持泛型；</li>
+<li><code>UnsafeMutableRawPointer</code>：类似于void，可读可写，不支持泛型。</li>
+</ul>
+<p>获取变量的指针：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 获取可变的变量指针, value参数接受变量地址，取决于body闭包的返回值</span><br><span class="line">@inlinable public func withUnsafeMutablePointer&lt;T, Result&gt;(to value: inout T, _ body: (UnsafeMutablePointer&lt;T&gt;) throws -&gt; Result) rethrows -&gt; Result</span><br><span class="line">&#x2F;&#x2F; 获取不可变的变量指针, value参数接受变量，取决于body闭包的返回值</span><br><span class="line">@inlinable public func withUnsafePointer&lt;T, Result&gt;(to value: T, _ body: (UnsafePointer&lt;T&gt;) throws -&gt; Result) rethrows -&gt; Result</span><br><span class="line">&#x2F;&#x2F; 获取不可变的变量指针, value参数接受变量地址，取决于body闭包的返回值</span><br><span class="line">@inlinable public func withUnsafePointer&lt;T, Result&gt;(to value: inout T, _ body: (UnsafePointer&lt;T&gt;) throws -&gt; Result) rethrows -&gt; Result</span><br></pre></td></tr></table></figure>
+
+<p>分配内存创建指针：</p>
+<ul>
+<li>malloc</li>
+<li>allocate：只有<code>UnsafeMutableRawPointer</code>和<code>UnsafeMutablePointer&lt;T&gt;</code>才有此分配方法。</li>
+</ul>
+<p>参考：</p>
+<ul>
+<li><a href="https://numbbbbb.gitbooks.io/-the-swift-programming-language-/" target="_blank" rel="noopener">https://numbbbbb.gitbooks.io/-the-swift-programming-language-/</a></li>
+<li><a href="https://www.cnblogs.com/zjoch/p/4702873.html" target="_blank" rel="noopener">https://www.cnblogs.com/zjoch/p/4702873.html</a></li>
+<li><a href="https://blog.csdn.net/Listron/article/details/80197347" target="_blank" rel="noopener">https://blog.csdn.net/Listron/article/details/80197347</a></li>
+<li><a href="https://www.jianshu.com/p/2cef1e80042c" target="_blank" rel="noopener">https://www.jianshu.com/p/2cef1e80042c</a></li>
+<li><a href="https://www.jianshu.com/p/b9f020a8b4c9" target="_blank" rel="noopener">https://www.jianshu.com/p/b9f020a8b4c9</a></li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
     <title>二进制运算</title>
     <url>/2020/07/16/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BF%90%E7%AE%97/</url>
     <content><![CDATA[<table>
@@ -1602,6 +1761,69 @@
       </categories>
   </entry>
   <entry>
+    <title>图像特征</title>
+    <url>/2020/05/25/%E5%9B%BE%E5%83%8F%E7%89%B9%E5%BE%81/</url>
+    <content><![CDATA[<h1 id="颜色特征"><a href="#颜色特征" class="headerlink" title="颜色特征"></a>颜色特征</h1><p>RGB图像3通道分解：</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/3Dtensor.png" alt="3Dtensor"></p>
+<h2 id="量化颜色直方图"><a href="#量化颜色直方图" class="headerlink" title="量化颜色直方图"></a>量化颜色直方图</h2><p>RGB、HSV等颜色空间适用。</p>
+<h2 id="聚类颜色直方图"><a href="#聚类颜色直方图" class="headerlink" title="聚类颜色直方图"></a>聚类颜色直方图</h2><p>Lab等颜色空间适用。</p>
+<hr>
+<h1 id="几何特征"><a href="#几何特征" class="headerlink" title="几何特征"></a>几何特征</h1><h2 id="边缘Edge"><a href="#边缘Edge" class="headerlink" title="边缘Edge"></a>边缘Edge</h2><p>像素明显变化的区域 -&gt; 一阶导数的极值区域。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%BE%B9%E7%BC%98%E7%89%B9%E5%BE%81.png" alt="边缘特征"></p>
+<h3 id="边缘提取"><a href="#边缘提取" class="headerlink" title="边缘提取"></a>边缘提取</h3><p>导数对噪声敏感 -&gt; 先高斯去噪，再使用一阶导数获取极值。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96.png" alt="边缘提取"></p>
+<ul>
+<li>高斯滤波一阶导：<br>  $$ h_x(x,y) = \frac{\partial h(x,y)}{\partial x} = \frac{-x}{2\Pi \sigma^4} e^{-\frac{x^2+y^2}{2\sigma^2}} $$<br>  $$ h_y(x,y) = \frac{\partial h(x,y)}{\partial y} = \frac{-y}{2\Pi \sigma^4} e^{-\frac{x^2+y^2}{2\sigma^2}} $$</li>
+<li>梯度幅值/强度：<br>  $$ h_x(x,y)^2 + h_y(x,y)^2 $$</li>
+<li>梯度增加最快的方向：<br>  $$ \arctan(\frac{h_y(x,y)}{h_x(x,y)}) $$</li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%BE%B9%E7%BC%98%E6%A2%AF%E5%BA%A6%E8%A7%A3%E6%9E%90.png" alt="边缘梯度解析"></p>
+<h3 id="Gabor"><a href="#Gabor" class="headerlink" title="Gabor"></a>Gabor</h3><p>Gabor是一个<strong>用于边缘提取的线性滤波器</strong>，其频率和方向表达与人类视觉系统类似，能够提供<strong>良好的方向选择和尺度选择特性，而且对光照变化不敏感</strong>，适用于纹理分析。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Gabor.png" alt="Gabor"></p>
+<p>使用一个三角函数与一个高斯函数叠加即可得到一个Gabor滤波器。</p>
+<p>Gabor滤波器组：多频域/尺度、多方向<br>  <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/3%E5%B0%BA%E5%BA%A68%E6%96%B9%E5%90%91.png" alt="3尺度8方向"></p>
+<ul>
+<li><p>频域：属于加窗傅立叶变换</p>
+</li>
+<li><p>空域：一个高斯核函数和正弦平面波的乘积</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/gabor%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%BB%84.png" alt="gabor滤波器组"></p>
+</li>
+</ul>
+<h2 id="角点"><a href="#角点" class="headerlink" title="角点"></a>角点</h2><h3 id="Harris角点"><a href="#Harris角点" class="headerlink" title="Harris角点"></a>Harris角点</h3><p>在任何方向上移动小观察窗，导致大的像素变动。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Harris%E8%A7%92%E7%82%B9.png" alt="Harris角点"><br>$ E(u,v) = \sum_{x,y} w(x,y)[I(x+u,y+v)-I(x,y)]^2 $</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Harris%E8%A7%92%E7%82%B9%E6%A3%80%E6%B5%8B.png" alt="Harris角点检测"></p>
+<p>$$ E(u,v) \cong [u,v] M [u,v]^T<br>M = \sum_{x,y} w(x,y)[I(x+u,y+v)-I(x,y)]^2<br>M \rightarrow \lambda_{max},\lambda_{min} $$</p>
+<ul>
+<li>图像中直线：一个特征值大，一个特征值小；</li>
+<li>图像中平面：两个特征值都小，且近似相等；</li>
+<li>图像中角点：两个特征值都大，且近似相等。</li>
+</ul>
+<h3 id="Fast角点（快速角点特征检测）"><a href="#Fast角点（快速角点特征检测）" class="headerlink" title="Fast角点（快速角点特征检测）"></a>Fast角点（快速角点特征检测）</h3><p>对兴趣点所在圆上的16个像素点进行判断，若判断后的当前中心像素点为暗或亮，将决定其是否为角点。</p>
+<ul>
+<li>确定一个阈值t，观察某像素点为中心的一个半径为3像素的离散化的圆，该圆边界上有16个像素；</li>
+<li>若在这个圆的边界上有n（一般取12）个连续的像素点，它们的像素值比$ I_p + t $大/小，则p就是一个角点。</li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/fast%E8%A7%92%E7%82%B9.png" alt="fast角点"></p>
+<p>特点：</p>
+<ul>
+<li>时间复杂度小，检测效果好；</li>
+<li>不产生多尺度特征，没有方向信息，失去旋转不变性。</li>
+</ul>
+<h2 id="斑点（二阶导）"><a href="#斑点（二阶导）" class="headerlink" title="斑点（二阶导）"></a>斑点（二阶导）</h2><p>Laplace梯度：<br>    一阶导极值点-&gt;二阶导零点，对噪声敏感</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Laplace%E6%A2%AF%E5%BA%A6.png" alt="Laplace梯度"></p>
+<h3 id="高斯拉普拉斯LoG"><a href="#高斯拉普拉斯LoG" class="headerlink" title="高斯拉普拉斯LoG"></a>高斯拉普拉斯LoG</h3><p>Laplacian of Gaussian：先对图像进行高斯卷积滤波($\sigma$小)降噪，再采用Laplace蒜子进行边缘检测(细节)。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/LoG.png" alt="LoG"></p>
+<p>LoG -&gt; 极值点 -&gt; 斑点</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/blob.png" alt="blob"></p>
+<p>参考：<br><a href="https://blog.csdn.net/Zachary_Co/article/details/78831806" target="_blank" rel="noopener">https://blog.csdn.net/Zachary_Co/article/details/78831806</a></p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>feature</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>图像特征表示</title>
     <url>/2020/04/13/%E5%9B%BE%E5%83%8F%E7%89%B9%E5%BE%81%E8%A1%A8%E7%A4%BA/</url>
     <content><![CDATA[<h1 id="基于关键点的特征描述子"><a href="#基于关键点的特征描述子" class="headerlink" title="基于关键点的特征描述子"></a>基于关键点的特征描述子</h1><h2 id="特征点-关键点-兴趣点"><a href="#特征点-关键点-兴趣点" class="headerlink" title="特征点/关键点/兴趣点"></a>特征点/关键点/兴趣点</h2><p>不同视角图片之间的映射；<br>稳定局部特征点：</p>
@@ -1686,6 +1908,24 @@
       </tags>
   </entry>
   <entry>
+    <title>图论</title>
+    <url>/2020/07/01/%E5%9B%BE%E8%AE%BA/</url>
+    <content><![CDATA[<h1 id="深度优先遍历DFS"><a href="#深度优先遍历DFS" class="headerlink" title="深度优先遍历DFS"></a>深度优先遍历DFS</h1><p>思想：</p>
+<ol>
+<li>找一个未被访问过的顶点作为起始顶点，沿着当前顶点的边走到未访问过的顶点；</li>
+<li>当没有找到未访问过的结点时，回到上一个顶点，继续寻找未访问结点；</li>
+<li>直到所有顶点都被访问。</li>
+</ol>
+<h1 id="广度优先遍历BFS"><a href="#广度优先遍历BFS" class="headerlink" title="广度优先遍历BFS"></a>广度优先遍历BFS</h1><p>思想：类似于树的层次遍历</p>
+<ol>
+<li>找一个未被访问过的顶点作为起始顶点；</li>
+<li>找到顶点的所有的邻接点，放入队列中；</li>
+<li>从队列中依次取出结点，查找该结点的所有未被访问过的邻接点，存放到队列中；</li>
+<li>直到队列为空。</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
     <title>图像颜色空间</title>
     <url>/2020/04/25/%E5%9B%BE%E5%83%8F%E9%A2%9C%E8%89%B2%E7%A9%BA%E9%97%B4/</url>
     <content><![CDATA[<h1 id="颜色空间"><a href="#颜色空间" class="headerlink" title="颜色空间"></a>颜色空间</h1><h2 id="RGB颜色空间"><a href="#RGB颜色空间" class="headerlink" title="RGB颜色空间"></a>RGB颜色空间</h2><p>三颜色通道：</p>
@@ -1725,182 +1965,29 @@
       </categories>
   </entry>
   <entry>
-    <title>图论</title>
-    <url>/2020/07/01/%E5%9B%BE%E8%AE%BA/</url>
-    <content><![CDATA[<h1 id="深度优先遍历DFS"><a href="#深度优先遍历DFS" class="headerlink" title="深度优先遍历DFS"></a>深度优先遍历DFS</h1><p>思想：</p>
+    <title>小波变换</title>
+    <url>/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/</url>
+    <content><![CDATA[<h1 id="连续小波变换CWT"><a href="#连续小波变换CWT" class="headerlink" title="连续小波变换CWT"></a>连续小波变换CWT</h1><p>将无限长的三角函数基转换为有限长的会衰减的小波基，不仅能获取频率，还可定位到时间。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2.png" alt="小波变换"></p>
+<p>思路：</p>
 <ol>
-<li>找一个未被访问过的顶点作为起始顶点，沿着当前顶点的边走到未访问过的顶点；</li>
-<li>当没有找到未访问过的结点时，回到上一个顶点，继续寻找未访问结点；</li>
-<li>直到所有顶点都被访问。</li>
+<li>取一个小波，将其与原始信号的开始一节进行比较；</li>
+<li>计算数值F，F表示小波与所取一节信号的相似程度，计算结果取决于所选小波的形状；</li>
+<li>向右移动小波，重复步骤1和步骤2，直至覆盖整个信号；</li>
+<li>伸展小波，重复步骤1-3，对齐；</li>
+<li>对于所有缩放，重复步骤1-4，进行压缩。</li>
 </ol>
-<h1 id="广度优先遍历BFS"><a href="#广度优先遍历BFS" class="headerlink" title="广度优先遍历BFS"></a>广度优先遍历BFS</h1><p>思想：类似于树的层次遍历</p>
-<ol>
-<li>找一个未被访问过的顶点作为起始顶点；</li>
-<li>找到顶点的所有的邻接点，放入队列中；</li>
-<li>从队列中依次取出结点，查找该结点的所有未被访问过的邻接点，存放到队列中；</li>
-<li>直到队列为空。</li>
-</ol>
-]]></content>
-  </entry>
-  <entry>
-    <title>图像特征</title>
-    <url>/2020/05/25/%E5%9B%BE%E5%83%8F%E7%89%B9%E5%BE%81/</url>
-    <content><![CDATA[<h1 id="颜色特征"><a href="#颜色特征" class="headerlink" title="颜色特征"></a>颜色特征</h1><p>RGB图像3通道分解：</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/3Dtensor.png" alt="3Dtensor"></p>
-<h2 id="量化颜色直方图"><a href="#量化颜色直方图" class="headerlink" title="量化颜色直方图"></a>量化颜色直方图</h2><p>RGB、HSV等颜色空间适用。</p>
-<h2 id="聚类颜色直方图"><a href="#聚类颜色直方图" class="headerlink" title="聚类颜色直方图"></a>聚类颜色直方图</h2><p>Lab等颜色空间适用。</p>
-<hr>
-<h1 id="几何特征"><a href="#几何特征" class="headerlink" title="几何特征"></a>几何特征</h1><h2 id="边缘Edge"><a href="#边缘Edge" class="headerlink" title="边缘Edge"></a>边缘Edge</h2><p>像素明显变化的区域 -&gt; 一阶导数的极值区域。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%BE%B9%E7%BC%98%E7%89%B9%E5%BE%81.png" alt="边缘特征"></p>
-<h3 id="边缘提取"><a href="#边缘提取" class="headerlink" title="边缘提取"></a>边缘提取</h3><p>导数对噪声敏感 -&gt; 先高斯去噪，再使用一阶导数获取极值。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96.png" alt="边缘提取"></p>
-<ul>
-<li>高斯滤波一阶导：<br>  $$ h_x(x,y) = \frac{\partial h(x,y)}{\partial x} = \frac{-x}{2\Pi \sigma^4} e^{-\frac{x^2+y^2}{2\sigma^2}} $$<br>  $$ h_y(x,y) = \frac{\partial h(x,y)}{\partial y} = \frac{-y}{2\Pi \sigma^4} e^{-\frac{x^2+y^2}{2\sigma^2}} $$</li>
-<li>梯度幅值/强度：<br>  $$ h_x(x,y)^2 + h_y(x,y)^2 $$</li>
-<li>梯度增加最快的方向：<br>  $$ \arctan(\frac{h_y(x,y)}{h_x(x,y)}) $$</li>
-</ul>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%BE%B9%E7%BC%98%E6%A2%AF%E5%BA%A6%E8%A7%A3%E6%9E%90.png" alt="边缘梯度解析"></p>
-<h3 id="Gabor"><a href="#Gabor" class="headerlink" title="Gabor"></a>Gabor</h3><p>Gabor是一个<strong>用于边缘提取的线性滤波器</strong>，其频率和方向表达与人类视觉系统类似，能够提供<strong>良好的方向选择和尺度选择特性，而且对光照变化不敏感</strong>，适用于纹理分析。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Gabor.png" alt="Gabor"></p>
-<p>使用一个三角函数与一个高斯函数叠加即可得到一个Gabor滤波器。</p>
-<p>Gabor滤波器组：多频域/尺度、多方向<br>  <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/3%E5%B0%BA%E5%BA%A68%E6%96%B9%E5%90%91.png" alt="3尺度8方向"></p>
-<ul>
-<li><p>频域：属于加窗傅立叶变换</p>
-</li>
-<li><p>空域：一个高斯核函数和正弦平面波的乘积</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/gabor%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%BB%84.png" alt="gabor滤波器组"></p>
-</li>
-</ul>
-<h2 id="角点"><a href="#角点" class="headerlink" title="角点"></a>角点</h2><h3 id="Harris角点"><a href="#Harris角点" class="headerlink" title="Harris角点"></a>Harris角点</h3><p>在任何方向上移动小观察窗，导致大的像素变动。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Harris%E8%A7%92%E7%82%B9.png" alt="Harris角点"><br>$ E(u,v) = \sum_{x,y} w(x,y)[I(x+u,y+v)-I(x,y)]^2 $</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Harris%E8%A7%92%E7%82%B9%E6%A3%80%E6%B5%8B.png" alt="Harris角点检测"></p>
-<p>$$ E(u,v) \cong [u,v] M [u,v]^T<br>M = \sum_{x,y} w(x,y)[I(x+u,y+v)-I(x,y)]^2<br>M \rightarrow \lambda_{max},\lambda_{min} $$</p>
-<ul>
-<li>图像中直线：一个特征值大，一个特征值小；</li>
-<li>图像中平面：两个特征值都小，且近似相等；</li>
-<li>图像中角点：两个特征值都大，且近似相等。</li>
-</ul>
-<h3 id="Fast角点（快速角点特征检测）"><a href="#Fast角点（快速角点特征检测）" class="headerlink" title="Fast角点（快速角点特征检测）"></a>Fast角点（快速角点特征检测）</h3><p>对兴趣点所在圆上的16个像素点进行判断，若判断后的当前中心像素点为暗或亮，将决定其是否为角点。</p>
-<ul>
-<li>确定一个阈值t，观察某像素点为中心的一个半径为3像素的离散化的圆，该圆边界上有16个像素；</li>
-<li>若在这个圆的边界上有n（一般取12）个连续的像素点，它们的像素值比$ I_p + t $大/小，则p就是一个角点。</li>
-</ul>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/fast%E8%A7%92%E7%82%B9.png" alt="fast角点"></p>
-<p>特点：</p>
-<ul>
-<li>时间复杂度小，检测效果好；</li>
-<li>不产生多尺度特征，没有方向信息，失去旋转不变性。</li>
-</ul>
-<h2 id="斑点（二阶导）"><a href="#斑点（二阶导）" class="headerlink" title="斑点（二阶导）"></a>斑点（二阶导）</h2><p>Laplace梯度：<br>    一阶导极值点-&gt;二阶导零点，对噪声敏感</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Laplace%E6%A2%AF%E5%BA%A6.png" alt="Laplace梯度"></p>
-<h3 id="高斯拉普拉斯LoG"><a href="#高斯拉普拉斯LoG" class="headerlink" title="高斯拉普拉斯LoG"></a>高斯拉普拉斯LoG</h3><p>Laplacian of Gaussian：先对图像进行高斯卷积滤波($\sigma$小)降噪，再采用Laplace蒜子进行边缘检测(细节)。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/LoG.png" alt="LoG"></p>
-<p>LoG -&gt; 极值点 -&gt; 斑点</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/blob.png" alt="blob"></p>
-<p>参考：<br><a href="https://blog.csdn.net/Zachary_Co/article/details/78831806" target="_blank" rel="noopener">https://blog.csdn.net/Zachary_Co/article/details/78831806</a></p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>feature</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>多尺度变换</title>
-    <url>/2020/04/09/%E5%A4%9A%E5%B0%BA%E5%BA%A6%E5%8F%98%E6%8D%A2/</url>
-    <content><![CDATA[<h1 id="空间域处理：卷积"><a href="#空间域处理：卷积" class="headerlink" title="空间域处理：卷积"></a>空间域处理：卷积</h1><h2 id="点运算"><a href="#点运算" class="headerlink" title="点运算"></a>点运算</h2><h3 id="直方图（特征提取方法）"><a href="#直方图（特征提取方法）" class="headerlink" title="直方图（特征提取方法）"></a>直方图（特征提取方法）</h3><p>是对图片数据/特征分布的一种统计，对数据区间/空间进行量化。<br><em>全黑为0</em></p>
-<a href="/2020/06/06/%E7%9B%B4%E6%96%B9%E5%9B%BE%E5%9D%87%E8%A1%A1%E5%8C%96/" title="直方图均衡化">直方图均衡化</a>
-
-<h2 id="形态学运算"><a href="#形态学运算" class="headerlink" title="形态学运算"></a>形态学运算</h2><ul>
-<li><p>膨胀：图像中高亮部分进行膨胀，类似于领域扩展；</p>
-</li>
-<li><p>腐蚀：源图像高亮部分被腐蚀，类似于被蚕食。</p>
-</li>
-<li><p>开运算：先腐蚀再膨胀，可去除目标外的孤立点；</p>
-</li>
-<li><p>闭运算：先膨胀再腐蚀，可去除目标内的孔。</p>
-</li>
-</ul>
-<h2 id="临域运算"><a href="#临域运算" class="headerlink" title="临域运算"></a>临域运算</h2><h3 id="滤波-卷积"><a href="#滤波-卷积" class="headerlink" title="滤波/卷积"></a>滤波/卷积</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8D%B7%E7%A7%AF.gif" alt="卷积"><br>使用模版，对源图像中的每个位置进行卷积计算，按照一定步长进行滑动，可进行padding填充。</p>
-<p>padding边界填充策略：</p>
-<ul>
-<li>zero-padding补零；</li>
-<li>replication边界复制；</li>
-<li>reflection镜像；</li>
-<li>wraparound块复制。</li>
-</ul>
-<h4 id="均值滤波"><a href="#均值滤波" class="headerlink" title="均值滤波"></a>均值滤波</h4><ul>
-<li>计算卷积内的像素值</li>
-<li>取平均值作为卷积输出。</li>
-</ul>
-<p>既没有很好的去除噪声点，也破坏了图像的细节，使图像变得模糊。</p>
-<h4 id="平滑中值滤波"><a href="#平滑中值滤波" class="headerlink" title="平滑中值滤波"></a>平滑中值滤波</h4><ul>
-<li>卷积内的像素值从小到达排序；</li>
-<li>取中间值作为卷积输出。</li>
-</ul>
-<p>可有效去除椒盐噪声(黑白点)。</p>
-<h4 id="平滑高斯滤波"><a href="#平滑高斯滤波" class="headerlink" title="平滑高斯滤波"></a>平滑高斯滤波</h4><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E6%96%AF%E6%BB%A4%E6%B3%A2.png" alt="高斯滤波"><br>$$ G_{\sigma}=\frac{1}{2\Pi\sigma^2}e^{-\frac{x^2+y^2}{2\sigma^2}} $$<br>$ \sigma $ 越小，关注区域越集中。</p>
-<p>可有效去除高斯噪声，模拟人眼，关注于中心区域。</p>
-<p><strong>分解特性/级联高斯</strong><br>将2D卷积拆分成两个1D卷积，可提高计算效率。</p>
-<h4 id="梯度Prewitt滤波-卷积"><a href="#梯度Prewitt滤波-卷积" class="headerlink" title="梯度Prewitt滤波/卷积"></a>梯度Prewitt滤波/卷积</h4><ul>
-<li>水平梯度/垂直边缘：$ [-1,0,1] * {[1,1,1]}^T $</li>
-<li>垂直梯度/水平边缘：$ [1,1,1] * {[-1,0,1]}^T $</li>
-</ul>
-<h4 id="梯度Sobel滤波-卷积"><a href="#梯度Sobel滤波-卷积" class="headerlink" title="梯度Sobel滤波/卷积"></a>梯度Sobel滤波/卷积</h4><ul>
-<li>水平梯度/垂直边缘：$ [-1,0,1] * {[1,2,1]}^T $</li>
-<li>垂直梯度/水平边缘：$ [1,2,1] * {[-1,0,1]}^T $</li>
-</ul>
-<h4 id="梯度Laplacian滤波-卷积"><a href="#梯度Laplacian滤波-卷积" class="headerlink" title="梯度Laplacian滤波/卷积"></a>梯度Laplacian滤波/卷积</h4><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%A2%AF%E5%BA%A6Laplacian%E6%BB%A4%E6%B3%A2.png" alt="梯度Laplacian滤波"></p>
-<ul>
-<li>使用二阶微分蒜子；</li>
-<li>团块检测：周边高于/低于中心点；</li>
-<li>边缘检测：像素值快速变化的区域。</li>
-</ul>
-<h3 id="金字塔"><a href="#金字塔" class="headerlink" title="金字塔"></a>金字塔</h3><a href="/2020/05/14/%E9%87%91%E5%AD%97%E5%A1%94%E5%8F%98%E6%8D%A2/" title="金字塔变换">金字塔变换</a>
-
-<hr>
-<h1 id="频率域处理-提高卷积效率-：乘法"><a href="#频率域处理-提高卷积效率-：乘法" class="headerlink" title="频率域处理(提高卷积效率)：乘法"></a>频率域处理(提高卷积效率)：乘法</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%82%85%E7%AB%8B%E5%8F%B6%E5%8F%98%E6%8D%A2.png" alt="傅立叶变换"></p>
-<p>一个信号可由足够多个不同频率和幅值的正余弦波组成。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BF%A1%E5%8F%B7%E5%88%86%E8%A7%A3.png" alt="信号分解"></p>
-<h2 id="傅立叶变换"><a href="#傅立叶变换" class="headerlink" title="傅立叶变换"></a>傅立叶变换</h2><p>一系列符合欧拉公式$e^{ix} = \cos{x} + i\sin{x}$的点的运动叠加。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%82%85%E7%AB%8B%E5%8F%B6%E5%8F%98%E6%8D%A2%E6%AC%A7%E6%8B%89%E5%8F%A0%E5%8A%A0.png" alt="傅立叶变换欧拉叠加"></p>
-<p>矩形波/傅立叶逆变换：$f(t)=\frac{1}{2\Pi} \int_{-\infty}^{\infty} F(\omega)e^{i \omega t}d{\omega}$</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%9F%A9%E5%BD%A2%E6%B3%A2.png" alt="矩形波"></p>
-<table>
-<thead>
-<tr>
-<th align="center">傅立叶</th>
-<th align="center">公式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">连续傅立叶变换</td>
-<td align="center">$$H(\omega)= \int_{-\infty}^{\infty} h(x)e^{-j \omega x} d{x} = \int_{-\infty}^{\infty} h(x)[\cos{x} - {j\omega}\sin{x}] d{x}$$</td>
-</tr>
-<tr>
-<td align="center">离散傅立叶变换</td>
-<td align="center">$$X(\omega)=\sum_{-\infty}^{\infty}x_n e^{-i \omega n}$$</td>
-</tr>
-<tr>
-<td align="center">二维离散傅立叶变换</td>
-<td align="center">$$F(u,v) = \sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x,y)e^{-j2\Pi(\frac{ux}{M} = \frac{vy}{N})}$$</td>
-</tr>
-</tbody></table>
-<p><strong>低通滤波器获取图像的概貌</strong>，去除了图像的高频部分/细节信息，如中值滤波。<br><strong>高通滤波获取图像的边缘信息</strong>，如拉普拉斯滤波。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%BB%A4%E6%B3%A2.png" alt="滤波"></p>
-<h3 id="基于傅立叶变换的滤波"><a href="#基于傅立叶变换的滤波" class="headerlink" title="基于傅立叶变换的滤波"></a>基于傅立叶变换的滤波</h3><p>傅里叶变换处理非平稳信号有天生缺陷，它只能获取一段信号总体上包含哪些频率的成分，但是对各成分出现的时刻并无所知。因此时域相差很大的两个信号，可能频谱图一样。</p>
-<h4 id="相位滤波"><a href="#相位滤波" class="headerlink" title="相位滤波"></a>相位滤波</h4><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%9B%B8%E4%BD%8D%E6%BB%A4%E6%B3%A2.png" alt="相位滤波"></p>
-<h4 id="频谱滤波"><a href="#频谱滤波" class="headerlink" title="频谱滤波"></a>频谱滤波</h4><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%A2%91%E8%B0%B1%E6%BB%A4%E6%B3%A2.png" alt="频谱滤波"></p>
-<h3 id="短时傅立叶变换STFT"><a href="#短时傅立叶变换STFT" class="headerlink" title="短时傅立叶变换STFT"></a>短时傅立叶变换STFT</h3><p>对傅立叶变换添加窗格（添加时域信息），默认窗格内的信号是平稳的。<br>对窗格内的信号分段进行傅立叶变换，但窗格大小难以设置。</p>
-<p>特点：</p>
-<ul>
-<li>窄窗口时间分辨率高、频率分辨率低；</li>
-<li>宽窗口时间分辨率低、频率分辨率高；</li>
-<li>对时变的非稳态信号，高频适合小窗口，低频适合大窗口；</li>
-<li>STFT窗口固定。</li>
-</ul>
-<p><em>绝对意义的瞬时频率其实是不存在的，只是时间分辨率有限的近似分析结果。</em></p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a href="/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/" title="小波变换">小波变换</a></h2><p>reference:<br><a href="https://blog.csdn.net/asd20172016/article/details/80904634" target="_blank" rel="noopener">https://blog.csdn.net/asd20172016/article/details/80904634</a><br><a href="https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html</a><br><a href="https://zhuanlan.zhihu.com/p/23607336" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/23607336</a></p>
+<h1 id="离散小波变换DWT"><a href="#离散小波变换DWT" class="headerlink" title="离散小波变换DWT"></a>离散小波变换DWT</h1><p>离散小波变换的有效方法是使用滤波器，由Mallat于1988年提出。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%A4%9A%E5%B1%82%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="多层小波分解和重构"></p>
+<h2 id="小波分解"><a href="#小波分解" class="headerlink" title="小波分解"></a>小波分解</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%A6%BB%E6%95%A3%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="离散小波分解示意图"></p>
+<p>S表示原始的输入信号，通过两个互补的滤波器组，一个低通滤波器，得到信号的近似值A，另一个高通滤波器，得到该滤波器的细节值D。</p>
+<h2 id="小波重构"><a href="#小波重构" class="headerlink" title="小波重构"></a>小波重构</h2><p>利用小波分解的系数还原出原始信号，也叫逆离散小波变换IDWT/小波合成。</p>
+<h1 id="二维离散小波变换"><a href="#二维离散小波变换" class="headerlink" title="二维离散小波变换"></a>二维离散小波变换</h1><p>将二维信号在不同尺度进行分解，得到原始信号的近似值和细节。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BA%8C%E7%BB%B4%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="二维小波分解和重构"></p>
+<p>分解的结果为**近似分量cA、水平细节分量cH、垂直细节分量cV、对角细节分量cD。</p>
+<h1 id="常见小波函数"><a href="#常见小波函数" class="headerlink" title="常见小波函数"></a>常见小波函数</h1><p>Haar系列，Daubechies系列，Moret系列，Sym系列，Meyer系列，Coif系列</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%B3%A2%E5%87%BD%E6%95%B0.png" alt="常用小波函数"></p>
+<p>参考：<br><a href="https://www.cnblogs.com/keye/p/7809207.html" target="_blank" rel="noopener">https://www.cnblogs.com/keye/p/7809207.html</a><br><a href="https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html</a></p>
 ]]></content>
       <categories>
         <category>image</category>
@@ -2087,35 +2174,170 @@
       </categories>
   </entry>
   <entry>
-    <title>小波变换</title>
-    <url>/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/</url>
-    <content><![CDATA[<h1 id="连续小波变换CWT"><a href="#连续小波变换CWT" class="headerlink" title="连续小波变换CWT"></a>连续小波变换CWT</h1><p>将无限长的三角函数基转换为有限长的会衰减的小波基，不仅能获取频率，还可定位到时间。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2.png" alt="小波变换"></p>
-<p>思路：</p>
-<ol>
-<li>取一个小波，将其与原始信号的开始一节进行比较；</li>
-<li>计算数值F，F表示小波与所取一节信号的相似程度，计算结果取决于所选小波的形状；</li>
-<li>向右移动小波，重复步骤1和步骤2，直至覆盖整个信号；</li>
-<li>伸展小波，重复步骤1-3，对齐；</li>
-<li>对于所有缩放，重复步骤1-4，进行压缩。</li>
-</ol>
-<h1 id="离散小波变换DWT"><a href="#离散小波变换DWT" class="headerlink" title="离散小波变换DWT"></a>离散小波变换DWT</h1><p>离散小波变换的有效方法是使用滤波器，由Mallat于1988年提出。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%A4%9A%E5%B1%82%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="多层小波分解和重构"></p>
-<h2 id="小波分解"><a href="#小波分解" class="headerlink" title="小波分解"></a>小波分解</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%A6%BB%E6%95%A3%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="离散小波分解示意图"></p>
-<p>S表示原始的输入信号，通过两个互补的滤波器组，一个低通滤波器，得到信号的近似值A，另一个高通滤波器，得到该滤波器的细节值D。</p>
-<h2 id="小波重构"><a href="#小波重构" class="headerlink" title="小波重构"></a>小波重构</h2><p>利用小波分解的系数还原出原始信号，也叫逆离散小波变换IDWT/小波合成。</p>
-<h1 id="二维离散小波变换"><a href="#二维离散小波变换" class="headerlink" title="二维离散小波变换"></a>二维离散小波变换</h1><p>将二维信号在不同尺度进行分解，得到原始信号的近似值和细节。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BA%8C%E7%BB%B4%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="二维小波分解和重构"></p>
-<p>分解的结果为**近似分量cA、水平细节分量cH、垂直细节分量cV、对角细节分量cD。</p>
-<h1 id="常见小波函数"><a href="#常见小波函数" class="headerlink" title="常见小波函数"></a>常见小波函数</h1><p>Haar系列，Daubechies系列，Moret系列，Sym系列，Meyer系列，Coif系列</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%B3%A2%E5%87%BD%E6%95%B0.png" alt="常用小波函数"></p>
-<p>参考：<br><a href="https://www.cnblogs.com/keye/p/7809207.html" target="_blank" rel="noopener">https://www.cnblogs.com/keye/p/7809207.html</a><br><a href="https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html</a></p>
+    <title>多尺度变换</title>
+    <url>/2020/04/09/%E5%A4%9A%E5%B0%BA%E5%BA%A6%E5%8F%98%E6%8D%A2/</url>
+    <content><![CDATA[<h1 id="空间域处理：卷积"><a href="#空间域处理：卷积" class="headerlink" title="空间域处理：卷积"></a>空间域处理：卷积</h1><h2 id="点运算"><a href="#点运算" class="headerlink" title="点运算"></a>点运算</h2><h3 id="直方图（特征提取方法）"><a href="#直方图（特征提取方法）" class="headerlink" title="直方图（特征提取方法）"></a>直方图（特征提取方法）</h3><p>是对图片数据/特征分布的一种统计，对数据区间/空间进行量化。<br><em>全黑为0</em></p>
+<a href="/2020/06/06/%E7%9B%B4%E6%96%B9%E5%9B%BE%E5%9D%87%E8%A1%A1%E5%8C%96/" title="直方图均衡化">直方图均衡化</a>
+
+<h2 id="形态学运算"><a href="#形态学运算" class="headerlink" title="形态学运算"></a>形态学运算</h2><ul>
+<li><p>膨胀：图像中高亮部分进行膨胀，类似于领域扩展；</p>
+</li>
+<li><p>腐蚀：源图像高亮部分被腐蚀，类似于被蚕食。</p>
+</li>
+<li><p>开运算：先腐蚀再膨胀，可去除目标外的孤立点；</p>
+</li>
+<li><p>闭运算：先膨胀再腐蚀，可去除目标内的孔。</p>
+</li>
+</ul>
+<h2 id="临域运算"><a href="#临域运算" class="headerlink" title="临域运算"></a>临域运算</h2><h3 id="滤波-卷积"><a href="#滤波-卷积" class="headerlink" title="滤波/卷积"></a>滤波/卷积</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8D%B7%E7%A7%AF.gif" alt="卷积"><br>使用模版，对源图像中的每个位置进行卷积计算，按照一定步长进行滑动，可进行padding填充。</p>
+<p>padding边界填充策略：</p>
+<ul>
+<li>zero-padding补零；</li>
+<li>replication边界复制；</li>
+<li>reflection镜像；</li>
+<li>wraparound块复制。</li>
+</ul>
+<h4 id="均值滤波"><a href="#均值滤波" class="headerlink" title="均值滤波"></a>均值滤波</h4><ul>
+<li>计算卷积内的像素值</li>
+<li>取平均值作为卷积输出。</li>
+</ul>
+<p>既没有很好的去除噪声点，也破坏了图像的细节，使图像变得模糊。</p>
+<h4 id="平滑中值滤波"><a href="#平滑中值滤波" class="headerlink" title="平滑中值滤波"></a>平滑中值滤波</h4><ul>
+<li>卷积内的像素值从小到达排序；</li>
+<li>取中间值作为卷积输出。</li>
+</ul>
+<p>可有效去除椒盐噪声(黑白点)。</p>
+<h4 id="平滑高斯滤波"><a href="#平滑高斯滤波" class="headerlink" title="平滑高斯滤波"></a>平滑高斯滤波</h4><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E6%96%AF%E6%BB%A4%E6%B3%A2.png" alt="高斯滤波"><br>$$ G_{\sigma}=\frac{1}{2\Pi\sigma^2}e^{-\frac{x^2+y^2}{2\sigma^2}} $$<br>$ \sigma $ 越小，关注区域越集中。</p>
+<p>可有效去除高斯噪声，模拟人眼，关注于中心区域。</p>
+<p><strong>分解特性/级联高斯</strong><br>将2D卷积拆分成两个1D卷积，可提高计算效率。</p>
+<h4 id="梯度Prewitt滤波-卷积"><a href="#梯度Prewitt滤波-卷积" class="headerlink" title="梯度Prewitt滤波/卷积"></a>梯度Prewitt滤波/卷积</h4><ul>
+<li>水平梯度/垂直边缘：$ [-1,0,1] * {[1,1,1]}^T $</li>
+<li>垂直梯度/水平边缘：$ [1,1,1] * {[-1,0,1]}^T $</li>
+</ul>
+<h4 id="梯度Sobel滤波-卷积"><a href="#梯度Sobel滤波-卷积" class="headerlink" title="梯度Sobel滤波/卷积"></a>梯度Sobel滤波/卷积</h4><ul>
+<li>水平梯度/垂直边缘：$ [-1,0,1] * {[1,2,1]}^T $</li>
+<li>垂直梯度/水平边缘：$ [1,2,1] * {[-1,0,1]}^T $</li>
+</ul>
+<h4 id="梯度Laplacian滤波-卷积"><a href="#梯度Laplacian滤波-卷积" class="headerlink" title="梯度Laplacian滤波/卷积"></a>梯度Laplacian滤波/卷积</h4><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%A2%AF%E5%BA%A6Laplacian%E6%BB%A4%E6%B3%A2.png" alt="梯度Laplacian滤波"></p>
+<ul>
+<li>使用二阶微分蒜子；</li>
+<li>团块检测：周边高于/低于中心点；</li>
+<li>边缘检测：像素值快速变化的区域。</li>
+</ul>
+<h3 id="金字塔"><a href="#金字塔" class="headerlink" title="金字塔"></a>金字塔</h3><a href="/2020/05/14/%E9%87%91%E5%AD%97%E5%A1%94%E5%8F%98%E6%8D%A2/" title="金字塔变换">金字塔变换</a>
+
+<hr>
+<h1 id="频率域处理-提高卷积效率-：乘法"><a href="#频率域处理-提高卷积效率-：乘法" class="headerlink" title="频率域处理(提高卷积效率)：乘法"></a>频率域处理(提高卷积效率)：乘法</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%82%85%E7%AB%8B%E5%8F%B6%E5%8F%98%E6%8D%A2.png" alt="傅立叶变换"></p>
+<p>一个信号可由足够多个不同频率和幅值的正余弦波组成。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BF%A1%E5%8F%B7%E5%88%86%E8%A7%A3.png" alt="信号分解"></p>
+<h2 id="傅立叶变换"><a href="#傅立叶变换" class="headerlink" title="傅立叶变换"></a>傅立叶变换</h2><p>一系列符合欧拉公式$e^{ix} = \cos{x} + i\sin{x}$的点的运动叠加。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%82%85%E7%AB%8B%E5%8F%B6%E5%8F%98%E6%8D%A2%E6%AC%A7%E6%8B%89%E5%8F%A0%E5%8A%A0.png" alt="傅立叶变换欧拉叠加"></p>
+<p>矩形波/傅立叶逆变换：$f(t)=\frac{1}{2\Pi} \int_{-\infty}^{\infty} F(\omega)e^{i \omega t}d{\omega}$</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%9F%A9%E5%BD%A2%E6%B3%A2.png" alt="矩形波"></p>
+<table>
+<thead>
+<tr>
+<th align="center">傅立叶</th>
+<th align="center">公式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">连续傅立叶变换</td>
+<td align="center">$$H(\omega)= \int_{-\infty}^{\infty} h(x)e^{-j \omega x} d{x} = \int_{-\infty}^{\infty} h(x)[\cos{x} - {j\omega}\sin{x}] d{x}$$</td>
+</tr>
+<tr>
+<td align="center">离散傅立叶变换</td>
+<td align="center">$$X(\omega)=\sum_{-\infty}^{\infty}x_n e^{-i \omega n}$$</td>
+</tr>
+<tr>
+<td align="center">二维离散傅立叶变换</td>
+<td align="center">$$F(u,v) = \sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x,y)e^{-j2\Pi(\frac{ux}{M} = \frac{vy}{N})}$$</td>
+</tr>
+</tbody></table>
+<p><strong>低通滤波器获取图像的概貌</strong>，去除了图像的高频部分/细节信息，如中值滤波。<br><strong>高通滤波获取图像的边缘信息</strong>，如拉普拉斯滤波。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%BB%A4%E6%B3%A2.png" alt="滤波"></p>
+<h3 id="基于傅立叶变换的滤波"><a href="#基于傅立叶变换的滤波" class="headerlink" title="基于傅立叶变换的滤波"></a>基于傅立叶变换的滤波</h3><p>傅里叶变换处理非平稳信号有天生缺陷，它只能获取一段信号总体上包含哪些频率的成分，但是对各成分出现的时刻并无所知。因此时域相差很大的两个信号，可能频谱图一样。</p>
+<h4 id="相位滤波"><a href="#相位滤波" class="headerlink" title="相位滤波"></a>相位滤波</h4><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%9B%B8%E4%BD%8D%E6%BB%A4%E6%B3%A2.png" alt="相位滤波"></p>
+<h4 id="频谱滤波"><a href="#频谱滤波" class="headerlink" title="频谱滤波"></a>频谱滤波</h4><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%A2%91%E8%B0%B1%E6%BB%A4%E6%B3%A2.png" alt="频谱滤波"></p>
+<h3 id="短时傅立叶变换STFT"><a href="#短时傅立叶变换STFT" class="headerlink" title="短时傅立叶变换STFT"></a>短时傅立叶变换STFT</h3><p>对傅立叶变换添加窗格（添加时域信息），默认窗格内的信号是平稳的。<br>对窗格内的信号分段进行傅立叶变换，但窗格大小难以设置。</p>
+<p>特点：</p>
+<ul>
+<li>窄窗口时间分辨率高、频率分辨率低；</li>
+<li>宽窗口时间分辨率低、频率分辨率高；</li>
+<li>对时变的非稳态信号，高频适合小窗口，低频适合大窗口；</li>
+<li>STFT窗口固定。</li>
+</ul>
+<p><em>绝对意义的瞬时频率其实是不存在的，只是时间分辨率有限的近似分析结果。</em></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a href="/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/" title="小波变换">小波变换</a></h2><p>reference:<br><a href="https://blog.csdn.net/asd20172016/article/details/80904634" target="_blank" rel="noopener">https://blog.csdn.net/asd20172016/article/details/80904634</a><br><a href="https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html</a><br><a href="https://zhuanlan.zhihu.com/p/23607336" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/23607336</a></p>
 ]]></content>
       <categories>
         <category>image</category>
       </categories>
       <tags>
         <tag>多尺度变换</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数学公式</title>
+    <url>/2020/04/25/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="欧拉公式"><a href="#欧拉公式" class="headerlink" title="欧拉公式"></a>欧拉公式</h1><p>$e^{ix} = cos{x} + isin{x}$</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F.png" alt="欧拉公式"></p>
+<h1 id="链式求导法则"><a href="#链式求导法则" class="headerlink" title="链式求导法则"></a>链式求导法则</h1><p>$$(f(g(x)))’ = f’(g(x)) g’(x)$$</p>
+<p>或</p>
+<p>$$\frac{dy}{dx} = \frac{dy}{dz} \cdot \frac{dz}{dx}$$</p>
+<h1 id="极大似然估计MLE"><a href="#极大似然估计MLE" class="headerlink" title="极大似然估计MLE"></a>极大似然估计MLE</h1><ol>
+<li>样本集中的样本都是独立同分布iid的，可以只考虑一类样本集D，来估计参数向量$\theta$。</li>
+</ol>
+<p>$D = {x_1, x_2, … ,x_N}$</p>
+<ol start="2">
+<li>似然函数(likelihood function)：联合概率密度函数$p(D| \theta )$称为相对于$\theta$的似然函数。</li>
+</ol>
+<p>$l(\theta) = p(D|\theta) = p(x_1, x_2,…,x_N | \theta) = \prod_{i=1}^N p(x_i | \theta)$</p>
+<p>当$\widehat{\theta}$是参数空间中<strong>使似然函数最大的$\widehat{\theta}$值</strong>，那么，$\widehat{\theta}$很可能是最可能的参数值，则$\widehat{\theta}$为$\theta$的极大似然估计量。</p>
+<ol start="3">
+<li>MLE：求解使得出现该组样本的概率最大的$\theta$值。</li>
+</ol>
+<p>$$\widehat{\theta} = arg\underset{\theta}max l(\theta) = arg\underset{\theta}max \prod_{i=1}^N p(x_i | \theta)$$</p>
+<ol start="4">
+<li>对数似然函数（便于分析）</li>
+</ol>
+<p>$$\widehat{\theta} = arg\underset{\theta}max H(\theta) = arg\underset{\theta}max ln l(\theta) = arg\underset{\theta}max \sum_{i=1}^N ln p(x_i|\theta)$$</p>
+<h1 id="Lipschitz连续"><a href="#Lipschitz连续" class="headerlink" title="Lipschitz连续"></a>Lipschitz连续</h1><p>在一个连续函数f上面额外施加一个限制，要求存在一个常数$K \geq 0$，使得定义域内的任意两个元素$x_1$和$x_2$都满足$|f(x_1) - f(x_2)| \leq K|x_1 - x_2|$，即f的导数的绝对值不超过K。</p>
+]]></content>
+      <categories>
+        <category>Math</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>服务器连接</title>
+    <url>/2020/03/09/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE/</url>
+    <content><![CDATA[<h1 id="ssh远程连接（无需输入密码）"><a href="#ssh远程连接（无需输入密码）" class="headerlink" title="ssh远程连接（无需输入密码）"></a>ssh远程连接（无需输入密码）</h1><ol>
+<li><p>确保已经有生成有SSH公钥：<br>进入 <code>~/.ssh</code> 可看到有 <code>id_rsa</code> 和 <code>id_rsa.pub</code> ，其中 <code>id_rsa.pub</code> 为公钥。<br>若没有，运行：<code>ssh-keygen -t rsa -C &quot;***@gmail.com&quot;</code> 或 <code>ssh-keygen</code></p>
+</li>
+<li><p>将本电脑公钥发送到服务器端：<br><code>ssh-copy-id username@144.202.***.***</code></p>
+</li>
+<li><p>验证：<br><code>ssh &#39;username@144.202.***.***&#39;</code><br>自动连接！</p>
+</li>
+</ol>
+<ul>
+<li>若使用该方式后重置，再次连接时，会出现 <code>Host key verfication failed</code> 情况，使用 <code>ssh-keygen -R ip地址</code> 清除。</li>
+</ul>
+<h1 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h1><ol>
+<li><p>上传本地文件夹到服务器<br><code>scp -P port -r LocalWorkSpaces username@IP:WorkSpaces</code></p>
+</li>
+<li><p>下载服务器文件夹到本地<br><code>scp -P port -r username@IP:WorkSpaces LocalWorkSpaces</code> </p>
+</li>
+<li><p>上传本地文件到服务器<br><code>scp -P port file username@IP:WorkSpaces</code></p>
+</li>
+<li><p>下载服务器文件到本地<br><code>scp -P port 用户名@IP:file LocalWorkSpaces</code> </p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>remote</tag>
       </tags>
   </entry>
   <entry>
@@ -2188,37 +2410,6 @@
 <footer><strong>和你赶上最好的相遇</strong><cite>张皓宸</cite></footer></blockquote>]]></content>
       <categories>
         <category>reading</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>数学公式</title>
-    <url>/2020/04/25/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/</url>
-    <content><![CDATA[<h1 id="欧拉公式"><a href="#欧拉公式" class="headerlink" title="欧拉公式"></a>欧拉公式</h1><p>$e^{ix} = cos{x} + isin{x}$</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F.png" alt="欧拉公式"></p>
-<h1 id="链式求导法则"><a href="#链式求导法则" class="headerlink" title="链式求导法则"></a>链式求导法则</h1><p>$$(f(g(x)))’ = f’(g(x)) g’(x)$$</p>
-<p>或</p>
-<p>$$\frac{dy}{dx} = \frac{dy}{dz} \cdot \frac{dz}{dx}$$</p>
-<h1 id="极大似然估计MLE"><a href="#极大似然估计MLE" class="headerlink" title="极大似然估计MLE"></a>极大似然估计MLE</h1><ol>
-<li>样本集中的样本都是独立同分布iid的，可以只考虑一类样本集D，来估计参数向量$\theta$。</li>
-</ol>
-<p>$D = {x_1, x_2, … ,x_N}$</p>
-<ol start="2">
-<li>似然函数(likelihood function)：联合概率密度函数$p(D| \theta )$称为相对于$\theta$的似然函数。</li>
-</ol>
-<p>$l(\theta) = p(D|\theta) = p(x_1, x_2,…,x_N | \theta) = \prod_{i=1}^N p(x_i | \theta)$</p>
-<p>当$\widehat{\theta}$是参数空间中<strong>使似然函数最大的$\widehat{\theta}$值</strong>，那么，$\widehat{\theta}$很可能是最可能的参数值，则$\widehat{\theta}$为$\theta$的极大似然估计量。</p>
-<ol start="3">
-<li>MLE：求解使得出现该组样本的概率最大的$\theta$值。</li>
-</ol>
-<p>$$\widehat{\theta} = arg\underset{\theta}max l(\theta) = arg\underset{\theta}max \prod_{i=1}^N p(x_i | \theta)$$</p>
-<ol start="4">
-<li>对数似然函数（便于分析）</li>
-</ol>
-<p>$$\widehat{\theta} = arg\underset{\theta}max H(\theta) = arg\underset{\theta}max ln l(\theta) = arg\underset{\theta}max \sum_{i=1}^N ln p(x_i|\theta)$$</p>
-<h1 id="Lipschitz连续"><a href="#Lipschitz连续" class="headerlink" title="Lipschitz连续"></a>Lipschitz连续</h1><p>在一个连续函数f上面额外施加一个限制，要求存在一个常数$K \geq 0$，使得定义域内的任意两个元素$x_1$和$x_2$都满足$|f(x_1) - f(x_2)| \leq K|x_1 - x_2|$，即f的导数的绝对值不超过K。</p>
-]]></content>
-      <categories>
-        <category>Math</category>
       </categories>
   </entry>
   <entry>
@@ -2473,195 +2664,39 @@
       </categories>
   </entry>
   <entry>
-    <title>swift</title>
-    <url>/2020/06/30/swift/</url>
-    <content><![CDATA[<h1 id="playground"><a href="#playground" class="headerlink" title="playground"></a>playground</h1><p><em>所见及所得，可快速查看语法更改</em></p>
-<h1 id="Cocoa框架"><a href="#Cocoa框架" class="headerlink" title="Cocoa框架"></a>Cocoa框架</h1><p>Cocoa是<code>OS X</code>和<code>ios</code>操作系统的程序的运行环境。</p>
-<p>Cocoa拥有众多框架：Application、<strong>UIKit</strong>、Cocoa Touch、Media、Core Services/<strong>Foundation</strong>、Core OS。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Cocoa.png" alt="Cocoa"></p>
-<p>Foundation框架：</p>
-<h1 id="ios"><a href="#ios" class="headerlink" title="ios"></a>ios</h1><h2 id="SandBox"><a href="#SandBox" class="headerlink" title="SandBox"></a>SandBox</h2><p>ios中的沙盒机制是一种安全体系。每个app都有一个单独的文件系统/存储空间，而且只能在对应的文件系统中进行操作，即沙盒。所有的非代码文件（资源文件等）都保存在此。</p>
-<p>沙盒包含的目录：</p>
+    <title>激活函数</title>
+    <url>/2020/06/05/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="sigmoid"><a href="#sigmoid" class="headerlink" title="sigmoid"></a>sigmoid</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/sigmoid.jpg" alt="sigmoid"></p>
+<p>$g(z) = \frac{1}{1 + e^{-z}}$</p>
+<p>常用于二元分类的输出层，输出介于0-1之间。</p>
+<h1 id="tanh"><a href="#tanh" class="headerlink" title="tanh"></a>tanh</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/tanh.png" alt="tanh"></p>
+<p>$tanh(x) = \frac{e^x - e^{-x}}{e^{-x} + e^x}$</p>
+<h1 id="ReLu"><a href="#ReLu" class="headerlink" title="ReLu"></a>ReLu</h1><p><em>rectified linear unit，修正线性单元</em></p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ReLU.jpg" alt="ReLU"></p>
 <ul>
-<li>/AppName.app<ul>
-<li>应用程序的程序包目录；</li>
-<li>由于应用程序必须经过<strong>签名</strong>，所以不能在运行时对这个目录中的内容进行修改，否则会导致应用程序无法启动。</li>
+<li>常规ReLU：$Max(0,x_i)$<ul>
+<li>当$x\geq0$时，$y_i=x_i$；</li>
+<li>当$x&lt;0$时，$y_i=0$；</li>
 </ul>
 </li>
-<li>/Documents/<ul>
-<li>保存<strong>应用程序的重要数据文件和用户数据文件</strong>等；</li>
-<li>iTunes<strong>同步</strong>时会<strong>备份</strong>该目录。</li>
+<li>Leaky ReLU：$Max(ax_i,x_i)$<ul>
+<li>当$x\geq0$时，$y_i=x_i$；</li>
+<li>当$x&lt;0$时，$y_i=a_i x_i$；</li>
 </ul>
 </li>
-<li>/Library/Caches<ul>
-<li>保存应用程序使用时产生的支持文件和缓存文件，还有日志文件最好也放在这个目录；</li>
-<li>iTunes同步时<strong>不备份</strong>该目录。</li>
-</ul>
-</li>
-<li>/Library/Preferences<ul>
-<li>保存应用程序的偏好设置文件；</li>
-<li>使用<code>NSUserDefaults</code>类设置时创建，不应手动创建。</li>
-</ul>
-</li>
-<li>/tmp/<ul>
-<li>保存应用运行时所需要的临时数据；</li>
-<li>iphone<strong>重启时会清空</strong>该目录下所有文件。</li>
+<li>Randomized Leaky ReLU：<ul>
+<li>当$x\geq0$时，$y_i=x_i$；</li>
+<li>当$x&lt;0$时，$y_{ji}=a_{ji} x_{ji}$；</li>
 </ul>
 </li>
 </ul>
-<p>查询app沙盒路径：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 在项目中执行代码打印获取</span><br><span class="line">let homeDir &#x3D; NSHomeDirectory() as Stringprintln(homeDir)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 1、获取沙盒根目录</span><br><span class="line">let homeDir &#x3D; NSHomeDirectory() as String</span><br><span class="line">&#x2F;&#x2F; 2、获取 Documents 目录</span><br><span class="line">let docDirs &#x3D; NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArraylet docDir &#x3D; docDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 3、获取 Caches 目录</span><br><span class="line">let cachesDirs &#x3D; NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true) as NSArraylet cachesDir &#x3D; cachesDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 4、获取 Library 目录</span><br><span class="line">let libDirs &#x3D; NSSearchPathForDirectoriesInDomains(.LibraryDirectory, .UserDomainMask, true) as NSArraylet libDir &#x3D; libDirs[0] as String</span><br><span class="line">&#x2F;&#x2F; 5、获取 tmp 目录</span><br><span class="line">let tmpDir &#x3D; NSTemporaryDirectory() as String</span><br></pre></td></tr></table></figure>
-
-<h3 id="NSFileManager"><a href="#NSFileManager" class="headerlink" title="NSFileManager"></a>NSFileManager</h3><p>通过<code>fileManager</code>对沙盒中的目录/文件进行操作。</p>
-<h3 id="NSBundle"><a href="#NSBundle" class="headerlink" title="NSBundle"></a>NSBundle</h3><p>app都是通过<code>bundle</code>进行封装的，可以将<code>bundle</code>理解为上述沙盒中的<code>AppName.app</code>文件。</p>
-<p>在<code>Finder</code>中，会把<code>bundle</code>当做文件显示，防止用户误操作，但其内部是一个目录，包含图像、媒体资源、编译的代码、nib文件等，这个目录称为<code>main bundle</code>。</p>
-<p><code>Cocaoa</code>提供了<code>NSBundle类</code>封装了<code>bundle</code>操作。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 获取应用程序的 main bundle</span><br><span class="line">var mainBundle &#x3D; NSBundle.mainBundle()</span><br><span class="line">&#x2F;&#x2F; 使用 main bundle 获取资源路径</span><br><span class="line">var testFilePath &#x3D; mainBundle.pathForResource(&quot;logo&quot;, ofType: &quot;png&quot;)</span><br></pre></td></tr></table></figure>
-
-<h1 id="KVC"><a href="#KVC" class="headerlink" title="KVC"></a>KVC</h1><h2 id="KVC设值"><a href="#KVC设值" class="headerlink" title="KVC设值"></a>KVC设值</h2><p>通过对象中对应的key，KVC在内部寻找key，并调用<code>setValue:属性值forKey:@&quot;name&quot;</code>，底层执行机制为：</p>
-<ol>
-<li>程序优先调用<code>set&lt;Key&gt;:属性值</code>方法，代码通过setter方法完成设置。*<key>指成员变量名，首字母大小写要符合KVC命名规则。*</li>
-<li>若没有找到<code>setName:</code>方法，<ol>
-<li>KVC机制会检查<code>+(BOOL)accessInstanceVariablesDirectly</code>方法有没有返回YES，默认返回YES；</li>
-<li>若重写该方法返回NO，会执行<code>setValue:forUndefinedKey</code>方法，一般不会这么做，当找不到时，会直接执行第4步。</li>
-<li>KVC机制会搜索该类中名为<key>的成员变量，无论该变量是在类接口处定义，还是在类实现处定义，无论使用怎样的访问修饰符，只要存在以<key>命名的变量，KVC都可对该成员变量赋值。</li>
-</ol>
-</li>
-<li>若该类既没有<code>set&lt;key&gt;:</code>方法，也没有<code>_&lt;key&gt;</code>和<code>_is&lt;key&gt;</code>成员变量，KVC机制会搜索<code>&lt;key&gt;</code>和<code>is&lt;key&gt;</code>的成员变量，并赋值。</li>
-<li>如果方法或成员变量都不存在，系统将会执行该对象的<code>setValue:forUndefinedKey:</code>方法，默认为抛出异常。</li>
-</ol>
-<h2 id="KVC取值"><a href="#KVC取值" class="headerlink" title="KVC取值"></a>KVC取值</h2><p>当调用<code>valueForKey:@&quot;name&quot;</code>时，KVC对key的搜索方式不同于<code>setValue:属性值forKey:@&quot;name&quot;</code>，其搜索方式为：</p>
-<ol>
-<li>首先，按<code>get&lt;key&gt;,&lt;key&gt;,is&lt;key&gt;</code>的顺序方法查找getter方法，找到就直接调用；如果是BOOL或Int等值类型，会将其包装成一个NSNumber对象。</li>
-<li>如果getter没有找到，KVC会查找<code>countOf&lt;Key&gt;, objectIn&lt;Key&gt;AtIndex或&lt;Key&gt;AtIndexes</code>格式的方法；<ol>
-<li>如果<code>countOf&lt;Key&gt;</code>和另外两个方法中的一个，那么就会返回一个可以响应NSArray所有方法的代理集合(NSkeyValueArray，是NSArray的子类)；</li>
-<li>调用该代理集合的方法，或给该代理发送属于NSArray的方法，就会以<code>countOf&lt;Key&gt;, objectIn&lt;Key&gt;AtIndex或&lt;Key&gt;AtIndexes</code>方法组合的形式调用；</li>
-<li>可选方法<code>get&lt;Key&gt;:range:</code>。</li>
-</ol>
-</li>
-<li>若没有找到，会同时查找<code>countOf&lt;Key&gt;, enumeratorOf&lt;Key&gt;, memberOf&lt;Key&gt;</code>格式的方法；<ol>
-<li>如果找到这三个方法，则返回一个可响应NSSet所有方法的代理集合；</li>
-<li>给该代理集合发送NSSet的消息，就会以<code>countOf&lt;Key&gt;, enumeratorOf&lt;Key&gt;, memberOf&lt;Key&gt;</code>组合的形式调用。</li>
-</ol>
-</li>
-<li>若还没找到，检查类方法<code>+(BOOL)accessInstanceVariablesDirectly</code>；<ol>
-<li>若返回YES（默认），按照<code>_&lt;Key&gt;, _is&lt;Key&gt;, &lt;Key&gt;, is&lt;Key&gt;</code>的顺序搜索成员变量名；</li>
-<li>如重写了类方法<code>+(BOOL)accessInstanceVariablesDirectly</code>，返回NO，便直接调用<code>valueForUndefinedKey:</code>方法，默认抛出异常。</li>
-</ol>
-</li>
-</ol>
-<h2 id="KVC处理数值和结构体类型属性"><a href="#KVC处理数值和结构体类型属性" class="headerlink" title="KVC处理数值和结构体类型属性"></a>KVC处理数值和结构体类型属性</h2><p><code>valueForKey:</code>总是返回一个🆔对象，若原本变量类型为值类型或结构体，返回值会封装成NSNumber或NSValue对象。<br><code>setValue:forKey:</code>需要手动将值类型转换为NSNumber或NSValue类型。</p>
-<p>因为传递进去和取出来的都是id类型，所以需要开发者自己担保类型的正确性，运行时Objective-C在发送消息时会检查类型，如果错误会直接抛出异常。</p>
-<h2 id="KVC处理集合"><a href="#KVC处理集合" class="headerlink" title="KVC处理集合"></a>KVC处理集合</h2><p>简单集合运算符：@avg，@count，@max，@min，@sum。<br>对象运算符：能以数组的方式返回指定的内容。</p>
-<ul>
-<li><code>@distinctUnionOfObjects</code>：返回元素唯一，类似Set；</li>
-<li><code>@unionOfObjects</code>：返回全部元素。</li>
-</ul>
-<h2 id="KVC处理字典"><a href="#KVC处理字典" class="headerlink" title="KVC处理字典"></a>KVC处理字典</h2><p>当对NSDictionary对象使用KVC时，<code>valueForKey:</code>表现行为和<code>objectForKey:</code>一样，常使用<code>valueForKeyPath:</code>来访问多层嵌套的字典。</p>
-<p><code>dictionaryWithValuesForKeys:</code>指输入一组key，返回这组key对应的属性，再组成一个字典。<br><code>setValuesForKeysWithDictionary</code>用来修改Model中对应key的属性。</p>
-<h2 id="KVC处理异常"><a href="#KVC处理异常" class="headerlink" title="KVC处理异常"></a>KVC处理异常</h2><p>KVC处理nil异常：重写<code>setNilValueForKey:</code>方法。</p>
-<p>KVC处理UndefinedKey异常：重写<code>forUndefinedKey</code>方法。</p>
-<h2 id="KVC使用场景"><a href="#KVC使用场景" class="headerlink" title="KVC使用场景"></a>KVC使用场景</h2><ul>
-<li>动态地取值和设值；</li>
-<li>访问和修改私有变量；</li>
-<li>Model和字典转换：通常和runtime组合使用；</li>
-<li>修改部分控件的内部属性；</li>
-<li>操作集合：<code>valueForKey:</code>方法的特殊实现，如NSArray和NSSet容器类；</li>
-<li>实现高阶消息传递<code>valueForKey:</code>传递给容器的每一个对象，结果添加到返回的容器中；</li>
-</ul>
-<h1 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h1><p><code>Key-Value Observing</code>，键值观察，是基于KVC实现的，是一种<strong>观察者模式的衍生</strong>。</p>
-<p><strong>基本思想：</strong>对目标对象的某属性添加观察，当该属性发生变化时，通过触发观察者对象实现的KVO接口方法，自动的通知观察者。</p>
-<p>KVO可以通过监听key，来获得value的变化，用来在对象之间监听状态变化。<br>KVO的原理是修改被观察者的setter方法。<br>KVO的定义都是对NSObject的扩展来实现的，OC中有个显式的NSKeyValueObserving类别名，对于所有继承NSObject的类型，都可使用KVO。</p>
-<p>KVO中，观察者和被观察者的改变发生在<strong>同一线程</strong>上，需要确保线程安全。</p>
-<h2 id="注册与解除注册"><a href="#注册与解除注册" class="headerlink" title="注册与解除注册"></a>注册与解除注册</h2><p>若已经拥有可供键值观察属性的类，即可通过在该类的对象(被观察对象)上调用名为NSKeyValueObserverRegistration的category方法将观察者对象与被观察者对象注册与解除注册。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;</span><br><span class="line">- (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath;</span><br></pre></td></tr></table></figure>
-<p>其中：</p>
-<ul>
-<li>observer:观察者，也就是KVO通知的订阅者；</li>
-<li>observeValueForKeyPath:ofObject:change:context:方法；</li>
-<li>keyPath：描述将要观察的属性，相对于被观察者；</li>
-<li>options：KVO的一些属性配置；<ul>
-<li>NSKeyValueObservingOptionNew：change字典包括改变后的值；</li>
-<li>NSKeyValueObservingOptionOld:change字典包括改变前的值；</li>
-<li>NSKeyValueObservingOptionInitial:注册后立刻触发KVO通知；</li>
-<li>NSKeyValueObservingOptionPrior:值改变前是否也要通知（这个key决定了是否在改变前改变后通知两次）</li>
-</ul>
-</li>
-<li>context: 上下文，传递到订阅者的函数中，用来区分消息。</li>
-</ul>
-<p>系统通过重写dealloc方法来<strong>释放资源</strong>。</p>
-<h2 id="KVO实现"><a href="#KVO实现" class="headerlink" title="KVO实现"></a>KVO实现</h2><p>KVO是通过<code>isa-swizzling</code>实现的，基本流程为：</p>
-<ul>
-<li>编译器自动为被观察者对象创造一个派生类，并将被观察对象的isa指向该派生类；</li>
-<li>若用户注册了对此目标对象的某一个属性的观察，派生类会重写该方法(只重写注册观察者的属性方法)，并在其中添加通知对象；</li>
-<li>OC在发送消息时，通过isa指针找到当前对象所属的类对象，类对象中保存着当前对象的实例方法，因此向此对象发送消息，实际上是发送到了派生类对象的方法；</li>
-<li>由于编译器对派生类的方法进行了override，并添加了通知对象，因此会向注册的对象发送通知。</li>
-</ul>
-<h2 id="手动KVO"><a href="#手动KVO" class="headerlink" title="手动KVO"></a>手动KVO</h2><ul>
-<li><code>- (void)willChangeValueForKey:(NSString *)key;</code>：将要发生改变；</li>
-<li><code>- (void)didChangeValueForKey:(NSString *)key;</code>：已经发生改变；<br>在不用的时候，一定要<strong>解除注册</strong>，否则会导致内存泄漏。</li>
-</ul>
-<p>每当监听的keyPath发生变化，就会在<code>-(void)observeValueForKeyPath:</code>函数中进行回调：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)observeValueForKeyPath:(NSString *)keyPath</span><br><span class="line">                      ofObject:(id)object</span><br><span class="line">                        change:(NSDictionary *)change</span><br><span class="line">                       context:(void *)context</span><br></pre></td></tr></table></figure>
-
-<p><em>键值观察依赖键</em></p>
-<h2 id="禁用KVO"><a href="#禁用KVO" class="headerlink" title="禁用KVO"></a>禁用KVO</h2><p>实现类方法<code>automaticallyNotifiesObserversForKey</code>返回NO，实现属性的setter方法，不调用<code>willChangeValueForKey:</code>和<code>didChangeValueForKey:</code>方法。</p>
-<h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1><p>在swift中有专门的指针类型，均被定义为<strong>unsafe</strong>：</p>
-<ul>
-<li><code>UnsafePointer&lt;Pointee&gt;</code>：类似于C语言中的<code>const Pointee *</code>，只能访问内存，不能修改内存；</li>
-<li><code>UnsafeMutablePointer&lt;Pointee&gt;</code>：类似于C语言中的<code>Pointee *</code>，可访问和修改内存；</li>
-<li><code>UnsafeRawPointer</code>：类似于<code>const void *</code>，只读，不支持泛型；</li>
-<li><code>UnsafeMutableRawPointer</code>：类似于void，可读可写，不支持泛型。</li>
-</ul>
-<p>获取变量的指针：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 获取可变的变量指针, value参数接受变量地址，取决于body闭包的返回值</span><br><span class="line">@inlinable public func withUnsafeMutablePointer&lt;T, Result&gt;(to value: inout T, _ body: (UnsafeMutablePointer&lt;T&gt;) throws -&gt; Result) rethrows -&gt; Result</span><br><span class="line">&#x2F;&#x2F; 获取不可变的变量指针, value参数接受变量，取决于body闭包的返回值</span><br><span class="line">@inlinable public func withUnsafePointer&lt;T, Result&gt;(to value: T, _ body: (UnsafePointer&lt;T&gt;) throws -&gt; Result) rethrows -&gt; Result</span><br><span class="line">&#x2F;&#x2F; 获取不可变的变量指针, value参数接受变量地址，取决于body闭包的返回值</span><br><span class="line">@inlinable public func withUnsafePointer&lt;T, Result&gt;(to value: inout T, _ body: (UnsafePointer&lt;T&gt;) throws -&gt; Result) rethrows -&gt; Result</span><br></pre></td></tr></table></figure>
-
-<p>分配内存创建指针：</p>
-<ul>
-<li>malloc</li>
-<li>allocate：只有<code>UnsafeMutableRawPointer</code>和<code>UnsafeMutablePointer&lt;T&gt;</code>才有此分配方法。</li>
-</ul>
-<p>参考：</p>
-<ul>
-<li><a href="https://numbbbbb.gitbooks.io/-the-swift-programming-language-/" target="_blank" rel="noopener">https://numbbbbb.gitbooks.io/-the-swift-programming-language-/</a></li>
-<li><a href="https://www.cnblogs.com/zjoch/p/4702873.html" target="_blank" rel="noopener">https://www.cnblogs.com/zjoch/p/4702873.html</a></li>
-<li><a href="https://blog.csdn.net/Listron/article/details/80197347" target="_blank" rel="noopener">https://blog.csdn.net/Listron/article/details/80197347</a></li>
-<li><a href="https://www.jianshu.com/p/2cef1e80042c" target="_blank" rel="noopener">https://www.jianshu.com/p/2cef1e80042c</a></li>
-<li><a href="https://www.jianshu.com/p/b9f020a8b4c9" target="_blank" rel="noopener">https://www.jianshu.com/p/b9f020a8b4c9</a></li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>服务器连接</title>
-    <url>/2020/03/09/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE/</url>
-    <content><![CDATA[<h1 id="ssh远程连接（无需输入密码）"><a href="#ssh远程连接（无需输入密码）" class="headerlink" title="ssh远程连接（无需输入密码）"></a>ssh远程连接（无需输入密码）</h1><ol>
-<li><p>确保已经有生成有SSH公钥：<br>进入 <code>~/.ssh</code> 可看到有 <code>id_rsa</code> 和 <code>id_rsa.pub</code> ，其中 <code>id_rsa.pub</code> 为公钥。<br>若没有，运行：<code>ssh-keygen -t rsa -C &quot;***@gmail.com&quot;</code> 或 <code>ssh-keygen</code></p>
-</li>
-<li><p>将本电脑公钥发送到服务器端：<br><code>ssh-copy-id username@144.202.***.***</code></p>
-</li>
-<li><p>验证：<br><code>ssh &#39;username@144.202.***.***&#39;</code><br>自动连接！</p>
-</li>
-</ol>
-<ul>
-<li>若使用该方式后重置，再次连接时，会出现 <code>Host key verfication failed</code> 情况，使用 <code>ssh-keygen -R ip地址</code> 清除。</li>
-</ul>
-<h1 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h1><ol>
-<li><p>上传本地文件夹到服务器<br><code>scp -P port -r LocalWorkSpaces username@IP:WorkSpaces</code></p>
-</li>
-<li><p>下载服务器文件夹到本地<br><code>scp -P port -r username@IP:WorkSpaces LocalWorkSpaces</code> </p>
-</li>
-<li><p>上传本地文件到服务器<br><code>scp -P port file username@IP:WorkSpaces</code></p>
-</li>
-<li><p>下载服务器文件到本地<br><code>scp -P port 用户名@IP:file LocalWorkSpaces</code> </p>
-</li>
-</ol>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ReLU%E6%BF%80%E6%B4%BB.png" alt="ReLU激活"></p>
+<p>使用ReLU激活后，一些单元的输出成了0，另一些则变为线性单元，避免了调整各层权重时的梯度消失的问题。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ReLU%E4%BC%98%E5%8C%96.png" alt="ReLU优化"></p>
 ]]></content>
       <categories>
-        <category>Ubuntu</category>
+        <category>deeplearning</category>
       </categories>
-      <tags>
-        <tag>remote</tag>
-      </tags>
   </entry>
   <entry>
     <title>熵</title>
@@ -2697,39 +2732,62 @@
       </categories>
   </entry>
   <entry>
-    <title>激活函数</title>
-    <url>/2020/06/05/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<h1 id="sigmoid"><a href="#sigmoid" class="headerlink" title="sigmoid"></a>sigmoid</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/sigmoid.jpg" alt="sigmoid"></p>
-<p>$g(z) = \frac{1}{1 + e^{-z}}$</p>
-<p>常用于二元分类的输出层，输出介于0-1之间。</p>
-<h1 id="tanh"><a href="#tanh" class="headerlink" title="tanh"></a>tanh</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/tanh.png" alt="tanh"></p>
-<p>$tanh(x) = \frac{e^x - e^{-x}}{e^{-x} + e^x}$</p>
-<h1 id="ReLu"><a href="#ReLu" class="headerlink" title="ReLu"></a>ReLu</h1><p><em>rectified linear unit，修正线性单元</em></p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ReLU.jpg" alt="ReLU"></p>
+    <title>监督学习</title>
+    <url>/2020/06/05/%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h1 id="Delta学习规则"><a href="#Delta学习规则" class="headerlink" title="Delta学习规则"></a>Delta学习规则</h1><p>通过神经元的实际输出，与期望输出的差别，来调整连接权重。</p>
+<p>$$\bigtriangleup w_{ij} = a \cdot (d_i - y_i) x_j(t)$$</p>
+<p>其中,</p>
 <ul>
-<li>常规ReLU：$Max(0,x_i)$<ul>
-<li>当$x\geq0$时，$y_i=x_i$；</li>
-<li>当$x&lt;0$时，$y_i=0$；</li>
+<li>$\bigtriangleup w_{ij}$表示神经元j到神经元i的连接权重增量；</li>
+<li>$d_i$是神经元i的期望输出；</li>
+<li>$y_i$是神经元i的实际输出；</li>
+<li>$x_i$是神经元j的状态；</li>
+<li>$a$表示学习速率。</li>
 </ul>
-</li>
-<li>Leaky ReLU：$Max(ax_i,x_i)$<ul>
-<li>当$x\geq0$时，$y_i=x_i$；</li>
-<li>当$x&lt;0$时，$y_i=a_i x_i$；</li>
+]]></content>
+  </entry>
+  <entry>
+    <title>直方图均衡化</title>
+    <url>/2020/06/06/%E7%9B%B4%E6%96%B9%E5%9B%BE%E5%9D%87%E8%A1%A1%E5%8C%96/</url>
+    <content><![CDATA[<h1 id="直方图均衡化"><a href="#直方图均衡化" class="headerlink" title="直方图均衡化"></a>直方图均衡化</h1><ul>
+<li>实质上是对图像进行非线性拉伸，重新分配各个灰度单位的像素点数量，使其均匀分布；</li>
+<li>利用图像直方图对图像的对比度进行调整；</li>
+<li>通常用于增强局部的对比度而不影响整体对比度，过黑或过曝的处理。</li>
 </ul>
-</li>
-<li>Randomized Leaky ReLU：<ul>
-<li>当$x\geq0$时，$y_i=x_i$；</li>
-<li>当$x&lt;0$时，$y_{ji}=a_{ji} x_{ji}$；</li>
+<p>思路：</p>
+<ol>
+<li>统计每个颜色出现的概率；</li>
+<li>计算累计概率；</li>
+<li>根据累计概率求取新的颜色映射表：p*255；</li>
+<li>利用新颜色映射表完成颜色映射。</li>
+</ol>
+<h2 id="自适应直方图均衡AHE"><a href="#自适应直方图均衡AHE" class="headerlink" title="自适应直方图均衡AHE"></a>自适应直方图均衡AHE</h2><ul>
+<li>移动模版在源图像上按stride滑动；</li>
+<li>移动后，模版区域内做直方图均衡，映射后的结果赋值给模版区域内所有点；</li>
+<li>对每个点取多次赋值的均值。</li>
 </ul>
-</li>
+<p>缺点：过度放大平滑区域噪声。</p>
+<h2 id="CLAHE（自适应直方图均衡）"><a href="#CLAHE（自适应直方图均衡）" class="headerlink" title="CLAHE（自适应直方图均衡）"></a>CLAHE（自适应直方图均衡）</h2><p>算法步骤：</p>
+<ol>
+<li>对图像进行分块，以块为单位；</li>
+<li>先计算直方图，然后对其进行修剪，然后均衡；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/CLAHE%E4%BF%AE%E5%89%AA.png" alt="CLAHE修剪"></li>
+<li>遍历各个图像块，对块间区域进行双线性差值，使图像平滑；</li>
+<li>与源图像做涂层滤色混合操作（可选）。</li>
+</ol>
+<p>映射关系：<br>    <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/CLAHE%E6%98%A0%E5%B0%84.png" alt="CLAHE映射"></p>
+<ul>
+<li>小黑点处的灰度值由映射函数直接计算得出；</li>
+<li>粉色区域灰度值由映射函数计算得出；</li>
+<li>滤色区域灰度值由相邻2块灰度值映射线性插值得出；</li>
+<li>紫色区域灰度值由相邻4块灰度值映射线性插值得出。</li>
 </ul>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ReLU%E6%BF%80%E6%B4%BB.png" alt="ReLU激活"></p>
-<p>使用ReLU激活后，一些单元的输出成了0，另一些则变为线性单元，避免了调整各层权重时的梯度消失的问题。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/ReLU%E4%BC%98%E5%8C%96.png" alt="ReLU优化"></p>
 ]]></content>
       <categories>
-        <category>deeplearning</category>
+        <category>image</category>
       </categories>
+      <tags>
+        <tag>多尺度变换</tag>
+      </tags>
   </entry>
   <entry>
     <title>生成对抗网络</title>
@@ -2843,7 +2901,7 @@
 <p>目标函数：</p>
 <ul>
 <li>生成器loss：$-\mathbb{E}_{x \sim P_g}[f_w(x)]$</li>
-<li>判别器loss：$\mathbb{E}<em>{x \sim P_g}[f_w(x)]-{\mathbb{E}</em>{x \sim P_r}[f_w(x)]$</li>
+<li>判别器loss：$\mathbb{E}<em>{x \sim P_g}[f_w(x)]-\mathbb{E}</em>{x \sim P_r}[f_w(x)]$</li>
 </ul>
 <p>创新点：</p>
 <ol>
@@ -2861,7 +2919,7 @@
 </ul>
 <p><em>WGAN不用DCGAN各种特殊的架构设计，与DCGAN结果类似。</em></p>
 <h1 id="Super-ResolutionGAN"><a href="#Super-ResolutionGAN" class="headerlink" title="Super-ResolutionGAN"></a>Super-ResolutionGAN</h1><p>$I^{HR}$，高分辨率图像，来自数据库；<br>$I^{LR}$，由$I^{HR}$进行高斯滤波，然后下采样获得。</p>
-<p>目标函数：<br>$min_{\theta_G} max_{\theta_D} \mathbb{E}<em>{I^{HR}\sim p</em>{train}(I^{HR})}[log D_{\theta_D}(I^{HR})]+\mathbb{E}<em>{I^{LR}\sim p_G(I^{LR})}[log(1-D</em>{\theta_D}(G_{\theta_G}(I^{LR})))]$</p>
+<p>目标函数：<br>$$min_{\theta_G} max_{\theta_D} \mathbb{E}<em>{I^{HR}\sim p</em>{train}(I^{HR})}[log D_{\theta_D}(I^{HR})]+\mathbb{E}<em>{I^{LR}\sim p_G(I^{LR})}[log(1-D</em>{\theta_D}(G_{\theta_G}(I^{LR})))]$$</p>
 <p>参数$\theta_G$通过优化一个损失函数$l^{SR}$得到：$\widehat{\theta}<em>G=arg min</em>{\theta_G}\frac{1}{N}\sum_{n=1}^N l^{SR}(G_{\theta_G}(I_n^{LR}),I_n^{HR})$</p>
 <ol>
 <li>生成网络：<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/SRGAN_G.png" alt="SRGAN_G"><ul>
@@ -2884,94 +2942,6 @@
 <p>损失函数（使用均方误差）：<br>$L_{LSGAN}(G,D_Y,X,Y)=\mathbb{E}<em>{y\sim p</em>{data}(y)}[(D_Y(y)-1)^2]+\mathbb{E}<em>{x\sim p</em>{data}(x)}[1-D_Y(G(x))]^2$</p>
 <p>参考：<br><a href="https://zhuanlan.zhihu.com/p/104575937" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/104575937</a><br><a href="https://blog.csdn.net/gdymind/article/details/82696481" target="_blank" rel="noopener">https://blog.csdn.net/gdymind/article/details/82696481</a><br><a href="https://zhuanlan.zhihu.com/p/83630387" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/83630387</a><br><a href="https://zhuanlan.zhihu.com/p/90835081" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/90835081</a><br><a href="https://www.jianshu.com/p/64bf39804c80" target="_blank" rel="noopener">https://www.jianshu.com/p/64bf39804c80</a></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>监督学习</title>
-    <url>/2020/06/05/%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h1 id="Delta学习规则"><a href="#Delta学习规则" class="headerlink" title="Delta学习规则"></a>Delta学习规则</h1><p>通过神经元的实际输出，与期望输出的差别，来调整连接权重。</p>
-<p>$$\bigtriangleup w_{ij} = a \cdot (d_i - y_i) x_j(t)$$</p>
-<p>其中,</p>
-<ul>
-<li>$\bigtriangleup w_{ij}$表示神经元j到神经元i的连接权重增量；</li>
-<li>$d_i$是神经元i的期望输出；</li>
-<li>$y_i$是神经元i的实际输出；</li>
-<li>$x_i$是神经元j的状态；</li>
-<li>$a$表示学习速率。</li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>目标检测DPM</title>
-    <url>/2020/06/02/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8BDPM/</url>
-    <content><![CDATA[<h1 id="DPM"><a href="#DPM" class="headerlink" title="DPM"></a>DPM</h1><p>该模型包含了一个<code>8*8</code>分辨率的根滤波器(Root filter)，和<code>4*4</code>分辨率的组件滤波器(Part filter)，和高斯滤波后的2倍空间模型。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM.png" alt="DPM"></p>
-<p><em>中间分辨率为左图的2倍，梯度更加精细。</em></p>
-<p><em>自行车DPM检测：</em></p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%87%AA%E8%A1%8C%E8%BD%A6DPM.png" alt="自行车DPM"></p>
-<h2 id="响应分数"><a href="#响应分数" class="headerlink" title="响应分数"></a>响应分数</h2><p>$$ score(x_0, y_0, l_0) = R_{0,l_0}(x_0, y_0) + \sum_{i=1}^n D_{i,l_0-\lambda}(2(x_0,y_0)+v_i) + b $$</p>
-<p>其中，$x_0,y_0,l_0$分布为锚点的横坐标、纵坐标、尺度；<br>$R_{0,l_0}(x_0,y_0)$为跟模型的响应分数；<br>$D_{i,l_0-\lambda}(2(x_0,y_0)+v_i)$为部件模型的响应分数；<br>b为不同模型组件间的偏移系数，使其与根模型对齐；<br>$2(x_0,y_0)$表示组件模型的像素为原始的2倍。</p>
-<h2 id="检测流程"><a href="#检测流程" class="headerlink" title="检测流程"></a>检测流程</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM%E6%A3%80%E6%B5%8B%E6%B5%81%E7%A8%8B.png" alt="DPM检测流程"></p>
-<ol>
-<li>对输入图像，提取其DPM特征图，然后将原图像进行高斯金字塔上采样，然后提取其DPM特征图；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM_31D%E7%89%B9%E5%BE%81.png" alt="DPM_31D特征"></li>
-<li>对原图像的DPM特征图和训练好的<code>Root filter</code>做卷积操作，得到<code>Root filter</code>的响应图；</li>
-<li>对2倍图像的DPM特征图和训练好的<code>Part filter</code>做卷积，得到<code>Part filter</code>的响应图；</li>
-<li>对其精细高斯金字塔做下采样操作，使<code>Root filter</code>响应图和<code>Part filter</code>响应图具有相同分辨率；</li>
-<li>对其进行加权平均，得到最终响应图。<em>亮度越大响应值越大</em></li>
-</ol>
-<h2 id="Latent-SVM"><a href="#Latent-SVM" class="headerlink" title="Latent SVM"></a>Latent SVM</h2><a href="/2020/06/02/svm/" title="Latent-SVM">Latent-SVM</a>
-
-<p>DPM选择最大的正样本，但是其latent变量较多，如<code>bounding box</code>在HOG特征金字塔中的level，某样本属于哪一类component。<br>即有一张正样本图像，标注了<code>bounding box</code>，我们要在某一位置、某一尺度，提取出最大正样本作为某一component的正样本。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM-SVM.png" alt="DPM-SVM"></p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>object detection</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>直方图均衡化</title>
-    <url>/2020/06/06/%E7%9B%B4%E6%96%B9%E5%9B%BE%E5%9D%87%E8%A1%A1%E5%8C%96/</url>
-    <content><![CDATA[<h1 id="直方图均衡化"><a href="#直方图均衡化" class="headerlink" title="直方图均衡化"></a>直方图均衡化</h1><ul>
-<li>实质上是对图像进行非线性拉伸，重新分配各个灰度单位的像素点数量，使其均匀分布；</li>
-<li>利用图像直方图对图像的对比度进行调整；</li>
-<li>通常用于增强局部的对比度而不影响整体对比度，过黑或过曝的处理。</li>
-</ul>
-<p>思路：</p>
-<ol>
-<li>统计每个颜色出现的概率；</li>
-<li>计算累计概率；</li>
-<li>根据累计概率求取新的颜色映射表：p*255；</li>
-<li>利用新颜色映射表完成颜色映射。</li>
-</ol>
-<h2 id="自适应直方图均衡AHE"><a href="#自适应直方图均衡AHE" class="headerlink" title="自适应直方图均衡AHE"></a>自适应直方图均衡AHE</h2><ul>
-<li>移动模版在源图像上按stride滑动；</li>
-<li>移动后，模版区域内做直方图均衡，映射后的结果赋值给模版区域内所有点；</li>
-<li>对每个点取多次赋值的均值。</li>
-</ul>
-<p>缺点：过度放大平滑区域噪声。</p>
-<h2 id="CLAHE（自适应直方图均衡）"><a href="#CLAHE（自适应直方图均衡）" class="headerlink" title="CLAHE（自适应直方图均衡）"></a>CLAHE（自适应直方图均衡）</h2><p>算法步骤：</p>
-<ol>
-<li>对图像进行分块，以块为单位；</li>
-<li>先计算直方图，然后对其进行修剪，然后均衡；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/CLAHE%E4%BF%AE%E5%89%AA.png" alt="CLAHE修剪"></li>
-<li>遍历各个图像块，对块间区域进行双线性差值，使图像平滑；</li>
-<li>与源图像做涂层滤色混合操作（可选）。</li>
-</ol>
-<p>映射关系：<br>    <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/CLAHE%E6%98%A0%E5%B0%84.png" alt="CLAHE映射"></p>
-<ul>
-<li>小黑点处的灰度值由映射函数直接计算得出；</li>
-<li>粉色区域灰度值由映射函数计算得出；</li>
-<li>滤色区域灰度值由相邻2块灰度值映射线性插值得出；</li>
-<li>紫色区域灰度值由相邻4块灰度值映射线性插值得出。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>多尺度变换</tag>
-      </tags>
   </entry>
   <entry>
     <title>研究生复试</title>
@@ -3078,6 +3048,36 @@
       <categories>
         <category>神经网络</category>
       </categories>
+  </entry>
+  <entry>
+    <title>目标检测DPM</title>
+    <url>/2020/06/02/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8BDPM/</url>
+    <content><![CDATA[<h1 id="DPM"><a href="#DPM" class="headerlink" title="DPM"></a>DPM</h1><p>该模型包含了一个<code>8*8</code>分辨率的根滤波器(Root filter)，和<code>4*4</code>分辨率的组件滤波器(Part filter)，和高斯滤波后的2倍空间模型。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM.png" alt="DPM"></p>
+<p><em>中间分辨率为左图的2倍，梯度更加精细。</em></p>
+<p><em>自行车DPM检测：</em></p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%87%AA%E8%A1%8C%E8%BD%A6DPM.png" alt="自行车DPM"></p>
+<h2 id="响应分数"><a href="#响应分数" class="headerlink" title="响应分数"></a>响应分数</h2><p>$$ score(x_0, y_0, l_0) = R_{0,l_0}(x_0, y_0) + \sum_{i=1}^n D_{i,l_0-\lambda}(2(x_0,y_0)+v_i) + b $$</p>
+<p>其中，$x_0,y_0,l_0$分布为锚点的横坐标、纵坐标、尺度；<br>$R_{0,l_0}(x_0,y_0)$为跟模型的响应分数；<br>$D_{i,l_0-\lambda}(2(x_0,y_0)+v_i)$为部件模型的响应分数；<br>b为不同模型组件间的偏移系数，使其与根模型对齐；<br>$2(x_0,y_0)$表示组件模型的像素为原始的2倍。</p>
+<h2 id="检测流程"><a href="#检测流程" class="headerlink" title="检测流程"></a>检测流程</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM%E6%A3%80%E6%B5%8B%E6%B5%81%E7%A8%8B.png" alt="DPM检测流程"></p>
+<ol>
+<li>对输入图像，提取其DPM特征图，然后将原图像进行高斯金字塔上采样，然后提取其DPM特征图；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM_31D%E7%89%B9%E5%BE%81.png" alt="DPM_31D特征"></li>
+<li>对原图像的DPM特征图和训练好的<code>Root filter</code>做卷积操作，得到<code>Root filter</code>的响应图；</li>
+<li>对2倍图像的DPM特征图和训练好的<code>Part filter</code>做卷积，得到<code>Part filter</code>的响应图；</li>
+<li>对其精细高斯金字塔做下采样操作，使<code>Root filter</code>响应图和<code>Part filter</code>响应图具有相同分辨率；</li>
+<li>对其进行加权平均，得到最终响应图。<em>亮度越大响应值越大</em></li>
+</ol>
+<h2 id="Latent-SVM"><a href="#Latent-SVM" class="headerlink" title="Latent SVM"></a>Latent SVM</h2><a href="/2020/06/02/svm/" title="Latent-SVM">Latent-SVM</a>
+
+<p>DPM选择最大的正样本，但是其latent变量较多，如<code>bounding box</code>在HOG特征金字塔中的level，某样本属于哪一类component。<br>即有一张正样本图像，标注了<code>bounding box</code>，我们要在某一位置、某一尺度，提取出最大正样本作为某一component的正样本。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/DPM-SVM.png" alt="DPM-SVM"></p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>object detection</tag>
+      </tags>
   </entry>
   <entry>
     <title>科学上网</title>
@@ -3268,48 +3268,6 @@
       <categories>
         <category>算法与数据结构</category>
       </categories>
-  </entry>
-  <entry>
-    <title>自编码机</title>
-    <url>/2020/06/23/%E8%87%AA%E7%BC%96%E7%A0%81%E6%9C%BA/</url>
-    <content><![CDATA[<h1 id="编码与解码"><a href="#编码与解码" class="headerlink" title="编码与解码"></a>编码与解码</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BC%96%E7%A0%81%E4%B8%8E%E8%A7%A3%E7%A0%81.png" alt="编码与解码"></p>
-<p>左侧将原始图像编码为向量，右侧通过解卷积层“解码”，还原回原始图像。</p>
-<p><em>可以用尽可能多的图像来训练网络，当保存了某张图像的编码向量，可用解码组件重建。</em></p>
-<h1 id="经典自编码机VAE"><a href="#经典自编码机VAE" class="headerlink" title="经典自编码机VAE"></a>经典自编码机VAE</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE.png" alt="VAE"></p>
-<p><em>通过编码向量，创造潜在向量，或实现连续、平滑的潜在空间表示。</em></p>
-<p>通过给编码网络添加一个约束，使其所产生的潜在向量大体上服从单位高斯分布。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E7%BA%A6%E6%9D%9F.png" alt="VAE约束"></p>
-<p>如图，只需从单位高斯分布中采样出一个潜在向量，并将其传递到解码器，就可以生成一张新的图像了。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E9%87%87%E6%A0%B7.png" alt="VAE采样"></p>
-<p>基本思路：</p>
-<ul>
-<li>假定输入数据的数据集D的分布完全由一组隐变量z操控，并且，该组隐变量间相互独立且服从高斯分布；</li>
-<li>VAE让encoder学习输入数据的隐变量模型，即学习该组隐变量的高斯概率分布的参数：隐变量高斯分布的均值$\mu$和方差$\theta$的$log$值；</li>
-<li>隐变量z通过对参数的正态分布中采样得到：$z \sim N(\mu, \theta)$；</li>
-<li>通过decoder对隐变量进行解码，重构函数。</li>
-</ul>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E5%88%86%E5%B8%83.png" alt="VAE分布"></p>
-<p>总体目标函数：<br>    $\mathcal{L}(x,\widehat{x}) + \sum_j KL(q_j(z|x)||p(z))$</p>
-<p>误差：误差项精确度及潜在变量在单位高斯分布上的契合程度。</p>
-<ul>
-<li>生成误差，用以衡量网络重构图像精准度的均方误差；</li>
-<li>潜在误差，用以衡量潜在变量在单位高斯分布上的契合程度的KL散度。</li>
-</ul>
-<h2 id="参数调整"><a href="#参数调整" class="headerlink" title="参数调整"></a>参数调整</h2><p><em>VAE模型并没有真正的用$z \sim N(\mu,\theta)$来采样得到z变量：因为采样后无法对$(\mu,\theta)$进行求导。</em></p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_Reparameterization.png" alt="VAE_Reparameterization"></p>
-<p>一般先采样一个标准的高斯分布/正态分布$\epsilon \sim N(0,1)$，然后令$z=\mu+\epsilon*\theta$，这样得到的z就服从$z \sim N(\mu,\theta)$，同时也可正常对$(\mu,\theta)$求导。</p>
-<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
-<li>优点：遵循“编码-解码”模式，能直接将生成的图像同原始图像进行对比；</li>
-<li>缺点：直接采用均方误差，导致其神经网络倾向生成较为模糊的图像。</li>
-</ul>
-<h1 id="VAE和GAN的区别"><a href="#VAE和GAN的区别" class="headerlink" title="VAE和GAN的区别"></a>VAE和GAN的区别</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_vs_GAN.png" alt="VAE_vs_GAN"></p>
-<p>GAN是VAE后半部分再加上一个鉴别网络，导致完全不同的训练方式。</p>
-<p>参考：</p>
-<ul>
-<li><a href="https://blog.csdn.net/weixin_40955254/article/details/82315224" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40955254/article/details/82315224</a></li>
-<li><a href="https://blog.csdn.net/weixin_40955254/article/details/82315909?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40955254/article/details/82315909?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase</a></li>
-</ul>
-]]></content>
   </entry>
   <entry>
     <title>级联分类器</title>
@@ -3523,6 +3481,48 @@
 <li><a href="https://www.zhihu.com/question/25532384" target="_blank" rel="noopener">https://www.zhihu.com/question/25532384</a></li>
 <li><a href="https://www.cnblogs.com/jiawen010/p/11855768.html" target="_blank" rel="noopener">https://www.cnblogs.com/jiawen010/p/11855768.html</a></li>
 <li><a href="https://www.jianshu.com/p/7726c70cdc40" target="_blank" rel="noopener">https://www.jianshu.com/p/7726c70cdc40</a></li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>自编码机</title>
+    <url>/2020/06/23/%E8%87%AA%E7%BC%96%E7%A0%81%E6%9C%BA/</url>
+    <content><![CDATA[<h1 id="编码与解码"><a href="#编码与解码" class="headerlink" title="编码与解码"></a>编码与解码</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BC%96%E7%A0%81%E4%B8%8E%E8%A7%A3%E7%A0%81.png" alt="编码与解码"></p>
+<p>左侧将原始图像编码为向量，右侧通过解卷积层“解码”，还原回原始图像。</p>
+<p><em>可以用尽可能多的图像来训练网络，当保存了某张图像的编码向量，可用解码组件重建。</em></p>
+<h1 id="经典自编码机VAE"><a href="#经典自编码机VAE" class="headerlink" title="经典自编码机VAE"></a>经典自编码机VAE</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE.png" alt="VAE"></p>
+<p><em>通过编码向量，创造潜在向量，或实现连续、平滑的潜在空间表示。</em></p>
+<p>通过给编码网络添加一个约束，使其所产生的潜在向量大体上服从单位高斯分布。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E7%BA%A6%E6%9D%9F.png" alt="VAE约束"></p>
+<p>如图，只需从单位高斯分布中采样出一个潜在向量，并将其传递到解码器，就可以生成一张新的图像了。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E9%87%87%E6%A0%B7.png" alt="VAE采样"></p>
+<p>基本思路：</p>
+<ul>
+<li>假定输入数据的数据集D的分布完全由一组隐变量z操控，并且，该组隐变量间相互独立且服从高斯分布；</li>
+<li>VAE让encoder学习输入数据的隐变量模型，即学习该组隐变量的高斯概率分布的参数：隐变量高斯分布的均值$\mu$和方差$\theta$的$log$值；</li>
+<li>隐变量z通过对参数的正态分布中采样得到：$z \sim N(\mu, \theta)$；</li>
+<li>通过decoder对隐变量进行解码，重构函数。</li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E5%88%86%E5%B8%83.png" alt="VAE分布"></p>
+<p>总体目标函数：<br>    $\mathcal{L}(x,\widehat{x}) + \sum_j KL(q_j(z|x)||p(z))$</p>
+<p>误差：误差项精确度及潜在变量在单位高斯分布上的契合程度。</p>
+<ul>
+<li>生成误差，用以衡量网络重构图像精准度的均方误差；</li>
+<li>潜在误差，用以衡量潜在变量在单位高斯分布上的契合程度的KL散度。</li>
+</ul>
+<h2 id="参数调整"><a href="#参数调整" class="headerlink" title="参数调整"></a>参数调整</h2><p><em>VAE模型并没有真正的用$z \sim N(\mu,\theta)$来采样得到z变量：因为采样后无法对$(\mu,\theta)$进行求导。</em></p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_Reparameterization.png" alt="VAE_Reparameterization"></p>
+<p>一般先采样一个标准的高斯分布/正态分布$\epsilon \sim N(0,1)$，然后令$z=\mu+\epsilon*\theta$，这样得到的z就服从$z \sim N(\mu,\theta)$，同时也可正常对$(\mu,\theta)$求导。</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
+<li>优点：遵循“编码-解码”模式，能直接将生成的图像同原始图像进行对比；</li>
+<li>缺点：直接采用均方误差，导致其神经网络倾向生成较为模糊的图像。</li>
+</ul>
+<h1 id="VAE和GAN的区别"><a href="#VAE和GAN的区别" class="headerlink" title="VAE和GAN的区别"></a>VAE和GAN的区别</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_vs_GAN.png" alt="VAE_vs_GAN"></p>
+<p>GAN是VAE后半部分再加上一个鉴别网络，导致完全不同的训练方式。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://blog.csdn.net/weixin_40955254/article/details/82315224" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40955254/article/details/82315224</a></li>
+<li><a href="https://blog.csdn.net/weixin_40955254/article/details/82315909?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40955254/article/details/82315909?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase</a></li>
 </ul>
 ]]></content>
   </entry>
@@ -3743,6 +3743,74 @@
 <li><a href="https://www.jianshu.com/p/afb516bc4519" target="_blank" rel="noopener">https://www.jianshu.com/p/afb516bc4519</a></li>
 </ul>
 ]]></content>
+  </entry>
+  <entry>
+    <title>金字塔变换</title>
+    <url>/2020/05/14/%E9%87%91%E5%AD%97%E5%A1%94%E5%8F%98%E6%8D%A2/</url>
+    <content><![CDATA[<h1 id="高斯金字塔"><a href="#高斯金字塔" class="headerlink" title="高斯金字塔"></a>高斯金字塔</h1><p>在传统金字塔的基础上，对每一层用不同的参数$\sigma$做高斯模糊，使得每一层金字塔有多张高斯模糊图像，这样的一组图像称为一个$octave$。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E6%96%AF%E9%87%91%E5%AD%97%E5%A1%94.png" alt="高斯金字塔"></p>
+<p>$octave(i+1)$的第一张（从下往上）图像是由$octave(i)$中的倒数第三张图像降采样得到。</p>
+<p>高斯金字塔的构建：</p>
+<ol>
+<li>对图像做不同尺度的高斯模糊；</li>
+<li>对图像做降采样(隔点采样)。</li>
+</ol>
+<p>金字塔的层数根据图像的原始大小和塔顶图像的大小共同决定。<br>为使其尺度体现连续性，高斯金字塔在简单降采样的基础上添加了高斯滤波。</p>
+<h2 id="高斯模糊"><a href="#高斯模糊" class="headerlink" title="高斯模糊"></a>高斯模糊</h2><p>高斯模糊是一种图像滤波器，使用正态分布(高斯函数)计算模糊模板，并使用该模板与原图像做卷积运算，达到模糊图像的目的。</p>
+<p>每个像素的值都是周围相邻像素值的加权平均：原始像素的值有最大的高斯分布值，具有最大的权重，相邻像素随着距离原始像素越来越远，其权重也越来越小。</p>
+<p>优点：</p>
+<ul>
+<li>比其它的均衡模糊滤波器更好的保留了边缘效果。<br>缺点：</li>
+<li>因模板矩阵的关系而造成边缘图像缺失，$\theta$越大，缺失像素越多，丢弃模板会造成黑边；</li>
+<li>当$\theta$变大时，高斯模板(高斯核)和卷积运算量将大幅度提高。</li>
+</ul>
+<p><em>理论上来讲，图像中每个像素点的分布都不为零，即每个像素的计算都需要包含整幅图像。</em><br><em>在实际应用中，在计算高斯函数的离散近似时，在大概$3\theta$距离之外的像素都可以看作不起作用，即高斯模板矩阵的大小$(6\theta+1) * (6\theta+1)$。大尺度对应于图像的概貌特征，小尺度对应于图像的细节特征。</em><br><em>为了确保模板矩阵中的元素在[0,1]之间，需将模板矩阵归一化。</em></p>
+<h3 id="分离高斯模糊"><a href="#分离高斯模糊" class="headerlink" title="分离高斯模糊"></a>分离高斯模糊</h3><p>高斯函数的可分离性是指使用二维矩阵变换得到的效果可通过在水平方向进行一维高斯矩阵变换加上竖直方向的一维高斯矩阵变换得到。</p>
+<p>根据高斯函数的可分离性，可对二维高斯模糊函数进行改进：两次一维的高斯卷积将消除二维高斯矩阵所产生的边缘。</p>
+<h1 id="高斯差分金字塔"><a href="#高斯差分金字塔" class="headerlink" title="高斯差分金字塔"></a>高斯差分金字塔</h1><p>高斯差分函数，Difference of Gaussian，简称DoG算子，可产生较强的边缘响应。</p>
+<p>在实际计算时，使用<strong>高斯金字塔每组中相邻上下两层图像相减，得到高斯差分图像</strong>，进行极值检测。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/LoG_DoG.jpg" alt="LoG_DoG"></p>
+<p>由于高斯差分的计算更加简单，因此常用DoG算子近似替代LoG算子。</p>
+<a href="/2020/05/25/%E5%9B%BE%E5%83%8F%E7%89%B9%E5%BE%81/" title="高斯拉普拉斯LoG">高斯拉普拉斯LoG</a>
+
+<h1 id="拉普拉斯金字塔"><a href="#拉普拉斯金字塔" class="headerlink" title="拉普拉斯金字塔"></a>拉普拉斯金字塔</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E9%87%91%E5%AD%97%E5%A1%94.png" alt="拉普拉斯金字塔"><br>保留所有层在卷积和下采样过程中丢失的高频信息，用于图像恢复。</p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>多尺度变换</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>贪心算法</title>
+    <url>/2020/06/04/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="贪心算法-贪婪算法"><a href="#贪心算法-贪婪算法" class="headerlink" title="贪心算法/贪婪算法"></a>贪心算法/贪婪算法</h1><p>贪心算法，在每一个选择过程中都选择<strong>当前最优解</strong>，从而希望最终结果达到最优的算法。</p>
+<h2 id="算法实现步骤："><a href="#算法实现步骤：" class="headerlink" title="算法实现步骤："></a>算法实现步骤：</h2><ol>
+<li>创建数学模型来描述问题；</li>
+<li>把求解的问题<strong>分成若干个子问题</strong>；</li>
+<li>对每一子问题求解，得到子问题的<strong>局部最优解</strong>；</li>
+<li>把子问题的解局部最优解合成所求问题的一个解。</li>
+</ol>
+<p><strong>贪心算法的实现，要根据具体问题具体分析。</strong></p>
+<h2 id="常用解决的问题："><a href="#常用解决的问题：" class="headerlink" title="常用解决的问题："></a>常用解决的问题：</h2><ul>
+<li>贪心算法可以解决一些最优化问题，如：求图中的最小生成树、求哈夫曼编码、旅行推销员问题等。</li>
+<li>对于其它问题，贪心算法一般不能得到我们所要求的答案，常用作辅助算法或直接解决一些要求结果不是特别严格的问题。</li>
+<li>一旦一个问题可以通过贪心算法来解决，那么贪心算法一般是解决该问题的最好方法。</li>
+</ul>
+<h2 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h2><ul>
+<li>对解决问题具有高效性；</li>
+<li>所得结果更接近于最优结果。</li>
+</ul>
+<h2 id="贪心算法与动态规划的不同"><a href="#贪心算法与动态规划的不同" class="headerlink" title="贪心算法与动态规划的不同"></a>贪心算法与动态规划的不同</h2><ul>
+<li>贪心算法要求对每个子问题的解决方案都要做出选择，且不能回退；</li>
+<li>动态规划会保存之前的运算结果，并依据以前的结果对当前方案进行选择，可回退。</li>
+</ul>
+<p>换个思路，就是贪心算法有一个优先级的问题；动态规划则是使用一个数组来进行记录当前方案，会对每一种方法进行尝试。</p>
+]]></content>
+      <categories>
+        <category>算法与数据结构</category>
+      </categories>
   </entry>
   <entry>
     <title>软件设计模式</title>
@@ -4256,73 +4324,5 @@
 <li><a href="http://c.biancheng.net/view/1331.html" target="_blank" rel="noopener">http://c.biancheng.net/view/1331.html</a></li>
 </ul>
 ]]></content>
-  </entry>
-  <entry>
-    <title>金字塔变换</title>
-    <url>/2020/05/14/%E9%87%91%E5%AD%97%E5%A1%94%E5%8F%98%E6%8D%A2/</url>
-    <content><![CDATA[<h1 id="高斯金字塔"><a href="#高斯金字塔" class="headerlink" title="高斯金字塔"></a>高斯金字塔</h1><p>在传统金字塔的基础上，对每一层用不同的参数$\sigma$做高斯模糊，使得每一层金字塔有多张高斯模糊图像，这样的一组图像称为一个$octave$。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E6%96%AF%E9%87%91%E5%AD%97%E5%A1%94.png" alt="高斯金字塔"></p>
-<p>$octave(i+1)$的第一张（从下往上）图像是由$octave(i)$中的倒数第三张图像降采样得到。</p>
-<p>高斯金字塔的构建：</p>
-<ol>
-<li>对图像做不同尺度的高斯模糊；</li>
-<li>对图像做降采样(隔点采样)。</li>
-</ol>
-<p>金字塔的层数根据图像的原始大小和塔顶图像的大小共同决定。<br>为使其尺度体现连续性，高斯金字塔在简单降采样的基础上添加了高斯滤波。</p>
-<h2 id="高斯模糊"><a href="#高斯模糊" class="headerlink" title="高斯模糊"></a>高斯模糊</h2><p>高斯模糊是一种图像滤波器，使用正态分布(高斯函数)计算模糊模板，并使用该模板与原图像做卷积运算，达到模糊图像的目的。</p>
-<p>每个像素的值都是周围相邻像素值的加权平均：原始像素的值有最大的高斯分布值，具有最大的权重，相邻像素随着距离原始像素越来越远，其权重也越来越小。</p>
-<p>优点：</p>
-<ul>
-<li>比其它的均衡模糊滤波器更好的保留了边缘效果。<br>缺点：</li>
-<li>因模板矩阵的关系而造成边缘图像缺失，$\theta$越大，缺失像素越多，丢弃模板会造成黑边；</li>
-<li>当$\theta$变大时，高斯模板(高斯核)和卷积运算量将大幅度提高。</li>
-</ul>
-<p><em>理论上来讲，图像中每个像素点的分布都不为零，即每个像素的计算都需要包含整幅图像。</em><br><em>在实际应用中，在计算高斯函数的离散近似时，在大概$3\theta$距离之外的像素都可以看作不起作用，即高斯模板矩阵的大小$(6\theta+1) * (6\theta+1)$。大尺度对应于图像的概貌特征，小尺度对应于图像的细节特征。</em><br><em>为了确保模板矩阵中的元素在[0,1]之间，需将模板矩阵归一化。</em></p>
-<h3 id="分离高斯模糊"><a href="#分离高斯模糊" class="headerlink" title="分离高斯模糊"></a>分离高斯模糊</h3><p>高斯函数的可分离性是指使用二维矩阵变换得到的效果可通过在水平方向进行一维高斯矩阵变换加上竖直方向的一维高斯矩阵变换得到。</p>
-<p>根据高斯函数的可分离性，可对二维高斯模糊函数进行改进：两次一维的高斯卷积将消除二维高斯矩阵所产生的边缘。</p>
-<h1 id="高斯差分金字塔"><a href="#高斯差分金字塔" class="headerlink" title="高斯差分金字塔"></a>高斯差分金字塔</h1><p>高斯差分函数，Difference of Gaussian，简称DoG算子，可产生较强的边缘响应。</p>
-<p>在实际计算时，使用<strong>高斯金字塔每组中相邻上下两层图像相减，得到高斯差分图像</strong>，进行极值检测。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/LoG_DoG.jpg" alt="LoG_DoG"></p>
-<p>由于高斯差分的计算更加简单，因此常用DoG算子近似替代LoG算子。</p>
-<a href="/2020/05/25/%E5%9B%BE%E5%83%8F%E7%89%B9%E5%BE%81/" title="高斯拉普拉斯LoG">高斯拉普拉斯LoG</a>
-
-<h1 id="拉普拉斯金字塔"><a href="#拉普拉斯金字塔" class="headerlink" title="拉普拉斯金字塔"></a>拉普拉斯金字塔</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E9%87%91%E5%AD%97%E5%A1%94.png" alt="拉普拉斯金字塔"><br>保留所有层在卷积和下采样过程中丢失的高频信息，用于图像恢复。</p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>多尺度变换</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>贪心算法</title>
-    <url>/2020/06/04/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="贪心算法-贪婪算法"><a href="#贪心算法-贪婪算法" class="headerlink" title="贪心算法/贪婪算法"></a>贪心算法/贪婪算法</h1><p>贪心算法，在每一个选择过程中都选择<strong>当前最优解</strong>，从而希望最终结果达到最优的算法。</p>
-<h2 id="算法实现步骤："><a href="#算法实现步骤：" class="headerlink" title="算法实现步骤："></a>算法实现步骤：</h2><ol>
-<li>创建数学模型来描述问题；</li>
-<li>把求解的问题<strong>分成若干个子问题</strong>；</li>
-<li>对每一子问题求解，得到子问题的<strong>局部最优解</strong>；</li>
-<li>把子问题的解局部最优解合成所求问题的一个解。</li>
-</ol>
-<p><strong>贪心算法的实现，要根据具体问题具体分析。</strong></p>
-<h2 id="常用解决的问题："><a href="#常用解决的问题：" class="headerlink" title="常用解决的问题："></a>常用解决的问题：</h2><ul>
-<li>贪心算法可以解决一些最优化问题，如：求图中的最小生成树、求哈夫曼编码、旅行推销员问题等。</li>
-<li>对于其它问题，贪心算法一般不能得到我们所要求的答案，常用作辅助算法或直接解决一些要求结果不是特别严格的问题。</li>
-<li>一旦一个问题可以通过贪心算法来解决，那么贪心算法一般是解决该问题的最好方法。</li>
-</ul>
-<h2 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h2><ul>
-<li>对解决问题具有高效性；</li>
-<li>所得结果更接近于最优结果。</li>
-</ul>
-<h2 id="贪心算法与动态规划的不同"><a href="#贪心算法与动态规划的不同" class="headerlink" title="贪心算法与动态规划的不同"></a>贪心算法与动态规划的不同</h2><ul>
-<li>贪心算法要求对每个子问题的解决方案都要做出选择，且不能回退；</li>
-<li>动态规划会保存之前的运算结果，并依据以前的结果对当前方案进行选择，可回退。</li>
-</ul>
-<p>换个思路，就是贪心算法有一个优先级的问题；动态规划则是使用一个数组来进行记录当前方案，会对每一种方法进行尝试。</p>
-]]></content>
-      <categories>
-        <category>算法与数据结构</category>
-      </categories>
   </entry>
 </search>
