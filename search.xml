@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>GrabCut分割</title>
+    <url>/2020/06/06/GrabCut%E5%88%86%E5%89%B2/</url>
+    <content><![CDATA[<h1 id="GrabCut分割"><a href="#GrabCut分割" class="headerlink" title="GrabCut分割"></a>GrabCut分割</h1><p>前景/背景的颜色模型：</p>
+<ul>
+<li>假定前景和背景为高斯混合模型GMM；</li>
+<li>对于每个要素，均来自于目标GMM/背景GMM的某个高斯分量；</li>
+<li>用边界项来表示邻域像素间不连续的惩罚，若两邻域像素差别很小，则属于同一目标/背景的可能性就大，反之可能为边缘；</li>
+<li>通过<a href="/2020/06/06/kmeans%E8%81%9A%E7%B1%BB/" title="kmeans聚类">kmeans聚类</a>算法迭代获得。</li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GrabCut.png" alt="GrabCut"></p>
+<p>算法流程：</p>
+<ol>
+<li>使用标记初始化颜色模型（k=5）；</li>
+<li>迭代进行GraphCut；<ul>
+<li>优化前景/背景的颜色模型；</li>
+<li>能量会随着不断迭代变小；</li>
+<li>分割效果也越来越好。</li>
+</ul>
+</li>
+</ol>
+<h2 id="高斯混合模型GMM"><a href="#高斯混合模型GMM" class="headerlink" title="高斯混合模型GMM"></a>高斯混合模型GMM</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GMM.png" alt="GMM"></p>
+<p>两组点分别通过两个不同的正态分布随机生成。</p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>图像分割</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Adam</title>
     <url>/2020/06/07/Adam/</url>
     <content><![CDATA[<h1 id="Momentum"><a href="#Momentum" class="headerlink" title="Momentum"></a>Momentum</h1><p>动量momentum借用了物理中的动量概念，即将前几次的梯度也加入计算过程。为了表示动量，引入了一个新的变量v。v是<strong>之前的梯度的累加</strong>，但每回合都有一定的衰减。</p>
@@ -35,28 +66,25 @@
       </categories>
   </entry>
   <entry>
-    <title>GrabCut分割</title>
-    <url>/2020/06/06/GrabCut%E5%88%86%E5%89%B2/</url>
-    <content><![CDATA[<h1 id="GrabCut分割"><a href="#GrabCut分割" class="headerlink" title="GrabCut分割"></a>GrabCut分割</h1><p>前景/背景的颜色模型：</p>
+    <title>GraphCuts分割</title>
+    <url>/2020/06/06/GraphCuts%E5%88%86%E5%89%B2/</url>
+    <content><![CDATA[<h1 id="GraphCuts分割"><a href="#GraphCuts分割" class="headerlink" title="GraphCuts分割"></a>GraphCuts分割</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts.png" alt="GraphCuts"></p>
 <ul>
-<li>假定前景和背景为高斯混合模型GMM；</li>
-<li>对于每个要素，均来自于目标GMM/背景GMM的某个高斯分量；</li>
-<li>用边界项来表示邻域像素间不连续的惩罚，若两邻域像素差别很小，则属于同一目标/背景的可能性就大，反之可能为边缘；</li>
-<li>通过<a href="/2020/06/06/kmeans%E8%81%9A%E7%B1%BB/" title="kmeans聚类">kmeans聚类</a>算法迭代获得。</li>
+<li>普通顶点对应于图像中的每个像素。每两个邻域顶点的连接为一条边。</li>
+<li>两个终端顶点：S(source:前景)、T(sink:背景)。每个普通顶点和这2个终端顶点进行连接，称为第二种边。</li>
 </ul>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GrabCut.png" alt="GrabCut"></p>
-<p>算法流程：</p>
+<p>GraphCuts中的Cuts指这样一个边的集合，该集合中的所有边的断开，会导致残留S和T图的分开，被称为割。<br>如果一个割，它的边的所有权值之和最小，就称其为<strong>最小割</strong>，即GraphCuts的结果。</p>
+<p>基于能量的算法：<br>    $E(A) = \lambda \cdot R(A) + B(A)$<br>    $R(A) = \sum_{p \in \mathcal{P}} R_p(A_p)$<br>    $B(A) = \sum_{ {p,q} \in \mathcal{N} } B_{ {p,q} } \cdot \delta(A_p,A_q)$<br>    <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts%E8%83%BD%E9%87%8F.png" alt="GraphCuts能量"><br><em>区域项R(A)、边界项B(A)</em></p>
+<p>R是为像素p分配标签$I_p$的惩罚：<br>    当像素p的灰度值属于目标的概率大于背景，$R_p(1) &lt; R_p(0)$，即像素p更有可能属于目标时，将p归为目标会使能量R(L)更小。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%9B%BE%E5%89%B2%E5%89%8D%E8%83%8C%E6%99%AF%E5%88%86%E5%89%B2%E5%85%AC%E5%BC%8F.png" alt="图割前背景分割公式"><br>B是像素p和q之间不连续的惩罚，一般来说，如果p和q越相似，B越大；若非常不同，B趋向于0。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E8%BF%87%E7%A8%8B.png" alt="GraphCuts基本操作过程"></p>
+<p>基本操作过程：</p>
 <ol>
-<li>使用标记初始化颜色模型（k=5）；</li>
-<li>迭代进行GraphCut；<ul>
-<li>优化前景/背景的颜色模型；</li>
-<li>能量会随着不断迭代变小；</li>
-<li>分割效果也越来越好。</li>
-</ul>
-</li>
+<li>先取两个种子点；</li>
+<li>然后建立一个图，图中边的粗细表示对应权值大小；</li>
+<li>找到权值和最小的边的组合；</li>
+<li>完成图像分割。</li>
 </ol>
-<h2 id="高斯混合模型GMM"><a href="#高斯混合模型GMM" class="headerlink" title="高斯混合模型GMM"></a>高斯混合模型GMM</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GMM.png" alt="GMM"></p>
-<p>两组点分别通过两个不同的正态分布随机生成。</p>
 ]]></content>
       <categories>
         <category>image</category>
@@ -106,89 +134,102 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo博客</title>
-    <url>/2020/03/09/Hexo%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h1 id="Hexo-GitHub-Pages搭建个人博客"><a href="#Hexo-GitHub-Pages搭建个人博客" class="headerlink" title="Hexo + GitHub Pages搭建个人博客"></a>Hexo + GitHub Pages搭建个人博客</h1><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! </p>
-<h2 id="创建Hexo"><a href="#创建Hexo" class="headerlink" title="创建Hexo"></a>创建Hexo</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-
-<p><code>npm install</code> 报错，解决方案：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo rm -rf ~&#x2F;.node-gyp</span><br><span class="line">sudo npm cache clean -f</span><br><span class="line">sudo npm install -g n</span><br><span class="line">sudo n stable</span><br><span class="line">sudo npm i --unsafe-perm</span><br></pre></td></tr></table></figure>
-<p><em>配置后更新版本等会比较麻烦，不配置同样可以使用</em></p>
-<h2 id="配置GitHub"><a href="#配置GitHub" class="headerlink" title="配置GitHub"></a>配置GitHub</h2><p>编辑 <code>_config.yml</code> 配置文件：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:***&#x2F;***.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-
-<h2 id="部署博客"><a href="#部署博客" class="headerlink" title="部署博客"></a>部署博客</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
-<p><code>ERROR Deployer not found: git</code> 报错，解决方案：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-
-<p>遇到 <code>xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</code> 问题，安装插件：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
-
-<h2 id="配置域名"><a href="#配置域名" class="headerlink" title="配置域名"></a>配置域名</h2><p><em>本人使用的是<a href="https://www.aliyun.com/?utm_content=se_1000301881&accounttraceid=52e2158134cd4376ab19089abd0757e9llgh" target="_blank" rel="noopener">阿里云</a>的域名</em></p>
+    <title>Java框架</title>
+    <url>/2020/03/10/Java%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<h1 id="Java集合框架图"><a href="#Java集合框架图" class="headerlink" title="Java集合框架图"></a>Java集合框架图</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E5%9B%BE.png" alt="Java集合框架图"></p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Java%E9%9B%86%E5%90%88%E7%B1%BB%E5%9B%BE.jpg" alt="Java集合类图"></p>
+<p>LinkedList类实现了Queue接口，因此可以将LinkedList当成Queue来用。</p>
+<p>集合特点：</p>
+<ul>
+<li><p>List：有序、可重复；</p>
+<ul>
+<li><p>ArrayList：数组-查询快、增删慢；<br>扩容机制：</p>
 <ol>
-<li>在终端中 <code>ping ***.github.io</code> 得到一个ip地址，copy下来；</li>
-<li>在阿里云域名设置中添加解析：<ul>
-<li>主机记录–www，记录类型–A，解析线路–默认不修改，<br>  记录值为 <code>步骤1</code> 中ping到的ip，TTL–默认不修改；</li>
-<li>主机记录–@，记录类型–A，解析线路–默认不修改，<br>  记录值为 <code>步骤1</code> 中ping到的ip，TTL–默认不修改；</li>
+<li>先对传进来的初始化参数initalCapcity初始容量进行判断，若为0初始化为一个空数组；若非空，则初始化一个容量为10的数组；</li>
+<li>扩容：当数组大小 &gt; 初始容量时，扩容为原来的1.5倍；</li>
+<li>扩容方式：对原数组进行拷贝为新数组，原数组被GC回收。</li>
+</ol>
+</li>
+<li><p>LinkedList：链表-查询慢、增删快；</p>
+</li>
 </ul>
 </li>
-<li>在GitHub中打开username.github.io仓库中的设置，找到 <code>Custom domain</code> 将自己的域名填入其中，点击保存；</li>
-<li>在本地仓库中打开 <code>source</code> 文件夹，添加 <code>CNAME</code> 文件，内容为自己的域名；</li>
-<li>重新部署，等待几分钟即可访问。</li>
-</ol>
-<h2 id="博客美化"><a href="#博客美化" class="headerlink" title="博客美化"></a>博客美化</h2><p>网上有大量主题可供使用，按照主题配置修改即可。<br>本博客基于<a href="https://github.com/theme-next/hexo-theme-next" target="_blank" rel="noopener">Next主题</a>进行配置。</p>
-<h3 id="图标查询"><a href="#图标查询" class="headerlink" title="图标查询"></a><a href="https://fontawesome.dashgame.com" target="_blank" rel="noopener">图标查询</a></h3><p><a href="https://fontawesome.dashgame.com" target="_blank" rel="noopener">https://fontawesome.dashgame.com</a></p>
-<h3 id="安装插件："><a href="#安装插件：" class="headerlink" title="安装插件："></a>安装插件：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">npm install hexo-generator-feed --save</span><br><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
-
-<h2 id="图床"><a href="#图床" class="headerlink" title="图床"></a>图床</h2><ol>
-<li>在GitHub新建一个repositories用于存储图片；</li>
-<li>在个人GitHub账户中的 <code>Settings</code> 中选择 <code>Developer settings</code> 创建 <code>Personal access tokens</code>，勾选 <code>repo</code> 一栏即可；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/picgo-token.png" alt="picgo-token"></li>
-<li>安装PicGo；</li>
-<li>配置PicGo（使用了cdn加速）；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/picgo-github.png" alt="picgo-github"></li>
-<li>配置完成后即可上传图片了。</li>
-</ol>
-<h2 id="数学公式-最新版的直接在配置文件里的mathjax设为true即可"><a href="#数学公式-最新版的直接在配置文件里的mathjax设为true即可" class="headerlink" title="数学公式(最新版的直接在配置文件里的mathjax设为true即可)"></a>数学公式(最新版的直接在配置文件里的mathjax设为true即可)</h2><h3 id="安装插件：-1"><a href="#安装插件：-1" class="headerlink" title="安装插件："></a>安装插件：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-math --save</span><br></pre></td></tr></table></figure>
-
-<h3 id="评论"><a href="#评论" class="headerlink" title="评论"></a>评论</h3><p><a href="https://www.livere.com/login_form" target="_blank" rel="noopener">livere</a>，参考下面博客美化设置。</p>
-<h3 id="设置文章阴影效果"><a href="#设置文章阴影效果" class="headerlink" title="设置文章阴影效果"></a>设置文章阴影效果</h3><p>因为在网上没有找到适合新版本7.7的方法，自己摸索尝试解决：<br>找到 <code>/themes/next/source/css/_common/components/post/post.styl</code> 中的 <code>.use-motion</code> 块，修改</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (hexo-config(&#39;motion.transition.post_block&#39;)) &#123;</span><br><span class="line">  .post-block &#123;</span><br><span class="line">      opacity: 0;</span><br><span class="line">      background: transparent; &#x2F;&#x2F;透明</span><br><span class="line">  &#125;</span><br><span class="line">  .pagination, .comments &#123;</span><br><span class="line">    opacity: 0;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="http://shenzekun.cn/hexo的next主题个性化配置教程.html" target="_blank" rel="noopener">http://shenzekun.cn/hexo的next主题个性化配置教程.html</a><br><a href="https://zhuanlan.zhihu.com/p/30836436" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/30836436</a><br><a href="https://blog.csdn.net/nightmare_dimple/article/details/86661502" target="_blank" rel="noopener">https://blog.csdn.net/nightmare_dimple/article/details/86661502</a><br><a href="https://tieba.baidu.com/p/6440743671" target="_blank" rel="noopener">https://tieba.baidu.com/p/6440743671</a><br><a href="https://www.cnblogs.com/aoguai/p/11481253.html" target="_blank" rel="noopener">https://www.cnblogs.com/aoguai/p/11481253.html</a><br><a href="https://blog.uuk4.com/2019/05/09/hexo中插入数学公式/" target="_blank" rel="noopener">https://blog.uuk4.com/2019/05/09/hexo中插入数学公式/</a></p>
-]]></content>
-      <categories>
-        <category>Mac</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GraphCuts分割</title>
-    <url>/2020/06/06/GraphCuts%E5%88%86%E5%89%B2/</url>
-    <content><![CDATA[<h1 id="GraphCuts分割"><a href="#GraphCuts分割" class="headerlink" title="GraphCuts分割"></a>GraphCuts分割</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts.png" alt="GraphCuts"></p>
+<li><p>Set：有序、不可重复；</p>
 <ul>
-<li>普通顶点对应于图像中的每个像素。每两个邻域顶点的连接为一条边。</li>
-<li>两个终端顶点：S(source:前景)、T(sink:背景)。每个普通顶点和这2个终端顶点进行连接，称为第二种边。</li>
+<li>TreeSet：遍历时必须在实现类实现Comparable接口，重写ComparaTo方法；</li>
+<li>HashSet：使用成员对象来计算hashcode值，使用equals()判断对象是否相等。</li>
 </ul>
-<p>GraphCuts中的Cuts指这样一个边的集合，该集合中的所有边的断开，会导致残留S和T图的分开，被称为割。<br>如果一个割，它的边的所有权值之和最小，就称其为<strong>最小割</strong>，即GraphCuts的结果。</p>
-<p>基于能量的算法：<br>    $E(A) = \lambda \cdot R(A) + B(A)$<br>    $R(A) = \sum_{p \in \mathcal{P}} R_p(A_p)$<br>    $B(A) = \sum_{ {p,q} \in \mathcal{N} } B_{ {p,q} } \cdot \delta(A_p,A_q)$<br>    <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts%E8%83%BD%E9%87%8F.png" alt="GraphCuts能量"><br><em>区域项R(A)、边界项B(A)</em></p>
-<p>R是为像素p分配标签$I_p$的惩罚：<br>    当像素p的灰度值属于目标的概率大于背景，$R_p(1) &lt; R_p(0)$，即像素p更有可能属于目标时，将p归为目标会使能量R(L)更小。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%9B%BE%E5%89%B2%E5%89%8D%E8%83%8C%E6%99%AF%E5%88%86%E5%89%B2%E5%85%AC%E5%BC%8F.png" alt="图割前背景分割公式"><br>B是像素p和q之间不连续的惩罚，一般来说，如果p和q越相似，B越大；若非常不同，B趋向于0。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/GraphCuts%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E8%BF%87%E7%A8%8B.png" alt="GraphCuts基本操作过程"></p>
-<p>基本操作过程：</p>
-<ol>
-<li>先取两个种子点；</li>
-<li>然后建立一个图，图中边的粗细表示对应权值大小；</li>
-<li>找到权值和最小的边的组合；</li>
-<li>完成图像分割。</li>
-</ol>
+</li>
+<li><p>Map：键值对，键不重复；</p>
+<ul>
+<li>HashMap：不保存对象的排列次序，允许键值为null、非Synchronized，但collection框架可保证Synchronized；</li>
+<li>TreeMap：保存对象的排列次序。</li>
+</ul>
+</li>
+</ul>
+<h1 id="SSM-框架集"><a href="#SSM-框架集" class="headerlink" title="SSM 框架集"></a>SSM 框架集</h1><table>
+<thead>
+<tr>
+<th align="center">简写</th>
+<th align="center">框架</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">S</td>
+<td align="center">Spring</td>
+<td align="center">一个轻量的控制反转和面向切面的容器框架。其中，IOC容器，可装载bean(类)，减少使用类时的初始化；aop；事务管理等。</td>
+</tr>
+<tr>
+<td align="center">S</td>
+<td align="center">SpringMVC</td>
+<td align="center">用于web层，相当于controller，用来处理用户请求。</td>
+</tr>
+<tr>
+<td align="center">M</td>
+<td align="center">MyBatis</td>
+<td align="center">自由控制sql，提升数据库访问效率；使用xml方式组织管理sql，易于修改。</td>
+</tr>
+</tbody></table>
+<p><strong>一般目录结构为：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">src</span><br><span class="line">    - main          &#x2F;&#x2F; 用于存放java代码和一些资源文件</span><br><span class="line">        - java          &#x2F;&#x2F; 存放Java代码，使用Build Path-&gt;Use as Source Folder，新建的包相当于在这里新建文件夹</span><br><span class="line">            - dao           &#x2F;&#x2F; 数据访问层(接口)，与数据打交道，可以是数据库操作、文件读写操作、redis缓存操作等</span><br><span class="line">            - entity        &#x2F;&#x2F; 实体类，与数据库表相对应，封装dao层取出来的数据为一个对象，一般只在dao层与service层传输，存放与业务相关实体类</span><br><span class="line">            - dto           &#x2F;&#x2F; 数据传输层，用于service层与web层间的传输，很多时候一个entity不能满足业务需求，也可存放与业务相关性小的数据实体类</span><br><span class="line">            - service       &#x2F;&#x2F; 业务逻辑(接口)</span><br><span class="line">            - serviceImpl   &#x2F;&#x2F; 业务逻辑(实现)，实现业务接口，一般事物控制在此处</span><br><span class="line">            - web           &#x2F;&#x2F; 控制器，SpringMVC在此处发挥作用</span><br><span class="line">        - resources     &#x2F;&#x2F; 存放资源文件，如Spring，mybatis，log配置文件</span><br><span class="line">            - mapper        &#x2F;&#x2F; 存放dao中每个方法对应的sql</span><br><span class="line">            - spring        &#x2F;&#x2F; 存放Spring相关的配置文件，包含dao、service、web三层</span><br><span class="line">                - spring-dao.xml        &#x2F;&#x2F; 配置数据库连接池、配置连接属性等</span><br><span class="line">                - spring-service.xml    &#x2F;&#x2F; 配置事物管理器等</span><br><span class="line">                - spring-web.xml        &#x2F;&#x2F; 开启SpringMVC注解模式、对静态资源处理、扫描web层等</span><br><span class="line">                - mybatis-config.xml    &#x2F;&#x2F; 连接数据库时的相关配置，如驼峰命名转换等</span><br><span class="line">            - sql</span><br><span class="line">            - jdbc.properties   &#x2F;&#x2F; 数据库配置相关参数</span><br><span class="line">        - webapp        &#x2F;&#x2F; 存放前端的静态资源</span><br><span class="line">            - resources     &#x2F;&#x2F; 项目的静态资源</span><br><span class="line">            - css</span><br><span class="line">            - images</span><br><span class="line">            - js</span><br><span class="line">        - WEB-INF       &#x2F;&#x2F; 外部浏览器无法访问</span><br><span class="line">            - jsp</span><br><span class="line">            - lib       &#x2F;&#x2F; 用于管理jar包</span><br><span class="line">            web.xml     &#x2F;&#x2F; 全局配置</span><br><span class="line">    - test          &#x2F;&#x2F; 测试分支</span><br><span class="line">        - java          &#x2F;&#x2F; 测试Java代码，应遵循包名相同的原则，使用Build Path-&gt;Use as Source Folder</span><br><span class="line">        - resources</span><br><span class="line">pom.xml     &#x2F;&#x2F; 使用maven进行管理jar包，在pom.xml添加相应依赖</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="MVC-模式"><a href="#MVC-模式" class="headerlink" title="MVC 模式"></a>MVC 模式</h1><table>
+<thead>
+<tr>
+<th align="center">简写</th>
+<th align="center">框架内容</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">M</td>
+<td align="center">model</td>
+<td align="center">处理数据逻辑部分，负责在数据库中读取数据</td>
+</tr>
+<tr>
+<td align="center">V</td>
+<td align="center">view</td>
+<td align="center">处理数据显示部分，依据模型数据创建</td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td align="center">control</td>
+<td align="center">处理用户交互部分，负责从试图读取数据，控制用户输入，并向模型发送数据</td>
+</tr>
+</tbody></table>
+<p>典型的MVC框架为 <code>JSP + servlet + javabean</code> 模式。</p>
+<hr>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a href="https://www.runoob.com/java/java-collections.html" target="_blank" rel="noopener">https://www.runoob.com/java/java-collections.html</a></li>
+</ul>
 ]]></content>
       <categories>
-        <category>image</category>
+        <category>Java</category>
       </categories>
       <tags>
-        <tag>图像分割</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -294,96 +335,26 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Java框架</title>
-    <url>/2020/03/10/Java%E6%A1%86%E6%9E%B6/</url>
-    <content><![CDATA[<h1 id="Java集合框架图"><a href="#Java集合框架图" class="headerlink" title="Java集合框架图"></a>Java集合框架图</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E5%9B%BE.png" alt="Java集合框架图"></p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Java%E9%9B%86%E5%90%88%E7%B1%BB%E5%9B%BE.jpg" alt="Java集合类图"></p>
-<p>LinkedList类实现了Queue接口，因此可以将LinkedList当成Queue来用。</p>
-<p>集合特点：</p>
+    <title>Java编程</title>
+    <url>/2020/03/10/Java%E7%BC%96%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h1><h2 id="websocket：持久化协议"><a href="#websocket：持久化协议" class="headerlink" title="websocket：持久化协议"></a>websocket：持久化协议</h2><p>实现服务器端主动向客户端推送信息，客户端也可主动向服务器发送请求，实现双向对话。<br>具体来讲，就是先通过客户端使用http协议向服务器发送请求，建立长链接；建立长链接之后，服务器即可主动向客户端发送消息；确定一个时间，经过该时间后，客户端向服务器发送请求确认，避免该🔗断开。</p>
+<p><em>为了兼容浏览器，在握手阶段使用HTTP协议。</em></p>
 <ul>
-<li><p>List：有序、可重复；</p>
-<ul>
-<li><p>ArrayList：数组-查询快、增删慢；<br>扩容机制：</p>
-<ol>
-<li>先对传进来的初始化参数initalCapcity初始容量进行判断，若为0初始化为一个空数组；若非空，则初始化一个容量为10的数组；</li>
-<li>扩容：当数组大小 &gt; 初始容量时，扩容为原来的1.5倍；</li>
-<li>扩容方式：对原数组进行拷贝为新数组，原数组被GC回收。</li>
-</ol>
-</li>
-<li><p>LinkedList：链表-查询慢、增删快；</p>
-</li>
+<li>websocket建立在TCP协议上，服务器端端实现较容易；</li>
+<li>与HTTP协议兼容性较好，默认端口为80或443，可通过http代理的服务器；</li>
+<li>数据格式轻量，性能开销较小，通信高效；</li>
+<li>可以发送文本，也可以发送二进制数据；</li>
+<li>没有同源限制，客户端可以与任意服务器通信；</li>
+<li>协议表示符是ws，若需🔐，使用wss，服务器网址为url。</li>
 </ul>
-</li>
-<li><p>Set：有序、不可重复；</p>
-<ul>
-<li>TreeSet：遍历时必须在实现类实现Comparable接口，重写ComparaTo方法；</li>
-<li>HashSet：使用成员对象来计算hashcode值，使用equals()判断对象是否相等。</li>
-</ul>
-</li>
-<li><p>Map：键值对，键不重复；</p>
-<ul>
-<li>HashMap：不保存对象的排列次序，允许键值为null、非Synchronized，但collection框架可保证Synchronized；</li>
-<li>TreeMap：保存对象的排列次序。</li>
-</ul>
-</li>
-</ul>
-<h1 id="SSM-框架集"><a href="#SSM-框架集" class="headerlink" title="SSM 框架集"></a>SSM 框架集</h1><table>
-<thead>
-<tr>
-<th align="center">简写</th>
-<th align="center">框架</th>
-<th align="center">解释</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">S</td>
-<td align="center">Spring</td>
-<td align="center">一个轻量的控制反转和面向切面的容器框架。其中，IOC容器，可装载bean(类)，减少使用类时的初始化；aop；事务管理等。</td>
-</tr>
-<tr>
-<td align="center">S</td>
-<td align="center">SpringMVC</td>
-<td align="center">用于web层，相当于controller，用来处理用户请求。</td>
-</tr>
-<tr>
-<td align="center">M</td>
-<td align="center">MyBatis</td>
-<td align="center">自由控制sql，提升数据库访问效率；使用xml方式组织管理sql，易于修改。</td>
-</tr>
-</tbody></table>
-<p><strong>一般目录结构为：</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">src</span><br><span class="line">    - main          &#x2F;&#x2F; 用于存放java代码和一些资源文件</span><br><span class="line">        - java          &#x2F;&#x2F; 存放Java代码，使用Build Path-&gt;Use as Source Folder，新建的包相当于在这里新建文件夹</span><br><span class="line">            - dao           &#x2F;&#x2F; 数据访问层(接口)，与数据打交道，可以是数据库操作、文件读写操作、redis缓存操作等</span><br><span class="line">            - entity        &#x2F;&#x2F; 实体类，与数据库表相对应，封装dao层取出来的数据为一个对象，一般只在dao层与service层传输，存放与业务相关实体类</span><br><span class="line">            - dto           &#x2F;&#x2F; 数据传输层，用于service层与web层间的传输，很多时候一个entity不能满足业务需求，也可存放与业务相关性小的数据实体类</span><br><span class="line">            - service       &#x2F;&#x2F; 业务逻辑(接口)</span><br><span class="line">            - serviceImpl   &#x2F;&#x2F; 业务逻辑(实现)，实现业务接口，一般事物控制在此处</span><br><span class="line">            - web           &#x2F;&#x2F; 控制器，SpringMVC在此处发挥作用</span><br><span class="line">        - resources     &#x2F;&#x2F; 存放资源文件，如Spring，mybatis，log配置文件</span><br><span class="line">            - mapper        &#x2F;&#x2F; 存放dao中每个方法对应的sql</span><br><span class="line">            - spring        &#x2F;&#x2F; 存放Spring相关的配置文件，包含dao、service、web三层</span><br><span class="line">                - spring-dao.xml        &#x2F;&#x2F; 配置数据库连接池、配置连接属性等</span><br><span class="line">                - spring-service.xml    &#x2F;&#x2F; 配置事物管理器等</span><br><span class="line">                - spring-web.xml        &#x2F;&#x2F; 开启SpringMVC注解模式、对静态资源处理、扫描web层等</span><br><span class="line">                - mybatis-config.xml    &#x2F;&#x2F; 连接数据库时的相关配置，如驼峰命名转换等</span><br><span class="line">            - sql</span><br><span class="line">            - jdbc.properties   &#x2F;&#x2F; 数据库配置相关参数</span><br><span class="line">        - webapp        &#x2F;&#x2F; 存放前端的静态资源</span><br><span class="line">            - resources     &#x2F;&#x2F; 项目的静态资源</span><br><span class="line">            - css</span><br><span class="line">            - images</span><br><span class="line">            - js</span><br><span class="line">        - WEB-INF       &#x2F;&#x2F; 外部浏览器无法访问</span><br><span class="line">            - jsp</span><br><span class="line">            - lib       &#x2F;&#x2F; 用于管理jar包</span><br><span class="line">            web.xml     &#x2F;&#x2F; 全局配置</span><br><span class="line">    - test          &#x2F;&#x2F; 测试分支</span><br><span class="line">        - java          &#x2F;&#x2F; 测试Java代码，应遵循包名相同的原则，使用Build Path-&gt;Use as Source Folder</span><br><span class="line">        - resources</span><br><span class="line">pom.xml     &#x2F;&#x2F; 使用maven进行管理jar包，在pom.xml添加相应依赖</span><br></pre></td></tr></table></figure>
+<h2 id="典型的websocket🤝"><a href="#典型的websocket🤝" class="headerlink" title="典型的websocket🤝"></a>典型的websocket🤝</h2><ul>
+<li>浏览器请求：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GET &#x2F;chat HTTP&#x2F;1.1</span><br><span class="line">Host: server.example.com</span><br><span class="line">Upgrade: websocket			&#x2F;&#x2F; websocket协议</span><br><span class="line">Connection: Upgrade			&#x2F;&#x2F; 告诉服务器，发起的请求为Upgrade对应的websocket协议</span><br><span class="line">Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw&#x3D;&#x3D;			&#x2F;&#x2F; Base64 encode值，由浏览器自动生成，用于验证是否使用websocket协议</span><br><span class="line">Sec-WebSocket-Protocol: chat, superchat			&#x2F;&#x2F; 用户定义的字符串，用于区分URL下不同服务所需要的协议</span><br><span class="line">Sec-WebSocket-Version: 13			&#x2F;&#x2F; websocket版本</span><br><span class="line">Origin: http:&#x2F;&#x2F;example.com</span><br></pre></td></tr></table></figure></li>
+<li>服务器返回：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">HTTP&#x2F;1.1 101 Switching Protocols</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk&#x3D;</span><br><span class="line">Sec-WebSocket-Protocol: chat</span><br></pre></td></tr></table></figure>
 
-<hr>
-<h1 id="MVC-模式"><a href="#MVC-模式" class="headerlink" title="MVC 模式"></a>MVC 模式</h1><table>
-<thead>
-<tr>
-<th align="center">简写</th>
-<th align="center">框架内容</th>
-<th align="center">解释</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">M</td>
-<td align="center">model</td>
-<td align="center">处理数据逻辑部分，负责在数据库中读取数据</td>
-</tr>
-<tr>
-<td align="center">V</td>
-<td align="center">view</td>
-<td align="center">处理数据显示部分，依据模型数据创建</td>
-</tr>
-<tr>
-<td align="center">C</td>
-<td align="center">control</td>
-<td align="center">处理用户交互部分，负责从试图读取数据，控制用户输入，并向模型发送数据</td>
-</tr>
-</tbody></table>
-<p>典型的MVC框架为 <code>JSP + servlet + javabean</code> 模式。</p>
-<hr>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="https://www.runoob.com/java/java-collections.html" target="_blank" rel="noopener">https://www.runoob.com/java/java-collections.html</a></li>
+</li>
 </ul>
+<hr>
+<p><em>参考：</em><br><a href="https://www.cnblogs.com/jieerma666/p/10342435.html" target="_blank" rel="noopener">用JAVA分别实现WebSocket客户端与服务端</a><br><a href="https://www.cnblogs.com/nnngu/p/9347635.html" target="_blank" rel="noopener">看完让你彻底理解 WebSocket 原理，附完整的实战代码</a></p>
 ]]></content>
       <categories>
         <category>Java</category>
@@ -427,53 +398,271 @@
       </tags>
   </entry>
   <entry>
-    <title>Java编程</title>
-    <url>/2020/03/10/Java%E7%BC%96%E7%A8%8B/</url>
-    <content><![CDATA[<h1 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h1><h2 id="websocket：持久化协议"><a href="#websocket：持久化协议" class="headerlink" title="websocket：持久化协议"></a>websocket：持久化协议</h2><p>实现服务器端主动向客户端推送信息，客户端也可主动向服务器发送请求，实现双向对话。<br>具体来讲，就是先通过客户端使用http协议向服务器发送请求，建立长链接；建立长链接之后，服务器即可主动向客户端发送消息；确定一个时间，经过该时间后，客户端向服务器发送请求确认，避免该🔗断开。</p>
-<p><em>为了兼容浏览器，在握手阶段使用HTTP协议。</em></p>
-<ul>
-<li>websocket建立在TCP协议上，服务器端端实现较容易；</li>
-<li>与HTTP协议兼容性较好，默认端口为80或443，可通过http代理的服务器；</li>
-<li>数据格式轻量，性能开销较小，通信高效；</li>
-<li>可以发送文本，也可以发送二进制数据；</li>
-<li>没有同源限制，客户端可以与任意服务器通信；</li>
-<li>协议表示符是ws，若需🔐，使用wss，服务器网址为url。</li>
-</ul>
-<h2 id="典型的websocket🤝"><a href="#典型的websocket🤝" class="headerlink" title="典型的websocket🤝"></a>典型的websocket🤝</h2><ul>
-<li>浏览器请求：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GET &#x2F;chat HTTP&#x2F;1.1</span><br><span class="line">Host: server.example.com</span><br><span class="line">Upgrade: websocket			&#x2F;&#x2F; websocket协议</span><br><span class="line">Connection: Upgrade			&#x2F;&#x2F; 告诉服务器，发起的请求为Upgrade对应的websocket协议</span><br><span class="line">Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw&#x3D;&#x3D;			&#x2F;&#x2F; Base64 encode值，由浏览器自动生成，用于验证是否使用websocket协议</span><br><span class="line">Sec-WebSocket-Protocol: chat, superchat			&#x2F;&#x2F; 用户定义的字符串，用于区分URL下不同服务所需要的协议</span><br><span class="line">Sec-WebSocket-Version: 13			&#x2F;&#x2F; websocket版本</span><br><span class="line">Origin: http:&#x2F;&#x2F;example.com</span><br></pre></td></tr></table></figure></li>
-<li>服务器返回：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">HTTP&#x2F;1.1 101 Switching Protocols</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk&#x3D;</span><br><span class="line">Sec-WebSocket-Protocol: chat</span><br></pre></td></tr></table></figure>
+    <title>Hexo博客</title>
+    <url>/2020/03/09/Hexo%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h1 id="Hexo-GitHub-Pages搭建个人博客"><a href="#Hexo-GitHub-Pages搭建个人博客" class="headerlink" title="Hexo + GitHub Pages搭建个人博客"></a>Hexo + GitHub Pages搭建个人博客</h1><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! </p>
+<h2 id="创建Hexo"><a href="#创建Hexo" class="headerlink" title="创建Hexo"></a>创建Hexo</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
 
-</li>
+<p><code>npm install</code> 报错，解决方案：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo rm -rf ~&#x2F;.node-gyp</span><br><span class="line">sudo npm cache clean -f</span><br><span class="line">sudo npm install -g n</span><br><span class="line">sudo n stable</span><br><span class="line">sudo npm i --unsafe-perm</span><br></pre></td></tr></table></figure>
+<p><em>配置后更新版本等会比较麻烦，不配置同样可以使用</em></p>
+<h2 id="配置GitHub"><a href="#配置GitHub" class="headerlink" title="配置GitHub"></a>配置GitHub</h2><p>编辑 <code>_config.yml</code> 配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:***&#x2F;***.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+<h2 id="部署博客"><a href="#部署博客" class="headerlink" title="部署博客"></a>部署博客</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<p><code>ERROR Deployer not found: git</code> 报错，解决方案：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<p>遇到 <code>xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun</code> 问题，安装插件：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置域名"><a href="#配置域名" class="headerlink" title="配置域名"></a>配置域名</h2><p><em>本人使用的是<a href="https://www.aliyun.com/?utm_content=se_1000301881&accounttraceid=52e2158134cd4376ab19089abd0757e9llgh" target="_blank" rel="noopener">阿里云</a>的域名</em></p>
+<ol>
+<li>在终端中 <code>ping ***.github.io</code> 得到一个ip地址，copy下来；</li>
+<li>在阿里云域名设置中添加解析：<ul>
+<li>主机记录–www，记录类型–A，解析线路–默认不修改，<br>  记录值为 <code>步骤1</code> 中ping到的ip，TTL–默认不修改；</li>
+<li>主机记录–@，记录类型–A，解析线路–默认不修改，<br>  记录值为 <code>步骤1</code> 中ping到的ip，TTL–默认不修改；</li>
 </ul>
-<hr>
-<p><em>参考：</em><br><a href="https://www.cnblogs.com/jieerma666/p/10342435.html" target="_blank" rel="noopener">用JAVA分别实现WebSocket客户端与服务端</a><br><a href="https://www.cnblogs.com/nnngu/p/9347635.html" target="_blank" rel="noopener">看完让你彻底理解 WebSocket 原理，附完整的实战代码</a></p>
+</li>
+<li>在GitHub中打开username.github.io仓库中的设置，找到 <code>Custom domain</code> 将自己的域名填入其中，点击保存；</li>
+<li>在本地仓库中打开 <code>source</code> 文件夹，添加 <code>CNAME</code> 文件，内容为自己的域名；</li>
+<li>重新部署，等待几分钟即可访问。</li>
+</ol>
+<h2 id="博客美化"><a href="#博客美化" class="headerlink" title="博客美化"></a>博客美化</h2><p>网上有大量主题可供使用，按照主题配置修改即可。<br>本博客基于<a href="https://github.com/theme-next/hexo-theme-next" target="_blank" rel="noopener">Next主题</a>进行配置。</p>
+<h3 id="图标查询"><a href="#图标查询" class="headerlink" title="图标查询"></a><a href="https://fontawesome.dashgame.com" target="_blank" rel="noopener">图标查询</a></h3><p><a href="https://fontawesome.dashgame.com" target="_blank" rel="noopener">https://fontawesome.dashgame.com</a></p>
+<h3 id="安装插件："><a href="#安装插件：" class="headerlink" title="安装插件："></a>安装插件：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">npm install hexo-generator-feed --save</span><br><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
+
+<h2 id="图床"><a href="#图床" class="headerlink" title="图床"></a>图床</h2><ol>
+<li>在GitHub新建一个repositories用于存储图片；</li>
+<li>在个人GitHub账户中的 <code>Settings</code> 中选择 <code>Developer settings</code> 创建 <code>Personal access tokens</code>，勾选 <code>repo</code> 一栏即可；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/picgo-token.png" alt="picgo-token"></li>
+<li>安装PicGo；</li>
+<li>配置PicGo（使用了cdn加速）；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/picgo-github.png" alt="picgo-github"></li>
+<li>配置完成后即可上传图片了。</li>
+</ol>
+<h2 id="数学公式-最新版的直接在配置文件里的mathjax设为true即可"><a href="#数学公式-最新版的直接在配置文件里的mathjax设为true即可" class="headerlink" title="数学公式(最新版的直接在配置文件里的mathjax设为true即可)"></a>数学公式(最新版的直接在配置文件里的mathjax设为true即可)</h2><h3 id="安装插件：-1"><a href="#安装插件：-1" class="headerlink" title="安装插件："></a>安装插件：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-math --save</span><br></pre></td></tr></table></figure>
+
+<h3 id="评论"><a href="#评论" class="headerlink" title="评论"></a>评论</h3><p><a href="https://www.livere.com/login_form" target="_blank" rel="noopener">livere</a>，参考下面博客美化设置。</p>
+<h3 id="设置文章阴影效果"><a href="#设置文章阴影效果" class="headerlink" title="设置文章阴影效果"></a>设置文章阴影效果</h3><p>因为在网上没有找到适合新版本7.7的方法，自己摸索尝试解决：<br>找到 <code>/themes/next/source/css/_common/components/post/post.styl</code> 中的 <code>.use-motion</code> 块，修改</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (hexo-config(&#39;motion.transition.post_block&#39;)) &#123;</span><br><span class="line">  .post-block &#123;</span><br><span class="line">      opacity: 0;</span><br><span class="line">      background: transparent; &#x2F;&#x2F;透明</span><br><span class="line">  &#125;</span><br><span class="line">  .pagination, .comments &#123;</span><br><span class="line">    opacity: 0;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="http://shenzekun.cn/hexo的next主题个性化配置教程.html" target="_blank" rel="noopener">http://shenzekun.cn/hexo的next主题个性化配置教程.html</a><br><a href="https://zhuanlan.zhihu.com/p/30836436" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/30836436</a><br><a href="https://blog.csdn.net/nightmare_dimple/article/details/86661502" target="_blank" rel="noopener">https://blog.csdn.net/nightmare_dimple/article/details/86661502</a><br><a href="https://tieba.baidu.com/p/6440743671" target="_blank" rel="noopener">https://tieba.baidu.com/p/6440743671</a><br><a href="https://www.cnblogs.com/aoguai/p/11481253.html" target="_blank" rel="noopener">https://www.cnblogs.com/aoguai/p/11481253.html</a><br><a href="https://blog.uuk4.com/2019/05/09/hexo中插入数学公式/" target="_blank" rel="noopener">https://blog.uuk4.com/2019/05/09/hexo中插入数学公式/</a></p>
 ]]></content>
       <categories>
-        <category>Java</category>
+        <category>Mac</category>
       </categories>
       <tags>
-        <tag>Java</tag>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown</title>
+    <url>/2020/03/09/Markdown/</url>
+    <content><![CDATA[<h1 id="md基本标记符号"><a href="#md基本标记符号" class="headerlink" title="md基本标记符号"></a>md基本标记符号</h1><ol>
+<li><p>标题<br>支持六级标题，一般在#后跟个空格再写标题内容。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>代码</p>
+</li>
+</ol>
+<ul>
+<li>单行代码<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;代码内容&#96;</span><br></pre></td></tr></table></figure></li>
+<li>多行代码，代码之间分别用三个反引号包起来，且两边的反引号单独占一行。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(&#96;&#96;&#96;)</span><br><span class="line">  代码...</span><br><span class="line">  代码...</span><br><span class="line">  代码...</span><br><span class="line">(&#96;&#96;&#96;)</span><br></pre></td></tr></table></figure>
+注：为了防止转译，前后三个反引号处加了小括号</li>
+</ul>
+<ol start="3">
+<li><p>字体</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">*倾斜*</span><br><span class="line">**加粗**</span><br><span class="line">***斜体加粗***</span><br><span class="line">~~加删除线~~</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>图片</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![图片alt](图片地址 &#39;&#39;图片title&#39;&#39;)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>图片alt就是显示在图片下面的文字，相当于对图片内容的解释；</li>
+<li>图片title是图片的标题，当鼠标移到图片上时显示的内容。title可不加；</li>
+<li>github和md文件关联的图片地址是有一定的格式的，不显示可将blob改为raw。</li>
+</ul>
+<ol start="5">
+<li>表格<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">表头|表头|表头</span><br><span class="line">---|:--:|--:</span><br><span class="line">内容|内容|内容</span><br><span class="line">内容|内容|内容</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>第二行分割表头和内容；</li>
+<li>- 有一个就行，为了对齐，多加了几个；</li>
+<li>文字默认居左，-两边加：表示文字居中，-右边加：表示文字居右；</li>
+<li>原生的语法两边都要用 <code>|</code> 包起来。</li>
+</ul>
+<ol start="6">
+<li><p>引用<br>在引用的文字前加&gt;即可。引用也可以嵌套，如加两个&gt;&gt;三个&gt;&gt;&gt;</p>
+</li>
+<li><p>分割线<br>三个或者三个以上的 - 或者 * 均可。</p>
+</li>
+<li><p>超链接</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[超链接名](超链接地址 &quot;超链接title&quot;)</span><br></pre></td></tr></table></figure>
+<p>Markdown本身语法不支持链接在新页面中打开，可用html的a标签代替。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;a href&#x3D;&quot;超链接地址&quot; target&#x3D;&quot;_blank&quot;&gt;超链接名&lt;&#x2F;a&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>列表</p>
+</li>
+</ol>
+<ul>
+<li>无序列表<br>无序列表用 <code>- + *</code> 任何一种均可，但与内容之间都要有一个空格<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- 列表内容</span><br><span class="line">+ 列表内容</span><br><span class="line">* 列表内容</span><br></pre></td></tr></table></figure></li>
+<li>有序列表<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 列表内容</span><br><span class="line">2. 列表内容</span><br><span class="line">3. 列表内容</span><br></pre></td></tr></table></figure></li>
+<li>列表嵌套<br>上一级与下一级间加3个空格即可。</li>
+</ul>
+<ol start="10">
+<li>流程图（GitHub貌似不支持）<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始</span><br><span class="line">op&#x3D;&gt;operation: My Operation</span><br><span class="line">cond&#x3D;&gt;condition: Yes or No?</span><br><span class="line">e&#x3D;&gt;end</span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br><span class="line">&amp;</span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Manual</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
       </tags>
   </entry>
   <entry>
     <title>MVVM设计模式</title>
     <url>/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<h1 id="MVC模式"><a href="#MVC模式" class="headerlink" title="MVC模式"></a>MVC模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvc.png" alt="mvc"></p>
-<p>所有的对象都可以被归类为一个model，一个view，或一个controller。</p>
-<p><em>部分代码没有合适的存放位置，如网络请求部分。</em></p>
+<p>所有的对象都可以被归类为一个model，一个view，或一个controller。–Apple</p>
+<ul>
+<li>M：模型model的对象通常比较简单。<ul>
+<li>根据Apple的文档，model应包括数据和操作数据的业务逻辑；</li>
+<li>在实际中，model层往往非常薄；</li>
+<li>model层的业务逻辑不应被拖入到controller；</li>
+</ul>
+</li>
+<li>V：视图view通常是UIKit控件或编码定义的UIKit控件的集合。<ul>
+<li>View的构建可不告诉controller，也不应该直接引用model；</li>
+<li>View仅仅通过IBAction事件引用controller；</li>
+<li>视图本身不包含任何业务；</li>
+</ul>
+</li>
+<li>C：控制器controller用于协调model和view间的所有交互，是app的“胶水代码”。<ul>
+<li>controller负责管理所拥有的view的视图层次结构，并且响应view的loading、appearing、disappearing等；</li>
+<li>包括不愿暴露给view的业务逻辑；</li>
+<li>网络数据的请求及后续操作，本地数据库操作，及一些带有工具性质辅助方法等都加大了<code>Massive View Controller</code>的产生。</li>
+</ul>
+</li>
+</ul>
+<p><em>部分代码没有合适的存放位置，如网络逻辑。</em></p>
 <p>弊端：</p>
 <ul>
 <li>大量的代码被放到controller，臃肿；</li>
 <li>controller规模庞大，难以维护；</li>
 <li>属性较多，难以管理；</li>
-<li>遵循较多协议，protocol的响应代码和controller的逻辑代码混杂。</li>
+<li>遵循较多协议，protocol的响应代码和controller的逻辑代码混杂；</li>
+<li>View Controller混合类视图处理逻辑和业务逻辑，分离这些成分的单元测试成为艰巨的任务。</li>
 </ul>
-<h1 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvvm.jpg" alt="mvvm"></p>
-<p>引入新的组件ViewModel，放置用户输入验证逻辑、视图显示逻辑、发起网络请求、数据解析等。<br>项目中的请求数据，统一交给ViewModel管理，每个控制器对应一个专属ViewModel。</p>
+<h1 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/MVVM.png" alt="MVVM"></p>
+<p>MVVM是对MVC的一种演进，促进了UI代码和业务逻辑的分离。<br>MVVM正式规范了视图和控制器紧耦合的性质，并引入新的组件ViewModel。<br>项目中的请求数据，统一交给ViewModel管理，每个控制器对应一个专属ViewModel。</p>
+<ul>
+<li><p>特点：</p>
+<ul>
+<li>view和<code>view controller</code>正式联系在一起，将其视为一个组件；</li>
+<li>view和<code>view controller</code>不能直接引用model，而是引用viewModel；</li>
+<li>viewModel放置用户输入验证逻辑、视图显示逻辑、发起网络请求、数据解析等；</li>
+<li>使用MVVM会增加少量代码量，但总体上减少了代码的复杂性。</li>
+</ul>
+</li>
+<li><p>注意事项：</p>
+<ul>
+<li>view引用viewModel，但viewModel不能引用view；</li>
+<li>viewModel引用model，但model不能引用ViewModel；</li>
+<li>MVVM可兼容MVC架构；</li>
+<li>MVVM配合一个绑定机制(如ReactiveCocoa)效果最好；</li>
+<li>尽量使用viewModel处理业务逻辑；</li>
+<li>viewController尽量不涉及业务逻辑，只接收view的事件、调用viewModel的方法、响应viewModel的变化；</li>
+<li>viewModel间可以有依赖，但要避免过于臃肿。</li>
+</ul>
+</li>
+<li><p>优点：</p>
+<ul>
+<li>低耦合：View可以独立于Model变化和修改，一个viewModel可以绑定到不同的View上；</li>
+<li>可重用性：可将一些视图逻辑放到一个viewModel中，让view重用该视图逻辑；</li>
+<li>独立开发：开发人员可专注于业务逻辑和数据的开发viewModel，设计人员可专注于页面设计View；</li>
+<li>可测试：通常界面是比较难测试，MVVM模式可针对viewModel进行测试。</li>
+</ul>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li>数据绑定使得一个位置的Bug被快速传递到别的位置，难定位到原始位置；</li>
+<li>对于过大的项目，数据绑定和数据转化需要花费更多的内存：<ul>
+<li>数组内容的转化成本较高，数组中每项都要转化成Item对象，Item对象中可能还有类似数组；</li>
+<li>转化后的数据大部分情况下不能直接被展示，还需二次转化；</li>
+<li>只有在API返回的数据高度标准化时，Item的可复用程度才高，否则容易出现类型爆炸，提高维护成本；</li>
+</ul>
+</li>
+<li>调试时通过Item查看数据内容，不如直接通过NSDictionary/NSArray直观；</li>
+<li>同一API的数据被不同View展示时，难以控制数据转化的代码，可能散落在任何需要的地方。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>个人实战使用总结：</p>
+<ul>
+<li>Model：存放所需要用到的变量、定义字典等，用于转换数据；</li>
+<li>View：控件相关，用于定义控件属性Cell、UI界面的设置等；</li>
+<li>Controller：用于传递数据信息等，如给UIView内容赋值；</li>
+<li>ViewModel：用于解析数据等。</li>
+</ul>
+<hr>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a href="https://www.jianshu.com/p/d0bc12a63ccf" target="_blank" rel="noopener">https://www.jianshu.com/p/d0bc12a63ccf</a></li>
+</ul>
 ]]></content>
       <categories>
         <category>ios</category>
       </categories>
+  </entry>
+  <entry>
+    <title>统一建模语言Unified Modeling Language</title>
+    <url>/2020/07/12/UML/</url>
+    <content><![CDATA[<h1 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h1><p>特点：简单、统一、图形化、可表达软件设计中的动态和静态信息。</p>
+<p>UML从目标系统的不同角度出发，定义了用例图、类图、对象图、状态图、活动图、时序图、协作图、构件图、部署图。</p>
+<p><em>业界使用较多的为<code>Rational Rose</code>和轻量级的开源<code>Umlet</code>。</em></p>
+<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><h2 id="类Class"><a href="#类Class" class="headerlink" title="类Class"></a>类Class</h2><p>类指<strong>具有相同属性、方法、关系的对象的抽象</strong>，封装了数据和行为，是面向对象程序设计OOP的基础，具有<strong>封装性、继承性、多态性</strong>。</p>
+<p>在UML中，类使用包含<strong>类名、属性、操作，并带有分隔线的矩形</strong>表示。</p>
+<ul>
+<li>类名Name：一个字符串；</li>
+<li>属性Attribute，类的特性/成员变量：[可见性]属性名:类型[=默认值]<ul>
+<li>可见性表示该属性对类外的元素是否可见；</li>
+<li>公有Public对应<code>+</code>；</li>
+<li>私有Private对应<code>-</code>；</li>
+<li>受保护Protected对应<code>#</code>；</li>
+<li>朋友Friendly对应<code>~</code>；</li>
+</ul>
+</li>
+<li>操作Operations，类的任一实例对象都可使用的行为，类的成员方法：[可见性]名称(参数列表)[:返回类型]。</li>
+</ul>
+<h2 id="接口Interface"><a href="#接口Interface" class="headerlink" title="接口Interface"></a>接口Interface</h2><p>接口，具有类的结构，但<strong>不可被实例化</strong>，只能<strong>被子类实现</strong>。包含抽象操作，但不包含属性。</p>
+<p>UML中，接口使用一个<strong>带有名称的小圆圈</strong>来表示。</p>
+<h2 id="类图ClassDiagram"><a href="#类图ClassDiagram" class="headerlink" title="类图ClassDiagram"></a>类图ClassDiagram</h2><p>类图，用来<strong>显示系统中的类、接口、协作，及它们之间的静态结构和关系</strong>的一种<strong>静态结构</strong>。<br>主要用于描述软件系统的结构化设计，帮助人们简化对软件系统的理解，是系统分析和设计阶段的重要产物，也是系统编码和测试的重要模型依据。</p>
+<p>类图在<strong>软件系统开发的整个生命周期</strong>都有效，是OOP建模中最常见的图。</p>
+<h3 id="类间关系"><a href="#类间关系" class="headerlink" title="类间关系"></a>类间关系</h3><p>根据类与类之间的耦合度从弱到强排列： 依赖关系、关联关系、聚合关系、组合关系、泛化关系==实现关系。</p>
+<ol>
+<li><p>依赖关系Dependency：<strong>带箭头的虚线</strong>，箭头指向被依赖的类。<br>一种使用关系，<strong>临时性关联</strong>，某个类的方法通过局部变量、方法的参数、对静态方法的调用，来访问另一个类(被依赖类)中的某些方法来完成一些职责。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB.png" alt="依赖关系"></p>
+</li>
+<li><p>关联关系Association：</p>
+<ol>
+<li>双向关联：用<strong>带两个箭头或没有箭头的实线</strong>表示；</li>
+<li>单向关联：用<strong>带一个箭头的实线</strong>来表示；<br>对象间的一种<strong>引用关系</strong>，用于表示一类对象对另一类对象间的联系，通常将一个类的对象作为另一个类的成员变量来实现。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%85%B3%E8%81%94%E5%85%B3%E7%B3%BB.png" alt="关联关系"></li>
+</ol>
+</li>
+<li><p>聚合关系Aggregation：用<strong>带空心菱形的实线</strong>表示，菱形指向整体。<br>关联关系的一种，是<strong>强关联关系</strong>，是<strong>整体和部分</strong>间的关系。<br>聚合关系<strong>通过成员对象实现</strong>，其中，成员对象是整体对象的一部分，但<strong>成员对象可以脱离整体对象独立存在</strong>。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%81%9A%E5%90%88%E5%85%B3%E7%B3%BB.png" alt="聚合关系"></p>
+</li>
+<li><p>组合关系Composition：用<strong>带实心菱形的实线</strong>表示，菱形指向整体。<br>关联关系的一种，表示<strong>类间整体与部分</strong>的关系，是一种<strong>更强烈的聚合关系</strong>。<br>组合关系中，<strong>整体对象可以控制部分对象的生命周期</strong>，一旦整体对象不存在，部分对象也不存在了，<strong>部分对象不能脱离整体对象存在</strong>。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BB%84%E5%90%88%E5%85%B3%E7%B3%BB.png" alt="组合关系"></p>
+</li>
+<li><p>泛化关系Generalization：用<strong>带空心三角箭头的实线</strong>表示，箭头从子类指向父类。<br><strong>对象间耦合度最大</strong>的一种关系，表示<strong>一般与特殊的关系</strong>，是<strong>父类与子类</strong>的关系，是一种<strong>继承</strong>关系。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%B3%9B%E5%8C%96%E5%85%B3%E7%B3%BB.png" alt="泛化关系"></p>
+</li>
+<li><p>实现关系Realization：用<strong>带空心三角箭头的虚线</strong>表示，箭头从实现类指向接口。<br>实线关系是<strong>接口与实现类</strong>间的关系，类实现了接口，类中的操作<strong>实现了接口中声明的所有的抽象操作</strong>。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%AE%9E%E7%8E%B0%E5%85%B3%E7%B3%BB.png" alt="实现关系"></p>
+</li>
+</ol>
+<hr>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a href="http://c.biancheng.net/view/1319.html" target="_blank" rel="noopener">http://c.biancheng.net/view/1319.html</a></li>
+</ul>
+]]></content>
   </entry>
   <entry>
     <title>Mac常用配置</title>
@@ -632,120 +821,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Markdown</title>
-    <url>/2020/03/09/Markdown/</url>
-    <content><![CDATA[<h1 id="md基本标记符号"><a href="#md基本标记符号" class="headerlink" title="md基本标记符号"></a>md基本标记符号</h1><ol>
-<li><p>标题<br>支持六级标题，一般在#后跟个空格再写标题内容。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>代码</p>
-</li>
-</ol>
-<ul>
-<li>单行代码<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;代码内容&#96;</span><br></pre></td></tr></table></figure></li>
-<li>多行代码，代码之间分别用三个反引号包起来，且两边的反引号单独占一行。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(&#96;&#96;&#96;)</span><br><span class="line">  代码...</span><br><span class="line">  代码...</span><br><span class="line">  代码...</span><br><span class="line">(&#96;&#96;&#96;)</span><br></pre></td></tr></table></figure>
-注：为了防止转译，前后三个反引号处加了小括号</li>
-</ul>
-<ol start="3">
-<li><p>字体</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">*倾斜*</span><br><span class="line">**加粗**</span><br><span class="line">***斜体加粗***</span><br><span class="line">~~加删除线~~</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>图片</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![图片alt](图片地址 &#39;&#39;图片title&#39;&#39;)</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li>图片alt就是显示在图片下面的文字，相当于对图片内容的解释；</li>
-<li>图片title是图片的标题，当鼠标移到图片上时显示的内容。title可不加；</li>
-<li>github和md文件关联的图片地址是有一定的格式的，不显示可将blob改为raw。</li>
-</ul>
-<ol start="5">
-<li>表格<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">表头|表头|表头</span><br><span class="line">---|:--:|--:</span><br><span class="line">内容|内容|内容</span><br><span class="line">内容|内容|内容</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li>第二行分割表头和内容；</li>
-<li>- 有一个就行，为了对齐，多加了几个；</li>
-<li>文字默认居左，-两边加：表示文字居中，-右边加：表示文字居右；</li>
-<li>原生的语法两边都要用 <code>|</code> 包起来。</li>
-</ul>
-<ol start="6">
-<li><p>引用<br>在引用的文字前加&gt;即可。引用也可以嵌套，如加两个&gt;&gt;三个&gt;&gt;&gt;</p>
-</li>
-<li><p>分割线<br>三个或者三个以上的 - 或者 * 均可。</p>
-</li>
-<li><p>超链接</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[超链接名](超链接地址 &quot;超链接title&quot;)</span><br></pre></td></tr></table></figure>
-<p>Markdown本身语法不支持链接在新页面中打开，可用html的a标签代替。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;a href&#x3D;&quot;超链接地址&quot; target&#x3D;&quot;_blank&quot;&gt;超链接名&lt;&#x2F;a&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>列表</p>
-</li>
-</ol>
-<ul>
-<li>无序列表<br>无序列表用 <code>- + *</code> 任何一种均可，但与内容之间都要有一个空格<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- 列表内容</span><br><span class="line">+ 列表内容</span><br><span class="line">* 列表内容</span><br></pre></td></tr></table></figure></li>
-<li>有序列表<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 列表内容</span><br><span class="line">2. 列表内容</span><br><span class="line">3. 列表内容</span><br></pre></td></tr></table></figure></li>
-<li>列表嵌套<br>上一级与下一级间加3个空格即可。</li>
-</ul>
-<ol start="10">
-<li>流程图（GitHub貌似不支持）<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始</span><br><span class="line">op&#x3D;&gt;operation: My Operation</span><br><span class="line">cond&#x3D;&gt;condition: Yes or No?</span><br><span class="line">e&#x3D;&gt;end</span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br><span class="line">&amp;</span><br></pre></td></tr></table></figure></li>
-</ol>
-]]></content>
-      <categories>
-        <category>Manual</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>统一建模语言Unified Modeling Language</title>
-    <url>/2020/07/12/UML/</url>
-    <content><![CDATA[<h1 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h1><p>特点：简单、统一、图形化、可表达软件设计中的动态和静态信息。</p>
-<p>UML从目标系统的不同角度出发，定义了用例图、类图、对象图、状态图、活动图、时序图、协作图、构件图、部署图。</p>
-<p><em>业界使用较多的为<code>Rational Rose</code>和轻量级的开源<code>Umlet</code>。</em></p>
-<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><h2 id="类Class"><a href="#类Class" class="headerlink" title="类Class"></a>类Class</h2><p>类指<strong>具有相同属性、方法、关系的对象的抽象</strong>，封装了数据和行为，是面向对象程序设计OOP的基础，具有<strong>封装性、继承性、多态性</strong>。</p>
-<p>在UML中，类使用包含<strong>类名、属性、操作，并带有分隔线的矩形</strong>表示。</p>
-<ul>
-<li>类名Name：一个字符串；</li>
-<li>属性Attribute，类的特性/成员变量：[可见性]属性名:类型[=默认值]<ul>
-<li>可见性表示该属性对类外的元素是否可见；</li>
-<li>公有Public对应<code>+</code>；</li>
-<li>私有Private对应<code>-</code>；</li>
-<li>受保护Protected对应<code>#</code>；</li>
-<li>朋友Friendly对应<code>~</code>；</li>
-</ul>
-</li>
-<li>操作Operations，类的任一实例对象都可使用的行为，类的成员方法：[可见性]名称(参数列表)[:返回类型]。</li>
-</ul>
-<h2 id="接口Interface"><a href="#接口Interface" class="headerlink" title="接口Interface"></a>接口Interface</h2><p>接口，具有类的结构，但<strong>不可被实例化</strong>，只能<strong>被子类实现</strong>。包含抽象操作，但不包含属性。</p>
-<p>UML中，接口使用一个<strong>带有名称的小圆圈</strong>来表示。</p>
-<h2 id="类图ClassDiagram"><a href="#类图ClassDiagram" class="headerlink" title="类图ClassDiagram"></a>类图ClassDiagram</h2><p>类图，用来<strong>显示系统中的类、接口、协作，及它们之间的静态结构和关系</strong>的一种<strong>静态结构</strong>。<br>主要用于描述软件系统的结构化设计，帮助人们简化对软件系统的理解，是系统分析和设计阶段的重要产物，也是系统编码和测试的重要模型依据。</p>
-<p>类图在<strong>软件系统开发的整个生命周期</strong>都有效，是OOP建模中最常见的图。</p>
-<h3 id="类间关系"><a href="#类间关系" class="headerlink" title="类间关系"></a>类间关系</h3><p>根据类与类之间的耦合度从弱到强排列： 依赖关系、关联关系、聚合关系、组合关系、泛化关系==实现关系。</p>
-<ol>
-<li><p>依赖关系Dependency：<strong>带箭头的虚线</strong>，箭头指向被依赖的类。<br>一种使用关系，<strong>临时性关联</strong>，某个类的方法通过局部变量、方法的参数、对静态方法的调用，来访问另一个类(被依赖类)中的某些方法来完成一些职责。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB.png" alt="依赖关系"></p>
-</li>
-<li><p>关联关系Association：</p>
-<ol>
-<li>双向关联：用<strong>带两个箭头或没有箭头的实线</strong>表示；</li>
-<li>单向关联：用<strong>带一个箭头的实线</strong>来表示；<br>对象间的一种<strong>引用关系</strong>，用于表示一类对象对另一类对象间的联系，通常将一个类的对象作为另一个类的成员变量来实现。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%85%B3%E8%81%94%E5%85%B3%E7%B3%BB.png" alt="关联关系"></li>
-</ol>
-</li>
-<li><p>聚合关系Aggregation：用<strong>带空心菱形的实线</strong>表示，菱形指向整体。<br>关联关系的一种，是<strong>强关联关系</strong>，是<strong>整体和部分</strong>间的关系。<br>聚合关系<strong>通过成员对象实现</strong>，其中，成员对象是整体对象的一部分，但<strong>成员对象可以脱离整体对象独立存在</strong>。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%81%9A%E5%90%88%E5%85%B3%E7%B3%BB.png" alt="聚合关系"></p>
-</li>
-<li><p>组合关系Composition：用<strong>带实心菱形的实线</strong>表示，菱形指向整体。<br>关联关系的一种，表示<strong>类间整体与部分</strong>的关系，是一种<strong>更强烈的聚合关系</strong>。<br>组合关系中，<strong>整体对象可以控制部分对象的生命周期</strong>，一旦整体对象不存在，部分对象也不存在了，<strong>部分对象不能脱离整体对象存在</strong>。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BB%84%E5%90%88%E5%85%B3%E7%B3%BB.png" alt="组合关系"></p>
-</li>
-<li><p>泛化关系Generalization：用<strong>带空心三角箭头的实线</strong>表示，箭头从子类指向父类。<br><strong>对象间耦合度最大</strong>的一种关系，表示<strong>一般与特殊的关系</strong>，是<strong>父类与子类</strong>的关系，是一种<strong>继承</strong>关系。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%B3%9B%E5%8C%96%E5%85%B3%E7%B3%BB.png" alt="泛化关系"></p>
-</li>
-<li><p>实现关系Realization：用<strong>带空心三角箭头的虚线</strong>表示，箭头从实现类指向接口。<br>实线关系是<strong>接口与实现类</strong>间的关系，类实现了接口，类中的操作<strong>实现了接口中声明的所有的抽象操作</strong>。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%AE%9E%E7%8E%B0%E5%85%B3%E7%B3%BB.png" alt="实现关系"></p>
-</li>
-</ol>
-<hr>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="http://c.biancheng.net/view/1319.html" target="_blank" rel="noopener">http://c.biancheng.net/view/1319.html</a></li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
     <title>Ubuntu安装Matlab</title>
     <url>/2020/06/03/Ubuntu%E5%AE%89%E8%A3%85Matlab/</url>
     <content><![CDATA[<h1 id="Ubuntu-18-04安装Matlab2018b"><a href="#Ubuntu-18-04安装Matlab2018b" class="headerlink" title="Ubuntu 18.04安装Matlab2018b"></a>Ubuntu 18.04安装Matlab2018b</h1><h2 id="Matlab安装"><a href="#Matlab安装" class="headerlink" title="Matlab安装"></a>Matlab安装</h2><ol>
@@ -769,32 +844,6 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[Desktop Entry]</span><br><span class="line">Categories&#x3D;Application;Development;</span><br><span class="line">Comment&#x3D;Matlab</span><br><span class="line">Encoding&#x3D;UTF-8</span><br><span class="line">Exec&#x3D;&#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;bin&#x2F;matlab -desktop -prefersoftwareopengl</span><br><span class="line">Icon&#x3D;&#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;toolbox&#x2F;shared&#x2F;dastudio&#x2F;resources&#x2F;MatlabIcon.png</span><br><span class="line">Name&#x3D;MATLAB R2018b</span><br><span class="line">StartupNotify&#x3D;true</span><br><span class="line">Terminal&#x3D;false</span><br><span class="line">Type&#x3D;Application</span><br></pre></td></tr></table></figure>
 <p>如果打开Matlab提示”The desktop configuration was not saved successfully”：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo chmod a+w -R ~&#x2F;.matlab</span><br><span class="line">sudo chmod 777 &#x2F;home&#x2F;***&#x2F;.matlab</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>ubuntu</category>
-      </categories>
-      <tags>
-        <tag>software</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu配置CUDA</title>
-    <url>/2020/06/03/Ubuntu%E9%85%8D%E7%BD%AECUDA/</url>
-    <content><![CDATA[<h1 id="Ubuntu-18-04安装cuda-10-1版本deb"><a href="#Ubuntu-18-04安装cuda-10-1版本deb" class="headerlink" title="Ubuntu 18.04安装cuda 10.1版本deb"></a>Ubuntu 18.04安装cuda 10.1版本deb</h1><ol>
-<li>进入存储路径 <code>cd Downloads/cuda</code>；</li>
-<li>安装库<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo dpkg --install cuda-repo-ubuntu1804-10-1-local-10.1.168-418.67_1.0-1_amd64.deb</span><br><span class="line">sudo apt-key add &#x2F;var&#x2F;cuda-repo-10-1-local-10.1.168-418.67</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install cuda</span><br></pre></td></tr></table></figure></li>
-<li>重启Reboot；</li>
-<li>配置环境变量 <code>sudo gedit ~/.bashrc</code><br>在bashrc末尾添加：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;cuda-10.1&#x2F;bin$&#123;PATH:+:$&#123;PATH&#125;&#125;</span><br><span class="line">export LD_LIBRARY_PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;cuda-10.1&#x2F;lib64$&#123;LD_LIBRARY_PATH:+:$&#123;LD_LIBRARY_PATH&#125;&#125;</span><br></pre></td></tr></table></figure></li>
-<li>重启环境变量 <code>source ~/.bashrc</code>；</li>
-<li>验证。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cuda-install-samples-10.1.sh ~</span><br><span class="line">cd ~&#x2F;NVIDIA_CUDA-10.1_Samples&#x2F;5_Simulations&#x2F;nbody</span><br><span class="line">make</span><br><span class="line">.&#x2F;nbody</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<hr>
-<h1 id="Ubuntu-18-04安装cudnn7-6-2版本deb"><a href="#Ubuntu-18-04安装cudnn7-6-2版本deb" class="headerlink" title="Ubuntu 18.04安装cudnn7.6.2版本deb"></a>Ubuntu 18.04安装cudnn7.6.2版本deb</h1><ol>
-<li>安装库<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo dpkg -i libcudnn7_7.6.2.24-1+cuda10.1_amd64.deb </span><br><span class="line">sudo dpkg -i libcudnn7-dev_7.6.2.24-1+cuda10.1_amd64.deb</span><br><span class="line">sudo dpkg -i libcudnn7-doc_7.6.2.24-1+cuda10.1_amd64.deb</span><br></pre></td></tr></table></figure></li>
-<li>验证（”Test passed!”）<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp -r &#x2F;usr&#x2F;src&#x2F;cudnn_samples_v7&#x2F; $HOME</span><br><span class="line">cd  $HOME&#x2F;cudnn_samples_v7&#x2F;mnistCUDNN</span><br><span class="line">make clean &amp;&amp; make</span><br><span class="line">.&#x2F;mnistCUDNN</span><br></pre></td></tr></table></figure></li>
-</ol>
-]]></content>
       <categories>
         <category>ubuntu</category>
       </categories>
@@ -934,6 +983,32 @@
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu配置CUDA</title>
+    <url>/2020/06/03/Ubuntu%E9%85%8D%E7%BD%AECUDA/</url>
+    <content><![CDATA[<h1 id="Ubuntu-18-04安装cuda-10-1版本deb"><a href="#Ubuntu-18-04安装cuda-10-1版本deb" class="headerlink" title="Ubuntu 18.04安装cuda 10.1版本deb"></a>Ubuntu 18.04安装cuda 10.1版本deb</h1><ol>
+<li>进入存储路径 <code>cd Downloads/cuda</code>；</li>
+<li>安装库<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo dpkg --install cuda-repo-ubuntu1804-10-1-local-10.1.168-418.67_1.0-1_amd64.deb</span><br><span class="line">sudo apt-key add &#x2F;var&#x2F;cuda-repo-10-1-local-10.1.168-418.67</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install cuda</span><br></pre></td></tr></table></figure></li>
+<li>重启Reboot；</li>
+<li>配置环境变量 <code>sudo gedit ~/.bashrc</code><br>在bashrc末尾添加：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;cuda-10.1&#x2F;bin$&#123;PATH:+:$&#123;PATH&#125;&#125;</span><br><span class="line">export LD_LIBRARY_PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;cuda-10.1&#x2F;lib64$&#123;LD_LIBRARY_PATH:+:$&#123;LD_LIBRARY_PATH&#125;&#125;</span><br></pre></td></tr></table></figure></li>
+<li>重启环境变量 <code>source ~/.bashrc</code>；</li>
+<li>验证。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cuda-install-samples-10.1.sh ~</span><br><span class="line">cd ~&#x2F;NVIDIA_CUDA-10.1_Samples&#x2F;5_Simulations&#x2F;nbody</span><br><span class="line">make</span><br><span class="line">.&#x2F;nbody</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h1 id="Ubuntu-18-04安装cudnn7-6-2版本deb"><a href="#Ubuntu-18-04安装cudnn7-6-2版本deb" class="headerlink" title="Ubuntu 18.04安装cudnn7.6.2版本deb"></a>Ubuntu 18.04安装cudnn7.6.2版本deb</h1><ol>
+<li>安装库<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo dpkg -i libcudnn7_7.6.2.24-1+cuda10.1_amd64.deb </span><br><span class="line">sudo dpkg -i libcudnn7-dev_7.6.2.24-1+cuda10.1_amd64.deb</span><br><span class="line">sudo dpkg -i libcudnn7-doc_7.6.2.24-1+cuda10.1_amd64.deb</span><br></pre></td></tr></table></figure></li>
+<li>验证（”Test passed!”）<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp -r &#x2F;usr&#x2F;src&#x2F;cudnn_samples_v7&#x2F; $HOME</span><br><span class="line">cd  $HOME&#x2F;cudnn_samples_v7&#x2F;mnistCUDNN</span><br><span class="line">make clean &amp;&amp; make</span><br><span class="line">.&#x2F;mnistCUDNN</span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <categories>
+        <category>ubuntu</category>
+      </categories>
+      <tags>
+        <tag>software</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>haar特征</title>
     <url>/2020/06/04/haar%E7%89%B9%E5%BE%81/</url>
     <content><![CDATA[<h1 id="Haar-like特征"><a href="#Haar-like特征" class="headerlink" title="Haar-like特征"></a>Haar-like特征</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Haar%E7%89%B9%E5%BE%81.png" alt="Haar特征"></p>
@@ -1044,54 +1119,6 @@
       <categories>
         <category>image</category>
       </categories>
-  </entry>
-  <entry>
-    <title>mysql</title>
-    <url>/2020/03/09/mysql/</url>
-    <content><![CDATA[<h1 id="mysql常用命令"><a href="#mysql常用命令" class="headerlink" title="mysql常用命令"></a>mysql常用命令</h1><h2 id="进入mysql："><a href="#进入mysql：" class="headerlink" title="进入mysql："></a>进入mysql：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure>
-<p>输入密码登录。</p>
-<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><ol>
-<li>显示已存在数据库：<br><code>show databases;</code></li>
-<li>创建新数据库：<br><code>create database 数据库名称;</code></li>
-<li>切换到某数据库：<br><code>use 数据库名称;</code></li>
-<li>删除数据库：<br><code>drop database 数据库名称;</code></li>
-<li>退出数据库：<br><code>use mysql;</code></li>
-</ol>
-<h2 id="数据库表"><a href="#数据库表" class="headerlink" title="数据库表"></a>数据库表</h2><ol>
-<li>显示数据库中所有表：<br><code>show tables;</code></li>
-<li>创建新数据库表：<br><code>create table</code>数据库名称<code>(</code>列名<code>类型 ... , ...);</code></li>
-<li>查看某表结构：<br><code>show columns from 表名;</code> 或 <code>DESCRIBE 表名;</code></li>
-<li>删除数据库表：<br><code>drop tables 表名;</code></li>
-</ol>
-<hr>
-<h1 id="导入txt格式文件到MySQL8-0"><a href="#导入txt格式文件到MySQL8-0" class="headerlink" title="导入txt格式文件到MySQL8.0"></a>导入txt格式文件到MySQL8.0</h1><h2 id="命令行方式导入："><a href="#命令行方式导入：" class="headerlink" title="命令行方式导入："></a>命令行方式导入：</h2><p><strong>利用navicat中的查询语句进行命令操作</strong></p>
-<ol>
-<li>新建一个car_operation数据库：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE &#96;car_operation&#96; (</span><br><span class="line">  &#96;car_id&#96; varchar(6) NOT NULL COMMENT &#39;车辆标识&#39;,</span><br><span class="line">  &#96;clicking&#96; int(2) NOT NULL COMMENT &#39;触发事件：0&#x3D;变空车，1&#x3D;变载客，2&#x3D;设防，3&#x3D;撤防，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;operation_status&#96; int(2) NOT NULL COMMENT &#39;运营状态：0&#x3D;空车，1&#x3D;载客，2&#x3D;驻车，3&#x3D;停运，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;gps_time&#96; date NOT NULL COMMENT &#39;GPS时间：格式yyyymmddhhnnss，北京时间&#39;,</span><br><span class="line">  &#96;gps_longitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS经度：格式ddd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_latitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS纬度：格式dd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_speed&#96; int(4) NOT NULL COMMENT &#39;GPS速度：格式ddd，取值000-255内整数，以公里&#x2F;小时为单位&#39;,</span><br><span class="line">  &#96;gps_direction&#96; int(4) NOT NULL COMMENT &#39;GPS方位：格式ddd，取值000-360内整数，以度为单位&#39;,</span><br><span class="line">  &#96;gps_status&#96; int(2) NOT NULL COMMENT &#39;GPS状态：0&#x3D;无效，1&#x3D;有效&#39;</span><br><span class="line">) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Dynamic;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p><strong>因使用MySQL8.0，需要修改my.ini配置文件:</strong><br>在[mysqld]下添加一行 <code>secure_file_priv=&#39;&#39;</code>，重启MySQL服务器。</p>
-<ol start="2">
-<li><p>使用样例数据导入：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">LOAD DATA INFILE &#39;F:&#x2F;CQUPT&#x2F;Y81201&#x2F;SuperDatabase&#x2F;ADB&#x2F;20121130000001.txt&#39; REPLACE </span><br><span class="line">INTO TABLE car_operation </span><br><span class="line">FIELDS TERMINATED by&#39;,&#39; </span><br><span class="line">ENCLOSED by&#39;&quot;&#39;</span><br><span class="line">LINES TERMINATED by &#39;\r\n&#39;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用全部数据导入：（因数据有重复，删除car_id主键中的主键设置）</p>
-</li>
-</ol>
-<h2 id="通过GUI方式导入（速度超级慢）"><a href="#通过GUI方式导入（速度超级慢）" class="headerlink" title="通过GUI方式导入（速度超级慢）"></a>通过GUI方式导入（速度超级慢）</h2><ol>
-<li><p>创建<code>car_op_gui</code>数据库：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE &#96;car_op_gui&#96;(</span><br><span class="line">	&#96;car_id&#96; varchar(6) NOT NULL COMMENT &#39;车辆标识&#39;,</span><br><span class="line">  &#96;clicking&#96; int(2) NOT NULL COMMENT &#39;触发事件：0&#x3D;变空车，1&#x3D;变载客，2&#x3D;设防，3&#x3D;撤防，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;operation_status&#96; int(2) NOT NULL COMMENT &#39;运营状态：0&#x3D;空车，1&#x3D;载客，2&#x3D;驻车，3&#x3D;停运，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;gps_time&#96; date NOT NULL COMMENT &#39;GPS时间：格式yyyymmddhhnnss，北京时间&#39;,</span><br><span class="line">  &#96;gps_longitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS经度：格式ddd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_latitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS纬度：格式dd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_speed&#96; int(4) NOT NULL COMMENT &#39;GPS速度：格式ddd，取值000-255内整数，以公里&#x2F;小时为单位&#39;,</span><br><span class="line">  &#96;gps_direction&#96; int(4) NOT NULL COMMENT &#39;GPS方位：格式ddd，取值000-360内整数，以度为单位&#39;,</span><br><span class="line">  &#96;gps_status&#96; int(2) NOT NULL COMMENT &#39;GPS状态：0&#x3D;无效，1&#x3D;有效&#39;</span><br><span class="line">)ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Dynamic;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在该数据库右键选择导入向导<br> -&gt;选择txt格式<br> -&gt;选择数据源<br> -&gt;更改字段分隔符为“逗号，”<br> -&gt;下一步<br> -&gt;下一步<br> -&gt;更改目标字段<br> -&gt;追加，下一步<br> -&gt;开始</p>
-</li>
-<li><p>导入全部数据：（采用追加方式，目的删除之前样例数据）</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Manual</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
-      </tags>
   </entry>
   <entry>
     <title>runtime</title>
@@ -1246,38 +1273,51 @@
       </categories>
   </entry>
   <entry>
-    <title>svm</title>
-    <url>/2020/06/02/svm/</url>
-    <content><![CDATA[<h1 id="basic-linear-SVM"><a href="#basic-linear-SVM" class="headerlink" title="basic linear SVM"></a>basic linear SVM</h1><p>最优分界面条件：</p>
-<ul>
-<li>支持向量机基本模型，是针对<strong>线性可分</strong>的情况下的<strong>最优分界面</strong>提出的；</li>
-<li>正类与反类训练样本<strong>可用超平面完全正确分开</strong>。</li>
-</ul>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/svm%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B.png" alt="svm基本模型"></p>
-<p>支持向量：经过两类样本中距离最优分类面最近的点，且平行于最优分界面H1、H2(边界超平面)上的训练样本，即图中带圈的点。</p>
-<p>带约束的极值问题：<br>$$ min_{w,b} \frac{1}{2} {\Vert w \Vert}^2 $$<br>$$ s.t. y_i(w \cdot x_i + b) \geq 1 $$</p>
-<p><em>可通过拉格朗日乘数法并引入拉格朗日乘数，将该约束转化为一个对偶问题，通过寻求该对偶问题的最优解，可得原问题的最优解。</em></p>
-<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="松弛变量"><a href="#松弛变量" class="headerlink" title="松弛变量"></a>松弛变量</h3><p>由于噪声或其它因素影响，两类数据可能有较少的融合或交叉。<br>引入松弛变量X使得分类器在训练后仍可存在一些错分样本，但要使两类样本间的间隔尽量大，使错分样本的松弛变量之和尽可能小。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%9D%BE%E5%BC%9B%E5%8F%98%E9%87%8F.png" alt="松弛变量"></p>
-<p>$$ min_{w,b} \frac{1}{2} {\Vert w \Vert}^2 + C \sum_i \xi_i $$<br>$$ s.t. y_i (w \cdot x_i + b) \geq 1 - \xi_i $$</p>
-<p>其中，x为松弛变量，满足$x_i \geq 0$；C为大于0的折衷因子，调和来间隔距离和错分样本数之间的关系。</p>
-<h3 id="映射到高维空间"><a href="#映射到高维空间" class="headerlink" title="映射到高维空间"></a>映射到高维空间</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E7%BB%B4%E7%A9%BA%E9%97%B4%E6%98%A0%E5%B0%841.png" alt="高维空间映射1"></p>
-<p>为解决线性不可分数据问题，将低维空间的线性不可分数据映射到高维的线性可分空间中。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E7%BB%B4%E7%A9%BA%E9%97%B4%E6%98%A0%E5%B0%842.png" alt="高维空间映射2"></p>
-<p>SVM通过非线性映射f(x)把数据由低维空间向高维空间映射，在高维空间为低维数据构造线性分离超平面。</p>
-<p>该分离超平面对应原特征空间上的一个分割超曲面。</p>
-<h2 id="用SVM区分行人与非行人HOG特征"><a href="#用SVM区分行人与非行人HOG特征" class="headerlink" title="用SVM区分行人与非行人HOG特征"></a>用SVM区分行人与非行人HOG特征</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/svm_hog.png" alt="svm_hog"></p>
-<h1 id="Multiple-instance-SVM"><a href="#Multiple-instance-SVM" class="headerlink" title="Multiple-instance SVM"></a>Multiple-instance SVM</h1><p>将标准SVM的最大化样本间距扩展为最大化样本集间距，即选取<strong>正样本集中最像正样本</strong>的样本用作训练，<strong>负样本中离分界面最近</strong>的负样本作为负样本。</p>
-<p>$$ min_{w,b,\xi} \frac{1}{2} {\Vert w \Vert}^2 + C \sum_I {\xi_I} $$<br>$$ s.t. \forall I : Y_I max_{i \in I}(&lt;w,x_i&gt;+b) \geq 1-\xi_I, \xi_I \geq 0 $$</p>
-<h1 id="Latent-SVM"><a href="#Latent-SVM" class="headerlink" title="Latent-SVM"></a>Latent-SVM</h1><p><em>Latent-SVM实质上与MI-SVM是一样的，只是扩展了Latent变量。</em></p>
-<p>Latent变量：MI-SVM决定正样本集中哪一个样本作为正样本，即一个latent变量，但这个变量的取值是正样本集中的序号。</p>
-<p>参考：<br><a href="https://blog.csdn.net/loadstar_kun/article/details/41145665" target="_blank" rel="noopener">https://blog.csdn.net/loadstar_kun/article/details/41145665</a></p>
+    <title>mysql</title>
+    <url>/2020/03/09/mysql/</url>
+    <content><![CDATA[<h1 id="mysql常用命令"><a href="#mysql常用命令" class="headerlink" title="mysql常用命令"></a>mysql常用命令</h1><h2 id="进入mysql："><a href="#进入mysql：" class="headerlink" title="进入mysql："></a>进入mysql：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure>
+<p>输入密码登录。</p>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><ol>
+<li>显示已存在数据库：<br><code>show databases;</code></li>
+<li>创建新数据库：<br><code>create database 数据库名称;</code></li>
+<li>切换到某数据库：<br><code>use 数据库名称;</code></li>
+<li>删除数据库：<br><code>drop database 数据库名称;</code></li>
+<li>退出数据库：<br><code>use mysql;</code></li>
+</ol>
+<h2 id="数据库表"><a href="#数据库表" class="headerlink" title="数据库表"></a>数据库表</h2><ol>
+<li>显示数据库中所有表：<br><code>show tables;</code></li>
+<li>创建新数据库表：<br><code>create table</code>数据库名称<code>(</code>列名<code>类型 ... , ...);</code></li>
+<li>查看某表结构：<br><code>show columns from 表名;</code> 或 <code>DESCRIBE 表名;</code></li>
+<li>删除数据库表：<br><code>drop tables 表名;</code></li>
+</ol>
+<hr>
+<h1 id="导入txt格式文件到MySQL8-0"><a href="#导入txt格式文件到MySQL8-0" class="headerlink" title="导入txt格式文件到MySQL8.0"></a>导入txt格式文件到MySQL8.0</h1><h2 id="命令行方式导入："><a href="#命令行方式导入：" class="headerlink" title="命令行方式导入："></a>命令行方式导入：</h2><p><strong>利用navicat中的查询语句进行命令操作</strong></p>
+<ol>
+<li>新建一个car_operation数据库：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE &#96;car_operation&#96; (</span><br><span class="line">  &#96;car_id&#96; varchar(6) NOT NULL COMMENT &#39;车辆标识&#39;,</span><br><span class="line">  &#96;clicking&#96; int(2) NOT NULL COMMENT &#39;触发事件：0&#x3D;变空车，1&#x3D;变载客，2&#x3D;设防，3&#x3D;撤防，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;operation_status&#96; int(2) NOT NULL COMMENT &#39;运营状态：0&#x3D;空车，1&#x3D;载客，2&#x3D;驻车，3&#x3D;停运，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;gps_time&#96; date NOT NULL COMMENT &#39;GPS时间：格式yyyymmddhhnnss，北京时间&#39;,</span><br><span class="line">  &#96;gps_longitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS经度：格式ddd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_latitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS纬度：格式dd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_speed&#96; int(4) NOT NULL COMMENT &#39;GPS速度：格式ddd，取值000-255内整数，以公里&#x2F;小时为单位&#39;,</span><br><span class="line">  &#96;gps_direction&#96; int(4) NOT NULL COMMENT &#39;GPS方位：格式ddd，取值000-360内整数，以度为单位&#39;,</span><br><span class="line">  &#96;gps_status&#96; int(2) NOT NULL COMMENT &#39;GPS状态：0&#x3D;无效，1&#x3D;有效&#39;</span><br><span class="line">) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Dynamic;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>因使用MySQL8.0，需要修改my.ini配置文件:</strong><br>在[mysqld]下添加一行 <code>secure_file_priv=&#39;&#39;</code>，重启MySQL服务器。</p>
+<ol start="2">
+<li><p>使用样例数据导入：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">LOAD DATA INFILE &#39;F:&#x2F;CQUPT&#x2F;Y81201&#x2F;SuperDatabase&#x2F;ADB&#x2F;20121130000001.txt&#39; REPLACE </span><br><span class="line">INTO TABLE car_operation </span><br><span class="line">FIELDS TERMINATED by&#39;,&#39; </span><br><span class="line">ENCLOSED by&#39;&quot;&#39;</span><br><span class="line">LINES TERMINATED by &#39;\r\n&#39;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用全部数据导入：（因数据有重复，删除car_id主键中的主键设置）</p>
+</li>
+</ol>
+<h2 id="通过GUI方式导入（速度超级慢）"><a href="#通过GUI方式导入（速度超级慢）" class="headerlink" title="通过GUI方式导入（速度超级慢）"></a>通过GUI方式导入（速度超级慢）</h2><ol>
+<li><p>创建<code>car_op_gui</code>数据库：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE &#96;car_op_gui&#96;(</span><br><span class="line">	&#96;car_id&#96; varchar(6) NOT NULL COMMENT &#39;车辆标识&#39;,</span><br><span class="line">  &#96;clicking&#96; int(2) NOT NULL COMMENT &#39;触发事件：0&#x3D;变空车，1&#x3D;变载客，2&#x3D;设防，3&#x3D;撤防，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;operation_status&#96; int(2) NOT NULL COMMENT &#39;运营状态：0&#x3D;空车，1&#x3D;载客，2&#x3D;驻车，3&#x3D;停运，4&#x3D;其它&#39;,</span><br><span class="line">  &#96;gps_time&#96; date NOT NULL COMMENT &#39;GPS时间：格式yyyymmddhhnnss，北京时间&#39;,</span><br><span class="line">  &#96;gps_longitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS经度：格式ddd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_latitude&#96; float(12, 8) NOT NULL COMMENT &#39;GPS纬度：格式dd.ddddddd，以度为单位&#39;,</span><br><span class="line">  &#96;gps_speed&#96; int(4) NOT NULL COMMENT &#39;GPS速度：格式ddd，取值000-255内整数，以公里&#x2F;小时为单位&#39;,</span><br><span class="line">  &#96;gps_direction&#96; int(4) NOT NULL COMMENT &#39;GPS方位：格式ddd，取值000-360内整数，以度为单位&#39;,</span><br><span class="line">  &#96;gps_status&#96; int(2) NOT NULL COMMENT &#39;GPS状态：0&#x3D;无效，1&#x3D;有效&#39;</span><br><span class="line">)ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Dynamic;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在该数据库右键选择导入向导<br> -&gt;选择txt格式<br> -&gt;选择数据源<br> -&gt;更改字段分隔符为“逗号，”<br> -&gt;下一步<br> -&gt;下一步<br> -&gt;更改目标字段<br> -&gt;追加，下一步<br> -&gt;开始</p>
+</li>
+<li><p>导入全部数据：（采用追加方式，目的删除之前样例数据）</p>
+</li>
+</ol>
 ]]></content>
       <categories>
-        <category>image</category>
+        <category>Manual</category>
       </categories>
       <tags>
-        <tag>分类器</tag>
+        <tag>mysql</tag>
       </tags>
   </entry>
   <entry>
@@ -1489,6 +1529,89 @@
 ]]></content>
   </entry>
   <entry>
+    <title>图像分割</title>
+    <url>/2020/05/28/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/</url>
+    <content><![CDATA[<h1 id="图像分割"><a href="#图像分割" class="headerlink" title="图像分割"></a>图像分割</h1><p>图像分割：根据灰度、颜色、纹理、形状等特征，将图像划分为若干互不交叠的区域，并使这些特征在同一区域内呈现出相似性，在不同区域间呈现出明显的差异。</p>
+<p>经典数字图像分割算法一般基于灰度值的两个基本特性：</p>
+<ul>
+<li>不连续性；</li>
+<li>相似性。</li>
+</ul>
+<p>前景/背景分割：</p>
+<ul>
+<li>前景一般包含物体；</li>
+<li>需要交互提供初始标记。</li>
+</ul>
+<h2 id="基于阈值的分割方法"><a href="#基于阈值的分割方法" class="headerlink" title="基于阈值的分割方法"></a>基于阈值的分割方法</h2><p>基本思想：基于图像的灰度特征来计算一个或多个灰度阈值，并将图像中每个像素的灰度值与阈值相比较，最后将像素根据比较结果分到合适的类别中。</p>
+<p>设定某一灰度阈值T，将图像分为两部分：大于T的像素群和小于T的像素群，选定一个<strong>合适的阈值</strong>即可将图像准确地分割开。</p>
+<h2 id="基于边缘的分割方法"><a href="#基于边缘的分割方法" class="headerlink" title="基于边缘的分割方法"></a>基于边缘的分割方法</h2><p>边缘，是指图像中两个不同区域的边界线上连续的像素点的集合，是图像局部特征不连续性的反映，体现了灰度、颜色、纹理等图像特性的<strong>突变</strong>。</p>
+<p>基本思路：先确定图像中的边缘像素，然后再把这些像素连接在一起构成所需的区域边界。</p>
+<hr>
+<h1 id="传统图像分割方法"><a href="#传统图像分割方法" class="headerlink" title="传统图像分割方法"></a>传统图像分割方法</h1><h2 id="基于区域的分割方法"><a href="#基于区域的分割方法" class="headerlink" title="基于区域的分割方法"></a>基于区域的分割方法</h2><p>将图像按照相似性准则分成不同的区域。</p>
+<h3 id="区域生长法"><a href="#区域生长法" class="headerlink" title="区域生长法"></a>区域生长法</h3><p>根据一种事先定义的准则，将像素或子区域聚合成更大区域的过程，并且要充分保证分割后的区域满足以下条件：</p>
+<ul>
+<li>内部连通、互斥；</li>
+<li>各子集的并集能构成全集。</li>
+</ul>
+<p>区域生长的条件：根据像素灰度间的连续性定义的一些相似性准则；<br>区域生长停止的条件：一个终止规则。</p>
+<p>区域生长法定义了最大像素灰度值距离，当待加入像素点的灰度值和已分割好的区域所有像素点的平均灰度的差的绝对值不大于最大像素灰度值距离时，该像素点加入到该分割区域；相反，则区域生长算法停止。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8C%BA%E5%9F%9F%E7%94%9F%E9%95%BF.png" alt="区域生长"></p>
+<h3 id="分水岭方法"><a href="#分水岭方法" class="headerlink" title="分水岭方法"></a>分水岭方法</h3><p>将图像中的<strong>边缘</strong>转化为<strong>山脉</strong>，将<strong>均匀区域</strong>转化为<strong>山谷</strong>。</p>
+<p>在分割过程中，该方法会将临近像素间的相似性作为重要的参考依据，从而将在<strong>空间位置上相近</strong>，并且<strong>灰度值相近</strong>的像素点互相连接起来，构成一个封闭的轮廓。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%88%86%E6%B0%B4%E5%B2%AD.png" alt="分水岭"></p>
+<p>操作步骤：</p>
+<ol>
+<li>彩色图像灰度化；</li>
+<li>求梯度图；</li>
+<li>进行分水岭算法，求得分段图像的边缘线。</li>
+</ol>
+<h2 id="基于图论的分割方法"><a href="#基于图论的分割方法" class="headerlink" title="基于图论的分割方法"></a>基于图论的分割方法</h2><p>将图像分割问题与图的最小割mincut问题联系。将图像映射为带权无向图，图中每个节点对应于图像中的每个像素，每条边的权值对应相邻像素间在灰度、颜色、纹理等方面的非负相似度。</p>
+<a href="/2020/06/06/GraphCuts%E5%88%86%E5%89%B2/" title="GraphCuts分割">GraphCuts分割</a>
+
+<a href="/2020/06/06/GrabCut%E5%88%86%E5%89%B2/" title="GrabCut分割">GrabCut分割</a>]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>图像分割</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>svm</title>
+    <url>/2020/06/02/svm/</url>
+    <content><![CDATA[<h1 id="basic-linear-SVM"><a href="#basic-linear-SVM" class="headerlink" title="basic linear SVM"></a>basic linear SVM</h1><p>最优分界面条件：</p>
+<ul>
+<li>支持向量机基本模型，是针对<strong>线性可分</strong>的情况下的<strong>最优分界面</strong>提出的；</li>
+<li>正类与反类训练样本<strong>可用超平面完全正确分开</strong>。</li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/svm%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B.png" alt="svm基本模型"></p>
+<p>支持向量：经过两类样本中距离最优分类面最近的点，且平行于最优分界面H1、H2(边界超平面)上的训练样本，即图中带圈的点。</p>
+<p>带约束的极值问题：<br>$$ min_{w,b} \frac{1}{2} {\Vert w \Vert}^2 $$<br>$$ s.t. y_i(w \cdot x_i + b) \geq 1 $$</p>
+<p><em>可通过拉格朗日乘数法并引入拉格朗日乘数，将该约束转化为一个对偶问题，通过寻求该对偶问题的最优解，可得原问题的最优解。</em></p>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="松弛变量"><a href="#松弛变量" class="headerlink" title="松弛变量"></a>松弛变量</h3><p>由于噪声或其它因素影响，两类数据可能有较少的融合或交叉。<br>引入松弛变量X使得分类器在训练后仍可存在一些错分样本，但要使两类样本间的间隔尽量大，使错分样本的松弛变量之和尽可能小。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%9D%BE%E5%BC%9B%E5%8F%98%E9%87%8F.png" alt="松弛变量"></p>
+<p>$$ min_{w,b} \frac{1}{2} {\Vert w \Vert}^2 + C \sum_i \xi_i $$<br>$$ s.t. y_i (w \cdot x_i + b) \geq 1 - \xi_i $$</p>
+<p>其中，x为松弛变量，满足$x_i \geq 0$；C为大于0的折衷因子，调和来间隔距离和错分样本数之间的关系。</p>
+<h3 id="映射到高维空间"><a href="#映射到高维空间" class="headerlink" title="映射到高维空间"></a>映射到高维空间</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E7%BB%B4%E7%A9%BA%E9%97%B4%E6%98%A0%E5%B0%841.png" alt="高维空间映射1"></p>
+<p>为解决线性不可分数据问题，将低维空间的线性不可分数据映射到高维的线性可分空间中。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E7%BB%B4%E7%A9%BA%E9%97%B4%E6%98%A0%E5%B0%842.png" alt="高维空间映射2"></p>
+<p>SVM通过非线性映射f(x)把数据由低维空间向高维空间映射，在高维空间为低维数据构造线性分离超平面。</p>
+<p>该分离超平面对应原特征空间上的一个分割超曲面。</p>
+<h2 id="用SVM区分行人与非行人HOG特征"><a href="#用SVM区分行人与非行人HOG特征" class="headerlink" title="用SVM区分行人与非行人HOG特征"></a>用SVM区分行人与非行人HOG特征</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/svm_hog.png" alt="svm_hog"></p>
+<h1 id="Multiple-instance-SVM"><a href="#Multiple-instance-SVM" class="headerlink" title="Multiple-instance SVM"></a>Multiple-instance SVM</h1><p>将标准SVM的最大化样本间距扩展为最大化样本集间距，即选取<strong>正样本集中最像正样本</strong>的样本用作训练，<strong>负样本中离分界面最近</strong>的负样本作为负样本。</p>
+<p>$$ min_{w,b,\xi} \frac{1}{2} {\Vert w \Vert}^2 + C \sum_I {\xi_I} $$<br>$$ s.t. \forall I : Y_I max_{i \in I}(&lt;w,x_i&gt;+b) \geq 1-\xi_I, \xi_I \geq 0 $$</p>
+<h1 id="Latent-SVM"><a href="#Latent-SVM" class="headerlink" title="Latent-SVM"></a>Latent-SVM</h1><p><em>Latent-SVM实质上与MI-SVM是一样的，只是扩展了Latent变量。</em></p>
+<p>Latent变量：MI-SVM决定正样本集中哪一个样本作为正样本，即一个latent变量，但这个变量的取值是正样本集中的序号。</p>
+<p>参考：<br><a href="https://blog.csdn.net/loadstar_kun/article/details/41145665" target="_blank" rel="noopener">https://blog.csdn.net/loadstar_kun/article/details/41145665</a></p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>分类器</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>卷积神经网络</title>
     <url>/2020/06/08/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</url>
     <content><![CDATA[<h1 id="CNN基本组件"><a href="#CNN基本组件" class="headerlink" title="CNN基本组件"></a>CNN基本组件</h1><h2 id="卷积层-Convolutional-layer"><a href="#卷积层-Convolutional-layer" class="headerlink" title="卷积层 Convolutional_layer"></a>卷积层 Convolutional_layer</h2><p>用一个采样器从输入数据中采集关键数据内容；</p>
@@ -1553,54 +1676,6 @@
       </categories>
       <tags>
         <tag>CNN</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>图像分割</title>
-    <url>/2020/05/28/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/</url>
-    <content><![CDATA[<h1 id="图像分割"><a href="#图像分割" class="headerlink" title="图像分割"></a>图像分割</h1><p>图像分割：根据灰度、颜色、纹理、形状等特征，将图像划分为若干互不交叠的区域，并使这些特征在同一区域内呈现出相似性，在不同区域间呈现出明显的差异。</p>
-<p>经典数字图像分割算法一般基于灰度值的两个基本特性：</p>
-<ul>
-<li>不连续性；</li>
-<li>相似性。</li>
-</ul>
-<p>前景/背景分割：</p>
-<ul>
-<li>前景一般包含物体；</li>
-<li>需要交互提供初始标记。</li>
-</ul>
-<h2 id="基于阈值的分割方法"><a href="#基于阈值的分割方法" class="headerlink" title="基于阈值的分割方法"></a>基于阈值的分割方法</h2><p>基本思想：基于图像的灰度特征来计算一个或多个灰度阈值，并将图像中每个像素的灰度值与阈值相比较，最后将像素根据比较结果分到合适的类别中。</p>
-<p>设定某一灰度阈值T，将图像分为两部分：大于T的像素群和小于T的像素群，选定一个<strong>合适的阈值</strong>即可将图像准确地分割开。</p>
-<h2 id="基于边缘的分割方法"><a href="#基于边缘的分割方法" class="headerlink" title="基于边缘的分割方法"></a>基于边缘的分割方法</h2><p>边缘，是指图像中两个不同区域的边界线上连续的像素点的集合，是图像局部特征不连续性的反映，体现了灰度、颜色、纹理等图像特性的<strong>突变</strong>。</p>
-<p>基本思路：先确定图像中的边缘像素，然后再把这些像素连接在一起构成所需的区域边界。</p>
-<hr>
-<h1 id="传统图像分割方法"><a href="#传统图像分割方法" class="headerlink" title="传统图像分割方法"></a>传统图像分割方法</h1><h2 id="基于区域的分割方法"><a href="#基于区域的分割方法" class="headerlink" title="基于区域的分割方法"></a>基于区域的分割方法</h2><p>将图像按照相似性准则分成不同的区域。</p>
-<h3 id="区域生长法"><a href="#区域生长法" class="headerlink" title="区域生长法"></a>区域生长法</h3><p>根据一种事先定义的准则，将像素或子区域聚合成更大区域的过程，并且要充分保证分割后的区域满足以下条件：</p>
-<ul>
-<li>内部连通、互斥；</li>
-<li>各子集的并集能构成全集。</li>
-</ul>
-<p>区域生长的条件：根据像素灰度间的连续性定义的一些相似性准则；<br>区域生长停止的条件：一个终止规则。</p>
-<p>区域生长法定义了最大像素灰度值距离，当待加入像素点的灰度值和已分割好的区域所有像素点的平均灰度的差的绝对值不大于最大像素灰度值距离时，该像素点加入到该分割区域；相反，则区域生长算法停止。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8C%BA%E5%9F%9F%E7%94%9F%E9%95%BF.png" alt="区域生长"></p>
-<h3 id="分水岭方法"><a href="#分水岭方法" class="headerlink" title="分水岭方法"></a>分水岭方法</h3><p>将图像中的<strong>边缘</strong>转化为<strong>山脉</strong>，将<strong>均匀区域</strong>转化为<strong>山谷</strong>。</p>
-<p>在分割过程中，该方法会将临近像素间的相似性作为重要的参考依据，从而将在<strong>空间位置上相近</strong>，并且<strong>灰度值相近</strong>的像素点互相连接起来，构成一个封闭的轮廓。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%88%86%E6%B0%B4%E5%B2%AD.png" alt="分水岭"></p>
-<p>操作步骤：</p>
-<ol>
-<li>彩色图像灰度化；</li>
-<li>求梯度图；</li>
-<li>进行分水岭算法，求得分段图像的边缘线。</li>
-</ol>
-<h2 id="基于图论的分割方法"><a href="#基于图论的分割方法" class="headerlink" title="基于图论的分割方法"></a>基于图论的分割方法</h2><p>将图像分割问题与图的最小割mincut问题联系。将图像映射为带权无向图，图中每个节点对应于图像中的每个像素，每条边的权值对应相邻像素间在灰度、颜色、纹理等方面的非负相似度。</p>
-<a href="/2020/06/06/GraphCuts%E5%88%86%E5%89%B2/" title="GraphCuts分割">GraphCuts分割</a>
-
-<a href="/2020/06/06/GrabCut%E5%88%86%E5%89%B2/" title="GrabCut分割">GrabCut分割</a>]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>图像分割</tag>
       </tags>
   </entry>
   <entry>
@@ -1669,21 +1744,6 @@
       <tags>
         <tag>图像增强</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>图像格式</title>
-    <url>/2020/06/05/%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F/</url>
-    <content><![CDATA[<h1 id="图片存储格式"><a href="#图片存储格式" class="headerlink" title="图片存储格式"></a>图片存储格式</h1><p>常用存储格式：<br>  bmp,jpg,png,tiff,gif,<br>  pcx,tga,exif,fpx,svg,<br>  psd,cdr,pcd,dxf,ufo,<br>  eps,ai,raw,WMF,webp等。</p>
-<ul>
-<li>BMP：采用位映射存储，占用空间大。</li>
-<li>JPG：常用有损压缩格式，压缩比例可达10:1-40:1。</li>
-<li>PNG：无损压缩图像文件格式，比GIF小30%。</li>
-<li>GIF：基于LZW算法的连续色调的无损压缩格式，压缩率一般在50%左右。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
   </entry>
   <entry>
     <title>图像特征</title>
@@ -1890,6 +1950,53 @@
 ]]></content>
   </entry>
   <entry>
+    <title>图像格式</title>
+    <url>/2020/06/05/%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="图片存储格式"><a href="#图片存储格式" class="headerlink" title="图片存储格式"></a>图片存储格式</h1><p>常用存储格式：<br>  bmp,jpg,png,tiff,gif,<br>  pcx,tga,exif,fpx,svg,<br>  psd,cdr,pcd,dxf,ufo,<br>  eps,ai,raw,WMF,webp等。</p>
+<ul>
+<li>BMP：采用位映射存储，占用空间大。</li>
+<li>JPG：常用有损压缩格式，压缩比例可达10:1-40:1。</li>
+<li>PNG：无损压缩图像文件格式，比GIF小30%。</li>
+<li>GIF：基于LZW算法的连续色调的无损压缩格式，压缩率一般在50%左右。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>小波变换</title>
+    <url>/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/</url>
+    <content><![CDATA[<h1 id="连续小波变换CWT"><a href="#连续小波变换CWT" class="headerlink" title="连续小波变换CWT"></a>连续小波变换CWT</h1><p>将无限长的三角函数基转换为有限长的会衰减的小波基，不仅能获取频率，还可定位到时间。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2.png" alt="小波变换"></p>
+<p>思路：</p>
+<ol>
+<li>取一个小波，将其与原始信号的开始一节进行比较；</li>
+<li>计算数值F，F表示小波与所取一节信号的相似程度，计算结果取决于所选小波的形状；</li>
+<li>向右移动小波，重复步骤1和步骤2，直至覆盖整个信号；</li>
+<li>伸展小波，重复步骤1-3，对齐；</li>
+<li>对于所有缩放，重复步骤1-4，进行压缩。</li>
+</ol>
+<h1 id="离散小波变换DWT"><a href="#离散小波变换DWT" class="headerlink" title="离散小波变换DWT"></a>离散小波变换DWT</h1><p>离散小波变换的有效方法是使用滤波器，由Mallat于1988年提出。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%A4%9A%E5%B1%82%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="多层小波分解和重构"></p>
+<h2 id="小波分解"><a href="#小波分解" class="headerlink" title="小波分解"></a>小波分解</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%A6%BB%E6%95%A3%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="离散小波分解示意图"></p>
+<p>S表示原始的输入信号，通过两个互补的滤波器组，一个低通滤波器，得到信号的近似值A，另一个高通滤波器，得到该滤波器的细节值D。</p>
+<h2 id="小波重构"><a href="#小波重构" class="headerlink" title="小波重构"></a>小波重构</h2><p>利用小波分解的系数还原出原始信号，也叫逆离散小波变换IDWT/小波合成。</p>
+<h1 id="二维离散小波变换"><a href="#二维离散小波变换" class="headerlink" title="二维离散小波变换"></a>二维离散小波变换</h1><p>将二维信号在不同尺度进行分解，得到原始信号的近似值和细节。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BA%8C%E7%BB%B4%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="二维小波分解和重构"></p>
+<p>分解的结果为**近似分量cA、水平细节分量cH、垂直细节分量cV、对角细节分量cD。</p>
+<h1 id="常见小波函数"><a href="#常见小波函数" class="headerlink" title="常见小波函数"></a>常见小波函数</h1><p>Haar系列，Daubechies系列，Moret系列，Sym系列，Meyer系列，Coif系列</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%B3%A2%E5%87%BD%E6%95%B0.png" alt="常用小波函数"></p>
+<p>参考：<br><a href="https://www.cnblogs.com/keye/p/7809207.html" target="_blank" rel="noopener">https://www.cnblogs.com/keye/p/7809207.html</a><br><a href="https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html</a></p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>多尺度变换</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>多尺度变换</title>
     <url>/2020/04/09/%E5%A4%9A%E5%B0%BA%E5%BA%A6%E5%8F%98%E6%8D%A2/</url>
     <content><![CDATA[<h1 id="空间域处理：卷积"><a href="#空间域处理：卷积" class="headerlink" title="空间域处理：卷积"></a>空间域处理：卷积</h1><h2 id="点运算"><a href="#点运算" class="headerlink" title="点运算"></a>点运算</h2><h3 id="直方图（特征提取方法）"><a href="#直方图（特征提取方法）" class="headerlink" title="直方图（特征提取方法）"></a>直方图（特征提取方法）</h3><p>是对图片数据/特征分布的一种统计，对数据区间/空间进行量化。<br><em>全黑为0</em></p>
@@ -1985,38 +2092,6 @@
 </ul>
 <p><em>绝对意义的瞬时频率其实是不存在的，只是时间分辨率有限的近似分析结果。</em></p>
 <h2 id=""><a href="#" class="headerlink" title=""></a><a href="/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/" title="小波变换">小波变换</a></h2><p>reference:<br><a href="https://blog.csdn.net/asd20172016/article/details/80904634" target="_blank" rel="noopener">https://blog.csdn.net/asd20172016/article/details/80904634</a><br><a href="https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html</a><br><a href="https://zhuanlan.zhihu.com/p/23607336" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/23607336</a></p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>多尺度变换</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>小波变换</title>
-    <url>/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/</url>
-    <content><![CDATA[<h1 id="连续小波变换CWT"><a href="#连续小波变换CWT" class="headerlink" title="连续小波变换CWT"></a>连续小波变换CWT</h1><p>将无限长的三角函数基转换为有限长的会衰减的小波基，不仅能获取频率，还可定位到时间。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2.png" alt="小波变换"></p>
-<p>思路：</p>
-<ol>
-<li>取一个小波，将其与原始信号的开始一节进行比较；</li>
-<li>计算数值F，F表示小波与所取一节信号的相似程度，计算结果取决于所选小波的形状；</li>
-<li>向右移动小波，重复步骤1和步骤2，直至覆盖整个信号；</li>
-<li>伸展小波，重复步骤1-3，对齐；</li>
-<li>对于所有缩放，重复步骤1-4，进行压缩。</li>
-</ol>
-<h1 id="离散小波变换DWT"><a href="#离散小波变换DWT" class="headerlink" title="离散小波变换DWT"></a>离散小波变换DWT</h1><p>离散小波变换的有效方法是使用滤波器，由Mallat于1988年提出。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%A4%9A%E5%B1%82%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="多层小波分解和重构"></p>
-<h2 id="小波分解"><a href="#小波分解" class="headerlink" title="小波分解"></a>小波分解</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%A6%BB%E6%95%A3%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="离散小波分解示意图"></p>
-<p>S表示原始的输入信号，通过两个互补的滤波器组，一个低通滤波器，得到信号的近似值A，另一个高通滤波器，得到该滤波器的细节值D。</p>
-<h2 id="小波重构"><a href="#小波重构" class="headerlink" title="小波重构"></a>小波重构</h2><p>利用小波分解的系数还原出原始信号，也叫逆离散小波变换IDWT/小波合成。</p>
-<h1 id="二维离散小波变换"><a href="#二维离散小波变换" class="headerlink" title="二维离散小波变换"></a>二维离散小波变换</h1><p>将二维信号在不同尺度进行分解，得到原始信号的近似值和细节。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BA%8C%E7%BB%B4%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="二维小波分解和重构"></p>
-<p>分解的结果为**近似分量cA、水平细节分量cH、垂直细节分量cV、对角细节分量cD。</p>
-<h1 id="常见小波函数"><a href="#常见小波函数" class="headerlink" title="常见小波函数"></a>常见小波函数</h1><p>Haar系列，Daubechies系列，Moret系列，Sym系列，Meyer系列，Coif系列</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%B3%A2%E5%87%BD%E6%95%B0.png" alt="常用小波函数"></p>
-<p>参考：<br><a href="https://www.cnblogs.com/keye/p/7809207.html" target="_blank" rel="noopener">https://www.cnblogs.com/keye/p/7809207.html</a><br><a href="https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html</a></p>
 ]]></content>
       <categories>
         <category>image</category>
@@ -2203,6 +2278,264 @@
       </categories>
   </entry>
   <entry>
+    <title>数学公式</title>
+    <url>/2020/04/25/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="欧拉公式"><a href="#欧拉公式" class="headerlink" title="欧拉公式"></a>欧拉公式</h1><p>$e^{ix} = cos{x} + isin{x}$</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F.png" alt="欧拉公式"></p>
+<h1 id="链式求导法则"><a href="#链式求导法则" class="headerlink" title="链式求导法则"></a>链式求导法则</h1><p>$$(f(g(x)))’ = f’(g(x)) g’(x)$$</p>
+<p>或</p>
+<p>$$\frac{dy}{dx} = \frac{dy}{dz} \cdot \frac{dz}{dx}$$</p>
+<h1 id="极大似然估计MLE"><a href="#极大似然估计MLE" class="headerlink" title="极大似然估计MLE"></a>极大似然估计MLE</h1><ol>
+<li>样本集中的样本都是独立同分布iid的，可以只考虑一类样本集D，来估计参数向量$\theta$。</li>
+</ol>
+<p>$D = {x_1, x_2, … ,x_N}$</p>
+<ol start="2">
+<li>似然函数(likelihood function)：联合概率密度函数$p(D| \theta )$称为相对于$\theta$的似然函数。</li>
+</ol>
+<p>$l(\theta) = p(D|\theta) = p(x_1, x_2,…,x_N | \theta) = \prod_{i=1}^N p(x_i | \theta)$</p>
+<p>当$\widehat{\theta}$是参数空间中<strong>使似然函数最大的$\widehat{\theta}$值</strong>，那么，$\widehat{\theta}$很可能是最可能的参数值，则$\widehat{\theta}$为$\theta$的极大似然估计量。</p>
+<ol start="3">
+<li>MLE：求解使得出现该组样本的概率最大的$\theta$值。</li>
+</ol>
+<p>$$\widehat{\theta} = arg\underset{\theta}max l(\theta) = arg\underset{\theta}max \prod_{i=1}^N p(x_i | \theta)$$</p>
+<ol start="4">
+<li>对数似然函数（便于分析）</li>
+</ol>
+<p>$$\widehat{\theta} = arg\underset{\theta}max H(\theta) = arg\underset{\theta}max ln l(\theta) = arg\underset{\theta}max \sum_{i=1}^N ln p(x_i|\theta)$$</p>
+<h1 id="Lipschitz连续"><a href="#Lipschitz连续" class="headerlink" title="Lipschitz连续"></a>Lipschitz连续</h1><p>在一个连续函数f上面额外施加一个限制，要求存在一个常数$K \geq 0$，使得定义域内的任意两个元素$x_1$和$x_2$都满足$|f(x_1) - f(x_2)| \leq K|x_1 - x_2|$，即f的导数的绝对值不超过K。</p>
+]]></content>
+      <categories>
+        <category>Math</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>服务器连接</title>
+    <url>/2020/03/09/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE/</url>
+    <content><![CDATA[<h1 id="ssh远程连接（无需输入密码）"><a href="#ssh远程连接（无需输入密码）" class="headerlink" title="ssh远程连接（无需输入密码）"></a>ssh远程连接（无需输入密码）</h1><ol>
+<li><p>确保已经有生成有SSH公钥：<br>进入 <code>~/.ssh</code> 可看到有 <code>id_rsa</code> 和 <code>id_rsa.pub</code> ，其中 <code>id_rsa.pub</code> 为公钥。<br>若没有，运行：<code>ssh-keygen -t rsa -C &quot;***@gmail.com&quot;</code> 或 <code>ssh-keygen</code></p>
+</li>
+<li><p>将本电脑公钥发送到服务器端：<br><code>ssh-copy-id username@144.202.***.***</code></p>
+</li>
+<li><p>验证：<br><code>ssh &#39;username@144.202.***.***&#39;</code><br>自动连接！</p>
+</li>
+</ol>
+<ul>
+<li>若使用该方式后重置，再次连接时，会出现 <code>Host key verfication failed</code> 情况，使用 <code>ssh-keygen -R ip地址</code> 清除。</li>
+</ul>
+<h1 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h1><ol>
+<li><p>上传本地文件夹到服务器<br><code>scp -P port -r LocalWorkSpaces username@IP:WorkSpaces</code></p>
+</li>
+<li><p>下载服务器文件夹到本地<br><code>scp -P port -r username@IP:WorkSpaces LocalWorkSpaces</code> </p>
+</li>
+<li><p>上传本地文件到服务器<br><code>scp -P port file username@IP:WorkSpaces</code></p>
+</li>
+<li><p>下载服务器文件到本地<br><code>scp -P port 用户名@IP:file LocalWorkSpaces</code> </p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>remote</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据结构</title>
+    <url>/2020/03/12/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><p>稳定性：</p>
+<ul>
+<li>稳定：对于关键字相等的记录，排序后的序列和排序前的序列顺序相同；</li>
+<li>不稳定：对于关键字相等的记录，排序后的序列和排序前的序列顺序不一定相同。</li>
+</ul>
+<h2 id="内部排序"><a href="#内部排序" class="headerlink" title="内部排序"></a>内部排序</h2><p><em>待排序记录存放在计算机存储器中进行的排序过程</em></p>
+<table>
+<thead>
+<tr>
+<th align="center">排序方法</th>
+<th align="center">时间复杂度</th>
+<th align="center">最好时间复杂度</th>
+<th align="center">最坏时间复杂度</th>
+<th align="center">空间复杂度</th>
+<th align="center">稳定性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">冒泡排序</td>
+<td align="center">$O(n^2)$</td>
+<td align="center">$O(n)$</td>
+<td align="center">$O(n^2)$</td>
+<td align="center">$O(1)$</td>
+<td align="center">稳定</td>
+</tr>
+<tr>
+<td align="center">直接插入排序</td>
+<td align="center">$O(n^2)$</td>
+<td align="center">$O(n)$</td>
+<td align="center">$O(n^2)$</td>
+<td align="center">$O(1)$</td>
+<td align="center">稳定</td>
+</tr>
+<tr>
+<td align="center">希尔排序</td>
+<td align="center">$O(n{log}_2^n)$</td>
+<td align="center">$O(n{log}_2^n)$</td>
+<td align="center">$O(n{log}_2^n)$</td>
+<td align="center">$O(1)$</td>
+<td align="center">稳定</td>
+</tr>
+<tr>
+<td align="center">快速排序</td>
+<td align="center">$O(n{log}_2^n)$</td>
+<td align="center">$O(n{log}_2^n)$</td>
+<td align="center">$O(n^2)$</td>
+<td align="center">$O(n{log}_2^n)$</td>
+<td align="center">不稳定</td>
+</tr>
+<tr>
+<td align="center">简单选择排序</td>
+<td align="center">$O(n^2)$</td>
+<td align="center">$O(n^2)$</td>
+<td align="center">$O(n^2)$</td>
+<td align="center">$O(1)$</td>
+<td align="center">不稳定</td>
+</tr>
+<tr>
+<td align="center">二路归并排序</td>
+<td align="center">$O(n{log}_2^n)$</td>
+<td align="center">$O(n)$</td>
+<td align="center">$O(n{log}_2^n)$</td>
+<td align="center">$O(n)$</td>
+<td align="center">稳定</td>
+</tr>
+</tbody></table>
+<ol>
+<li>冒泡排序<ol>
+<li>比较<code>第一个记录的关键字</code>和<code>第二个记录的关键字</code>；</li>
+<li>若为逆序，则将两个记录进行交换；</li>
+<li>然后比较<code>第二个记录的关键字</code>和<code>第三个记录的关键字</code>，依次遍历到最后一个记录的关键字；</li>
+<li>第一趟”起泡排序”，关键字最大的记录被安置到最后位置；</li>
+<li>进行第二趟起泡排序，排除最后一个，只比较<strong>前n-1</strong>个数；</li>
+<li>直到”<strong>某一趟排序中没有进行过交换记录</strong>“ 。</li>
+</ol>
+</li>
+<li>插入排序：一般默认为直接插入排序<ol>
+<li>直接插入排序<ol>
+<li>将<code>第一个记录的关键字</code>作为有序数组，剩余其它为无序数组；</li>
+<li>依次从无序数组中取出<code>任一个记录的关键字(默认第一个位置)</code>插入到有序数组中；</li>
+<li>若有序数组中的当前元素大于🆕元素，将有序数组中的元素后移一个位置；</li>
+<li>重复步骤3，直到找到有序数组中的元素不大于(小于或等于)🆕元素的位置；</li>
+<li>将🆕元素插入到该位置；</li>
+<li>重复步骤2-5，直到无序数组中没有元素为止。</li>
+</ol>
+</li>
+<li>折半插入排序</li>
+<li>2路插入排序</li>
+<li>希尔排序/缩小增量排序：将记录按一定增量分组，对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多；当增量为1时终止。<ol>
+<li>选择一个增量序列$t_1,t_2,…t_i,…,t_j,…t_k$，其中$t_i &gt; t_j$，$t_k = 1$；</li>
+<li>按增量序列个数k，对序列进行k趟排序；</li>
+<li>每趟排序，根据对应的增量$t_i$，将待排序分割成若干长度为m的子序列，分别对各子序列进行直接插入排序。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>快速排序：采用<strong>分治法</strong>，通过一趟排序将待排序记录分割成独立的两部分，其中一部分记录的关键字均比另一部分小，继续对这两部分进行排序，以达到整个序列有序。<ol>
+<li>从数组中挑选一个元素(默认选择第一个)作为<code>基准pivot</code>；</li>
+<li>重新排列数组，所有比pivot小的放在其前面，所有比pivot大的放在其后面；</li>
+<li>步骤2可使用双向指针遍历，操作完成后，pivot位于数列的中间位置，称为分区操作partition；</li>
+<li>递归将小于和大于pivot的子序列进行排序。</li>
+</ol>
+</li>
+<li>选择排序：一般默认为简单选择排序<ol>
+<li>简单选择排序<ol>
+<li>比较<code>第二个记录的关键字</code>和<code>第一个记录的关键字</code>；</li>
+<li>若为逆序，则将两个记录进行交换；（此处选择最小值）</li>
+<li>然后比较<code>第三个记录的关键字</code>和<code>第一个记录的关键字</code>，直到最后一个记录的关键字；</li>
+<li>第一趟排序后，关键字最小的记录被安置到第一个位置；</li>
+<li>进行第二趟排序，排除第一个位置，只比较<code>后n-1</code>个数；</li>
+<li>直到最后一轮比较。</li>
+</ol>
+</li>
+<li>树形选择排序</li>
+<li>堆排序</li>
+</ol>
+</li>
+<li>归并排序：采用<strong>分治法</strong>，将已有序的子序列合并，得到完全有序的序列，即先使每个子序列有序，再使子序列段间有序。<ol>
+<li>二路归并排序<ol>
+<li>将长度为n的输入序列分为两个长度为n/2的子序列；</li>
+<li>分别对这两个子序列进行归并排序；</li>
+<li>将两个排序好的子序列合并成一个最终的排序序列；</li>
+</ol>
+</li>
+<li>多路归并排序<ul>
+<li>将前一半排序；<ul>
+<li>将后一半排序；</li>
+<li>将其归并到一个新的有序数组(可使用双指针)；</li>
+<li>再拷贝回原数组；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>基数排序</li>
+<li>桶排序</li>
+<li>计数排序</li>
+</ol>
+<h2 id="外部排序"><a href="#外部排序" class="headerlink" title="外部排序"></a>外部排序</h2><p><em>待排序记录的数量大，内存不能一次容纳全部记录</em></p>
+<hr>
+<h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><h2 id="二叉搜索树BST"><a href="#二叉搜索树BST" class="headerlink" title="二叉搜索树BST"></a>二叉搜索树BST</h2><p>Binary Search Tree，又称二叉查找树/二叉排序树。</p>
+<ul>
+<li>任意结点的左子树不空，则左子树上所有结点的值均小于其根结点的值； </li>
+<li>任意结点的右子树不空，则右子树上所有结点的值均大于其根结点的值； </li>
+<li>任意结点的左、右子树也分别为二叉搜索树。</li>
+</ul>
+<p>时间复杂度：$O(log^n)$</p>
+<p>既有链表的快速插入与删除操作的特点，又有数组快速查找的优势。</p>
+<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2><p>Red Black Tree，本质上是一种二叉查找树（自平衡二叉查找树），但它在二叉查找树的基础上额外添加了一个颜色标记。</p>
+<ol>
+<li>Every node is either red or black；</li>
+<li>The root is black；</li>
+<li>Every leaf (NIL) is black；</li>
+<li>If a node is red, then both its children are black；</li>
+<li>For each node, all simple paths from the node to descendant leaves contain the same number of black nodes（从任一节点到其子树中每个叶子节点的路径都包含相同数量的黑色节点）。</li>
+</ol>
+<p>若一棵二叉查找树是红黑树，则它的任一子树必为红黑树。</p>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p><em>默认插入的结点设置为red，否则会破坏规则5。</em></p>
+<p>可分为三种类型：</p>
+<ul>
+<li>要插入的结点的parent为black，直接插入即可；</li>
+<li>要插入的结点的parent为red，uncle为red，change color；</li>
+<li>要插入的结点的parent为red，uncle为black or null，分情况旋转后color。</li>
+</ul>
+<p>旋转：</p>
+<ul>
+<li>左左型：parent成为grandparent，grandparent成为parent的left结点；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BA%A2%E9%BB%91%E6%A0%91%E6%8F%92%E5%85%A5.jpg" alt="红黑树插入"></li>
+<li>左右型：要插入的结点成为grandparent，grandparent成为left的uncle；</li>
+<li>右右型：parent成为grandparent，grandparent成为parent的right结点；</li>
+<li>右左型：要插入的结点成为grandparent，grandparent成为right的uncle；</li>
+</ul>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>亦可分为三种类型：</p>
+<ul>
+<li>要删除的节点正好是叶子节点，直接删除；</li>
+<li>只有左孩子或者右孩子，直接把这个孩子上移放到要删除的位置上；</li>
+<li>有左右两个孩子，需要选一个合适的孩子节点作为新的根节点，该节点称为继承节点。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BA%A2%E9%BB%91%E6%A0%91%E5%88%A0%E9%99%A4.png" alt="红黑树删除"></li>
+</ul>
+<p><em>删除结点需要考虑的与插入类似。</em></p>
+<hr>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a href="https://blog.csdn.net/weixin_41190227/article/details/86600821" target="_blank" rel="noopener">https://blog.csdn.net/weixin_41190227/article/details/86600821</a></li>
+<li><a href="https://www.cnblogs.com/onepixel/articles/7674659.html" target="_blank" rel="noopener">https://www.cnblogs.com/onepixel/articles/7674659.html</a></li>
+<li><a href="https://blog.csdn.net/yangyutong0506/article/details/78204953" target="_blank" rel="noopener">https://blog.csdn.net/yangyutong0506/article/details/78204953</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/79980618" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/79980618</a></li>
+<li><a href="https://baijiahao.baidu.com/s?id=1645429373049393021&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1645429373049393021&amp;wfr=spider&amp;for=pc</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法与数据结构</category>
+      </categories>
+  </entry>
+  <entry>
     <title>我与世界只差一个你</title>
     <url>/2020/03/09/%E6%88%91%E4%B8%8E%E4%B8%96%E7%95%8C%E5%8F%AA%E5%B7%AE%E4%B8%80%E4%B8%AA%E4%BD%A0/</url>
     <content><![CDATA[<blockquote><p>世界说大很大，说小很小。大到走了那么久，还没跟对的人相遇，小到围着喜欢的人绕了一圈，就看到了全世界。</p>
@@ -2273,154 +2606,6 @@
       <categories>
         <category>reading</category>
       </categories>
-  </entry>
-  <entry>
-    <title>数学公式</title>
-    <url>/2020/04/25/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/</url>
-    <content><![CDATA[<h1 id="欧拉公式"><a href="#欧拉公式" class="headerlink" title="欧拉公式"></a>欧拉公式</h1><p>$e^{ix} = cos{x} + isin{x}$</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F.png" alt="欧拉公式"></p>
-<h1 id="链式求导法则"><a href="#链式求导法则" class="headerlink" title="链式求导法则"></a>链式求导法则</h1><p>$$(f(g(x)))’ = f’(g(x)) g’(x)$$</p>
-<p>或</p>
-<p>$$\frac{dy}{dx} = \frac{dy}{dz} \cdot \frac{dz}{dx}$$</p>
-<h1 id="极大似然估计MLE"><a href="#极大似然估计MLE" class="headerlink" title="极大似然估计MLE"></a>极大似然估计MLE</h1><ol>
-<li>样本集中的样本都是独立同分布iid的，可以只考虑一类样本集D，来估计参数向量$\theta$。</li>
-</ol>
-<p>$D = {x_1, x_2, … ,x_N}$</p>
-<ol start="2">
-<li>似然函数(likelihood function)：联合概率密度函数$p(D| \theta )$称为相对于$\theta$的似然函数。</li>
-</ol>
-<p>$l(\theta) = p(D|\theta) = p(x_1, x_2,…,x_N | \theta) = \prod_{i=1}^N p(x_i | \theta)$</p>
-<p>当$\widehat{\theta}$是参数空间中<strong>使似然函数最大的$\widehat{\theta}$值</strong>，那么，$\widehat{\theta}$很可能是最可能的参数值，则$\widehat{\theta}$为$\theta$的极大似然估计量。</p>
-<ol start="3">
-<li>MLE：求解使得出现该组样本的概率最大的$\theta$值。</li>
-</ol>
-<p>$$\widehat{\theta} = arg\underset{\theta}max l(\theta) = arg\underset{\theta}max \prod_{i=1}^N p(x_i | \theta)$$</p>
-<ol start="4">
-<li>对数似然函数（便于分析）</li>
-</ol>
-<p>$$\widehat{\theta} = arg\underset{\theta}max H(\theta) = arg\underset{\theta}max ln l(\theta) = arg\underset{\theta}max \sum_{i=1}^N ln p(x_i|\theta)$$</p>
-<h1 id="Lipschitz连续"><a href="#Lipschitz连续" class="headerlink" title="Lipschitz连续"></a>Lipschitz连续</h1><p>在一个连续函数f上面额外施加一个限制，要求存在一个常数$K \geq 0$，使得定义域内的任意两个元素$x_1$和$x_2$都满足$|f(x_1) - f(x_2)| \leq K|x_1 - x_2|$，即f的导数的绝对值不超过K。</p>
-]]></content>
-      <categories>
-        <category>Math</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>数据结构</title>
-    <url>/2020/03/12/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><p>稳定性：</p>
-<ul>
-<li>稳定：对于关键字相等的记录，排序后的序列和排序前的序列顺序相同；</li>
-<li>不稳定：对于关键字相等的记录，排序后的序列和排序前的序列顺序不一定相同。</li>
-</ul>
-<h2 id="内部排序"><a href="#内部排序" class="headerlink" title="内部排序"></a>内部排序</h2><p><em>待排序记录存放在计算机存储器中进行的排序过程</em></p>
-<ol>
-<li>插入排序<ol>
-<li>直接插入排序</li>
-<li>折半插入排序</li>
-<li>2路插入排序</li>
-<li>希尔排序</li>
-</ol>
-</li>
-<li>快速排序<br><em>大循环内 先判断奇次交换 再判断偶次交换。</em><ul>
-<li>设k=a[0]，将k挪到适当位置，使比k小的元素都在k左边，使比k大的元素都在k右边；</li>
-<li>对k左边部分快速排序；</li>
-<li>对k右边部分快速排序。</li>
-</ul>
-</li>
-<li>选择排序<ol>
-<li>简单选择排序</li>
-<li>树形选择排序</li>
-<li>堆排序</li>
-</ol>
-</li>
-<li>归并排序<ul>
-<li>将前一半排序；<ul>
-<li>将后一半排序；</li>
-<li>将两半归并到一个新的有序数组(可使用双指针)；</li>
-<li>再拷贝回原数组。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>基数排序</li>
-</ol>
-<h2 id="外部排序"><a href="#外部排序" class="headerlink" title="外部排序"></a>外部排序</h2><p><em>待排序记录的数量大，内存不能一次容纳全部记录</em></p>
-<h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><h2 id="二叉搜索树BST"><a href="#二叉搜索树BST" class="headerlink" title="二叉搜索树BST"></a>二叉搜索树BST</h2><p>Binary Search Tree，又称二叉查找树/二叉排序树。</p>
-<ul>
-<li>任意结点的左子树不空，则左子树上所有结点的值均小于其根结点的值； </li>
-<li>任意结点的右子树不空，则右子树上所有结点的值均大于其根结点的值； </li>
-<li>任意结点的左、右子树也分别为二叉搜索树。</li>
-</ul>
-<p>时间复杂度：$O(log^n)$</p>
-<p>既有链表的快速插入与删除操作的特点，又有数组快速查找的优势。</p>
-<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2><p>Red Black Tree，本质上是一种二叉查找树（自平衡二叉查找树），但它在二叉查找树的基础上额外添加了一个颜色标记。</p>
-<ol>
-<li>Every node is either red or black；</li>
-<li>The root is black；</li>
-<li>Every leaf (NIL) is black；</li>
-<li>If a node is red, then both its children are black；</li>
-<li>For each node, all simple paths from the node to descendant leaves contain the same number of black nodes（从任一节点到其子树中每个叶子节点的路径都包含相同数量的黑色节点）。</li>
-</ol>
-<p>若一棵二叉查找树是红黑树，则它的任一子树必为红黑树。</p>
-<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p><em>默认插入的结点设置为red，否则会破坏规则5。</em></p>
-<p>可分为三种类型：</p>
-<ul>
-<li>要插入的结点的parent为black，直接插入即可；</li>
-<li>要插入的结点的parent为red，uncle为red，change color；</li>
-<li>要插入的结点的parent为red，uncle为black or null，分情况旋转后color。</li>
-</ul>
-<p>旋转：</p>
-<ul>
-<li>左左型：parent成为grandparent，grandparent成为parent的left结点；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BA%A2%E9%BB%91%E6%A0%91%E6%8F%92%E5%85%A5.jpg" alt="红黑树插入"></li>
-<li>左右型：要插入的结点成为grandparent，grandparent成为left的uncle；</li>
-<li>右右型：parent成为grandparent，grandparent成为parent的right结点；</li>
-<li>右左型：要插入的结点成为grandparent，grandparent成为right的uncle；</li>
-</ul>
-<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>亦可分为三种类型：</p>
-<ul>
-<li>要删除的节点正好是叶子节点，直接删除；</li>
-<li>只有左孩子或者右孩子，直接把这个孩子上移放到要删除的位置上；</li>
-<li>有左右两个孩子，需要选一个合适的孩子节点作为新的根节点，该节点称为继承节点。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BA%A2%E9%BB%91%E6%A0%91%E5%88%A0%E9%99%A4.png" alt="红黑树删除"></li>
-</ul>
-<p><em>删除结点需要考虑的与插入类似。</em></p>
-<p>参考：<br><a href="https://blog.csdn.net/yangyutong0506/article/details/78204953" target="_blank" rel="noopener">https://blog.csdn.net/yangyutong0506/article/details/78204953</a><br><a href="https://zhuanlan.zhihu.com/p/79980618" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/79980618</a><br><a href="https://baijiahao.baidu.com/s?id=1645429373049393021&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1645429373049393021&amp;wfr=spider&amp;for=pc</a></p>
-]]></content>
-      <categories>
-        <category>算法与数据结构</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>服务器连接</title>
-    <url>/2020/03/09/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE/</url>
-    <content><![CDATA[<h1 id="ssh远程连接（无需输入密码）"><a href="#ssh远程连接（无需输入密码）" class="headerlink" title="ssh远程连接（无需输入密码）"></a>ssh远程连接（无需输入密码）</h1><ol>
-<li><p>确保已经有生成有SSH公钥：<br>进入 <code>~/.ssh</code> 可看到有 <code>id_rsa</code> 和 <code>id_rsa.pub</code> ，其中 <code>id_rsa.pub</code> 为公钥。<br>若没有，运行：<code>ssh-keygen -t rsa -C &quot;***@gmail.com&quot;</code> 或 <code>ssh-keygen</code></p>
-</li>
-<li><p>将本电脑公钥发送到服务器端：<br><code>ssh-copy-id username@144.202.***.***</code></p>
-</li>
-<li><p>验证：<br><code>ssh &#39;username@144.202.***.***&#39;</code><br>自动连接！</p>
-</li>
-</ol>
-<ul>
-<li>若使用该方式后重置，再次连接时，会出现 <code>Host key verfication failed</code> 情况，使用 <code>ssh-keygen -R ip地址</code> 清除。</li>
-</ul>
-<h1 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h1><ol>
-<li><p>上传本地文件夹到服务器<br><code>scp -P port -r LocalWorkSpaces username@IP:WorkSpaces</code></p>
-</li>
-<li><p>下载服务器文件夹到本地<br><code>scp -P port -r username@IP:WorkSpaces LocalWorkSpaces</code> </p>
-</li>
-<li><p>上传本地文件到服务器<br><code>scp -P port file username@IP:WorkSpaces</code></p>
-</li>
-<li><p>下载服务器文件到本地<br><code>scp -P port 用户名@IP:file LocalWorkSpaces</code> </p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>remote</tag>
-      </tags>
   </entry>
   <entry>
     <title>深度学习</title>
@@ -2514,24 +2699,30 @@
       </categories>
   </entry>
   <entry>
-    <title>熵</title>
-    <url>/2020/06/27/%E7%86%B5/</url>
-    <content><![CDATA[<h1 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h1><ul>
-<li>假设一个样本集中有<strong>两个概率分布p、q</strong>，其中p为真实分布，q为非真实分布；</li>
-<li>按照真实分布p来衡量识别一个样本所需要的编码长度的期望为：$$\sum_i p(i) \cdot log(\frac{1}{p(i)})$$</li>
-<li>按照错误分布q表示来自真实分布p的平均编码长度的期望为：$$\sum_i p(i) \cdot log(\frac{1}{q(i)})$$</li>
-<li>$H(p,q)$称之为交叉熵。</li>
-</ul>
-<h1 id="相对熵-KL散度"><a href="#相对熵-KL散度" class="headerlink" title="相对熵/KL散度"></a>相对熵/KL散度</h1><p>KL散度，是两个概率分布P和Q差别的非对称性的度量。</p>
-<p>通常情况下，</p>
+    <title>皮囊</title>
+    <url>/2020/03/09/%E7%9A%AE%E5%9B%8A/</url>
+    <content><![CDATA[<p>本来是抱着一个很轻松的心情翻开这本书的，但是在看完几页之后愈感沉重，以至于不得不分到几天时间才能看完。总体来说，这种书写得很厚重，只有在经历了人生的坡坡坎坎之后才能有此积淀。我觉得这本书最出彩的地方在于它可以主动去勾起你的回忆，以及对人生的思考。人生在世，我们每个人都披了一层皮囊，以此区别于不同的人，为其注入各种不同的思想，活出自己的精彩人生。</p>
+<p>倔强而又骄傲的母亲，为了完成与心爱之人的约定，执着又顽强的坚定的遵从自己的内心。活出了女性的坚持与美丽。与之对应的是爱面子的父亲，在重病期间依旧想的是如何撑起这个家，他将一生全部奉献给了这个家。这是国内传统家庭的真实写照，男主外女主内，在父亲病重后由儿子撑起这个家，在这种交替中，完成了一种身份的转变，责任的交接。</p>
+<p>“张美丽”和“阿小”是当时在那个大环境下的必然产物，是人的内心欲望使然，是人们开始过上美好富裕生活的必然转变，他们是活在了那个特殊的年代，因此显得与周围人格格不入，也正是由于有了这些人的存在，为我们的时代发展转变做出了自己的贡献，我们在现代这个大环境下才活得那么的自然。</p>
+<p>“天才文展”与“厚朴”是我们基本都会遇到的，一个被尊奉为天才，一个充满正能力，有理想，是我们每个人都渴望成为的那类人的分解。“天才文展”学习好，够坚持，有目标，但是活得过于压抑；“厚朴”每天活在自己的想象中，快乐，虚假，脱离了实际。这两类人又是两种互补人格，以两个人的结局与自己形成鲜明对比，告诫我们要如何选择自己的人生。</p>
+]]></content>
+      <categories>
+        <category>reading</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>监督学习</title>
+    <url>/2020/06/05/%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h1 id="Delta学习规则"><a href="#Delta学习规则" class="headerlink" title="Delta学习规则"></a>Delta学习规则</h1><p>通过神经元的实际输出，与期望输出的差别，来调整连接权重。</p>
+<p>$$\bigtriangleup w_{ij} = a \cdot (d_i - y_i) x_j(t)$$</p>
+<p>其中,</p>
 <ul>
-<li>P表示数据的真实分布；</li>
-<li>Q表示数据的理论分布（模型分布、P的近似分布）$D(P||Q) = \sum P(x) log \frac{P(x)}{Q(x)}$ 。</li>
+<li>$\bigtriangleup w_{ij}$表示神经元j到神经元i的连接权重增量；</li>
+<li>$d_i$是神经元i的期望输出；</li>
+<li>$y_i$是神经元i的实际输出；</li>
+<li>$x_i$是神经元j的状态；</li>
+<li>$a$表示学习速率。</li>
 </ul>
-<p>KL散度<strong>不对称</strong>，不满足距离的性质，即$D_{KL}(P||Q) \neq D_{KL}(Q||P)$ 。</p>
-<h1 id="JS散度"><a href="#JS散度" class="headerlink" title="JS散度"></a>JS散度</h1><p>JS散度，度量两个概率分布的相似度；是基于KL散度的变体，解决了KL散度非对称性的问题。</p>
-<p>$$JS(P||Q) = \frac{1}{2} KL(P(x)||\frac{P(x)+Q(x)}{2}) + \frac{1}{2} KL(Q(x)||\frac{P(x)+Q(x)}{2})$$</p>
-<p>KL散度具有对称性，其取值区间为[0,1]。</p>
 ]]></content>
   </entry>
   <entry>
@@ -2686,33 +2877,6 @@
 <p>CycleGAN本质上是镜像对称的GAN网络，构成了一个环形回路。两个GAN共享两个G，并各自带了一个D，一个单向GAN两个loss，因此，整个网络共有四个loss。</p>
 <p>损失函数（使用均方误差）：<br>$L_{LSGAN}(G,D_Y,X,Y)=\mathbb{E}<em>{y\sim p</em>{data}(y)}[(D_Y(y)-1)^2]+\mathbb{E}<em>{x\sim p</em>{data}(x)}[1-D_Y(G(x))]^2$</p>
 <p>参考：<br><a href="https://zhuanlan.zhihu.com/p/104575937" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/104575937</a><br><a href="https://blog.csdn.net/gdymind/article/details/82696481" target="_blank" rel="noopener">https://blog.csdn.net/gdymind/article/details/82696481</a><br><a href="https://zhuanlan.zhihu.com/p/83630387" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/83630387</a><br><a href="https://zhuanlan.zhihu.com/p/90835081" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/90835081</a><br><a href="https://www.jianshu.com/p/64bf39804c80" target="_blank" rel="noopener">https://www.jianshu.com/p/64bf39804c80</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>皮囊</title>
-    <url>/2020/03/09/%E7%9A%AE%E5%9B%8A/</url>
-    <content><![CDATA[<p>本来是抱着一个很轻松的心情翻开这本书的，但是在看完几页之后愈感沉重，以至于不得不分到几天时间才能看完。总体来说，这种书写得很厚重，只有在经历了人生的坡坡坎坎之后才能有此积淀。我觉得这本书最出彩的地方在于它可以主动去勾起你的回忆，以及对人生的思考。人生在世，我们每个人都披了一层皮囊，以此区别于不同的人，为其注入各种不同的思想，活出自己的精彩人生。</p>
-<p>倔强而又骄傲的母亲，为了完成与心爱之人的约定，执着又顽强的坚定的遵从自己的内心。活出了女性的坚持与美丽。与之对应的是爱面子的父亲，在重病期间依旧想的是如何撑起这个家，他将一生全部奉献给了这个家。这是国内传统家庭的真实写照，男主外女主内，在父亲病重后由儿子撑起这个家，在这种交替中，完成了一种身份的转变，责任的交接。</p>
-<p>“张美丽”和“阿小”是当时在那个大环境下的必然产物，是人的内心欲望使然，是人们开始过上美好富裕生活的必然转变，他们是活在了那个特殊的年代，因此显得与周围人格格不入，也正是由于有了这些人的存在，为我们的时代发展转变做出了自己的贡献，我们在现代这个大环境下才活得那么的自然。</p>
-<p>“天才文展”与“厚朴”是我们基本都会遇到的，一个被尊奉为天才，一个充满正能力，有理想，是我们每个人都渴望成为的那类人的分解。“天才文展”学习好，够坚持，有目标，但是活得过于压抑；“厚朴”每天活在自己的想象中，快乐，虚假，脱离了实际。这两类人又是两种互补人格，以两个人的结局与自己形成鲜明对比，告诫我们要如何选择自己的人生。</p>
-]]></content>
-      <categories>
-        <category>reading</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>监督学习</title>
-    <url>/2020/06/05/%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h1 id="Delta学习规则"><a href="#Delta学习规则" class="headerlink" title="Delta学习规则"></a>Delta学习规则</h1><p>通过神经元的实际输出，与期望输出的差别，来调整连接权重。</p>
-<p>$$\bigtriangleup w_{ij} = a \cdot (d_i - y_i) x_j(t)$$</p>
-<p>其中,</p>
-<ul>
-<li>$\bigtriangleup w_{ij}$表示神经元j到神经元i的连接权重增量；</li>
-<li>$d_i$是神经元i的期望输出；</li>
-<li>$y_i$是神经元i的实际输出；</li>
-<li>$x_i$是神经元j的状态；</li>
-<li>$a$表示学习速率。</li>
-</ul>
 ]]></content>
   </entry>
   <entry>
@@ -3121,6 +3285,48 @@
       </tags>
   </entry>
   <entry>
+    <title>自编码机</title>
+    <url>/2020/06/23/%E8%87%AA%E7%BC%96%E7%A0%81%E6%9C%BA/</url>
+    <content><![CDATA[<h1 id="编码与解码"><a href="#编码与解码" class="headerlink" title="编码与解码"></a>编码与解码</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BC%96%E7%A0%81%E4%B8%8E%E8%A7%A3%E7%A0%81.png" alt="编码与解码"></p>
+<p>左侧将原始图像编码为向量，右侧通过解卷积层“解码”，还原回原始图像。</p>
+<p><em>可以用尽可能多的图像来训练网络，当保存了某张图像的编码向量，可用解码组件重建。</em></p>
+<h1 id="经典自编码机VAE"><a href="#经典自编码机VAE" class="headerlink" title="经典自编码机VAE"></a>经典自编码机VAE</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE.png" alt="VAE"></p>
+<p><em>通过编码向量，创造潜在向量，或实现连续、平滑的潜在空间表示。</em></p>
+<p>通过给编码网络添加一个约束，使其所产生的潜在向量大体上服从单位高斯分布。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E7%BA%A6%E6%9D%9F.png" alt="VAE约束"></p>
+<p>如图，只需从单位高斯分布中采样出一个潜在向量，并将其传递到解码器，就可以生成一张新的图像了。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E9%87%87%E6%A0%B7.png" alt="VAE采样"></p>
+<p>基本思路：</p>
+<ul>
+<li>假定输入数据的数据集D的分布完全由一组隐变量z操控，并且，该组隐变量间相互独立且服从高斯分布；</li>
+<li>VAE让encoder学习输入数据的隐变量模型，即学习该组隐变量的高斯概率分布的参数：隐变量高斯分布的均值$\mu$和方差$\theta$的$log$值；</li>
+<li>隐变量z通过对参数的正态分布中采样得到：$z \sim N(\mu, \theta)$；</li>
+<li>通过decoder对隐变量进行解码，重构函数。</li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E5%88%86%E5%B8%83.png" alt="VAE分布"></p>
+<p>总体目标函数：<br>    $\mathcal{L}(x,\widehat{x}) + \sum_j KL(q_j(z|x)||p(z))$</p>
+<p>误差：误差项精确度及潜在变量在单位高斯分布上的契合程度。</p>
+<ul>
+<li>生成误差，用以衡量网络重构图像精准度的均方误差；</li>
+<li>潜在误差，用以衡量潜在变量在单位高斯分布上的契合程度的KL散度。</li>
+</ul>
+<h2 id="参数调整"><a href="#参数调整" class="headerlink" title="参数调整"></a>参数调整</h2><p><em>VAE模型并没有真正的用$z \sim N(\mu,\theta)$来采样得到z变量：因为采样后无法对$(\mu,\theta)$进行求导。</em></p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_Reparameterization.png" alt="VAE_Reparameterization"></p>
+<p>一般先采样一个标准的高斯分布/正态分布$\epsilon \sim N(0,1)$，然后令$z=\mu+\epsilon*\theta$，这样得到的z就服从$z \sim N(\mu,\theta)$，同时也可正常对(\mu,\theta)$求导。</p>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><ul>
+<li>优点：遵循“编码-解码”模式，能直接将生成的图像同原始图像进行对比；</li>
+<li>缺点：直接采用均方误差，导致其神经网络倾向生成较为模糊的图像。</li>
+</ul>
+<h1 id="VAE和GAN的区别"><a href="#VAE和GAN的区别" class="headerlink" title="VAE和GAN的区别"></a>VAE和GAN的区别</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_vs_GAN.png" alt="VAE_vs_GAN"></p>
+<p>GAN是VAE后半部分再加上一个鉴别网络，导致完全不同的训练方式。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://blog.csdn.net/weixin_40955254/article/details/82315224" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40955254/article/details/82315224</a></li>
+<li><a href="https://blog.csdn.net/weixin_40955254/article/details/82315909?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40955254/article/details/82315909?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase</a></li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
     <title>线程&amp;进程</title>
     <url>/2020/07/07/%E7%BA%BF%E7%A8%8BVS%E8%BF%9B%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="进程与线程、协程"><a href="#进程与线程、协程" class="headerlink" title="进程与线程、协程"></a>进程与线程、协程</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%BC%AB%E7%94%BB.jpg" alt="进程和线程漫画"></p>
@@ -3296,48 +3502,6 @@
 <li><a href="https://www.zhihu.com/question/25532384" target="_blank" rel="noopener">https://www.zhihu.com/question/25532384</a></li>
 <li><a href="https://www.cnblogs.com/jiawen010/p/11855768.html" target="_blank" rel="noopener">https://www.cnblogs.com/jiawen010/p/11855768.html</a></li>
 <li><a href="https://www.jianshu.com/p/7726c70cdc40" target="_blank" rel="noopener">https://www.jianshu.com/p/7726c70cdc40</a></li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>自编码机</title>
-    <url>/2020/06/23/%E8%87%AA%E7%BC%96%E7%A0%81%E6%9C%BA/</url>
-    <content><![CDATA[<h1 id="编码与解码"><a href="#编码与解码" class="headerlink" title="编码与解码"></a>编码与解码</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BC%96%E7%A0%81%E4%B8%8E%E8%A7%A3%E7%A0%81.png" alt="编码与解码"></p>
-<p>左侧将原始图像编码为向量，右侧通过解卷积层“解码”，还原回原始图像。</p>
-<p><em>可以用尽可能多的图像来训练网络，当保存了某张图像的编码向量，可用解码组件重建。</em></p>
-<h1 id="经典自编码机VAE"><a href="#经典自编码机VAE" class="headerlink" title="经典自编码机VAE"></a>经典自编码机VAE</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE.png" alt="VAE"></p>
-<p><em>通过编码向量，创造潜在向量，或实现连续、平滑的潜在空间表示。</em></p>
-<p>通过给编码网络添加一个约束，使其所产生的潜在向量大体上服从单位高斯分布。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E7%BA%A6%E6%9D%9F.png" alt="VAE约束"></p>
-<p>如图，只需从单位高斯分布中采样出一个潜在向量，并将其传递到解码器，就可以生成一张新的图像了。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E9%87%87%E6%A0%B7.png" alt="VAE采样"></p>
-<p>基本思路：</p>
-<ul>
-<li>假定输入数据的数据集D的分布完全由一组隐变量z操控，并且，该组隐变量间相互独立且服从高斯分布；</li>
-<li>VAE让encoder学习输入数据的隐变量模型，即学习该组隐变量的高斯概率分布的参数：隐变量高斯分布的均值$\Mu$和方差$\theta$的$log$值；</li>
-<li>隐变量z通过对参数的正态分布中采样得到：$z \sim N(\Mu, \theta)$；</li>
-<li>通过decoder对隐变量进行解码，重构函数。</li>
-</ul>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE%E5%88%86%E5%B8%83.png" alt="VAE分布"></p>
-<p>总体目标函数：<br>    $\mathcal{L}(x,\widehat{x}) + \sum_j KL(q_j(z|x)||p(z))$</p>
-<p>误差：误差项精确度及潜在变量在单位高斯分布上的契合程度。</p>
-<ul>
-<li>生成误差，用以衡量网络重构图像精准度的均方误差；</li>
-<li>潜在误差，用以衡量潜在变量在单位高斯分布上的契合程度的KL散度。</li>
-</ul>
-<h2 id="参数调整"><a href="#参数调整" class="headerlink" title="参数调整"></a>参数调整</h2><p><em>VAE模型并没有真正的用$z \sim N(\Mu,\theta)$来采样得到z变量：因为采样后无法对$(\Mu,\theta)$进行求导。</em></p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_Reparameterization.png" alt="VAE_Reparameterization"></p>
-<p>一般先采样一个标准的高斯分布/正态分布$\epsilon \sim N(0,1)$，然后令$z=\Mu+\epsilon*\theta$，这样得到的z就服从$z \sim N(\Mu,\theta)$，同时也可正常对(\Mu,\theta)$求导。</p>
-<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><ul>
-<li>优点：遵循“编码-解码”模式，能直接将生成的图像同原始图像进行对比；</li>
-<li>缺点：直接采用均方误差，导致其神经网络倾向生成较为模糊的图像。</li>
-</ul>
-<h1 id="VAE和GAN的区别"><a href="#VAE和GAN的区别" class="headerlink" title="VAE和GAN的区别"></a>VAE和GAN的区别</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_vs_GAN.png" alt="VAE_vs_GAN"></p>
-<p>GAN是VAE后半部分再加上一个鉴别网络，导致完全不同的训练方式。</p>
-<p>参考：</p>
-<ul>
-<li><a href="https://blog.csdn.net/weixin_40955254/article/details/82315224" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40955254/article/details/82315224</a></li>
-<li><a href="https://blog.csdn.net/weixin_40955254/article/details/82315909?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40955254/article/details/82315909?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase</a></li>
 </ul>
 ]]></content>
   </entry>
@@ -3558,6 +3722,36 @@
 <li><a href="https://www.jianshu.com/p/afb516bc4519" target="_blank" rel="noopener">https://www.jianshu.com/p/afb516bc4519</a></li>
 </ul>
 ]]></content>
+  </entry>
+  <entry>
+    <title>贪心算法</title>
+    <url>/2020/06/04/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="贪心算法-贪婪算法"><a href="#贪心算法-贪婪算法" class="headerlink" title="贪心算法/贪婪算法"></a>贪心算法/贪婪算法</h1><p>贪心算法，在每一个选择过程中都选择<strong>当前最优解</strong>，从而希望最终结果达到最优的算法。</p>
+<h2 id="算法实现步骤："><a href="#算法实现步骤：" class="headerlink" title="算法实现步骤："></a>算法实现步骤：</h2><ol>
+<li>创建数学模型来描述问题；</li>
+<li>把求解的问题<strong>分成若干个子问题</strong>；</li>
+<li>对每一子问题求解，得到子问题的<strong>局部最优解</strong>；</li>
+<li>把子问题的解局部最优解合成所求问题的一个解。</li>
+</ol>
+<p><strong>贪心算法的实现，要根据具体问题具体分析。</strong></p>
+<h2 id="常用解决的问题："><a href="#常用解决的问题：" class="headerlink" title="常用解决的问题："></a>常用解决的问题：</h2><ul>
+<li>贪心算法可以解决一些最优化问题，如：求图中的最小生成树、求哈夫曼编码、旅行推销员问题等。</li>
+<li>对于其它问题，贪心算法一般不能得到我们所要求的答案，常用作辅助算法或直接解决一些要求结果不是特别严格的问题。</li>
+<li>一旦一个问题可以通过贪心算法来解决，那么贪心算法一般是解决该问题的最好方法。</li>
+</ul>
+<h2 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h2><ul>
+<li>对解决问题具有高效性；</li>
+<li>所得结果更接近于最优结果。</li>
+</ul>
+<h2 id="贪心算法与动态规划的不同"><a href="#贪心算法与动态规划的不同" class="headerlink" title="贪心算法与动态规划的不同"></a>贪心算法与动态规划的不同</h2><ul>
+<li>贪心算法要求对每个子问题的解决方案都要做出选择，且不能回退；</li>
+<li>动态规划会保存之前的运算结果，并依据以前的结果对当前方案进行选择，可回退。</li>
+</ul>
+<p>换个思路，就是贪心算法有一个优先级的问题；动态规划则是使用一个数组来进行记录当前方案，会对每一种方法进行尝试。</p>
+]]></content>
+      <categories>
+        <category>算法与数据结构</category>
+      </categories>
   </entry>
   <entry>
     <title>软件设计模式</title>
@@ -3798,9 +3992,102 @@
 <li>设计代理之前，真实主题必须事先存在。</li>
 </ul>
 <p>动态代理模式：<em>如SpringAOP</em><br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F.png" alt="动态代理模式"></p>
-<h1 id="适配器模式-Adapter"><a href="#适配器模式-Adapter" class="headerlink" title="适配器模式 Adapter"></a>适配器模式 Adapter</h1><p>将一个类的接口转换成客户希望的<strong>另一个接口</strong>，使得原本由于<strong>接口不兼容</strong>而不能一起工作的那些类可一起工作。</p>
+<h1 id="适配器模式-Adapter"><a href="#适配器模式-Adapter" class="headerlink" title="适配器模式 Adapter"></a>适配器模式 Adapter</h1><p>将一个类的接口转换成客户希望的另一个接口，使得原本由于<strong>接口不兼容</strong>而不能一起工作的那些类可一起工作。</p>
+<p>适配器模式，指将一个类的接口转换成客户希望的另一个接口，使得原本由于接口不兼容而不能一起工作的类能够协同工作。</p>
+<ul>
+<li>类结构型模式：耦合度比对象结构型模式高，且要求程序员了解现有组件库中的相关组件的内部结构；</li>
+<li>对象结构型模式</li>
+</ul>
+<h2 id="适配器模式的特点"><a href="#适配器模式的特点" class="headerlink" title="适配器模式的特点"></a>适配器模式的特点</h2><ul>
+<li>优点：<ul>
+<li>客户端通过适配器可以透明的调用目标接口；</li>
+<li>复用了现存的类，程序员不需要修改原有代码而重用现有的适配者类；</li>
+<li>将目标类和适配者类解耦，解决了目标类和适配者类接口不一致的问题。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>对类适配器来说，更换适配器的实现过程比较复杂。</li>
+</ul>
+</li>
+</ul>
+<h2 id="适配器模式的结构与实现"><a href="#适配器模式的结构与实现" class="headerlink" title="适配器模式的结构与实现"></a>适配器模式的结构与实现</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%B1%BB%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F.png" alt="类适配器模式"></p>
+<ul>
+<li>类适配器模式，可采用多重继承方式实现；<ul>
+<li>如C++可定义一个适配器类来同时继承当前系统的业务接口和现有组件库中已经存在的组件接口；</li>
+<li>如Java不支持多继承，但可定义一个适配器类来实现当前系统的业务接口，同时又继承现有组件库中已经存在的组件。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%AF%B9%E8%B1%A1%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F.png" alt="对象适配器模式"></li>
+</ul>
+</li>
+<li>对象适配器模式，可采用将现有组件库中已经实现的组件引入适配器类中，该类同时实现当前系统的业务接口。</li>
+</ul>
+<h3 id="适配器模式的结构"><a href="#适配器模式的结构" class="headerlink" title="适配器模式的结构"></a>适配器模式的结构</h3><ol>
+<li>目标接口Target：当前系统业务所期待的接口，可以是抽象类或接口；</li>
+<li>适配者类：是被访问和适配的现存组件库中的组件接口；</li>
+<li>适配器类：一个转换器，通过继承或引用适配者的对象，将适配者接口转换为目标接口，让客户按目标接口的格式访问适配者。</li>
+</ol>
+<h2 id="适配器模式的应用场景"><a href="#适配器模式的应用场景" class="headerlink" title="适配器模式的应用场景"></a>适配器模式的应用场景</h2><ul>
+<li>以前开发的系统存在满足新系统功能需求的类，但其接口同新系统的接口不一致；</li>
+<li>使用第三方提供的组件，但组件接口定义和所需的接口定义不同。</li>
+</ul>
+<h2 id="适配器模式的扩展"><a href="#适配器模式的扩展" class="headerlink" title="适配器模式的扩展"></a>适配器模式的扩展</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8F%8C%E5%90%91%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F.png" alt="双向适配器模式"></p>
+<p>适配器模式可扩展为<strong>双向适配器模式</strong>，既可以把适配者接口转换为目标接口，也可以把目标接口转换为适配者接口。</p>
 <h1 id="桥接模式-Bridge"><a href="#桥接模式-Bridge" class="headerlink" title="桥接模式 Bridge"></a>桥接模式 Bridge</h1><p>将抽象与实现分离，使它们可以独立变化。它是用<strong>组合关系代替继承关系</strong>来实现，从而降低了抽象和实现这两个可变维度的耦合度。</p>
+<h2 id="桥接模式的特点"><a href="#桥接模式的特点" class="headerlink" title="桥接模式的特点"></a>桥接模式的特点</h2><ul>
+<li>优点：<ul>
+<li>由于抽象和实现分离，所以扩展能力强；</li>
+<li>其实现细节对客户透明。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>由于聚合关系建立在抽象层，要求开发者针对抽象化进行设计与编程，增加了系统的理解与设计难度。</li>
+</ul>
+</li>
+</ul>
+<h2 id="桥接模式的结构与实现"><a href="#桥接模式的结构与实现" class="headerlink" title="桥接模式的结构与实现"></a>桥接模式的结构与实现</h2><p>可将抽象化部分与实现化部分分开，取消二者的继承关系，改用组合关系。</p>
+<h3 id="桥接模式的结构"><a href="#桥接模式的结构" class="headerlink" title="桥接模式的结构"></a>桥接模式的结构</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F.png" alt="桥接模式"></p>
+<ol>
+<li>抽象化角色Abstraction：定义抽象类，并包含一个对实现化对象的引用；</li>
+<li>扩展抽象化角色<code>Refined Abstraction</code>：抽象化角色的子类，实现父类中的业务方法，并通过组合关系调用实现化角色中的业务方法；</li>
+<li>实现化角色Implementor：定义实现化角色的接口，供扩展抽象化角色调用；</li>
+<li>具体实现化角色<code>Concrete Implementor</code>：给出实现化角色接口的具体实现。</li>
+</ol>
+<h2 id="桥接模式的应用场景"><a href="#桥接模式的应用场景" class="headerlink" title="桥接模式的应用场景"></a>桥接模式的应用场景</h2><ul>
+<li>当一个类存在两个独立变化的维度，且这两个维度都需要进行扩展；</li>
+<li>当一个系统不希望使用继承或因多层次继承导致系统类的个数急剧增加；</li>
+<li>当一个系统需要构件的抽象化角色和具体化角色间增加更多的灵活性。</li>
+</ul>
+<h2 id="桥接模式的扩展"><a href="#桥接模式的扩展" class="headerlink" title="桥接模式的扩展"></a>桥接模式的扩展</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8FAdd%E9%80%82%E9%85%8D%E8%80%85%E6%A8%A1%E5%BC%8F.png" alt="桥接模式Add适配者模式"></p>
+<p>当桥接模式的实现化角色的接口与现有类的接口不一致时，通常将桥接模式和适配器模式联合使用，通过在实现化角色和现有类之间定义一个适配器将其连接起来。<br>如上图，将原有具体实现化角色/适配者进行接口转换为具体实现化角色。</p>
 <h1 id="装饰模式-Decorator"><a href="#装饰模式-Decorator" class="headerlink" title="装饰模式 Decorator"></a>装饰模式 Decorator</h1><p>动态的给对象增加一些职责，即增加其额外的功能。</p>
+<p>装饰模式，指在<strong>不改变现有对象结构</strong>的情况下，动态的给该对象增加一些职责的模式，属于对象结构型模式。<br>在软件开发过程中，有时想用一些现存的组件，这些组件可能只是完成了一些核心功能，在不改变其结构的情况下，可以动态地扩展其功能。</p>
+<h2 id="装饰模式的特点"><a href="#装饰模式的特点" class="headerlink" title="装饰模式的特点"></a>装饰模式的特点</h2><ul>
+<li>优点：<ul>
+<li>采用装饰模式扩展对象的功能比采用继承方式更加灵活；</li>
+<li>可以设计出多个不同的具体装饰类，创造出多个不同行为的组合。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>装饰模式增加了许多子类，过度使用会使程序变得很复杂。</li>
+</ul>
+</li>
+</ul>
+<h2 id="装饰模式的结构与实现"><a href="#装饰模式的结构与实现" class="headerlink" title="装饰模式的结构与实现"></a>装饰模式的结构与实现</h2><p>通常情况下，扩展一个类的功能会使用继承方式来实现，但<strong>继承具有静态特征，耦合度高，并且随着扩展功能的增多，子类会膨胀</strong>。<br>如果使用组合关系来创建一个包装对象(即装饰对象)来包裹真实对象，并在保持真实对象的类结构不变的前提下，为其提供额外的功能，这就是装饰模式的目标。</p>
+<h3 id="装饰模式的结构"><a href="#装饰模式的结构" class="headerlink" title="装饰模式的结构"></a>装饰模式的结构</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F.png" alt="装饰模式"></p>
+<ol>
+<li>抽象构件角色Component：定义一个抽象接口以规范准备接收附加责任的对象；</li>
+<li>具体构件角色<code>Concrete Component</code>：实现抽象构件，通过装饰角色为其添加一些职责；</li>
+<li>抽象装饰角色Decorator：继承抽象构件，并包含具体构件的实例，可以通过其子类扩展具体构件的功能；</li>
+<li>具体装饰角色<code>Concrete Decorator</code>：实现抽象装饰的相关方法，并给具体构件对象添加附加的责任。</li>
+</ol>
+<h2 id="装饰模式的应用场景"><a href="#装饰模式的应用场景" class="headerlink" title="装饰模式的应用场景"></a>装饰模式的应用场景</h2><ul>
+<li>当需要给一个现有类添加附加职责，而又不能采用生成子类的方法进行扩充时，如该类被隐藏或该类时终极类或采用继承方式会产生大量子类；</li>
+<li>当需要通过对现有的一组基本功能进行排列组合而产生非常多的功能时，采用继承关系难以实现；</li>
+<li>当对象的功能要求可以动态添加，也能动态的撤销时。</li>
+</ul>
+<p>装饰功能在Java中最著名的应用：Java I/O标准库的设计。<br>如，InputStream的子类FilterInputStream、OutputStream的子类FilterOutputStream、Reader的子类BufferedReader和FilterReader、Writer的子类BufferedWriter和FilterWriter及PrintWriter等，都是抽象装饰类。</p>
+<h2 id="装饰模式的扩展（简化）"><a href="#装饰模式的扩展（简化）" class="headerlink" title="装饰模式的扩展（简化）"></a>装饰模式的扩展（简化）</h2><ul>
+<li>只有一个具体构件，没有抽象构件时，可让抽象装饰继承具体构件；</li>
+<li>只有一个具体装饰时，可将抽象装饰和具体装饰合并。</li>
+</ul>
 <h1 id="外观模式-Facade"><a href="#外观模式-Facade" class="headerlink" title="外观模式 Facade"></a>外观模式 Facade</h1><p>为多个复杂的子系统提供一个<strong>一致的接口</strong>，使这些子系统更加容易被访问。</p>
 <h1 id="享元模式-Flyweight"><a href="#享元模式-Flyweight" class="headerlink" title="享元模式 Flyweight"></a>享元模式 Flyweight</h1><p>运用共享技术来有效地支持大量细粒度对象的复用。</p>
 <h1 id="组合模式-Composite"><a href="#组合模式-Composite" class="headerlink" title="组合模式 Composite"></a>组合模式 Composite</h1><p>将对象组合成树状层次结构，使用户对单个对象和组合对象具有一致的访问性。</p>
@@ -3856,36 +4143,6 @@
 <li><a href="https://www.jianshu.com/p/4475b2e1f9ae" target="_blank" rel="noopener">https://www.jianshu.com/p/4475b2e1f9ae</a></li>
 </ul>
 ]]></content>
-  </entry>
-  <entry>
-    <title>贪心算法</title>
-    <url>/2020/06/04/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="贪心算法-贪婪算法"><a href="#贪心算法-贪婪算法" class="headerlink" title="贪心算法/贪婪算法"></a>贪心算法/贪婪算法</h1><p>贪心算法，在每一个选择过程中都选择<strong>当前最优解</strong>，从而希望最终结果达到最优的算法。</p>
-<h2 id="算法实现步骤："><a href="#算法实现步骤：" class="headerlink" title="算法实现步骤："></a>算法实现步骤：</h2><ol>
-<li>创建数学模型来描述问题；</li>
-<li>把求解的问题<strong>分成若干个子问题</strong>；</li>
-<li>对每一子问题求解，得到子问题的<strong>局部最优解</strong>；</li>
-<li>把子问题的解局部最优解合成所求问题的一个解。</li>
-</ol>
-<p><strong>贪心算法的实现，要根据具体问题具体分析。</strong></p>
-<h2 id="常用解决的问题："><a href="#常用解决的问题：" class="headerlink" title="常用解决的问题："></a>常用解决的问题：</h2><ul>
-<li>贪心算法可以解决一些最优化问题，如：求图中的最小生成树、求哈夫曼编码、旅行推销员问题等。</li>
-<li>对于其它问题，贪心算法一般不能得到我们所要求的答案，常用作辅助算法或直接解决一些要求结果不是特别严格的问题。</li>
-<li>一旦一个问题可以通过贪心算法来解决，那么贪心算法一般是解决该问题的最好方法。</li>
-</ul>
-<h2 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h2><ul>
-<li>对解决问题具有高效性；</li>
-<li>所得结果更接近于最优结果。</li>
-</ul>
-<h2 id="贪心算法与动态规划的不同"><a href="#贪心算法与动态规划的不同" class="headerlink" title="贪心算法与动态规划的不同"></a>贪心算法与动态规划的不同</h2><ul>
-<li>贪心算法要求对每个子问题的解决方案都要做出选择，且不能回退；</li>
-<li>动态规划会保存之前的运算结果，并依据以前的结果对当前方案进行选择，可回退。</li>
-</ul>
-<p>换个思路，就是贪心算法有一个优先级的问题；动态规划则是使用一个数组来进行记录当前方案，会对每一种方法进行尝试。</p>
-]]></content>
-      <categories>
-        <category>算法与数据结构</category>
-      </categories>
   </entry>
   <entry>
     <title>金字塔变换</title>
@@ -4045,6 +4302,27 @@
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
 <li><a href="http://c.biancheng.net/view/1331.html" target="_blank" rel="noopener">http://c.biancheng.net/view/1331.html</a></li>
 </ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>熵</title>
+    <url>/2020/06/27/%E7%86%B5/</url>
+    <content><![CDATA[<h1 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h1><ul>
+<li>假设一个样本集中有<strong>两个概率分布p、q</strong>，其中p为真实分布，q为非真实分布；</li>
+<li>按照真实分布p来衡量识别一个样本所需要的编码长度的期望为：$$\sum_i p(i) \cdot log(\frac{1}{p(i)})$$</li>
+<li>按照错误分布q表示来自真实分布p的平均编码长度的期望为：$$\sum_i p(i) \cdot log(\frac{1}{q(i)})$$</li>
+<li>$H(p,q)$称之为交叉熵。</li>
+</ul>
+<h1 id="相对熵-KL散度"><a href="#相对熵-KL散度" class="headerlink" title="相对熵/KL散度"></a>相对熵/KL散度</h1><p>KL散度，是两个概率分布P和Q差别的非对称性的度量。</p>
+<p>通常情况下，</p>
+<ul>
+<li>P表示数据的真实分布；</li>
+<li>Q表示数据的理论分布（模型分布、P的近似分布）$D(P||Q) = \sum P(x) log \frac{P(x)}{Q(x)}$ 。</li>
+</ul>
+<p>KL散度<strong>不对称</strong>，不满足距离的性质，即$D_{KL}(P||Q) \neq D_{KL}(Q||P)$ 。</p>
+<h1 id="JS散度"><a href="#JS散度" class="headerlink" title="JS散度"></a>JS散度</h1><p>JS散度，度量两个概率分布的相似度；是基于KL散度的变体，解决了KL散度非对称性的问题。</p>
+<p>$$JS(P||Q) = \frac{1}{2} KL(P(x)||\frac{P(x)+Q(x)}{2}) + \frac{1}{2} KL(Q(x)||\frac{P(x)+Q(x)}{2})$$</p>
+<p>KL散度具有对称性，其取值区间为[0,1]。</p>
 ]]></content>
   </entry>
 </search>

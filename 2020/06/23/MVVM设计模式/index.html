@@ -22,17 +22,17 @@
     var CONFIG = {"hostname":"zhangzongyu00.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="MVC模式 所有的对象都可以被归类为一个model，一个view，或一个controller。 部分代码没有合适的存放位置，如网络请求部分。 弊端：  大量的代码被放到controller，臃肿； controller规模庞大，难以维护； 属性较多，难以管理； 遵循较多协议，protocol的响应代码和controller的逻辑代码混杂。  MVVM模式 引入新的组件ViewModel，放置用户输">
+  <meta name="description" content="MVC模式 所有的对象都可以被归类为一个model，一个view，或一个controller。–Apple  M：模型model的对象通常比较简单。 根据Apple的文档，model应包括数据和操作数据的业务逻辑； 在实际中，model层往往非常薄； model层的业务逻辑不应被拖入到controller；   V：视图view通常是UIKit控件或编码定义的UIKit控件的集合。 View的构建">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MVVM设计模式">
 <meta property="og:url" content="http://zhangzongyu00.github.io/2020/06/23/MVVM%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="爆发🍢小宇宙">
-<meta property="og:description" content="MVC模式 所有的对象都可以被归类为一个model，一个view，或一个controller。 部分代码没有合适的存放位置，如网络请求部分。 弊端：  大量的代码被放到controller，臃肿； controller规模庞大，难以维护； 属性较多，难以管理； 遵循较多协议，protocol的响应代码和controller的逻辑代码混杂。  MVVM模式 引入新的组件ViewModel，放置用户输">
+<meta property="og:description" content="MVC模式 所有的对象都可以被归类为一个model，一个view，或一个controller。–Apple  M：模型model的对象通常比较简单。 根据Apple的文档，model应包括数据和操作数据的业务逻辑； 在实际中，model层往往非常薄； model层的业务逻辑不应被拖入到controller；   V：视图view通常是UIKit控件或编码定义的UIKit控件的集合。 View的构建">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvc.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvvm.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/MVVM.png">
 <meta property="article:published_time" content="2020-06-23T10:25:39.000Z">
-<meta property="article:modified_time" content="2020-07-19T08:55:59.153Z">
+<meta property="article:modified_time" content="2020-07-19T16:31:51.186Z">
 <meta property="article:author" content="章肿鱼">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvc.png">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-19 16:55:59" itemprop="dateModified" datetime="2020-07-19T16:55:59+08:00">2020-07-19</time>
+                <time title="修改时间：2020-07-20 00:31:51" itemprop="dateModified" datetime="2020-07-20T00:31:51+08:00">2020-07-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -260,17 +260,92 @@
 
       
         <h1 id="MVC模式"><a href="#MVC模式" class="headerlink" title="MVC模式"></a>MVC模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvc.png" alt="mvc"></p>
-<p>所有的对象都可以被归类为一个model，一个view，或一个controller。</p>
-<p><em>部分代码没有合适的存放位置，如网络请求部分。</em></p>
+<p>所有的对象都可以被归类为一个model，一个view，或一个controller。–Apple</p>
+<ul>
+<li>M：模型model的对象通常比较简单。<ul>
+<li>根据Apple的文档，model应包括数据和操作数据的业务逻辑；</li>
+<li>在实际中，model层往往非常薄；</li>
+<li>model层的业务逻辑不应被拖入到controller；</li>
+</ul>
+</li>
+<li>V：视图view通常是UIKit控件或编码定义的UIKit控件的集合。<ul>
+<li>View的构建可不告诉controller，也不应该直接引用model；</li>
+<li>View仅仅通过IBAction事件引用controller；</li>
+<li>视图本身不包含任何业务；</li>
+</ul>
+</li>
+<li>C：控制器controller用于协调model和view间的所有交互，是app的“胶水代码”。<ul>
+<li>controller负责管理所拥有的view的视图层次结构，并且响应view的loading、appearing、disappearing等；</li>
+<li>包括不愿暴露给view的业务逻辑；</li>
+<li>网络数据的请求及后续操作，本地数据库操作，及一些带有工具性质辅助方法等都加大了<code>Massive View Controller</code>的产生。</li>
+</ul>
+</li>
+</ul>
+<p><em>部分代码没有合适的存放位置，如网络逻辑。</em></p>
 <p>弊端：</p>
 <ul>
 <li>大量的代码被放到controller，臃肿；</li>
 <li>controller规模庞大，难以维护；</li>
 <li>属性较多，难以管理；</li>
-<li>遵循较多协议，protocol的响应代码和controller的逻辑代码混杂。</li>
+<li>遵循较多协议，protocol的响应代码和controller的逻辑代码混杂；</li>
+<li>View Controller混合类视图处理逻辑和业务逻辑，分离这些成分的单元测试成为艰巨的任务。</li>
 </ul>
-<h1 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/mvvm.jpg" alt="mvvm"></p>
-<p>引入新的组件ViewModel，放置用户输入验证逻辑、视图显示逻辑、发起网络请求、数据解析等。<br>项目中的请求数据，统一交给ViewModel管理，每个控制器对应一个专属ViewModel。</p>
+<h1 id="MVVM模式"><a href="#MVVM模式" class="headerlink" title="MVVM模式"></a>MVVM模式</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/MVVM.png" alt="MVVM"></p>
+<p>MVVM是对MVC的一种演进，促进了UI代码和业务逻辑的分离。<br>MVVM正式规范了视图和控制器紧耦合的性质，并引入新的组件ViewModel。<br>项目中的请求数据，统一交给ViewModel管理，每个控制器对应一个专属ViewModel。</p>
+<ul>
+<li><p>特点：</p>
+<ul>
+<li>view和<code>view controller</code>正式联系在一起，将其视为一个组件；</li>
+<li>view和<code>view controller</code>不能直接引用model，而是引用viewModel；</li>
+<li>viewModel放置用户输入验证逻辑、视图显示逻辑、发起网络请求、数据解析等；</li>
+<li>使用MVVM会增加少量代码量，但总体上减少了代码的复杂性。</li>
+</ul>
+</li>
+<li><p>注意事项：</p>
+<ul>
+<li>view引用viewModel，但viewModel不能引用view；</li>
+<li>viewModel引用model，但model不能引用ViewModel；</li>
+<li>MVVM可兼容MVC架构；</li>
+<li>MVVM配合一个绑定机制(如ReactiveCocoa)效果最好；</li>
+<li>尽量使用viewModel处理业务逻辑；</li>
+<li>viewController尽量不涉及业务逻辑，只接收view的事件、调用viewModel的方法、响应viewModel的变化；</li>
+<li>viewModel间可以有依赖，但要避免过于臃肿。</li>
+</ul>
+</li>
+<li><p>优点：</p>
+<ul>
+<li>低耦合：View可以独立于Model变化和修改，一个viewModel可以绑定到不同的View上；</li>
+<li>可重用性：可将一些视图逻辑放到一个viewModel中，让view重用该视图逻辑；</li>
+<li>独立开发：开发人员可专注于业务逻辑和数据的开发viewModel，设计人员可专注于页面设计View；</li>
+<li>可测试：通常界面是比较难测试，MVVM模式可针对viewModel进行测试。</li>
+</ul>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li>数据绑定使得一个位置的Bug被快速传递到别的位置，难定位到原始位置；</li>
+<li>对于过大的项目，数据绑定和数据转化需要花费更多的内存：<ul>
+<li>数组内容的转化成本较高，数组中每项都要转化成Item对象，Item对象中可能还有类似数组；</li>
+<li>转化后的数据大部分情况下不能直接被展示，还需二次转化；</li>
+<li>只有在API返回的数据高度标准化时，Item的可复用程度才高，否则容易出现类型爆炸，提高维护成本；</li>
+</ul>
+</li>
+<li>调试时通过Item查看数据内容，不如直接通过NSDictionary/NSArray直观；</li>
+<li>同一API的数据被不同View展示时，难以控制数据转化的代码，可能散落在任何需要的地方。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>个人实战使用总结：</p>
+<ul>
+<li>Model：存放所需要用到的变量、定义字典等，用于转换数据；</li>
+<li>View：控件相关，用于定义控件属性Cell、UI界面的设置等；</li>
+<li>Controller：用于传递数据信息等，如给UIView内容赋值；</li>
+<li>ViewModel：用于解析数据等。</li>
+</ul>
+<hr>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a href="https://www.jianshu.com/p/d0bc12a63ccf" target="_blank" rel="noopener">https://www.jianshu.com/p/d0bc12a63ccf</a></li>
+</ul>
 
     </div>
 
@@ -351,7 +426,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MVC模式"><span class="nav-number">1.</span> <span class="nav-text">MVC模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MVVM模式"><span class="nav-number">2.</span> <span class="nav-text">MVVM模式</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MVC模式"><span class="nav-number">1.</span> <span class="nav-text">MVC模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MVVM模式"><span class="nav-number">2.</span> <span class="nav-text">MVVM模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考："><span class="nav-number">3.</span> <span class="nav-text">参考：</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
