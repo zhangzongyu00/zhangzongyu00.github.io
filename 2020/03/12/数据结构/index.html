@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 4.2.1">
@@ -29,13 +29,15 @@
 <meta property="og:site_name" content="爆发🍢小宇宙">
 <meta property="og:description" content="主要基于严蔚敏所著的《数据结构》，有时间重温补充。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%A0%86%E6%8E%92%E5%BA%8F.gif">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F.gif">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BA%A2%E9%BB%91%E6%A0%91%E6%8F%92%E5%85%A5.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BA%A2%E9%BB%91%E6%A0%91%E5%88%A0%E9%99%A4.png">
 <meta property="article:published_time" content="2020-03-12T04:31:07.000Z">
-<meta property="article:modified_time" content="2020-07-20T10:06:17.733Z">
+<meta property="article:modified_time" content="2020-07-22T01:42:58.579Z">
 <meta property="article:author" content="章肿鱼">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BA%A2%E9%BB%91%E6%A0%91%E6%8F%92%E5%85%A5.jpg">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%A0%86%E6%8E%92%E5%BA%8F.gif">
 
 <link rel="canonical" href="http://zhangzongyu00.github.io/2020/03/12/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
 
@@ -81,11 +83,11 @@
   </style>
 </noscript>
 
-<link rel="alternate" href="/atom.xml" title="爆发🍢小宇宙" type="application/atom+xml">
+<link rel="alternate" href="/atom.xml" title="爆发🍢小宇宙" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -229,7 +231,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-20 18:06:17" itemprop="dateModified" datetime="2020-07-20T18:06:17+08:00">2020-07-20</time>
+                <time title="修改时间：2020-07-22 09:42:58" itemprop="dateModified" datetime="2020-07-22T09:42:58+08:00">2020-07-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -299,14 +301,14 @@
 <td align="center">$O(n{log}_2^n)$</td>
 <td align="center">$O(n{log}_2^n)$</td>
 <td align="center">$O(1)$</td>
-<td align="center">稳定</td>
+<td align="center">不稳定</td>
 </tr>
 <tr>
 <td align="center">快速排序</td>
 <td align="center">$O(n{log}_2^n)$</td>
 <td align="center">$O(n{log}_2^n)$</td>
 <td align="center">$O(n^2)$</td>
-<td align="center">$O(n{log}_2^n)$</td>
+<td align="center">$O({log}_2^n)$</td>
 <td align="center">不稳定</td>
 </tr>
 <tr>
@@ -318,11 +320,43 @@
 <td align="center">不稳定</td>
 </tr>
 <tr>
+<td align="center">堆排序</td>
+<td align="center">$O(n{log}_2^n)$</td>
+<td align="center">$O(n{log}_2^n)$</td>
+<td align="center">$O(n{log}_2^n)$</td>
+<td align="center">$O(1)$</td>
+<td align="center">不稳定</td>
+</tr>
+<tr>
 <td align="center">二路归并排序</td>
 <td align="center">$O(n{log}_2^n)$</td>
-<td align="center">$O(n)$</td>
+<td align="center">$O(n{log}_2^n)$</td>
 <td align="center">$O(n{log}_2^n)$</td>
 <td align="center">$O(n)$</td>
+<td align="center">稳定</td>
+</tr>
+<tr>
+<td align="center">计数排序</td>
+<td align="center">$O(n+k)$</td>
+<td align="center">$O(n+k)$</td>
+<td align="center">$O(n+k)$</td>
+<td align="center">$O(k)$</td>
+<td align="center">稳定</td>
+</tr>
+<tr>
+<td align="center">桶排序</td>
+<td align="center">$O(n+k)$</td>
+<td align="center">$O(n+k)$</td>
+<td align="center">$O(n^2)$</td>
+<td align="center">$O(n+k)$</td>
+<td align="center">稳定</td>
+</tr>
+<tr>
+<td align="center">基数排序</td>
+<td align="center">$O(n*k)$</td>
+<td align="center">$O(n*k)$</td>
+<td align="center">$O(n*k)$</td>
+<td align="center">$O(n+k)$</td>
 <td align="center">稳定</td>
 </tr>
 </tbody></table>
@@ -374,7 +408,18 @@
 </ol>
 </li>
 <li>树形选择排序</li>
-<li>堆排序</li>
+<li>堆排序(优先队列的一种实现)：堆积一个近似完全二叉树的结构，且子结点的键值或索引总是小于或大于它的父结点。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%A0%86%E6%8E%92%E5%BA%8F.gif" alt="堆排序"><ol>
+<li>将初始待排序关键字序列$R_1,R_2,…,R_n$构建成大顶堆，此堆为初始的无序区；</li>
+<li>将堆顶元素$R_1$和最后一个元素$R_n$交换，此时得到新的无序区$R_1,R_2,…,R_{n-1}$和新的有序区$R_n$，且满足$R[1,2,…,n-1]&lt;=R[n]$;</li>
+<li>由于交换后新的堆顶$R_1$可能违反堆的性质，因此需要对当前无序区$R_1,R_2,…,R_{n-1}$调整为新堆；</li>
+<li>然后再次将$R_1$和无序区最后一个元素交换，得到新的无序区$R_1,R_2,…,R_{n-2}$和新的有序区$R_{n-1},R_n$；</li>
+<li>不断重复步骤3-4，直到有序区的元素个数为n-1。<br>补充：<ul>
+<li>大顶堆：每个结点的值都大于或等于其左右孩子结点的值；</li>
+<li>小顶堆：每个结点的值都小于或等于其左右孩子结点的值。</li>
+</ul>
+</li>
+</ol>
+</li>
 </ol>
 </li>
 <li>归并排序：采用<strong>分治法</strong>，将已有序的子序列合并，得到完全有序的序列，即先使每个子序列有序，再使子序列段间有序。<ol>
@@ -384,20 +429,32 @@
 <li>将两个排序好的子序列合并成一个最终的排序序列；</li>
 </ol>
 </li>
-<li>多路归并排序<ul>
-<li>将前一半排序；<ul>
-<li>将后一半排序；</li>
-<li>将其归并到一个新的有序数组(可使用双指针)；</li>
-<li>再拷贝回原数组；</li>
-</ul>
-</li>
-</ul>
-</li>
+<li>多路归并排序</li>
 </ol>
 </li>
-<li>基数排序</li>
-<li>桶排序</li>
-<li>计数排序</li>
+</ol>
+<p>—以下为<strong>非比较排序</strong>算法—</p>
+<ol start="6">
+<li>计数排序：将输入的数据值转为键存储在额外开辟的数组空间中。<ol>
+<li>找出待排序的数组中最大和最小的元素；</li>
+<li>统计数组中每个值为i的元素出现的次数，存入数组C的第i项；</li>
+<li>对所有的计数累加；</li>
+<li>反向填充目标数组，根据计数累加和，每填充一次计数减1。</li>
+</ol>
+</li>
+<li>桶排序：计数排序的升级版，利用了函数的映射关系；假设输入数据服从均匀分布，将数据分到有限数量的桶里，每个桶再分别排序。<ol>
+<li>人为设置一个BucketSize，作为每个桶所能放置多少个不同数值，<strong>数值有限、容量不限</strong>；</li>
+<li>遍历输入数据，并且把数据一个一个放到对应的桶里去；</li>
+<li>对每个不是空的桶进行排序，可以使用其它排序方法，也可递归使用桶排序(当桶数量为1时可能会陷入死循环)；</li>
+<li>从不是空的桶里把排好序的数据拼接起来。</li>
+</ol>
+</li>
+<li>基数排序：先按低位排序，然后收集；再按高位排序，然后收集；直到最高位。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F.gif" alt="基数排序"><ol>
+<li>取得数组中的最大数，并取得<strong>位数</strong>；</li>
+<li>从最低位开始取每个位组成radix数组；</li>
+<li>对radix进行计数排序。</li>
+</ol>
+</li>
 </ol>
 <h2 id="外部排序"><a href="#外部排序" class="headerlink" title="外部排序"></a>外部排序</h2><p><em>待排序记录的数量大，内存不能一次容纳全部记录</em></p>
 <hr>
@@ -443,6 +500,10 @@
 <h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
 <li><a href="https://blog.csdn.net/weixin_41190227/article/details/86600821" target="_blank" rel="noopener">https://blog.csdn.net/weixin_41190227/article/details/86600821</a></li>
 <li><a href="https://www.cnblogs.com/onepixel/articles/7674659.html" target="_blank" rel="noopener">https://www.cnblogs.com/onepixel/articles/7674659.html</a></li>
+<li><a href="https://www.cnblogs.com/lanhaicode/p/10546257.html" target="_blank" rel="noopener">https://www.cnblogs.com/lanhaicode/p/10546257.html</a></li>
+<li><a href="https://www.cnblogs.com/dslx/p/10555311.html" target="_blank" rel="noopener">https://www.cnblogs.com/dslx/p/10555311.html</a></li>
+<li><a href="https://www.cnblogs.com/luomeng/p/10618709.html" target="_blank" rel="noopener">https://www.cnblogs.com/luomeng/p/10618709.html</a></li>
+<li><a href="https://www.cnblogs.com/luomeng/p/10639926.html" target="_blank" rel="noopener">https://www.cnblogs.com/luomeng/p/10639926.html</a></li>
 <li><a href="https://blog.csdn.net/yangyutong0506/article/details/78204953" target="_blank" rel="noopener">https://blog.csdn.net/yangyutong0506/article/details/78204953</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/79980618" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/79980618</a></li>
 <li><a href="https://baijiahao.baidu.com/s?id=1645429373049393021&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1645429373049393021&amp;wfr=spider&amp;for=pc</a></li>
@@ -732,7 +793,7 @@
     MathJax.texReset();
     MathJax.typeset();
   }
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
     
 
