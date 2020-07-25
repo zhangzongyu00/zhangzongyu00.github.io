@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Runtime%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8F%91.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/swiftc.png">
 <meta property="article:published_time" content="2020-07-13T11:12:06.000Z">
-<meta property="article:modified_time" content="2020-07-19T08:55:37.135Z">
+<meta property="article:modified_time" content="2020-07-23T03:32:51.014Z">
 <meta property="article:author" content="章肿鱼">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%AF%B9%E8%B1%A1_%E7%B1%BB_%E5%85%83%E7%B1%BB.png">
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-19 16:55:37" itemprop="dateModified" datetime="2020-07-19T16:55:37+08:00">2020-07-19</time>
+                <time title="修改时间：2020-07-23 11:32:51" itemprop="dateModified" datetime="2020-07-23T11:32:51+08:00">2020-07-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -395,6 +395,7 @@
 </ul>
 </li>
 </ul>
+<h2 id="内存泄漏检测"><a href="#内存泄漏检测" class="headerlink" title="内存泄漏检测"></a>内存泄漏检测</h2><p>设计一种机制检测UIViewController内存泄漏：单例对象ping看是否能ping通。</p>
 <hr>
 <p>Swiftc编译过程：<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/swiftc.png" alt="swiftc"></p>
 <p>参考：</p>
@@ -485,7 +486,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Runtime简介"><span class="nav-number">1.</span> <span class="nav-text">Runtime简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#消息机制的基本原理"><span class="nav-number">2.</span> <span class="nav-text">消息机制的基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#编译阶段"><span class="nav-number">2.1.</span> <span class="nav-text">编译阶段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行时阶段"><span class="nav-number">2.2.</span> <span class="nav-text">运行时阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#objc-msgSend"><span class="nav-number">2.2.1.</span> <span class="nav-text">objc_msgSend</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class"><span class="nav-number">2.2.2.</span> <span class="nav-text">Class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object"><span class="nav-number">2.2.3.</span> <span class="nav-text">Object</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Meta-Class（元类）"><span class="nav-number">2.2.4.</span> <span class="nav-text">Meta Class（元类）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Method"><span class="nav-number">2.2.5.</span> <span class="nav-text">Method</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Runtime消息转发"><span class="nav-number">3.</span> <span class="nav-text">Runtime消息转发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#消息动态解析"><span class="nav-number">3.1.</span> <span class="nav-text">消息动态解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息接受者重定向"><span class="nav-number">3.2.</span> <span class="nav-text">消息接受者重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息重定向"><span class="nav-number">3.3.</span> <span class="nav-text">消息重定向</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#method-swizzling"><span class="nav-number">4.</span> <span class="nav-text">method swizzling</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存管理"><span class="nav-number">5.</span> <span class="nav-text">内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内存访问冲突"><span class="nav-number">5.1.</span> <span class="nav-text">内存访问冲突</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Runtime简介"><span class="nav-number">1.</span> <span class="nav-text">Runtime简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#消息机制的基本原理"><span class="nav-number">2.</span> <span class="nav-text">消息机制的基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#编译阶段"><span class="nav-number">2.1.</span> <span class="nav-text">编译阶段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行时阶段"><span class="nav-number">2.2.</span> <span class="nav-text">运行时阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#objc-msgSend"><span class="nav-number">2.2.1.</span> <span class="nav-text">objc_msgSend</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class"><span class="nav-number">2.2.2.</span> <span class="nav-text">Class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object"><span class="nav-number">2.2.3.</span> <span class="nav-text">Object</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Meta-Class（元类）"><span class="nav-number">2.2.4.</span> <span class="nav-text">Meta Class（元类）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Method"><span class="nav-number">2.2.5.</span> <span class="nav-text">Method</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Runtime消息转发"><span class="nav-number">3.</span> <span class="nav-text">Runtime消息转发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#消息动态解析"><span class="nav-number">3.1.</span> <span class="nav-text">消息动态解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息接受者重定向"><span class="nav-number">3.2.</span> <span class="nav-text">消息接受者重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息重定向"><span class="nav-number">3.3.</span> <span class="nav-text">消息重定向</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#method-swizzling"><span class="nav-number">4.</span> <span class="nav-text">method swizzling</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存管理"><span class="nav-number">5.</span> <span class="nav-text">内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内存访问冲突"><span class="nav-number">5.1.</span> <span class="nav-text">内存访问冲突</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存泄漏检测"><span class="nav-number">5.2.</span> <span class="nav-text">内存泄漏检测</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -501,7 +502,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
