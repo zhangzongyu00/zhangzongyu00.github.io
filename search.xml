@@ -206,6 +206,7 @@
     <title>GCD</title>
     <url>/2020/07/29/GCD/</url>
     <content><![CDATA[<h1 id="GCD任务分组和线程数量控制"><a href="#GCD任务分组和线程数量控制" class="headerlink" title="GCD任务分组和线程数量控制"></a>GCD任务分组和线程数量控制</h1><p>利用GCD的<code>dispatch_group_t</code>和<code>semaphore</code>功能，可以对任务分组和控制线程数量，并且在所有任务执行完成之后得到通知。</p>
+<p>GCD可分为4类：主线程队列、全局并行队列、串行队列、并行队列</p>
 <h2 id="GCD控制线程数量"><a href="#GCD控制线程数量" class="headerlink" title="GCD控制线程数量"></a>GCD控制线程数量</h2><p>GCD不像NSOperation直接提供线程数量控制的方法，需要通过GCD的<strong>semaphore</strong>功能达到控制线程数量的效果。</p>
 <ul>
 <li><code>dispatch_semaphore_create(long value)</code>，利用给定的值创建一个新的可计数的信号量；</li>
@@ -462,6 +463,7 @@
 <h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
 <li><a href="https://www.cnblogs.com/hustzzl/p/9343797.html" target="_blank" rel="noopener">https://www.cnblogs.com/hustzzl/p/9343797.html</a></li>
 <li><a href="https://www.jianshu.com/p/ab2c8fce878b" target="_blank" rel="noopener">https://www.jianshu.com/p/ab2c8fce878b</a></li>
+<li><a href="https://www.jianshu.com/p/0fdf60ec73ae" target="_blank" rel="noopener">https://www.jianshu.com/p/0fdf60ec73ae</a></li>
 </ul>
 ]]></content>
   </entry>
@@ -494,8 +496,8 @@
 </li>
 <li><p>Map：键值对，键不重复；</p>
 <ul>
-<li>HashMap：不保存对象的排列次序，允许键值为null、非Synchronized，但collection框架可保证Synchronized；</li>
-<li>TreeMap：保存对象的排列次序。</li>
+<li>HashMap：基于哈希表实现，不保存对象的排列次序，允许键值为null、非Synchronized，但collection框架可保证Synchronized；为了优化HashMap空间的使用，可以调优初始容量和负载因子。</li>
+<li>TreeMap：基于红黑树实现，保存对象的排列次序；TreeMap没有调优选项，因为该树总处于平衡状态。</li>
 </ul>
 </li>
 </ul>
@@ -555,6 +557,7 @@
 <hr>
 <h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
 <li><a href="https://www.runoob.com/java/java-collections.html" target="_blank" rel="noopener">https://www.runoob.com/java/java-collections.html</a></li>
+<li><a href="https://www.cnblogs.com/williamjie/p/11458835.html" target="_blank" rel="noopener">https://www.cnblogs.com/williamjie/p/11458835.html</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -958,37 +961,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Ubuntu安装Matlab</title>
-    <url>/2020/06/03/Ubuntu%E5%AE%89%E8%A3%85Matlab/</url>
-    <content><![CDATA[<h1 id="Ubuntu-18-04安装Matlab2018b"><a href="#Ubuntu-18-04安装Matlab2018b" class="headerlink" title="Ubuntu 18.04安装Matlab2018b"></a>Ubuntu 18.04安装Matlab2018b</h1><h2 id="Matlab安装"><a href="#Matlab安装" class="headerlink" title="Matlab安装"></a>Matlab安装</h2><ol>
-<li>进入下载文件存储路径，装载光盘1 <code>sudo mount -o loop R2018b_glnxa64_dvd1.iso matlab</code>；</li>
-<li>启动程序 <code>sudo matlab/install</code>；</li>
-<li>选择不联网激活，然后输入license<br>在”Use a File Installation Key”输入license <code>09806-07443-53955-64350-21751-41297</code>。</li>
-<li>当弹出弹框时<code>Eject DVD1 and insert DVD 2 to continue</code>加载第2个光盘<br><code>ctrl+alt+t</code> 打开一个新的terminal:<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo mount -o loop R2018b_glnxa64_dvd2.iso matlab</span><br></pre></td></tr></table></figure>
-在弹框点击ok继续安装，待加载完成unmount文件即可。</li>
-</ol>
-<h2 id="破解Matlab"><a href="#破解Matlab" class="headerlink" title="破解Matlab"></a>破解Matlab</h2><ol>
-<li>替换 <code>libmwlmgrimpl.so</code> 文件<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo cp -f &#x2F;home&#x2F;***&#x2F;Downloads&#x2F;Matlab&#x2F;MATLAB_R2018b_Linux64_Crack&#x2F;MATLAB\ R2018b\ Linux64\ Crack&#x2F;R2018b&#x2F;bin&#x2F;glnxa64&#x2F;matlab_startup_plugins&#x2F;lmgrimpl&#x2F;libmwlmgrimpl.so &#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;bin&#x2F;glnxa64&#x2F;matlab_startup_plugins&#x2F;lmgrimpl&#x2F;</span><br><span class="line">sudo &#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;bin&#x2F;matlab</span><br></pre></td></tr></table></figure></li>
-<li>选择离线激活，选择破解文件license_standalone.lic，<br><code>/home/***/Downloads/Matlab/MATLAB_R2018b_Linux64_Crack/MATLAB R2018b Linux64 Crack/license_standalone.lic</code></li>
-</ol>
-<ul>
-<li>如果不喜欢在terminal中看到 <code>Failed to load module &#39;canberra-gtk-module&#39;</code><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install libcanberra-gtk-module</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="创建Matlab快捷方式"><a href="#创建Matlab快捷方式" class="headerlink" title="创建Matlab快捷方式"></a>创建Matlab快捷方式</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo gedit &#x2F;usr&#x2F;share&#x2F;applications&#x2F;Matlab2018b.desktop</span><br></pre></td></tr></table></figure>
-<p>在文件中拷贝如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[Desktop Entry]</span><br><span class="line">Categories&#x3D;Application;Development;</span><br><span class="line">Comment&#x3D;Matlab</span><br><span class="line">Encoding&#x3D;UTF-8</span><br><span class="line">Exec&#x3D;&#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;bin&#x2F;matlab -desktop -prefersoftwareopengl</span><br><span class="line">Icon&#x3D;&#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;toolbox&#x2F;shared&#x2F;dastudio&#x2F;resources&#x2F;MatlabIcon.png</span><br><span class="line">Name&#x3D;MATLAB R2018b</span><br><span class="line">StartupNotify&#x3D;true</span><br><span class="line">Terminal&#x3D;false</span><br><span class="line">Type&#x3D;Application</span><br></pre></td></tr></table></figure>
-<p>如果打开Matlab提示”The desktop configuration was not saved successfully”：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo chmod a+w -R ~&#x2F;.matlab</span><br><span class="line">sudo chmod 777 &#x2F;home&#x2F;***&#x2F;.matlab</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>ubuntu</category>
-      </categories>
-      <tags>
-        <tag>software</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>统一建模语言Unified Modeling Language</title>
     <url>/2020/07/12/UML/</url>
     <content><![CDATA[<h1 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h1><p>特点：简单、统一、图形化、可表达软件设计中的动态和静态信息。</p>
@@ -1036,6 +1008,37 @@
 <li><a href="http://c.biancheng.net/view/1319.html" target="_blank" rel="noopener">http://c.biancheng.net/view/1319.html</a></li>
 </ul>
 ]]></content>
+  </entry>
+  <entry>
+    <title>Ubuntu安装Matlab</title>
+    <url>/2020/06/03/Ubuntu%E5%AE%89%E8%A3%85Matlab/</url>
+    <content><![CDATA[<h1 id="Ubuntu-18-04安装Matlab2018b"><a href="#Ubuntu-18-04安装Matlab2018b" class="headerlink" title="Ubuntu 18.04安装Matlab2018b"></a>Ubuntu 18.04安装Matlab2018b</h1><h2 id="Matlab安装"><a href="#Matlab安装" class="headerlink" title="Matlab安装"></a>Matlab安装</h2><ol>
+<li>进入下载文件存储路径，装载光盘1 <code>sudo mount -o loop R2018b_glnxa64_dvd1.iso matlab</code>；</li>
+<li>启动程序 <code>sudo matlab/install</code>；</li>
+<li>选择不联网激活，然后输入license<br>在”Use a File Installation Key”输入license <code>09806-07443-53955-64350-21751-41297</code>。</li>
+<li>当弹出弹框时<code>Eject DVD1 and insert DVD 2 to continue</code>加载第2个光盘<br><code>ctrl+alt+t</code> 打开一个新的terminal:<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo mount -o loop R2018b_glnxa64_dvd2.iso matlab</span><br></pre></td></tr></table></figure>
+在弹框点击ok继续安装，待加载完成unmount文件即可。</li>
+</ol>
+<h2 id="破解Matlab"><a href="#破解Matlab" class="headerlink" title="破解Matlab"></a>破解Matlab</h2><ol>
+<li>替换 <code>libmwlmgrimpl.so</code> 文件<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo cp -f &#x2F;home&#x2F;***&#x2F;Downloads&#x2F;Matlab&#x2F;MATLAB_R2018b_Linux64_Crack&#x2F;MATLAB\ R2018b\ Linux64\ Crack&#x2F;R2018b&#x2F;bin&#x2F;glnxa64&#x2F;matlab_startup_plugins&#x2F;lmgrimpl&#x2F;libmwlmgrimpl.so &#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;bin&#x2F;glnxa64&#x2F;matlab_startup_plugins&#x2F;lmgrimpl&#x2F;</span><br><span class="line">sudo &#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;bin&#x2F;matlab</span><br></pre></td></tr></table></figure></li>
+<li>选择离线激活，选择破解文件license_standalone.lic，<br><code>/home/***/Downloads/Matlab/MATLAB_R2018b_Linux64_Crack/MATLAB R2018b Linux64 Crack/license_standalone.lic</code></li>
+</ol>
+<ul>
+<li>如果不喜欢在terminal中看到 <code>Failed to load module &#39;canberra-gtk-module&#39;</code><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install libcanberra-gtk-module</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="创建Matlab快捷方式"><a href="#创建Matlab快捷方式" class="headerlink" title="创建Matlab快捷方式"></a>创建Matlab快捷方式</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo gedit &#x2F;usr&#x2F;share&#x2F;applications&#x2F;Matlab2018b.desktop</span><br></pre></td></tr></table></figure>
+<p>在文件中拷贝如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[Desktop Entry]</span><br><span class="line">Categories&#x3D;Application;Development;</span><br><span class="line">Comment&#x3D;Matlab</span><br><span class="line">Encoding&#x3D;UTF-8</span><br><span class="line">Exec&#x3D;&#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;bin&#x2F;matlab -desktop -prefersoftwareopengl</span><br><span class="line">Icon&#x3D;&#x2F;usr&#x2F;local&#x2F;MATLAB&#x2F;R2018b&#x2F;toolbox&#x2F;shared&#x2F;dastudio&#x2F;resources&#x2F;MatlabIcon.png</span><br><span class="line">Name&#x3D;MATLAB R2018b</span><br><span class="line">StartupNotify&#x3D;true</span><br><span class="line">Terminal&#x3D;false</span><br><span class="line">Type&#x3D;Application</span><br></pre></td></tr></table></figure>
+<p>如果打开Matlab提示”The desktop configuration was not saved successfully”：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo chmod a+w -R ~&#x2F;.matlab</span><br><span class="line">sudo chmod 777 &#x2F;home&#x2F;***&#x2F;.matlab</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>ubuntu</category>
+      </categories>
+      <tags>
+        <tag>software</tag>
+      </tags>
   </entry>
   <entry>
     <title>Ubuntu配置CUDA</title>
@@ -1195,28 +1198,6 @@
       </tags>
   </entry>
   <entry>
-    <title>kmeans聚类</title>
-    <url>/2020/06/06/kmeans%E8%81%9A%E7%B1%BB/</url>
-    <content><![CDATA[<h1 id="K-means"><a href="#K-means" class="headerlink" title="K-means"></a>K-means</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/K-means.png" alt="K-means"></p>
-<p>算法流程：</p>
-<ol>
-<li>选取k个类中心（首次随机选取）；</li>
-<li>计算每个点到k个类中心的距离；</li>
-<li>将数据点分配给距离最近的一个类中心；</li>
-<li>计算新的类中心（对该类中所有点取均值）；</li>
-<li>重复2-4，直到满足终止条件：<ul>
-<li>不再有重新分配；</li>
-<li>最大迭代数；</li>
-<li>所有类中心移动小于某一个值。</li>
-</ul>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-  </entry>
-  <entry>
     <title>haar特征</title>
     <url>/2020/06/04/haar%E7%89%B9%E5%BE%81/</url>
     <content><![CDATA[<h1 id="Haar-like特征"><a href="#Haar-like特征" class="headerlink" title="Haar-like特征"></a>Haar-like特征</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Haar%E7%89%B9%E5%BE%81.png" alt="Haar特征"></p>
@@ -1241,6 +1222,28 @@
       <tags>
         <tag>feature</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>kmeans聚类</title>
+    <url>/2020/06/06/kmeans%E8%81%9A%E7%B1%BB/</url>
+    <content><![CDATA[<h1 id="K-means"><a href="#K-means" class="headerlink" title="K-means"></a>K-means</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/K-means.png" alt="K-means"></p>
+<p>算法流程：</p>
+<ol>
+<li>选取k个类中心（首次随机选取）；</li>
+<li>计算每个点到k个类中心的距离；</li>
+<li>将数据点分配给距离最近的一个类中心；</li>
+<li>计算新的类中心（对该类中所有点取均值）；</li>
+<li>重复2-4，直到满足终止条件：<ul>
+<li>不再有重新分配；</li>
+<li>最大迭代数；</li>
+<li>所有类中心移动小于某一个值。</li>
+</ul>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
   </entry>
   <entry>
     <title>mysql</title>
@@ -1353,6 +1356,38 @@
       <tags>
         <tag>feature</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>runloop</title>
+    <url>/2020/07/29/runloop/</url>
+    <content><![CDATA[<h1 id="运行循环"><a href="#运行循环" class="headerlink" title="运行循环"></a>运行循环</h1><p>Runloop就是运行循环,每个线程内部都有一个运行循环，只有主线程的运行循环默认是开启的。<br>运行循环是一个<strong>死循环</strong>,只有满足一定条件才会结束循环。</p>
+<p>运行循环的作用：</p>
+<ol>
+<li>保证程序不退出，iOS的应用程序启动之后，之所以不会退出，就是因为有Runloop(运行循环)；</li>
+<li>负责处理输入事件；</li>
+<li>如果没有事件发生，会让程序进入休眠状态。</li>
+</ol>
+<p>Runloop接收的事件来自两种不同的来源：</p>
+<ul>
+<li>输入源(Input sources)：输入源传递异步事件，通常消息来自于其他线程或程序；</li>
+<li>定时源(Timer sounces)定时源则传递同步事件，发生在特定时间或者重复的时间间隔。</li>
+<li>两种源都使用程序的某一特定的处理例程来处理到达的事件。</li>
+</ul>
+<h2 id="runloop中的模式"><a href="#runloop中的模式" class="headerlink" title="runloop中的模式"></a>runloop中的模式</h2><p>model，是runloop里面的模式，不同的模式下的runloop处理的事件和消息有一定的差别。</p>
+<p>系统默认注册了5个Mode:</p>
+<ul>
+<li>kCFRunLoopDefaultMode: App的默认Mode，通常主线程是在这个Mode下运行的。</li>
+<li>UITrackingRunLoopMode: 界面跟踪Mode，用于ScrollView追踪触摸滑动，保证界面滑动时不受其他Mode影响。</li>
+<li>UIInitializationRunLoopMode: 在刚启动App时第进入的第一个Mode，启动完成后就不再使用。</li>
+<li>GSEventReceiveRunLoopMode: 接受系统事件的内部Mode，通常用不到。</li>
+<li>kCFRunLoopCommonModes: 这是一个占位的Mode，没有实际作用。</li>
+</ul>
+<p>ios对以上5中model进行了封装：NSDefaultRunLoopMode、NSRunLoopCommonModes。</p>
+<hr>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://www.cnblogs.com/damowangseven/p/5273319.html" target="_blank" rel="noopener">https://www.cnblogs.com/damowangseven/p/5273319.html</a></li>
+</ul>
+]]></content>
   </entry>
   <entry>
     <title>Redis持久化机制</title>
@@ -1666,6 +1701,80 @@
       </tags>
   </entry>
   <entry>
+    <title>swift中的图片管理</title>
+    <url>/2020/07/22/swift%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h1 id="Bundle"><a href="#Bundle" class="headerlink" title="Bundle"></a>Bundle</h1><p>使用ImageNamed方法生成的UIImage对象，会在应用的bundle中寻找，找到则Cache到系统缓存，作为内存的Cache(只能系统自动处理)；<br>当加载很多很大的图片时，内存消耗过大，会遇到<code>memory warnings</code>，从而强制释放内存。</p>
+<h1 id="xcassets"><a href="#xcassets" class="headerlink" title="xcassets"></a>xcassets</h1><p>注意事项：</p>
+<ul>
+<li>图片的大小要准确，不能出现图片太大的情况；</li>
+<li>不要存放大图，会产生缓存；</li>
+<li>不要存放JPEG格式的图片，会导致图片变大。</li>
+</ul>
+<p>Bundle和xcassets的主要区别：</p>
+<ul>
+<li>xcassets中的图片，只能通过imageNamed加载；Bundle还可通过imageWithContentsOfFile等方式加载；</li>
+<li>xcassets中的2x和3x，会根据具体设备分发，不会同时包含；Bundle则同时都包含；</li>
+<li>xcassets内可对图片进行剪裁和拉伸，Bundle不支持；</li>
+<li>Bundle支持多语言，而xcassets不支持；</li>
+</ul>
+<h1 id="释放图片内存"><a href="#释放图片内存" class="headerlink" title="释放图片内存"></a>释放图片内存</h1><p><code>[[UIImageView alloc] init]</code>返回的都是一些<strong>autorelease对象</strong>，当引用计数为0时不一定立即释放，但会在<strong>autoreleasepool</strong>结尾时释放。</p>
+<h1 id="SDWebImage"><a href="#SDWebImage" class="headerlink" title="SDWebImage"></a>SDWebImage</h1><p>SDWebImage具有缓存支持的异步映像下载程序。</p>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a href="https://www.jianshu.com/p/ca130b97446b" target="_blank" rel="noopener">https://www.jianshu.com/p/ca130b97446b</a></li>
+<li><a href="https://www.jianshu.com/p/efe8565c4218" target="_blank" rel="noopener">https://www.jianshu.com/p/efe8565c4218</a></li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>二进制运算</title>
+    <url>/2020/07/16/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BF%90%E7%AE%97/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">名称</th>
+<th align="center">表示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">&amp;</td>
+<td align="center">按位与</td>
+<td align="center">对应位均为1，才为1；否则为0</td>
+</tr>
+<tr>
+<td align="center">|</td>
+<td align="center">按位或</td>
+<td align="center">对应位有1，即为1；否则为0</td>
+</tr>
+<tr>
+<td align="center">^</td>
+<td align="center">按位异或</td>
+<td align="center">相同异或为1；不同异或为1</td>
+</tr>
+<tr>
+<td align="center">~</td>
+<td align="center">按位取反</td>
+<td align="center">1变0，0变1</td>
+</tr>
+<tr>
+<td align="center">&lt;&lt;</td>
+<td align="center">按位左移</td>
+<td align="center">左移，右边补0，相当*2</td>
+</tr>
+<tr>
+<td align="center">&gt;&gt;</td>
+<td align="center">有符号的右移</td>
+<td align="center">右移，左边补符号位，负数以原码形式参与运算</td>
+</tr>
+<tr>
+<td align="center">&gt;&gt;&gt;</td>
+<td align="center">无符号的右移</td>
+<td align="center">右移，左边补0，所有数据以无符号方式计算</td>
+</tr>
+</tbody></table>
+]]></content>
+  </entry>
+  <entry>
     <title>swift</title>
     <url>/2020/06/30/swift/</url>
     <content><![CDATA[<h1 id="playground"><a href="#playground" class="headerlink" title="playground"></a>playground</h1><p><em>所见及所得，可快速查看语法更改</em></p>
@@ -1861,128 +1970,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>swift中的图片管理</title>
-    <url>/2020/07/22/swift%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h1 id="Bundle"><a href="#Bundle" class="headerlink" title="Bundle"></a>Bundle</h1><p>使用ImageNamed方法生成的UIImage对象，会在应用的bundle中寻找，找到则Cache到系统缓存，作为内存的Cache(只能系统自动处理)；<br>当加载很多很大的图片时，内存消耗过大，会遇到<code>memory warnings</code>，从而强制释放内存。</p>
-<h1 id="xcassets"><a href="#xcassets" class="headerlink" title="xcassets"></a>xcassets</h1><p>注意事项：</p>
-<ul>
-<li>图片的大小要准确，不能出现图片太大的情况；</li>
-<li>不要存放大图，会产生缓存；</li>
-<li>不要存放JPEG格式的图片，会导致图片变大。</li>
-</ul>
-<p>Bundle和xcassets的主要区别：</p>
-<ul>
-<li>xcassets中的图片，只能通过imageNamed加载；Bundle还可通过imageWithContentsOfFile等方式加载；</li>
-<li>xcassets中的2x和3x，会根据具体设备分发，不会同时包含；Bundle则同时都包含；</li>
-<li>xcassets内可对图片进行剪裁和拉伸，Bundle不支持；</li>
-<li>Bundle支持多语言，而xcassets不支持；</li>
-</ul>
-<h1 id="释放图片内存"><a href="#释放图片内存" class="headerlink" title="释放图片内存"></a>释放图片内存</h1><p><code>[[UIImageView alloc] init]</code>返回的都是一些<strong>autorelease对象</strong>，当引用计数为0时不一定立即释放，但会在<strong>autoreleasepool</strong>结尾时释放。</p>
-<h1 id="SDWebImage"><a href="#SDWebImage" class="headerlink" title="SDWebImage"></a>SDWebImage</h1><p>SDWebImage具有缓存支持的异步映像下载程序。</p>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="https://www.jianshu.com/p/ca130b97446b" target="_blank" rel="noopener">https://www.jianshu.com/p/ca130b97446b</a></li>
-<li><a href="https://www.jianshu.com/p/efe8565c4218" target="_blank" rel="noopener">https://www.jianshu.com/p/efe8565c4218</a></li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>二进制运算</title>
-    <url>/2020/07/16/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BF%90%E7%AE%97/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">符号</th>
-<th align="center">名称</th>
-<th align="center">表示</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">&amp;</td>
-<td align="center">按位与</td>
-<td align="center">对应位均为1，才为1；否则为0</td>
-</tr>
-<tr>
-<td align="center">|</td>
-<td align="center">按位或</td>
-<td align="center">对应位有1，即为1；否则为0</td>
-</tr>
-<tr>
-<td align="center">^</td>
-<td align="center">按位异或</td>
-<td align="center">相同异或为1；不同异或为1</td>
-</tr>
-<tr>
-<td align="center">~</td>
-<td align="center">按位取反</td>
-<td align="center">1变0，0变1</td>
-</tr>
-<tr>
-<td align="center">&lt;&lt;</td>
-<td align="center">按位左移</td>
-<td align="center">左移，右边补0，相当*2</td>
-</tr>
-<tr>
-<td align="center">&gt;&gt;</td>
-<td align="center">有符号的右移</td>
-<td align="center">右移，左边补符号位，负数以原码形式参与运算</td>
-</tr>
-<tr>
-<td align="center">&gt;&gt;&gt;</td>
-<td align="center">无符号的右移</td>
-<td align="center">右移，左边补0，所有数据以无符号方式计算</td>
-</tr>
-</tbody></table>
-]]></content>
-  </entry>
-  <entry>
-    <title>图像分割</title>
-    <url>/2020/05/28/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/</url>
-    <content><![CDATA[<h1 id="图像分割"><a href="#图像分割" class="headerlink" title="图像分割"></a>图像分割</h1><p>图像分割：根据灰度、颜色、纹理、形状等特征，将图像划分为若干互不交叠的区域，并使这些特征在同一区域内呈现出相似性，在不同区域间呈现出明显的差异。</p>
-<p>经典数字图像分割算法一般基于灰度值的两个基本特性：</p>
-<ul>
-<li>不连续性；</li>
-<li>相似性。</li>
-</ul>
-<p>前景/背景分割：</p>
-<ul>
-<li>前景一般包含物体；</li>
-<li>需要交互提供初始标记。</li>
-</ul>
-<h2 id="基于阈值的分割方法"><a href="#基于阈值的分割方法" class="headerlink" title="基于阈值的分割方法"></a>基于阈值的分割方法</h2><p>基本思想：基于图像的灰度特征来计算一个或多个灰度阈值，并将图像中每个像素的灰度值与阈值相比较，最后将像素根据比较结果分到合适的类别中。</p>
-<p>设定某一灰度阈值T，将图像分为两部分：大于T的像素群和小于T的像素群，选定一个<strong>合适的阈值</strong>即可将图像准确地分割开。</p>
-<h2 id="基于边缘的分割方法"><a href="#基于边缘的分割方法" class="headerlink" title="基于边缘的分割方法"></a>基于边缘的分割方法</h2><p>边缘，是指图像中两个不同区域的边界线上连续的像素点的集合，是图像局部特征不连续性的反映，体现了灰度、颜色、纹理等图像特性的<strong>突变</strong>。</p>
-<p>基本思路：先确定图像中的边缘像素，然后再把这些像素连接在一起构成所需的区域边界。</p>
-<hr>
-<h1 id="传统图像分割方法"><a href="#传统图像分割方法" class="headerlink" title="传统图像分割方法"></a>传统图像分割方法</h1><h2 id="基于区域的分割方法"><a href="#基于区域的分割方法" class="headerlink" title="基于区域的分割方法"></a>基于区域的分割方法</h2><p>将图像按照相似性准则分成不同的区域。</p>
-<h3 id="区域生长法"><a href="#区域生长法" class="headerlink" title="区域生长法"></a>区域生长法</h3><p>根据一种事先定义的准则，将像素或子区域聚合成更大区域的过程，并且要充分保证分割后的区域满足以下条件：</p>
-<ul>
-<li>内部连通、互斥；</li>
-<li>各子集的并集能构成全集。</li>
-</ul>
-<p>区域生长的条件：根据像素灰度间的连续性定义的一些相似性准则；<br>区域生长停止的条件：一个终止规则。</p>
-<p>区域生长法定义了最大像素灰度值距离，当待加入像素点的灰度值和已分割好的区域所有像素点的平均灰度的差的绝对值不大于最大像素灰度值距离时，该像素点加入到该分割区域；相反，则区域生长算法停止。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8C%BA%E5%9F%9F%E7%94%9F%E9%95%BF.png" alt="区域生长"></p>
-<h3 id="分水岭方法"><a href="#分水岭方法" class="headerlink" title="分水岭方法"></a>分水岭方法</h3><p>将图像中的<strong>边缘</strong>转化为<strong>山脉</strong>，将<strong>均匀区域</strong>转化为<strong>山谷</strong>。</p>
-<p>在分割过程中，该方法会将临近像素间的相似性作为重要的参考依据，从而将在<strong>空间位置上相近</strong>，并且<strong>灰度值相近</strong>的像素点互相连接起来，构成一个封闭的轮廓。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%88%86%E6%B0%B4%E5%B2%AD.png" alt="分水岭"></p>
-<p>操作步骤：</p>
-<ol>
-<li>彩色图像灰度化；</li>
-<li>求梯度图；</li>
-<li>进行分水岭算法，求得分段图像的边缘线。</li>
-</ol>
-<h2 id="基于图论的分割方法"><a href="#基于图论的分割方法" class="headerlink" title="基于图论的分割方法"></a>基于图论的分割方法</h2><p>将图像分割问题与图的最小割mincut问题联系。将图像映射为带权无向图，图中每个节点对应于图像中的每个像素，每条边的权值对应相邻像素间在灰度、颜色、纹理等方面的非负相似度。</p>
-<a href="/2020/06/06/GraphCuts%E5%88%86%E5%89%B2/" title="GraphCuts分割">GraphCuts分割</a>
-
-<a href="/2020/06/06/GrabCut%E5%88%86%E5%89%B2/" title="GrabCut分割">GrabCut分割</a>]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>图像分割</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>卷积神经网络</title>
     <url>/2020/06/08/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</url>
     <content><![CDATA[<h1 id="CNN基本组件"><a href="#CNN基本组件" class="headerlink" title="CNN基本组件"></a>CNN基本组件</h1><h2 id="卷积层-Convolutional-layer"><a href="#卷积层-Convolutional-layer" class="headerlink" title="卷积层 Convolutional_layer"></a>卷积层 Convolutional_layer</h2><p>用一个采样器从输入数据中采集关键数据内容；</p>
@@ -2050,6 +2037,54 @@
       </tags>
   </entry>
   <entry>
+    <title>图像分割</title>
+    <url>/2020/05/28/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/</url>
+    <content><![CDATA[<h1 id="图像分割"><a href="#图像分割" class="headerlink" title="图像分割"></a>图像分割</h1><p>图像分割：根据灰度、颜色、纹理、形状等特征，将图像划分为若干互不交叠的区域，并使这些特征在同一区域内呈现出相似性，在不同区域间呈现出明显的差异。</p>
+<p>经典数字图像分割算法一般基于灰度值的两个基本特性：</p>
+<ul>
+<li>不连续性；</li>
+<li>相似性。</li>
+</ul>
+<p>前景/背景分割：</p>
+<ul>
+<li>前景一般包含物体；</li>
+<li>需要交互提供初始标记。</li>
+</ul>
+<h2 id="基于阈值的分割方法"><a href="#基于阈值的分割方法" class="headerlink" title="基于阈值的分割方法"></a>基于阈值的分割方法</h2><p>基本思想：基于图像的灰度特征来计算一个或多个灰度阈值，并将图像中每个像素的灰度值与阈值相比较，最后将像素根据比较结果分到合适的类别中。</p>
+<p>设定某一灰度阈值T，将图像分为两部分：大于T的像素群和小于T的像素群，选定一个<strong>合适的阈值</strong>即可将图像准确地分割开。</p>
+<h2 id="基于边缘的分割方法"><a href="#基于边缘的分割方法" class="headerlink" title="基于边缘的分割方法"></a>基于边缘的分割方法</h2><p>边缘，是指图像中两个不同区域的边界线上连续的像素点的集合，是图像局部特征不连续性的反映，体现了灰度、颜色、纹理等图像特性的<strong>突变</strong>。</p>
+<p>基本思路：先确定图像中的边缘像素，然后再把这些像素连接在一起构成所需的区域边界。</p>
+<hr>
+<h1 id="传统图像分割方法"><a href="#传统图像分割方法" class="headerlink" title="传统图像分割方法"></a>传统图像分割方法</h1><h2 id="基于区域的分割方法"><a href="#基于区域的分割方法" class="headerlink" title="基于区域的分割方法"></a>基于区域的分割方法</h2><p>将图像按照相似性准则分成不同的区域。</p>
+<h3 id="区域生长法"><a href="#区域生长法" class="headerlink" title="区域生长法"></a>区域生长法</h3><p>根据一种事先定义的准则，将像素或子区域聚合成更大区域的过程，并且要充分保证分割后的区域满足以下条件：</p>
+<ul>
+<li>内部连通、互斥；</li>
+<li>各子集的并集能构成全集。</li>
+</ul>
+<p>区域生长的条件：根据像素灰度间的连续性定义的一些相似性准则；<br>区域生长停止的条件：一个终止规则。</p>
+<p>区域生长法定义了最大像素灰度值距离，当待加入像素点的灰度值和已分割好的区域所有像素点的平均灰度的差的绝对值不大于最大像素灰度值距离时，该像素点加入到该分割区域；相反，则区域生长算法停止。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%8C%BA%E5%9F%9F%E7%94%9F%E9%95%BF.png" alt="区域生长"></p>
+<h3 id="分水岭方法"><a href="#分水岭方法" class="headerlink" title="分水岭方法"></a>分水岭方法</h3><p>将图像中的<strong>边缘</strong>转化为<strong>山脉</strong>，将<strong>均匀区域</strong>转化为<strong>山谷</strong>。</p>
+<p>在分割过程中，该方法会将临近像素间的相似性作为重要的参考依据，从而将在<strong>空间位置上相近</strong>，并且<strong>灰度值相近</strong>的像素点互相连接起来，构成一个封闭的轮廓。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%88%86%E6%B0%B4%E5%B2%AD.png" alt="分水岭"></p>
+<p>操作步骤：</p>
+<ol>
+<li>彩色图像灰度化；</li>
+<li>求梯度图；</li>
+<li>进行分水岭算法，求得分段图像的边缘线。</li>
+</ol>
+<h2 id="基于图论的分割方法"><a href="#基于图论的分割方法" class="headerlink" title="基于图论的分割方法"></a>基于图论的分割方法</h2><p>将图像分割问题与图的最小割mincut问题联系。将图像映射为带权无向图，图中每个节点对应于图像中的每个像素，每条边的权值对应相邻像素间在灰度、颜色、纹理等方面的非负相似度。</p>
+<a href="/2020/06/06/GraphCuts%E5%88%86%E5%89%B2/" title="GraphCuts分割">GraphCuts分割</a>
+
+<a href="/2020/06/06/GrabCut%E5%88%86%E5%89%B2/" title="GrabCut分割">GrabCut分割</a>]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>图像分割</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>图像分类问题</title>
     <url>/2020/07/05/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<h1 id="CNN网络进化-结构演化"><a href="#CNN网络进化-结构演化" class="headerlink" title="CNN网络进化/结构演化"></a>CNN网络进化/结构演化</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/CNN%E7%BB%93%E6%9E%84%E6%BC%94%E5%8C%96.png" alt="CNN结构演化"></p>
@@ -2101,21 +2136,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>图像格式</title>
-    <url>/2020/06/05/%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F/</url>
-    <content><![CDATA[<h1 id="图片存储格式"><a href="#图片存储格式" class="headerlink" title="图片存储格式"></a>图片存储格式</h1><p>常用存储格式：<br>  bmp,jpg,png,tiff,gif,<br>  pcx,tga,exif,fpx,svg,<br>  psd,cdr,pcd,dxf,ufo,<br>  eps,ai,raw,WMF,webp等。</p>
-<ul>
-<li>BMP：采用位映射存储，占用空间大。</li>
-<li>JPG：常用有损压缩格式，压缩比例可达10:1-40:1。</li>
-<li>PNG：无损压缩图像文件格式，比GIF小30%。</li>
-<li>GIF：基于LZW算法的连续色调的无损压缩格式，压缩率一般在50%左右。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-  </entry>
-  <entry>
     <title>图像增强</title>
     <url>/2020/04/13/%E5%9B%BE%E5%83%8F%E5%A2%9E%E5%BC%BA/</url>
     <content><![CDATA[<h1 id="图像增强目标"><a href="#图像增强目标" class="headerlink" title="图像增强目标"></a>图像增强目标</h1><ul>
@@ -2130,6 +2150,21 @@
       <tags>
         <tag>图像增强</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>图像格式</title>
+    <url>/2020/06/05/%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="图片存储格式"><a href="#图片存储格式" class="headerlink" title="图片存储格式"></a>图片存储格式</h1><p>常用存储格式：<br>  bmp,jpg,png,tiff,gif,<br>  pcx,tga,exif,fpx,svg,<br>  psd,cdr,pcd,dxf,ufo,<br>  eps,ai,raw,WMF,webp等。</p>
+<ul>
+<li>BMP：采用位映射存储，占用空间大。</li>
+<li>JPG：常用有损压缩格式，压缩比例可达10:1-40:1。</li>
+<li>PNG：无损压缩图像文件格式，比GIF小30%。</li>
+<li>GIF：基于LZW算法的连续色调的无损压缩格式，压缩率一般在50%左右。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
   </entry>
   <entry>
     <title>图像特征</title>
@@ -2336,38 +2371,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>小波变换</title>
-    <url>/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/</url>
-    <content><![CDATA[<h1 id="连续小波变换CWT"><a href="#连续小波变换CWT" class="headerlink" title="连续小波变换CWT"></a>连续小波变换CWT</h1><p>将无限长的三角函数基转换为有限长的会衰减的小波基，不仅能获取频率，还可定位到时间。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2.png" alt="小波变换"></p>
-<p>思路：</p>
-<ol>
-<li>取一个小波，将其与原始信号的开始一节进行比较；</li>
-<li>计算数值F，F表示小波与所取一节信号的相似程度，计算结果取决于所选小波的形状；</li>
-<li>向右移动小波，重复步骤1和步骤2，直至覆盖整个信号；</li>
-<li>伸展小波，重复步骤1-3，对齐；</li>
-<li>对于所有缩放，重复步骤1-4，进行压缩。</li>
-</ol>
-<h1 id="离散小波变换DWT"><a href="#离散小波变换DWT" class="headerlink" title="离散小波变换DWT"></a>离散小波变换DWT</h1><p>离散小波变换的有效方法是使用滤波器，由Mallat于1988年提出。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%A4%9A%E5%B1%82%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="多层小波分解和重构"></p>
-<h2 id="小波分解"><a href="#小波分解" class="headerlink" title="小波分解"></a>小波分解</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%A6%BB%E6%95%A3%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="离散小波分解示意图"></p>
-<p>S表示原始的输入信号，通过两个互补的滤波器组，一个低通滤波器，得到信号的近似值A，另一个高通滤波器，得到该滤波器的细节值D。</p>
-<h2 id="小波重构"><a href="#小波重构" class="headerlink" title="小波重构"></a>小波重构</h2><p>利用小波分解的系数还原出原始信号，也叫逆离散小波变换IDWT/小波合成。</p>
-<h1 id="二维离散小波变换"><a href="#二维离散小波变换" class="headerlink" title="二维离散小波变换"></a>二维离散小波变换</h1><p>将二维信号在不同尺度进行分解，得到原始信号的近似值和细节。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BA%8C%E7%BB%B4%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="二维小波分解和重构"></p>
-<p>分解的结果为**近似分量cA、水平细节分量cH、垂直细节分量cV、对角细节分量cD。</p>
-<h1 id="常见小波函数"><a href="#常见小波函数" class="headerlink" title="常见小波函数"></a>常见小波函数</h1><p>Haar系列，Daubechies系列，Moret系列，Sym系列，Meyer系列，Coif系列</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%B3%A2%E5%87%BD%E6%95%B0.png" alt="常用小波函数"></p>
-<p>参考：<br><a href="https://www.cnblogs.com/keye/p/7809207.html" target="_blank" rel="noopener">https://www.cnblogs.com/keye/p/7809207.html</a><br><a href="https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html</a></p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>多尺度变换</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>多尺度变换</title>
     <url>/2020/04/09/%E5%A4%9A%E5%B0%BA%E5%BA%A6%E5%8F%98%E6%8D%A2/</url>
     <content><![CDATA[<h1 id="空间域处理：卷积"><a href="#空间域处理：卷积" class="headerlink" title="空间域处理：卷积"></a>空间域处理：卷积</h1><h2 id="点运算"><a href="#点运算" class="headerlink" title="点运算"></a>点运算</h2><h3 id="直方图（特征提取方法）"><a href="#直方图（特征提取方法）" class="headerlink" title="直方图（特征提取方法）"></a>直方图（特征提取方法）</h3><p>是对图片数据/特征分布的一种统计，对数据区间/空间进行量化。<br><em>全黑为0</em></p>
@@ -2463,6 +2466,38 @@
 </ul>
 <p><em>绝对意义的瞬时频率其实是不存在的，只是时间分辨率有限的近似分析结果。</em></p>
 <h2 id=""><a href="#" class="headerlink" title=""></a><a href="/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/" title="小波变换">小波变换</a></h2><p>reference:<br><a href="https://blog.csdn.net/asd20172016/article/details/80904634" target="_blank" rel="noopener">https://blog.csdn.net/asd20172016/article/details/80904634</a><br><a href="https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html</a><br><a href="https://zhuanlan.zhihu.com/p/23607336" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/23607336</a></p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>多尺度变换</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>小波变换</title>
+    <url>/2020/06/06/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2/</url>
+    <content><![CDATA[<h1 id="连续小波变换CWT"><a href="#连续小波变换CWT" class="headerlink" title="连续小波变换CWT"></a>连续小波变换CWT</h1><p>将无限长的三角函数基转换为有限长的会衰减的小波基，不仅能获取频率，还可定位到时间。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2.png" alt="小波变换"></p>
+<p>思路：</p>
+<ol>
+<li>取一个小波，将其与原始信号的开始一节进行比较；</li>
+<li>计算数值F，F表示小波与所取一节信号的相似程度，计算结果取决于所选小波的形状；</li>
+<li>向右移动小波，重复步骤1和步骤2，直至覆盖整个信号；</li>
+<li>伸展小波，重复步骤1-3，对齐；</li>
+<li>对于所有缩放，重复步骤1-4，进行压缩。</li>
+</ol>
+<h1 id="离散小波变换DWT"><a href="#离散小波变换DWT" class="headerlink" title="离散小波变换DWT"></a>离散小波变换DWT</h1><p>离散小波变换的有效方法是使用滤波器，由Mallat于1988年提出。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%A4%9A%E5%B1%82%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="多层小波分解和重构"></p>
+<h2 id="小波分解"><a href="#小波分解" class="headerlink" title="小波分解"></a>小波分解</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%A6%BB%E6%95%A3%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="离散小波分解示意图"></p>
+<p>S表示原始的输入信号，通过两个互补的滤波器组，一个低通滤波器，得到信号的近似值A，另一个高通滤波器，得到该滤波器的细节值D。</p>
+<h2 id="小波重构"><a href="#小波重构" class="headerlink" title="小波重构"></a>小波重构</h2><p>利用小波分解的系数还原出原始信号，也叫逆离散小波变换IDWT/小波合成。</p>
+<h1 id="二维离散小波变换"><a href="#二维离散小波变换" class="headerlink" title="二维离散小波变换"></a>二维离散小波变换</h1><p>将二维信号在不同尺度进行分解，得到原始信号的近似值和细节。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BA%8C%E7%BB%B4%E5%B0%8F%E6%B3%A2%E5%88%86%E8%A7%A3%E5%92%8C%E9%87%8D%E6%9E%84.png" alt="二维小波分解和重构"></p>
+<p>分解的结果为**近似分量cA、水平细节分量cH、垂直细节分量cV、对角细节分量cD。</p>
+<h1 id="常见小波函数"><a href="#常见小波函数" class="headerlink" title="常见小波函数"></a>常见小波函数</h1><p>Haar系列，Daubechies系列，Moret系列，Sym系列，Meyer系列，Coif系列</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%B3%A2%E5%87%BD%E6%95%B0.png" alt="常用小波函数"></p>
+<p>参考：<br><a href="https://www.cnblogs.com/keye/p/7809207.html" target="_blank" rel="noopener">https://www.cnblogs.com/keye/p/7809207.html</a><br><a href="https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/5b1abd048e9951e79b8927de.html</a></p>
 ]]></content>
       <categories>
         <category>image</category>
@@ -2721,69 +2756,6 @@
       </categories>
   </entry>
   <entry>
-    <title>服务器连接</title>
-    <url>/2020/03/09/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE/</url>
-    <content><![CDATA[<h1 id="ssh远程连接（无需输入密码）"><a href="#ssh远程连接（无需输入密码）" class="headerlink" title="ssh远程连接（无需输入密码）"></a>ssh远程连接（无需输入密码）</h1><ol>
-<li><p>确保已经有生成有SSH公钥：<br>进入 <code>~/.ssh</code> 可看到有 <code>id_rsa</code> 和 <code>id_rsa.pub</code> ，其中 <code>id_rsa.pub</code> 为公钥。<br>若没有，运行：<code>ssh-keygen -t rsa -C &quot;***@gmail.com&quot;</code> 或 <code>ssh-keygen</code></p>
-</li>
-<li><p>将本电脑公钥发送到服务器端：<br><code>ssh-copy-id username@144.202.***.***</code></p>
-</li>
-<li><p>验证：<br><code>ssh &#39;username@144.202.***.***&#39;</code><br>自动连接！</p>
-</li>
-</ol>
-<ul>
-<li>若使用该方式后重置，再次连接时，会出现 <code>Host key verfication failed</code> 情况，使用 <code>ssh-keygen -R ip地址</code> 清除。</li>
-</ul>
-<h1 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h1><ol>
-<li><p>上传本地文件夹到服务器<br><code>scp -P port -r LocalWorkSpaces username@IP:WorkSpaces</code></p>
-</li>
-<li><p>下载服务器文件夹到本地<br><code>scp -P port -r username@IP:WorkSpaces LocalWorkSpaces</code> </p>
-</li>
-<li><p>上传本地文件到服务器<br><code>scp -P port file username@IP:WorkSpaces</code></p>
-</li>
-<li><p>下载服务器文件到本地<br><code>scp -P port 用户名@IP:file LocalWorkSpaces</code> </p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>remote</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数学公式</title>
-    <url>/2020/04/25/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/</url>
-    <content><![CDATA[<h1 id="欧拉公式"><a href="#欧拉公式" class="headerlink" title="欧拉公式"></a>欧拉公式</h1><p>$e^{ix} = cos{x} + isin{x}$</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F.png" alt="欧拉公式"></p>
-<h1 id="链式求导法则"><a href="#链式求导法则" class="headerlink" title="链式求导法则"></a>链式求导法则</h1><p>$$(f(g(x)))’ = f’(g(x)) g’(x)$$</p>
-<p>或</p>
-<p>$$\frac{dy}{dx} = \frac{dy}{dz} \cdot \frac{dz}{dx}$$</p>
-<h1 id="极大似然估计MLE"><a href="#极大似然估计MLE" class="headerlink" title="极大似然估计MLE"></a>极大似然估计MLE</h1><ol>
-<li>样本集中的样本都是独立同分布iid的，可以只考虑一类样本集D，来估计参数向量$\theta$。</li>
-</ol>
-<p>$D = {x_1, x_2, … ,x_N}$</p>
-<ol start="2">
-<li>似然函数(likelihood function)：联合概率密度函数$p(D| \theta )$称为相对于$\theta$的似然函数。</li>
-</ol>
-<p>$l(\theta) = p(D|\theta) = p(x_1, x_2,…,x_N | \theta) = \prod_{i=1}^N p(x_i | \theta)$</p>
-<p>当$\widehat{\theta}$是参数空间中<strong>使似然函数最大的$\widehat{\theta}$值</strong>，那么，$\widehat{\theta}$很可能是最可能的参数值，则$\widehat{\theta}$为$\theta$的极大似然估计量。</p>
-<ol start="3">
-<li>MLE：求解使得出现该组样本的概率最大的$\theta$值。</li>
-</ol>
-<p>$$\widehat{\theta} = arg\underset{\theta}max l(\theta) = arg\underset{\theta}max \prod_{i=1}^N p(x_i | \theta)$$</p>
-<ol start="4">
-<li>对数似然函数（便于分析）</li>
-</ol>
-<p>$$\widehat{\theta} = arg\underset{\theta}max H(\theta) = arg\underset{\theta}max ln l(\theta) = arg\underset{\theta}max \sum_{i=1}^N ln p(x_i|\theta)$$</p>
-<h1 id="Lipschitz连续"><a href="#Lipschitz连续" class="headerlink" title="Lipschitz连续"></a>Lipschitz连续</h1><p>在一个连续函数f上面额外施加一个限制，要求存在一个常数$K \geq 0$，使得定义域内的任意两个元素$x_1$和$x_2$都满足$|f(x_1) - f(x_2)| \leq K|x_1 - x_2|$，即f的导数的绝对值不超过K。</p>
-]]></content>
-      <categories>
-        <category>Math</category>
-      </categories>
-  </entry>
-  <entry>
     <title>排序算法</title>
     <url>/2020/03/12/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><p>稳定性：</p>
@@ -2996,6 +2968,69 @@
       </categories>
   </entry>
   <entry>
+    <title>服务器连接</title>
+    <url>/2020/03/09/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE/</url>
+    <content><![CDATA[<h1 id="ssh远程连接（无需输入密码）"><a href="#ssh远程连接（无需输入密码）" class="headerlink" title="ssh远程连接（无需输入密码）"></a>ssh远程连接（无需输入密码）</h1><ol>
+<li><p>确保已经有生成有SSH公钥：<br>进入 <code>~/.ssh</code> 可看到有 <code>id_rsa</code> 和 <code>id_rsa.pub</code> ，其中 <code>id_rsa.pub</code> 为公钥。<br>若没有，运行：<code>ssh-keygen -t rsa -C &quot;***@gmail.com&quot;</code> 或 <code>ssh-keygen</code></p>
+</li>
+<li><p>将本电脑公钥发送到服务器端：<br><code>ssh-copy-id username@144.202.***.***</code></p>
+</li>
+<li><p>验证：<br><code>ssh &#39;username@144.202.***.***&#39;</code><br>自动连接！</p>
+</li>
+</ol>
+<ul>
+<li>若使用该方式后重置，再次连接时，会出现 <code>Host key verfication failed</code> 情况，使用 <code>ssh-keygen -R ip地址</code> 清除。</li>
+</ul>
+<h1 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h1><ol>
+<li><p>上传本地文件夹到服务器<br><code>scp -P port -r LocalWorkSpaces username@IP:WorkSpaces</code></p>
+</li>
+<li><p>下载服务器文件夹到本地<br><code>scp -P port -r username@IP:WorkSpaces LocalWorkSpaces</code> </p>
+</li>
+<li><p>上传本地文件到服务器<br><code>scp -P port file username@IP:WorkSpaces</code></p>
+</li>
+<li><p>下载服务器文件到本地<br><code>scp -P port 用户名@IP:file LocalWorkSpaces</code> </p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>remote</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数学公式</title>
+    <url>/2020/04/25/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="欧拉公式"><a href="#欧拉公式" class="headerlink" title="欧拉公式"></a>欧拉公式</h1><p>$e^{ix} = cos{x} + isin{x}$</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F.png" alt="欧拉公式"></p>
+<h1 id="链式求导法则"><a href="#链式求导法则" class="headerlink" title="链式求导法则"></a>链式求导法则</h1><p>$$(f(g(x)))’ = f’(g(x)) g’(x)$$</p>
+<p>或</p>
+<p>$$\frac{dy}{dx} = \frac{dy}{dz} \cdot \frac{dz}{dx}$$</p>
+<h1 id="极大似然估计MLE"><a href="#极大似然估计MLE" class="headerlink" title="极大似然估计MLE"></a>极大似然估计MLE</h1><ol>
+<li>样本集中的样本都是独立同分布iid的，可以只考虑一类样本集D，来估计参数向量$\theta$。</li>
+</ol>
+<p>$D = {x_1, x_2, … ,x_N}$</p>
+<ol start="2">
+<li>似然函数(likelihood function)：联合概率密度函数$p(D| \theta )$称为相对于$\theta$的似然函数。</li>
+</ol>
+<p>$l(\theta) = p(D|\theta) = p(x_1, x_2,…,x_N | \theta) = \prod_{i=1}^N p(x_i | \theta)$</p>
+<p>当$\widehat{\theta}$是参数空间中<strong>使似然函数最大的$\widehat{\theta}$值</strong>，那么，$\widehat{\theta}$很可能是最可能的参数值，则$\widehat{\theta}$为$\theta$的极大似然估计量。</p>
+<ol start="3">
+<li>MLE：求解使得出现该组样本的概率最大的$\theta$值。</li>
+</ol>
+<p>$$\widehat{\theta} = arg\underset{\theta}max l(\theta) = arg\underset{\theta}max \prod_{i=1}^N p(x_i | \theta)$$</p>
+<ol start="4">
+<li>对数似然函数（便于分析）</li>
+</ol>
+<p>$$\widehat{\theta} = arg\underset{\theta}max H(\theta) = arg\underset{\theta}max ln l(\theta) = arg\underset{\theta}max \sum_{i=1}^N ln p(x_i|\theta)$$</p>
+<h1 id="Lipschitz连续"><a href="#Lipschitz连续" class="headerlink" title="Lipschitz连续"></a>Lipschitz连续</h1><p>在一个连续函数f上面额外施加一个限制，要求存在一个常数$K \geq 0$，使得定义域内的任意两个元素$x_1$和$x_2$都满足$|f(x_1) - f(x_2)| \leq K|x_1 - x_2|$，即f的导数的绝对值不超过K。</p>
+]]></content>
+      <categories>
+        <category>Math</category>
+      </categories>
+  </entry>
+  <entry>
     <title>深度学习</title>
     <url>/2020/06/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<h1 id="深度学习与神经网络的区别"><a href="#深度学习与神经网络的区别" class="headerlink" title="深度学习与神经网络的区别"></a>深度学习与神经网络的区别</h1><ul>
@@ -3052,6 +3087,27 @@
       </categories>
   </entry>
   <entry>
+    <title>熵</title>
+    <url>/2020/06/27/%E7%86%B5/</url>
+    <content><![CDATA[<h1 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h1><ul>
+<li>假设一个样本集中有<strong>两个概率分布p、q</strong>，其中p为真实分布，q为非真实分布；</li>
+<li>按照真实分布p来衡量识别一个样本所需要的编码长度的期望为：$$\sum_i p(i) \cdot log(\frac{1}{p(i)})$$</li>
+<li>按照错误分布q表示来自真实分布p的平均编码长度的期望为：$$\sum_i p(i) \cdot log(\frac{1}{q(i)})$$</li>
+<li>$H(p,q)$称之为交叉熵。</li>
+</ul>
+<h1 id="相对熵-KL散度"><a href="#相对熵-KL散度" class="headerlink" title="相对熵/KL散度"></a>相对熵/KL散度</h1><p>KL散度，是两个概率分布P和Q差别的非对称性的度量。</p>
+<p>通常情况下，</p>
+<ul>
+<li>P表示数据的真实分布；</li>
+<li>Q表示数据的理论分布（模型分布、P的近似分布）$D(P||Q) = \sum P(x) log \frac{P(x)}{Q(x)}$ 。</li>
+</ul>
+<p>KL散度<strong>不对称</strong>，不满足距离的性质，即$D_{KL}(P||Q) \neq D_{KL}(Q||P)$ 。</p>
+<h1 id="JS散度"><a href="#JS散度" class="headerlink" title="JS散度"></a>JS散度</h1><p>JS散度，度量两个概率分布的相似度；是基于KL散度的变体，解决了KL散度非对称性的问题。</p>
+<p>$$JS(P||Q) = \frac{1}{2} KL(P(x)||\frac{P(x)+Q(x)}{2}) + \frac{1}{2} KL(Q(x)||\frac{P(x)+Q(x)}{2})$$</p>
+<p>KL散度具有对称性，其取值区间为[0,1]。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>激活函数</title>
     <url>/2020/06/05/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/</url>
     <content><![CDATA[<h1 id="sigmoid"><a href="#sigmoid" class="headerlink" title="sigmoid"></a>sigmoid</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/sigmoid.jpg" alt="sigmoid"></p>
@@ -3085,27 +3141,6 @@
       <categories>
         <category>deeplearning</category>
       </categories>
-  </entry>
-  <entry>
-    <title>熵</title>
-    <url>/2020/06/27/%E7%86%B5/</url>
-    <content><![CDATA[<h1 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h1><ul>
-<li>假设一个样本集中有<strong>两个概率分布p、q</strong>，其中p为真实分布，q为非真实分布；</li>
-<li>按照真实分布p来衡量识别一个样本所需要的编码长度的期望为：$$\sum_i p(i) \cdot log(\frac{1}{p(i)})$$</li>
-<li>按照错误分布q表示来自真实分布p的平均编码长度的期望为：$$\sum_i p(i) \cdot log(\frac{1}{q(i)})$$</li>
-<li>$H(p,q)$称之为交叉熵。</li>
-</ul>
-<h1 id="相对熵-KL散度"><a href="#相对熵-KL散度" class="headerlink" title="相对熵/KL散度"></a>相对熵/KL散度</h1><p>KL散度，是两个概率分布P和Q差别的非对称性的度量。</p>
-<p>通常情况下，</p>
-<ul>
-<li>P表示数据的真实分布；</li>
-<li>Q表示数据的理论分布（模型分布、P的近似分布）$D(P||Q) = \sum P(x) log \frac{P(x)}{Q(x)}$ 。</li>
-</ul>
-<p>KL散度<strong>不对称</strong>，不满足距离的性质，即$D_{KL}(P||Q) \neq D_{KL}(Q||P)$ 。</p>
-<h1 id="JS散度"><a href="#JS散度" class="headerlink" title="JS散度"></a>JS散度</h1><p>JS散度，度量两个概率分布的相似度；是基于KL散度的变体，解决了KL散度非对称性的问题。</p>
-<p>$$JS(P||Q) = \frac{1}{2} KL(P(x)||\frac{P(x)+Q(x)}{2}) + \frac{1}{2} KL(Q(x)||\frac{P(x)+Q(x)}{2})$$</p>
-<p>KL散度具有对称性，其取值区间为[0,1]。</p>
-]]></content>
   </entry>
   <entry>
     <title>生成对抗网络</title>
@@ -3372,48 +3407,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>科学上网</title>
-    <url>/2020/03/09/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</url>
-    <content><![CDATA[<h1 id="服务器配置"><a href="#服务器配置" class="headerlink" title="服务器配置"></a>服务器配置</h1><h2 id="购买服务器"><a href="#购买服务器" class="headerlink" title="购买服务器"></a>购买服务器</h2><p>在<a href="https://my.vultr.com" target="_blank" rel="noopener">vultr</a>注册并创建一个国外的服务器，本人使用的是 <code>Ubuntu1604</code> 版本的服务器。</p>
-<h2 id="V2Ray配置"><a href="#V2Ray配置" class="headerlink" title="V2Ray配置"></a>V2Ray配置</h2><ul>
-<li><p>安装 <code>V2Ray</code>，安装后输入 <code>v2ray</code> 即可进行配置：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;KiriKira&#x2F;v2ray.fun&#x2F;kiriMod&#x2F;install.sh &amp;&amp; bash install.sh</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>卸载脚本</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;KiriKira&#x2F;v2ray.fun&#x2F;kiriMod&#x2F;uninstall.sh &amp;&amp; bash uninstall.sh</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="进行加速配置："><a href="#进行加速配置：" class="headerlink" title="进行加速配置："></a>进行加速配置：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget —no-check-certificate https:&#x2F;&#x2F;github.com&#x2F;teddysun&#x2F;across&#x2F;raw&#x2F;master&#x2F;bbr.sh</span><br></pre></td></tr></table></figure>
-<ol>
-<li>更改加速权限：<code>chmod +x bbr.sh</code>；</li>
-<li>开始进行配置：<code>./bbr.sh</code>；</li>
-<li>安装后重启；</li>
-<li>验证加速设置 <code>lsmod | grep bbr</code>，出现 <code>tcp_bbr</code>。</li>
-</ol>
-<h2 id="SSR配置（不建议使用）"><a href="#SSR配置（不建议使用）" class="headerlink" title="SSR配置（不建议使用）"></a>SSR配置（不建议使用）</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ToyoDAdoubi&#x2F;doubi&#x2F;master&#x2F;ssr.sh &amp;&amp; chmod +x ssr.sh &amp;&amp; bash ssr.sh</span><br></pre></td></tr></table></figure>
-<p>修改时使用 <code>bash ssr.sh</code> 进入管理界面。</p>
-<hr>
-<h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><h2 id="Mac推荐使用-V2RayU-进行配置"><a href="#Mac推荐使用-V2RayU-进行配置" class="headerlink" title="Mac推荐使用 V2RayU 进行配置"></a>Mac推荐使用 <code>V2RayU</code> 进行配置</h2><h2 id="Chrome管理插件-Proxy-SwitchyOmega"><a href="#Chrome管理插件-Proxy-SwitchyOmega" class="headerlink" title="Chrome管理插件 Proxy SwitchyOmega"></a>Chrome管理插件 <code>Proxy SwitchyOmega</code></h2><ol>
-<li>先配置Proxy文件，端口号根据自己设定自行更改；</li>
-</ol>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Proxy%E9%85%8D%E7%BD%AE.png" alt="Proxy配置"></p>
-<ol start="2">
-<li>再配置Switch文件，并添加规则；</li>
-</ol>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Switch%E9%85%8D%E7%BD%AE.png" alt="Switch配置"><br>规则链接：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;gfwlist&#x2F;gfwlist&#x2F;master&#x2F;gfwlist.txt</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>可自定添加规则定制，如添加YouTube设置；<br>在Switch配置文件中，选择 <code>Add condition</code> ，在域名前更改为 * ，并更改 <code>Profile</code>。</li>
-</ol>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%87%AA%E5%AE%9A%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE.png" alt="自定规则配置"></p>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-  </entry>
-  <entry>
     <title>神经网络</title>
     <url>/2020/06/05/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</url>
     <content><![CDATA[<h1 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BA%BA%E5%B7%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.png" alt="人工神经网络"></p>
@@ -3507,6 +3500,48 @@
 ]]></content>
       <categories>
         <category>神经网络</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>科学上网</title>
+    <url>/2020/03/09/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</url>
+    <content><![CDATA[<h1 id="服务器配置"><a href="#服务器配置" class="headerlink" title="服务器配置"></a>服务器配置</h1><h2 id="购买服务器"><a href="#购买服务器" class="headerlink" title="购买服务器"></a>购买服务器</h2><p>在<a href="https://my.vultr.com" target="_blank" rel="noopener">vultr</a>注册并创建一个国外的服务器，本人使用的是 <code>Ubuntu1604</code> 版本的服务器。</p>
+<h2 id="V2Ray配置"><a href="#V2Ray配置" class="headerlink" title="V2Ray配置"></a>V2Ray配置</h2><ul>
+<li><p>安装 <code>V2Ray</code>，安装后输入 <code>v2ray</code> 即可进行配置：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;KiriKira&#x2F;v2ray.fun&#x2F;kiriMod&#x2F;install.sh &amp;&amp; bash install.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>卸载脚本</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;KiriKira&#x2F;v2ray.fun&#x2F;kiriMod&#x2F;uninstall.sh &amp;&amp; bash uninstall.sh</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="进行加速配置："><a href="#进行加速配置：" class="headerlink" title="进行加速配置："></a>进行加速配置：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget —no-check-certificate https:&#x2F;&#x2F;github.com&#x2F;teddysun&#x2F;across&#x2F;raw&#x2F;master&#x2F;bbr.sh</span><br></pre></td></tr></table></figure>
+<ol>
+<li>更改加速权限：<code>chmod +x bbr.sh</code>；</li>
+<li>开始进行配置：<code>./bbr.sh</code>；</li>
+<li>安装后重启；</li>
+<li>验证加速设置 <code>lsmod | grep bbr</code>，出现 <code>tcp_bbr</code>。</li>
+</ol>
+<h2 id="SSR配置（不建议使用）"><a href="#SSR配置（不建议使用）" class="headerlink" title="SSR配置（不建议使用）"></a>SSR配置（不建议使用）</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ToyoDAdoubi&#x2F;doubi&#x2F;master&#x2F;ssr.sh &amp;&amp; chmod +x ssr.sh &amp;&amp; bash ssr.sh</span><br></pre></td></tr></table></figure>
+<p>修改时使用 <code>bash ssr.sh</code> 进入管理界面。</p>
+<hr>
+<h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><h2 id="Mac推荐使用-V2RayU-进行配置"><a href="#Mac推荐使用-V2RayU-进行配置" class="headerlink" title="Mac推荐使用 V2RayU 进行配置"></a>Mac推荐使用 <code>V2RayU</code> 进行配置</h2><h2 id="Chrome管理插件-Proxy-SwitchyOmega"><a href="#Chrome管理插件-Proxy-SwitchyOmega" class="headerlink" title="Chrome管理插件 Proxy SwitchyOmega"></a>Chrome管理插件 <code>Proxy SwitchyOmega</code></h2><ol>
+<li>先配置Proxy文件，端口号根据自己设定自行更改；</li>
+</ol>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Proxy%E9%85%8D%E7%BD%AE.png" alt="Proxy配置"></p>
+<ol start="2">
+<li>再配置Switch文件，并添加规则；</li>
+</ol>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Switch%E9%85%8D%E7%BD%AE.png" alt="Switch配置"><br>规则链接：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;gfwlist&#x2F;gfwlist&#x2F;master&#x2F;gfwlist.txt</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>可自定添加规则定制，如添加YouTube设置；<br>在Switch配置文件中，选择 <code>Add condition</code> ，在域名前更改为 * ，并更改 <code>Profile</code>。</li>
+</ol>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%87%AA%E5%AE%9A%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE.png" alt="自定规则配置"></p>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
       </categories>
   </entry>
   <entry>
@@ -3656,6 +3691,42 @@
       <categories>
         <category>算法与数据结构</category>
       </categories>
+  </entry>
+  <entry>
+    <title>级联分类器</title>
+    <url>/2020/06/04/%E7%BA%A7%E8%81%94%E5%88%86%E7%B1%BB%E5%99%A8/</url>
+    <content><![CDATA[<h1 id="级联分类器"><a href="#级联分类器" class="headerlink" title="级联分类器"></a>级联分类器</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BA%A7%E8%81%94%E5%88%86%E7%B1%BB.png" alt="级联分类"></p>
+<p>级联分类器是将多个强分类器连接在一起进行操作，每一个强分类器都由若干个弱分类器加权构成。</p>
+<p>级联分类器，每一个强分类器都是对负样本更敏感，使得每次被强分类器拒绝的，都几乎是负样本。<br>因此，通过所有强分类器的，基本上可以认定为正样本。</p>
+<h1 id="强-弱分类器"><a href="#强-弱分类器" class="headerlink" title="强/弱分类器"></a>强/弱分类器</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Boosting%E5%88%86%E7%B1%BB%E5%99%A8%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="Boosting分类器示意图"></p>
+<p>将每轮得到的最佳弱分类器按照一定方法(Boosting)提升为强分类器。</p>
+<h2 id="弱分类器："><a href="#弱分类器：" class="headerlink" title="弱分类器："></a>弱分类器：</h2><p>训练一个弱分类器，即在当前权重分布下，确定f的最优阈值，使该弱分类器对所有训练样本的分类误差最低。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%BC%B1%E5%88%86%E7%B1%BB%E5%99%A8%E8%AF%86%E5%88%AB%E4%BA%BA%E8%84%B8.png" alt="弱分类器识别人脸"></p>
+<ul>
+<li>在海量特征中，选取一个特征，能够区分是否为人脸，使错误率最低；</li>
+<li>能够以<strong>稍低于50%的错误率</strong>来区分人脸和非人脸图像；</li>
+</ul>
+<hr>
+<h1 id="Adaboost分类器"><a href="#Adaboost分类器" class="headerlink" title="Adaboost分类器"></a>Adaboost分类器</h1><p><em>Adaboost是一种基于级联分类模型的分类器。</em></p>
+<p>adaboost训练：</p>
+<ol>
+<li>初始化数据权值分布；</li>
+<li>遍历阈值p：选取最小阈值p——t；</li>
+<li>计算权重；</li>
+<li>更新训练数据权重分布。</li>
+</ol>
+<p>训练终止条件：</p>
+<ol>
+<li>for循环次数；</li>
+<li>p小于设定阈值。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>分类器</tag>
+      </tags>
   </entry>
   <entry>
     <title>线程&amp;进程</title>
@@ -3835,42 +3906,6 @@
 <li><a href="https://www.jianshu.com/p/7726c70cdc40" target="_blank" rel="noopener">https://www.jianshu.com/p/7726c70cdc40</a></li>
 </ul>
 ]]></content>
-  </entry>
-  <entry>
-    <title>级联分类器</title>
-    <url>/2020/06/04/%E7%BA%A7%E8%81%94%E5%88%86%E7%B1%BB%E5%99%A8/</url>
-    <content><![CDATA[<h1 id="级联分类器"><a href="#级联分类器" class="headerlink" title="级联分类器"></a>级联分类器</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BA%A7%E8%81%94%E5%88%86%E7%B1%BB.png" alt="级联分类"></p>
-<p>级联分类器是将多个强分类器连接在一起进行操作，每一个强分类器都由若干个弱分类器加权构成。</p>
-<p>级联分类器，每一个强分类器都是对负样本更敏感，使得每次被强分类器拒绝的，都几乎是负样本。<br>因此，通过所有强分类器的，基本上可以认定为正样本。</p>
-<h1 id="强-弱分类器"><a href="#强-弱分类器" class="headerlink" title="强/弱分类器"></a>强/弱分类器</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Boosting%E5%88%86%E7%B1%BB%E5%99%A8%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="Boosting分类器示意图"></p>
-<p>将每轮得到的最佳弱分类器按照一定方法(Boosting)提升为强分类器。</p>
-<h2 id="弱分类器："><a href="#弱分类器：" class="headerlink" title="弱分类器："></a>弱分类器：</h2><p>训练一个弱分类器，即在当前权重分布下，确定f的最优阈值，使该弱分类器对所有训练样本的分类误差最低。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%BC%B1%E5%88%86%E7%B1%BB%E5%99%A8%E8%AF%86%E5%88%AB%E4%BA%BA%E8%84%B8.png" alt="弱分类器识别人脸"></p>
-<ul>
-<li>在海量特征中，选取一个特征，能够区分是否为人脸，使错误率最低；</li>
-<li>能够以<strong>稍低于50%的错误率</strong>来区分人脸和非人脸图像；</li>
-</ul>
-<hr>
-<h1 id="Adaboost分类器"><a href="#Adaboost分类器" class="headerlink" title="Adaboost分类器"></a>Adaboost分类器</h1><p><em>Adaboost是一种基于级联分类模型的分类器。</em></p>
-<p>adaboost训练：</p>
-<ol>
-<li>初始化数据权值分布；</li>
-<li>遍历阈值p：选取最小阈值p——t；</li>
-<li>计算权重；</li>
-<li>更新训练数据权重分布。</li>
-</ol>
-<p>训练终止条件：</p>
-<ol>
-<li>for循环次数；</li>
-<li>p小于设定阈值。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>分类器</tag>
-      </tags>
   </entry>
   <entry>
     <title>自编码机</title>
