@@ -24,22 +24,20 @@
 
   <meta name="description" content="主要基于严蔚敏所著的《数据结构》，有时间重温补充。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构">
-<meta property="og:url" content="http://zhangzongyu00.github.io/2020/03/12/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:title" content="排序算法">
+<meta property="og:url" content="http://zhangzongyu00.github.io/2020/03/12/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="爆发🍢小宇宙">
 <meta property="og:description" content="主要基于严蔚敏所著的《数据结构》，有时间重温补充。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%A0%86%E6%8E%92%E5%BA%8F.gif">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F.gif">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BA%A2%E9%BB%91%E6%A0%91%E6%8F%92%E5%85%A5.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BA%A2%E9%BB%91%E6%A0%91%E5%88%A0%E9%99%A4.png">
 <meta property="article:published_time" content="2020-03-12T04:31:07.000Z">
-<meta property="article:modified_time" content="2020-07-22T01:42:58.579Z">
+<meta property="article:modified_time" content="2020-07-29T06:58:17.347Z">
 <meta property="article:author" content="章肿鱼">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%A0%86%E6%8E%92%E5%BA%8F.gif">
 
-<link rel="canonical" href="http://zhangzongyu00.github.io/2020/03/12/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+<link rel="canonical" href="http://zhangzongyu00.github.io/2020/03/12/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
 
 
 <script id="page-configurations">
@@ -52,7 +50,7 @@
   };
 </script>
 
-  <title>数据结构 | 爆发🍢小宇宙</title>
+  <title>排序算法 | 爆发🍢小宇宙</title>
   
 
 
@@ -201,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/03/12/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/03/12/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/img.png">
@@ -214,7 +212,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          数据结构
+          排序算法
         </h1>
 
         <div class="post-meta">
@@ -231,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-22 09:42:58" itemprop="dateModified" datetime="2020-07-22T09:42:58+08:00">2020-07-22</time>
+                <time title="修改时间：2020-07-29 14:58:17" itemprop="dateModified" datetime="2020-07-29T14:58:17+08:00">2020-07-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -458,45 +456,6 @@
 </ol>
 <h2 id="外部排序"><a href="#外部排序" class="headerlink" title="外部排序"></a>外部排序</h2><p><em>待排序记录的数量大，内存不能一次容纳全部记录</em></p>
 <hr>
-<h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><h2 id="二叉搜索树BST"><a href="#二叉搜索树BST" class="headerlink" title="二叉搜索树BST"></a>二叉搜索树BST</h2><p>Binary Search Tree，又称二叉查找树/二叉排序树。</p>
-<ul>
-<li>任意结点的左子树不空，则左子树上所有结点的值均小于其根结点的值； </li>
-<li>任意结点的右子树不空，则右子树上所有结点的值均大于其根结点的值； </li>
-<li>任意结点的左、右子树也分别为二叉搜索树。</li>
-</ul>
-<p>时间复杂度：$O(log^n)$</p>
-<p>既有链表的快速插入与删除操作的特点，又有数组快速查找的优势。</p>
-<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2><p>Red Black Tree，本质上是一种二叉查找树（自平衡二叉查找树），但它在二叉查找树的基础上额外添加了一个颜色标记。</p>
-<ol>
-<li>Every node is either red or black；</li>
-<li>The root is black；</li>
-<li>Every leaf (NIL) is black；</li>
-<li>If a node is red, then both its children are black；</li>
-<li>For each node, all simple paths from the node to descendant leaves contain the same number of black nodes（从任一节点到其子树中每个叶子节点的路径都包含相同数量的黑色节点）。</li>
-</ol>
-<p>若一棵二叉查找树是红黑树，则它的任一子树必为红黑树。</p>
-<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p><em>默认插入的结点设置为red，否则会破坏规则5。</em></p>
-<p>可分为三种类型：</p>
-<ul>
-<li>要插入的结点的parent为black，直接插入即可；</li>
-<li>要插入的结点的parent为red，uncle为red，change color；</li>
-<li>要插入的结点的parent为red，uncle为black or null，分情况旋转后color。</li>
-</ul>
-<p>旋转：</p>
-<ul>
-<li>左左型：parent成为grandparent，grandparent成为parent的left结点；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BA%A2%E9%BB%91%E6%A0%91%E6%8F%92%E5%85%A5.jpg" alt="红黑树插入"></li>
-<li>左右型：要插入的结点成为grandparent，grandparent成为left的uncle；</li>
-<li>右右型：parent成为grandparent，grandparent成为parent的right结点；</li>
-<li>右左型：要插入的结点成为grandparent，grandparent成为right的uncle；</li>
-</ul>
-<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>亦可分为三种类型：</p>
-<ul>
-<li>要删除的节点正好是叶子节点，直接删除；</li>
-<li>只有左孩子或者右孩子，直接把这个孩子上移放到要删除的位置上；</li>
-<li>有左右两个孩子，需要选一个合适的孩子节点作为新的根节点，该节点称为继承节点。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BA%A2%E9%BB%91%E6%A0%91%E5%88%A0%E9%99%A4.png" alt="红黑树删除"></li>
-</ul>
-<p><em>删除结点需要考虑的与插入类似。</em></p>
-<hr>
 <h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
 <li><a href="https://blog.csdn.net/weixin_41190227/article/details/86600821" target="_blank" rel="noopener">https://blog.csdn.net/weixin_41190227/article/details/86600821</a></li>
 <li><a href="https://www.cnblogs.com/onepixel/articles/7674659.html" target="_blank" rel="noopener">https://www.cnblogs.com/onepixel/articles/7674659.html</a></li>
@@ -504,9 +463,6 @@
 <li><a href="https://www.cnblogs.com/dslx/p/10555311.html" target="_blank" rel="noopener">https://www.cnblogs.com/dslx/p/10555311.html</a></li>
 <li><a href="https://www.cnblogs.com/luomeng/p/10618709.html" target="_blank" rel="noopener">https://www.cnblogs.com/luomeng/p/10618709.html</a></li>
 <li><a href="https://www.cnblogs.com/luomeng/p/10639926.html" target="_blank" rel="noopener">https://www.cnblogs.com/luomeng/p/10639926.html</a></li>
-<li><a href="https://blog.csdn.net/yangyutong0506/article/details/78204953" target="_blank" rel="noopener">https://blog.csdn.net/yangyutong0506/article/details/78204953</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/79980618" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/79980618</a></li>
-<li><a href="https://baijiahao.baidu.com/s?id=1645429373049393021&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1645429373049393021&amp;wfr=spider&amp;for=pc</a></li>
 </ul>
 
     </div>
@@ -588,7 +544,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#排序"><span class="nav-number">1.</span> <span class="nav-text">排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内部排序"><span class="nav-number">1.1.</span> <span class="nav-text">内部排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#外部排序"><span class="nav-number">1.2.</span> <span class="nav-text">外部排序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树"><span class="nav-number">2.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉搜索树BST"><span class="nav-number">2.1.</span> <span class="nav-text">二叉搜索树BST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#红黑树"><span class="nav-number">2.2.</span> <span class="nav-text">红黑树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#插入"><span class="nav-number">2.2.1.</span> <span class="nav-text">插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除"><span class="nav-number">2.2.2.</span> <span class="nav-text">删除</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考："><span class="nav-number">3.</span> <span class="nav-text">参考：</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#排序"><span class="nav-number">1.</span> <span class="nav-text">排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内部排序"><span class="nav-number">1.1.</span> <span class="nav-text">内部排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#外部排序"><span class="nav-number">1.2.</span> <span class="nav-text">外部排序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考："><span class="nav-number">2.</span> <span class="nav-text">参考：</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -604,7 +560,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

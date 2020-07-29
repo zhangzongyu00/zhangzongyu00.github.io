@@ -29,10 +29,12 @@
 <meta property="og:site_name" content="爆发🍢小宇宙">
 <meta property="og:description" content="Redis是一个内存数据库，数据保存在内存中。Redis提供了持久化的机制RDB和AOF来解决内存数据变化快和易丢失问题，一般二者结合使用。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/redis%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B.png">
 <meta property="article:published_time" content="2020-07-28T09:15:51.000Z">
-<meta property="article:modified_time" content="2020-07-28T17:23:15.807Z">
+<meta property="article:modified_time" content="2020-07-29T13:42:01.016Z">
 <meta property="article:author" content="章肿鱼">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/redis%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B.png">
 
 <link rel="canonical" href="http://zhangzongyu00.github.io/2020/07/28/redis/">
 
@@ -226,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-29 01:23:15" itemprop="dateModified" datetime="2020-07-29T01:23:15+08:00">2020-07-29</time>
+                <time title="修改时间：2020-07-29 21:42:01" itemprop="dateModified" datetime="2020-07-29T21:42:01+08:00">2020-07-29</time>
               </span>
 
           
@@ -248,7 +250,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="持久化的流程"><a href="#持久化的流程" class="headerlink" title="持久化的流程"></a>持久化的流程</h1><ol>
+        <h1 id="Remote-Dictionary-Server-远程字典服务"><a href="#Remote-Dictionary-Server-远程字典服务" class="headerlink" title="Remote Dictionary Server 远程字典服务"></a>Remote Dictionary Server 远程字典服务</h1><p>由意大利人<code>Salvatore Sanfilippo</code>开发的一款<strong>内存高速缓冲数据库</strong>，基于内存运行并支持持久化的NoSQL数据库，遵守BSD协议。</p>
+<p>优点：</p>
+<ul>
+<li>速度快，因为数据存在内存中，类似于HashMap；</li>
+<li>支持丰富数据类型，支持String，List，Set，Sorted Set，Hash；</li>
+<li>支持事务，操作都是<strong>原子性</strong>(对数据的更改要么全部执行，要么全部不执行)；</li>
+<li>丰富的特性，可用于缓存，消息，按key设置过期时间，过期后将会自动删除。</li>
+</ul>
+<p>Redis单点吞吐量：</p>
+<ul>
+<li>单点TPS(每秒钟最大能处理的请求数)达到8万/秒；</li>
+<li>QPS(应用系统每秒钟最大能接受的用户访问量)达到10万/秒。</li>
+</ul>
+<h1 id="持久化的流程"><a href="#持久化的流程" class="headerlink" title="持久化的流程"></a>持久化的流程</h1><ol>
 <li>客户端向服务端发送写操作，数据在客户端的内存中；</li>
 <li>数据库服务端接收到写请求的数据，数据在服务端的内存中；</li>
 <li>服务端调用write系统调用，将数据往磁盘上写，数据在系统内存的缓冲区中；</li>
@@ -331,9 +346,27 @@
 </ul>
 </li>
 </ul>
+<h1 id="文件事件处理器"><a href="#文件事件处理器" class="headerlink" title="文件事件处理器"></a>文件事件处理器</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/redis%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B.png" alt="redis线程模型"></p>
+<p>Redis基于Reactor模式开发了网络事件处理器，被称为文件事件处理器，包括<code>多个套接字socket、IO多路复用程序、文件事件分派器、事件处理器</code>。<br>因为文件事件分派器队列的消费是单线程的，所以Redis被称为<strong>单线程模型</strong>。</p>
+<h2 id="消息处理流程"><a href="#消息处理流程" class="headerlink" title="消息处理流程"></a>消息处理流程</h2><ul>
+<li>文件事件处理器使<strong>用I/O多路复用程序</strong>来<strong>同时监听多个套接字</strong>，并根据套接字目前执行的任务来为套接字关联不同的事件处理器。</li>
+<li>当被监听的套接字准备好执行连接应答accept、读取read、写入write、关闭close等操作时，与操作相对应的文件事件就会产生，这时文件事件处理器就会调用套接字之前关联好的事件处理器来处理事件。</li>
+<li>多个文件事件可能会并发地出现，但I/O多路复用程序总会将所有产生事件的套接字推到一个队列里面，然后通过队列，以有序、同步、每次一个套接字的方式向文件事件分派器传送套接字；</li>
+<li>当一个套接字产生的事件被处理完毕后，I/O多路复用程序才会继续向文件事件分派器传送下一个套接字。</li>
+</ul>
+<h3 id="I-O-多路复用程序的实现"><a href="#I-O-多路复用程序的实现" class="headerlink" title="I/O 多路复用程序的实现"></a>I/O 多路复用程序的实现</h3><p>Redis的<code>I/O多路复用程序</code>的所有功能是通过包装<code>select、epoll、evport、kqueue</code>这些<code>**I/O多路复用函数库**</code>来实现的，每个<code>I/O多路复用函数库</code>在Redis源码中都对应一个单独的文件，比如<code>ae_select.c、ae_epoll.c、ae_kqueue.c</code>等。</p>
+<p>因为Redis为每个<code>I/O多路复用函数库</code>都实现了相同的<code>API</code>，所以<code>I/O多路复用程序</code>的底层实现是可以互换的。Redis在<code>I/O多路复用程序</code>的实现源码中用<code>#include</code>宏定义了相应的规则，程序会在编译时<strong>自动选择系统中性能最好</strong>的<code>I/O多路复用函数库</code>来作为Redis的<code>I/O多路复用程序</code>的<strong>底层实现</strong>。</p>
+<h3 id="文件事件的类型"><a href="#文件事件的类型" class="headerlink" title="文件事件的类型"></a>文件事件的类型</h3><p><code>I/O多路复用程序</code>可以监听多个套接字的<code>ae.h/AE_READABLE</code>事件和<code>ae.h/AE_WRITABLE</code>事件：</p>
+<ul>
+<li>当套接字变得可读时(<em>客户端对套接字执行write操作，或者执行close操作</em>)，或者有新的可应答(acceptable)套接字出现时，客户端对服务器的监听套接字执行connect操作，套接字产生<code>AE_READABLE</code>事件；</li>
+<li>当套接字变得可写时(客户端对套接字执行read操作)，套接字产生<code>AE_WRITABLE</code>事件；</li>
+<li>I/O多路复用程序允许服务器同时监听套接字的AE_READABLE事件和AE_WRITABLE事件，如果一个套接字同时产生了这两种事件，那么文件事件分派器会优先处理AE_READABLE事件，等到AE_READABLE事件处理完之后，才处理AE_WRITABLE 事件。</li>
+</ul>
 <hr>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
 <li><a href="https://baijiahao.baidu.com/s?id=1654694618189745916&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1654694618189745916&amp;wfr=spider&amp;for=pc</a></li>
+<li><a href="https://blog.csdn.net/qq_25827845/article/details/90321396" target="_blank" rel="noopener">https://blog.csdn.net/qq_25827845/article/details/90321396</a></li>
+<li><a href="https://www.jianshu.com/p/6264fa82ac33" target="_blank" rel="noopener">https://www.jianshu.com/p/6264fa82ac33</a></li>
 </ul>
 
     </div>
@@ -415,7 +448,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#持久化的流程"><span class="nav-number">1.</span> <span class="nav-text">持久化的流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RDB机制"><span class="nav-number">1.1.</span> <span class="nav-text">RDB机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AOF"><span class="nav-number">1.2.</span> <span class="nav-text">AOF</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">2.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Remote-Dictionary-Server-远程字典服务"><span class="nav-number">1.</span> <span class="nav-text">Remote Dictionary Server 远程字典服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#持久化的流程"><span class="nav-number">2.</span> <span class="nav-text">持久化的流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RDB机制"><span class="nav-number">2.1.</span> <span class="nav-text">RDB机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AOF"><span class="nav-number">2.2.</span> <span class="nav-text">AOF</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件事件处理器"><span class="nav-number">3.</span> <span class="nav-text">文件事件处理器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#消息处理流程"><span class="nav-number">3.1.</span> <span class="nav-text">消息处理流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#I-O-多路复用程序的实现"><span class="nav-number">3.1.1.</span> <span class="nav-text">I&#x2F;O 多路复用程序的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件事件的类型"><span class="nav-number">3.1.2.</span> <span class="nav-text">文件事件的类型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -431,7 +464,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

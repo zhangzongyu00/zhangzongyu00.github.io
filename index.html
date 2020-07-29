@@ -193,6 +193,187 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/07/29/BinaryTree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/img.png">
+      <meta itemprop="name" content="章肿鱼">
+      <meta itemprop="description" content="讨好世界不如取悦自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爆发🍢小宇宙">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/29/BinaryTree/" class="post-title-link" itemprop="url">BinaryTree</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-29 14:55:31 / 修改时间：16:23:02" itemprop="dateCreated datePublished" datetime="2020-07-29T14:55:31+08:00">2020-07-29</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><table>
+<thead>
+<tr>
+<th align="center">树的类别</th>
+<th align="center">树的特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">二叉搜索树</td>
+<td align="center">左子树上所有结点的值均小于其根结点的值，右子树上所有结点的值均大于其根结点的值的树</td>
+</tr>
+<tr>
+<td align="center">平衡二叉树</td>
+<td align="center">每个结点的平衡因子都是1、0、-1的<strong>二叉排序树</strong>，即每个结点的左右子树的高度差最大为1的二叉排序树</td>
+</tr>
+<tr>
+<td align="center">完全二叉树</td>
+<td align="center">假设二叉树的深度为k，除第k层外，其它各层的结点数都达到最大个数，第k层所有的结点都连续集中在最左边</td>
+</tr>
+<tr>
+<td align="center">满二叉树</td>
+<td align="center">一棵二叉树的结点要么是叶子结点，要么它有两个子结点，并且二叉树的层数为K，结点总数需要是$2^k-1$</td>
+</tr>
+<tr>
+<td align="center">最优二叉树/哈夫曼树</td>
+<td align="center">树的带权路径长度达到最小，哈夫曼树是带权路径长度最短的树，权值较大的结点离根较近</td>
+</tr>
+</tbody></table>
+<h2 id="二叉搜索树-二叉查找树-二叉排序树BST"><a href="#二叉搜索树-二叉查找树-二叉排序树BST" class="headerlink" title="二叉搜索树/二叉查找树/二叉排序树BST"></a>二叉搜索树/二叉查找树/二叉排序树BST</h2><ul>
+<li>任意结点的左子树不空，则左子树上所有结点的值均小于其根结点的值； </li>
+<li>任意结点的右子树不空，则右子树上所有结点的值均大于其根结点的值； </li>
+<li>任意结点的左、右子树也分别为二叉搜索树。</li>
+</ul>
+<p>时间复杂度：$O(log^n)$</p>
+<p>优点：</p>
+<ul>
+<li>既有链表的快速插入与删除操作的特点</li>
+<li>又有数组快速查找的优势；</li>
+<li>对二叉搜索树进行中序遍历，得到的是一个有序集合。</li>
+</ul>
+<h2 id="平衡二叉树AVL"><a href="#平衡二叉树AVL" class="headerlink" title="平衡二叉树AVL"></a>平衡二叉树AVL</h2><p>平衡因子/平衡度：结点的平衡因子是结点的左子树的高度减右子树的高度的绝对值。</p>
+<p>平衡二叉树，每个结点的平衡因子都是1、0、-1的<strong>二叉排序树</strong>，即每个结点的左右子树的高度差最大为1的二叉排序树。</p>
+<ul>
+<li>root结点的左右子树的高度差(平衡因子)的绝对值不超过1；</li>
+<li>任意结点的左右子树也都是平衡二叉树；</li>
+<li>平衡二叉树一定是二叉搜索树，但二叉搜索树不一定是平衡二叉树。</li>
+</ul>
+<p>优点：</p>
+<ul>
+<li>减少二叉查找树层次；</li>
+<li>提高查找速度。</li>
+</ul>
+<h1 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h1><p>Red Black Tree，本质上是一种二叉查找树（自平衡二叉查找树），但它在二叉查找树的基础上额外添加了一个颜色标记。</p>
+<ol>
+<li>Every node is either red or black；</li>
+<li>The root is black；</li>
+<li>Every leaf (NIL) is black；</li>
+<li>If a node is red, then both its children are black；</li>
+<li>For each node, all simple paths from the node to descendant leaves contain the same number of black nodes（从任一节点到其子树中每个叶子节点的路径都包含相同数量的黑色节点）。</li>
+</ol>
+<p>若一棵二叉查找树是红黑树，则它的任一子树必为红黑树。</p>
+<h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><p><em>默认插入的结点设置为red，否则会破坏规则5。</em></p>
+<p>可分为三种类型：</p>
+<ul>
+<li>要插入的结点的parent为black，直接插入即可；</li>
+<li>要插入的结点的parent为red，uncle为red，change color；</li>
+<li>要插入的结点的parent为red，uncle为black or null，分情况旋转后color。</li>
+</ul>
+<p>旋转：</p>
+<ul>
+<li>左左型：parent成为grandparent，grandparent成为parent的left结点；<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BA%A2%E9%BB%91%E6%A0%91%E6%8F%92%E5%85%A5.jpg" alt="红黑树插入"></li>
+<li>左右型：要插入的结点成为grandparent，grandparent成为left的uncle；</li>
+<li>右右型：parent成为grandparent，grandparent成为parent的right结点；</li>
+<li>右左型：要插入的结点成为grandparent，grandparent成为right的uncle；</li>
+</ul>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>亦可分为三种类型：</p>
+<ul>
+<li>要删除的节点正好是叶子节点，直接删除；</li>
+<li>只有左孩子或者右孩子，直接把这个孩子上移放到要删除的位置上；</li>
+<li>有左右两个孩子，需要选一个合适的孩子节点作为新的根节点，该节点称为继承节点。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BA%A2%E9%BB%91%E6%A0%91%E5%88%A0%E9%99%A4.png" alt="红黑树删除"></li>
+</ul>
+<p><em>删除结点需要考虑的与插入类似。</em></p>
+<h1 id="B-树-B树-B-树"><a href="#B-树-B树-B-树" class="headerlink" title="B-树/B树/B_树"></a>B-树/B树/B_树</h1><p>B树，是一种<strong>平衡的多叉树</strong>，适用于外查找。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/B%E6%A0%91.png" alt="B树"></p>
+<p>一棵m阶B树是一棵平衡的m路搜索树：</p>
+<ul>
+<li>根结点至少有两个子结点，或为空树；</li>
+<li>每个非根结点所包含的关键字个数i满足$\ulcorner m/2 \urcorner - 1 \leq i \leq m - 1$；</li>
+<li>除根结点和叶子结点外的所有结点的度数正好是关键字总数+1，所以内部子树的个数k满足$\ulcorner m/2 \urcorner \leq k \leq m$;</li>
+<li>所有的叶子结点都位于同一层。</li>
+</ul>
+<p>B树的特点：</p>
+<ul>
+<li>关键字集合分布在整颗树中；</li>
+<li>任何一个关键字出现且只出现在一个结点中；</li>
+<li>搜索有可能在非叶子结点结束；</li>
+<li>其<strong>搜索性能等价于在关键字全集内做一次二分查找</strong>；</li>
+<li>自动层次控制；</li>
+</ul>
+<h2 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/B+%E6%A0%91.png" alt="B+树"></p>
+<p>B+树，一种🌲数据结构，是一个n叉树，每个结点通常有多个孩子，一棵B+树包含根结点、内部结点、叶子结点，根结点可能是一个叶子结点，也可能是包含两个或以上孩子结点的结点。</p>
+<p>优点；</p>
+<ul>
+<li>能够保持数据稳定有序；</li>
+<li>其插入与修改拥有较稳定的对数时间复杂度。</li>
+</ul>
+<p>B+树通常用于数据库和操作系统的文件系统中，NTFS、ReiserFS、NSS、XFS、JFS、ReFS、BFS等文件系统都在使用B+树作为<strong>元数据索引</strong>。</p>
+<h3 id="B-树-vs-B-树"><a href="#B-树-vs-B-树" class="headerlink" title="B-树 vs B+树"></a>B-树 vs B+树</h3><ul>
+<li>B+树有n棵子树的结点中含有n个关键字，每个关键字不保存数据，只用来索引，所有数据都保存在叶子节点；</li>
+<li>B+树所有的叶子结点中包含了全部关键字的信息，及指向含这些关键字记录的指针，且叶子结点本身依关键字的大小自小而大顺序链接；</li>
+<li>B+树所有的非终端结点可以看成是索引部分，结点中仅含其子树（根结点）中的最大（或最小）关键字。 </li>
+</ul>
+<p>通常在B+树上有两个头指针，一个指向根结点，一个<strong>指向关键字最小的叶子结点</strong>。</p>
+<h2 id="B-树-1"><a href="#B-树-1" class="headerlink" title="B*树"></a>B*树</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/B*%E6%A0%91.png" alt="B*树"></p>
+<p>B*树，是在B+树的基础上，在非根和非叶子结点再增加指向兄弟的指针。</p>
+<p>B*树定义了非叶子结点关键字个数至少为$(2/3) * M$，即块的最低使用率为$2/3$。</p>
+<hr>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://blog.csdn.net/yangyutong0506/article/details/78204953" target="_blank" rel="noopener">https://blog.csdn.net/yangyutong0506/article/details/78204953</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/79980618" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/79980618</a></li>
+<li><a href="https://baijiahao.baidu.com/s?id=1645429373049393021&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1645429373049393021&amp;wfr=spider&amp;for=pc</a></li>
+<li><a href="https://blog.csdn.net/wyqwilliam/article/details/82935922" target="_blank" rel="noopener">https://blog.csdn.net/wyqwilliam/article/details/82935922</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/07/29/GCD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -218,7 +399,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-07-29 09:53:36 / 修改时间：10:44:29" itemprop="dateCreated datePublished" datetime="2020-07-29T09:53:36+08:00">2020-07-29</time>
+              <time title="创建时间：2020-07-29 09:53:36 / 修改时间：21:56:50" itemprop="dateCreated datePublished" datetime="2020-07-29T09:53:36+08:00">2020-07-29</time>
             </span>
 
           
@@ -290,7 +471,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-29 01:23:15" itemprop="dateModified" datetime="2020-07-29T01:23:15+08:00">2020-07-29</time>
+                <time title="修改时间：2020-07-29 21:42:01" itemprop="dateModified" datetime="2020-07-29T21:42:01+08:00">2020-07-29</time>
               </span>
 
           
@@ -362,7 +543,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-23 11:29:33" itemprop="dateModified" datetime="2020-07-23T11:29:33+08:00">2020-07-23</time>
+                <time title="修改时间：2020-07-29 21:19:08" itemprop="dateModified" datetime="2020-07-29T21:19:08+08:00">2020-07-29</time>
               </span>
 
           
@@ -376,7 +557,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>工程中所有使用`Asset Catalog`管理的图片(位于.xcassets文件夹)，输出时被压缩到Assets.car内，否则归类为Bundle管理。</p>
+          <p>工程中所有使用Asset Catalog管理的图片(位于.xcassets文件夹)，输出时被压缩到Assets.car内，否则归类为Bundle管理。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/07/22/swift%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E7%AE%A1%E7%90%86/">
@@ -890,7 +1071,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-23 11:32:51" itemprop="dateModified" datetime="2020-07-23T11:32:51+08:00">2020-07-23</time>
+                <time title="修改时间：2020-07-29 22:05:32" itemprop="dateModified" datetime="2020-07-29T22:05:32+08:00">2020-07-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1109,7 +1290,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-28 20:00:06" itemprop="dateModified" datetime="2020-07-28T20:00:06+08:00">2020-07-28</time>
+                <time title="修改时间：2020-07-29 16:39:14" itemprop="dateModified" datetime="2020-07-29T16:39:14+08:00">2020-07-29</time>
               </span>
 
           
@@ -1125,7 +1306,7 @@
       
           <h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><p>基本数据类型：byte、short、int、long、float、double、boolean、char。<br>引用数据类型：类、接口、数组。<br>三大特性：封装、继承、多态(overload参数不同，override方法覆盖)。</p>
 <p>Java不支持多继承：因为可能会产生多继承冲突(子类同时调用多个父类的同一方法等)问题。</p>
-<h1 id="JVM内存"><a href="#JVM内存" class="headerlink" title="JVM内存"></a>JVM内存</h1><p>Java的JVM内存可分为3个区：堆heap、堆栈stack、方法区method。</p>
+<h1 id="JVM内存"><a href="#JVM内存" class="headerlink" title="JVM内存"></a>JVM内存</h1><p>Java的JVM内存可分为3个区：堆heap、栈stack、方法区method。</p>
 <ol>
 <li>堆：提供所有类实例和数组对象存储区域；<ol>
 <li>jvm只有一个堆区heap被所有线程共享；</li>
@@ -1196,7 +1377,7 @@
 <li>Exclusive：独占，只有一个线程能执行；</li>
 <li>Share：共享，多个线程可同时执行。<br>自定义同步器在实现时只需实现state的获取和释放方式即可。</li>
 </ul>
-<h2 id="互斥锁-读写锁"><a href="#互斥锁-读写锁" class="headerlink" title="互斥锁/读写锁"></a>互斥锁/读写锁</h2><p>对<strong>独享锁/共享锁的具体实现</strong>。</p>
+<h3 id="互斥锁-读写锁"><a href="#互斥锁-读写锁" class="headerlink" title="互斥锁/读写锁"></a>互斥锁/读写锁</h3><p>对<strong>独享锁/共享锁的具体实现</strong>。</p>
 <ul>
 <li>互斥锁：在Java中的具体实现<code>ReentrantLock</code>；</li>
 <li>读写锁：在Java中的具体实现<code>ReadWriteLock</code>；</li>
@@ -1240,78 +1421,6 @@
 <li><a href="https://www.jianshu.com/p/ab2c8fce878b" target="_blank" rel="noopener">https://www.jianshu.com/p/ab2c8fce878b</a></li>
 </ul>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/07/09/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/img.png">
-      <meta itemprop="name" content="章肿鱼">
-      <meta itemprop="description" content="讨好世界不如取悦自己">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爆发🍢小宇宙">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/09/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">软件设计模式</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-09 20:11:20" itemprop="dateCreated datePublished" datetime="2020-07-09T20:11:20+08:00">2020-07-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-27 22:57:32" itemprop="dateModified" datetime="2020-07-27T22:57:32+08:00">2020-07-27</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>设计模式Design Pattern是前辈们对代码开发经验的总结，是解决特定问题的一系列套路。它不是语法规定，是一套可用来提高代码可复用性、可维护性、可读性、稳健型及安全性的解决方案。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/09/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 
@@ -1397,7 +1506,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
