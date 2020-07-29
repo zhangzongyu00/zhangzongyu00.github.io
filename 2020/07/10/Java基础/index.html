@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"zhangzongyu00.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Java基本数据类型：byte、short、int、long、float、double、boolean、char。三大特性：封装、继承、多态(overload参数不同，override方法覆盖)。 equals 和 &#x3D;&#x3D; 的区别equals若没有对Object的equals方法进行重写，则比较的是引用类型的变量所指向的对象的地址，反之，比较的是内容。  类覆盖了equals()方法，一般都覆盖eq">
+  <meta name="description" content="Java基本数据类型：byte、short、int、long、float、double、boolean、char。引用数据类型：类、接口、数组。三大特性：封装、继承、多态(overload参数不同，override方法覆盖)。 Java不支持多继承：因为可能会产生多继承冲突(子类同时调用多个父类的同一方法等)问题。 JVM内存Java的JVM内存可分为3个区：堆heap、堆栈stack、方法区me">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java基础">
 <meta property="og:url" content="http://zhangzongyu00.github.io/2020/07/10/Java%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="爆发🍢小宇宙">
-<meta property="og:description" content="Java基本数据类型：byte、short、int、long、float、double、boolean、char。三大特性：封装、继承、多态(overload参数不同，override方法覆盖)。 equals 和 &#x3D;&#x3D; 的区别equals若没有对Object的equals方法进行重写，则比较的是引用类型的变量所指向的对象的地址，反之，比较的是内容。  类覆盖了equals()方法，一般都覆盖eq">
+<meta property="og:description" content="Java基本数据类型：byte、short、int、long、float、double、boolean、char。引用数据类型：类、接口、数组。三大特性：封装、继承、多态(overload参数不同，override方法覆盖)。 Java不支持多继承：因为可能会产生多继承冲突(子类同时调用多个父类的同一方法等)问题。 JVM内存Java的JVM内存可分为3个区：堆heap、堆栈stack、方法区me">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-10T09:31:12.000Z">
-<meta property="article:modified_time" content="2020-07-18T12:15:44.505Z">
+<meta property="article:modified_time" content="2020-07-28T12:00:06.679Z">
 <meta property="article:author" content="章肿鱼">
 <meta name="twitter:card" content="summary">
 
@@ -226,7 +226,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-18 20:15:44" itemprop="dateModified" datetime="2020-07-18T20:15:44+08:00">2020-07-18</time>
+                <time title="修改时间：2020-07-28 20:00:06" itemprop="dateModified" datetime="2020-07-28T20:00:06+08:00">2020-07-28</time>
               </span>
 
           
@@ -247,7 +247,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><p>基本数据类型：byte、short、int、long、float、double、boolean、char。<br>三大特性：封装、继承、多态(overload参数不同，override方法覆盖)。</p>
+        <h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><p>基本数据类型：byte、short、int、long、float、double、boolean、char。<br>引用数据类型：类、接口、数组。<br>三大特性：封装、继承、多态(overload参数不同，override方法覆盖)。</p>
+<p>Java不支持多继承：因为可能会产生多继承冲突(子类同时调用多个父类的同一方法等)问题。</p>
+<h1 id="JVM内存"><a href="#JVM内存" class="headerlink" title="JVM内存"></a>JVM内存</h1><p>Java的JVM内存可分为3个区：堆heap、堆栈stack、方法区method。</p>
+<ol>
+<li>堆：提供所有类实例和数组对象存储区域；<ol>
+<li>jvm只有一个堆区heap被所有线程共享；</li>
+<li>堆中不存放基本数据类型和对象引用，只存放对象本身；</li>
+</ol>
+</li>
+<li>栈：每个线程包含一个栈区；<ol>
+<li>栈中只保存基础数据类型对象和自定义对象的引用(不是对象)，对象都存放在堆中；</li>
+<li>每个栈中的数据(原始类型和对象引用)都是私有的，其它栈不能访问；</li>
+</ol>
+</li>
+<li>方法区/静态区：被所有线程共享，包含所有的class和static变量；<ol>
+<li>方法区中包含的都是在整个程序中永远唯一的元素，如class、static变量；</li>
+<li>运行时常量池都分配在Java虚拟机的方法区中。</li>
+</ol>
+</li>
+</ol>
 <h1 id="equals-和-的区别"><a href="#equals-和-的区别" class="headerlink" title="equals 和 == 的区别"></a>equals 和 == 的区别</h1><h2 id="equals"><a href="#equals" class="headerlink" title="equals"></a>equals</h2><p>若没有对Object的equals方法进行重写，则比较的是引用类型的变量所指向的对象的地址，反之，比较的是内容。</p>
 <ul>
 <li>类覆盖了equals()方法，<strong>一般都覆盖equals()方法来比较两个对象的内容是否相等</strong>，若相同返回true；</li>
@@ -424,7 +443,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java"><span class="nav-number">1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#equals-和-的区别"><span class="nav-number">2.</span> <span class="nav-text">equals 和 &#x3D;&#x3D; 的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#equals"><span class="nav-number">2.1.</span> <span class="nav-text">equals</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">2.2.</span> <span class="nav-text">&#x3D;&#x3D;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java锁"><span class="nav-number">3.</span> <span class="nav-text">Java锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#乐观锁-悲观锁"><span class="nav-number">3.1.</span> <span class="nav-text">乐观锁&#x2F;悲观锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#乐观锁-Compare-and-Swap"><span class="nav-number">3.1.1.</span> <span class="nav-text">乐观锁 Compare and Swap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#悲观锁"><span class="nav-number">3.1.2.</span> <span class="nav-text">悲观锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#独享锁-共享锁"><span class="nav-number">3.2.</span> <span class="nav-text">独享锁&#x2F;共享锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#互斥锁-读写锁"><span class="nav-number">3.3.</span> <span class="nav-text">互斥锁&#x2F;读写锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可重入锁"><span class="nav-number">3.4.</span> <span class="nav-text">可重入锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公平锁-非公平锁"><span class="nav-number">3.5.</span> <span class="nav-text">公平锁&#x2F;非公平锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分段锁"><span class="nav-number">3.6.</span> <span class="nav-text">分段锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#偏向锁-轻量级锁-重量级锁：针对synchronized"><span class="nav-number">3.7.</span> <span class="nav-text">偏向锁&#x2F;轻量级锁&#x2F;重量级锁：针对synchronized</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自旋锁"><span class="nav-number">3.8.</span> <span class="nav-text">自旋锁</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考："><span class="nav-number">4.</span> <span class="nav-text">参考：</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java"><span class="nav-number">1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM内存"><span class="nav-number">2.</span> <span class="nav-text">JVM内存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#equals-和-的区别"><span class="nav-number">3.</span> <span class="nav-text">equals 和 &#x3D;&#x3D; 的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#equals"><span class="nav-number">3.1.</span> <span class="nav-text">equals</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">3.2.</span> <span class="nav-text">&#x3D;&#x3D;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java锁"><span class="nav-number">4.</span> <span class="nav-text">Java锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#乐观锁-悲观锁"><span class="nav-number">4.1.</span> <span class="nav-text">乐观锁&#x2F;悲观锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#乐观锁-Compare-and-Swap"><span class="nav-number">4.1.1.</span> <span class="nav-text">乐观锁 Compare and Swap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#悲观锁"><span class="nav-number">4.1.2.</span> <span class="nav-text">悲观锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#独享锁-共享锁"><span class="nav-number">4.2.</span> <span class="nav-text">独享锁&#x2F;共享锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#互斥锁-读写锁"><span class="nav-number">4.3.</span> <span class="nav-text">互斥锁&#x2F;读写锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可重入锁"><span class="nav-number">4.4.</span> <span class="nav-text">可重入锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公平锁-非公平锁"><span class="nav-number">4.5.</span> <span class="nav-text">公平锁&#x2F;非公平锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分段锁"><span class="nav-number">4.6.</span> <span class="nav-text">分段锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#偏向锁-轻量级锁-重量级锁：针对synchronized"><span class="nav-number">4.7.</span> <span class="nav-text">偏向锁&#x2F;轻量级锁&#x2F;重量级锁：针对synchronized</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自旋锁"><span class="nav-number">4.8.</span> <span class="nav-text">自旋锁</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考："><span class="nav-number">5.</span> <span class="nav-text">参考：</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -440,7 +459,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

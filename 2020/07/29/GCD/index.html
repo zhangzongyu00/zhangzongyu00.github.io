@@ -22,20 +22,19 @@
     var CONFIG = {"hostname":"zhangzongyu00.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Anaconda&#x2F;miniconda配置及常用命令">
+  <meta name="description" content="GCD用于最大线程数量控制和任务分组。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="conda">
-<meta property="og:url" content="http://zhangzongyu00.github.io/2020/03/09/conda/index.html">
+<meta property="og:title" content="GCD">
+<meta property="og:url" content="http://zhangzongyu00.github.io/2020/07/29/GCD/index.html">
 <meta property="og:site_name" content="爆发🍢小宇宙">
-<meta property="og:description" content="Anaconda&#x2F;miniconda配置及常用命令">
+<meta property="og:description" content="GCD用于最大线程数量控制和任务分组。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-03-09T10:57:56.000Z">
-<meta property="article:modified_time" content="2020-06-03T17:12:26.000Z">
+<meta property="article:published_time" content="2020-07-29T01:53:36.000Z">
+<meta property="article:modified_time" content="2020-07-29T02:44:29.011Z">
 <meta property="article:author" content="章肿鱼">
-<meta property="article:tag" content="conda">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://zhangzongyu00.github.io/2020/03/09/conda/">
+<link rel="canonical" href="http://zhangzongyu00.github.io/2020/07/29/GCD/">
 
 
 <script id="page-configurations">
@@ -48,7 +47,7 @@
   };
 </script>
 
-  <title>conda | 爆发🍢小宇宙</title>
+  <title>GCD | 爆发🍢小宇宙</title>
   
 
 
@@ -197,7 +196,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/03/09/conda/">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/07/29/GCD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/img.png">
@@ -210,7 +209,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          conda
+          GCD
         </h1>
 
         <div class="post-meta">
@@ -219,24 +218,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-03-09 18:57:56" itemprop="dateCreated datePublished" datetime="2020-03-09T18:57:56+08:00">2020-03-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-04 01:12:26" itemprop="dateModified" datetime="2020-06-04T01:12:26+08:00">2020-06-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Manual/" itemprop="url" rel="index"><span itemprop="name">Manual</span></a>
-                </span>
+              <time title="创建时间：2020-07-29 09:53:36 / 修改时间：10:44:29" itemprop="dateCreated datePublished" datetime="2020-07-29T09:53:36+08:00">2020-07-29</time>
             </span>
 
           
@@ -247,7 +231,7 @@
               <span class="post-meta-item-text">阅读次数：</span>
               <span id="busuanzi_value_page_pv"></span>
             </span>
-            <div class="post-description">Anaconda/miniconda配置及常用命令</div>
+            <div class="post-description">GCD用于最大线程数量控制和任务分组。</div>
 
         </div>
       </header>
@@ -258,45 +242,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Anaconda-miniconda-个性化设置"><a href="#Anaconda-miniconda-个性化设置" class="headerlink" title="Anaconda/miniconda 个性化设置"></a>Anaconda/miniconda 个性化设置</h1><h2 id="更换国内镜像源"><a href="#更换国内镜像源" class="headerlink" title="更换国内镜像源"></a>更换国内镜像源</h2><p>具体替换方式在官方网站中均有提示，<a href="https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/" target="_blank" rel="noopener">清华镜像源网站</a>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">阿里云 https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;pypi&#x2F;simple&#x2F;</span><br><span class="line">中国科技大学 https:&#x2F;&#x2F;pypi.mirrors.ustc.edu.cn&#x2F;simple&#x2F;</span><br><span class="line">豆瓣(douban) http:&#x2F;&#x2F;pypi.douban.com&#x2F;simple&#x2F;</span><br><span class="line">清华大学 https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple&#x2F;</span><br><span class="line">中国科学技术大学 http:&#x2F;&#x2F;pypi.mirrors.ustc.edu.cn&#x2F;simple&#x2F;</span><br></pre></td></tr></table></figure>
-
-<h2 id="jupyter个性化设置"><a href="#jupyter个性化设置" class="headerlink" title="jupyter个性化设置"></a>jupyter个性化设置</h2><h3 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h3><ul>
-<li>下载主题文件 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install --upgrade jupyterthemes</span><br></pre></td></tr></table></figure></li>
-<li>查看主题列表 <code>jt -l</code></li>
-<li>设置主题 <code>jt -t * -f * -fs 14 -cellw 90% -ofs 12 -T -N</code></li>
-<li>t：字体；-fs：字体大小；-cellw：屏占比；-ofs：输出段字号；-T：显示工具栏；-N：显示主机名</li>
-<li>查看帮助 <code>jt -h</code></li>
-<li>还原默认主题 <code>jt -r</code></li>
+        <h1 id="GCD任务分组和线程数量控制"><a href="#GCD任务分组和线程数量控制" class="headerlink" title="GCD任务分组和线程数量控制"></a>GCD任务分组和线程数量控制</h1><p>利用GCD的<code>dispatch_group_t</code>和<code>semaphore</code>功能，可以控制线程数量，并且在所有任务执行完成之后得到通知。</p>
+<h2 id="GCD控制线程数量"><a href="#GCD控制线程数量" class="headerlink" title="GCD控制线程数量"></a>GCD控制线程数量</h2><p>GCD不像NSOperation直接提供线程数量控制的方法，需要通过GCD的<strong>semaphore</strong>功能达到控制线程数量的效果。</p>
+<ul>
+<li><code>dispatch_semaphore_create(long value)</code>，利用给定的值创建一个新的可计数的信号量；</li>
+<li><code>dispatch_semaphore_wait(dispatch_semaphore_t dsema, dispatch_time_t timeout);</code>，如果信号量大于0，信号量-1，执行程序，否则等待信号量；</li>
+<li><code>dispatch_semaphore_signal(dispatch_semaphore_t dsema);</code>，增加信号量。</li>
 </ul>
-<h3 id="快速切换环境"><a href="#快速切换环境" class="headerlink" title="快速切换环境"></a>快速切换环境</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m ipykernel install --name ***</span><br></pre></td></tr></table></figure>
-
-<p>当出现 <code>kernel error</code> 时：</p>
-<ol>
-<li>使用<code>jupyter kernelspec list</code>查看内核是否正确；</li>
-<li>删除掉不正确的内核<code>jupyter kernelspec remove 内核名</code>，重新安装内核即可。</li>
-</ol>
-<h2 id="终端配置"><a href="#终端配置" class="headerlink" title="终端配置"></a>终端配置</h2><p>在安装anaconda/miniconda后，终端默认会显示当前环境名称，<br>若感觉影响美观，可设置忽略(base)：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~&#x2F;.condarc</span><br></pre></td></tr></table></figure>
-<p>在文末添加 <code>changeps1: False</code> 即可。</p>
+<h2 id="GCD任务分组"><a href="#GCD任务分组" class="headerlink" title="GCD任务分组"></a>GCD任务分组</h2><p>GCD的<code>**dispatch_group_t**</code>功能可将多个任务进行分组，等待分组里面的所有任务执行完成后，GCD的<code>dispatch_group_notify</code>方法可以通知。</p>
+<h2 id="dispatch-async异步调度"><a href="#dispatch-async异步调度" class="headerlink" title="dispatch_async异步调度"></a>dispatch_async异步调度</h2><p>调用dispatch_async将任务抛到<strong>dispatch_get_global_queue(全局并行队列)</strong>, 使第一个任务block中的线程跳到<strong>子线程</strong>。即主线程中创建任务，在子线程中执行任务，执行完任务后通知主线程。</p>
+<p>将任务调度到主线程队列中，主线程会去执行该任务, 不死锁的原因是dispatch_sync并没有在主线程中创建, 而是在dispatch_get_global_queue中创建并等待任务执行结束, 由于它是子线程, 所以并不会阻塞。</p>
+<h3 id="dispatch-sync-🆚-dispatch-async"><a href="#dispatch-sync-🆚-dispatch-async" class="headerlink" title="dispatch_sync 🆚 dispatch_async"></a>dispatch_sync 🆚 dispatch_async</h3><ul>
+<li>dispatch_sync同步调度, 在指定队列中同步扔进去一个任务(block), 该任务可能由主线程或子线程处理；</li>
+<li>dispatch_async异步调度，在指定队列中扔进去一个任务(block), 该任务可能由主线程或子线程处理。</li>
+</ul>
+<h1 id="死锁问题"><a href="#死锁问题" class="headerlink" title="死锁问题"></a>死锁问题</h1><p>主线程队列是串行队列, 队列中的任务是一个执行完成后才去执行另一个, 用同步方法将任务1提交到主线程队列就会阻塞住主线程, 而这个刚提交的任务1必须等待主线程中的任务执行完毕才可以执行, 但这时主线程已经被阻塞了, 就是说要等任务1执行完成后才能去执行原有的任务, 所以双方在互相等待而卡住, 最后一个任务也没机会执行到, 就造成了死锁。</p>
 <hr>
-<h1 id="conda常用命令"><a href="#conda常用命令" class="headerlink" title="conda常用命令"></a>conda常用命令</h1><h2 id="虚拟环境"><a href="#虚拟环境" class="headerlink" title="虚拟环境"></a>虚拟环境</h2><ol>
-<li>创建虚拟环境<br><code>conda create -n xxxx python=版本号</code></li>
-<li>移除该虚拟环境<br><code>conda remove -n xxxx --all</code></li>
-<li>开启xxxx环境/激活虚拟环境<br><code>conda activate xxxx</code> 或 <code>source activate xxxx</code></li>
-<li>关闭虚拟环境<br><code>conda deactivate</code></li>
-<li>查看所创建的虚拟环境列表<br><code>conda env list</code></li>
-<li>克隆环境<br><code>conda create -n *** --clone ***</code></li>
-<li>导出环境，进入到要导出的环境（激活）<br><code>conda env export --file ***.yml</code></li>
-<li>导入环境<br><code>conda env create -f ***.yml</code></li>
-</ol>
-<h2 id="更新conda"><a href="#更新conda" class="headerlink" title="更新conda"></a>更新conda</h2><p><code>conda update conda</code><br><code>conda update anaconda</code><br><code>conda update anaconda-navigator</code></p>
-<h2 id="Packages"><a href="#Packages" class="headerlink" title="Packages"></a>Packages</h2><ol>
-<li>查看安装的包<br><code>conda list</code></li>
-<li>卸载安装的包<br><code>conda uninstall xxx</code></li>
-<li>删除无用的包（自动清理）<br><code>conda clean -p</code></li>
-<li>tar打包<br><code>conda clean -t</code></li>
-</ol>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://www.jianshu.com/p/4021b0804da0" target="_blank" rel="noopener">https://www.jianshu.com/p/4021b0804da0</a></li>
+<li><a href="https://www.jianshu.com/p/a6146b5764de" target="_blank" rel="noopener">https://www.jianshu.com/p/a6146b5764de</a></li>
+</ul>
 
     </div>
 
@@ -305,10 +270,6 @@
     
 
       <footer class="post-footer">
-          
-          <div class="post-tags">
-              <a href="/tags/conda/" rel="tag"><i class="fa fa-tag"></i> conda</a>
-          </div>
 
         
 
@@ -316,13 +277,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/03/09/Markdown/" rel="prev" title="Markdown">
-      <i class="fa fa-chevron-left"></i> Markdown
+    <a href="/2020/07/28/redis/" rel="prev" title="Redis持久化机制">
+      <i class="fa fa-chevron-left"></i> Redis持久化机制
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/03/09/mysql/" rel="next" title="mysql">
-      mysql <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -381,7 +339,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Anaconda-miniconda-个性化设置"><span class="nav-number">1.</span> <span class="nav-text">Anaconda&#x2F;miniconda 个性化设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#更换国内镜像源"><span class="nav-number">1.1.</span> <span class="nav-text">更换国内镜像源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jupyter个性化设置"><span class="nav-number">1.2.</span> <span class="nav-text">jupyter个性化设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装主题"><span class="nav-number">1.2.1.</span> <span class="nav-text">安装主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速切换环境"><span class="nav-number">1.2.2.</span> <span class="nav-text">快速切换环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#终端配置"><span class="nav-number">1.3.</span> <span class="nav-text">终端配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#conda常用命令"><span class="nav-number">2.</span> <span class="nav-text">conda常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟环境"><span class="nav-number">2.1.</span> <span class="nav-text">虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新conda"><span class="nav-number">2.2.</span> <span class="nav-text">更新conda</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Packages"><span class="nav-number">2.3.</span> <span class="nav-text">Packages</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GCD任务分组和线程数量控制"><span class="nav-number">1.</span> <span class="nav-text">GCD任务分组和线程数量控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GCD控制线程数量"><span class="nav-number">1.1.</span> <span class="nav-text">GCD控制线程数量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GCD任务分组"><span class="nav-number">1.2.</span> <span class="nav-text">GCD任务分组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-async异步调度"><span class="nav-number">1.3.</span> <span class="nav-text">dispatch_async异步调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dispatch-sync-🆚-dispatch-async"><span class="nav-number">1.3.1.</span> <span class="nav-text">dispatch_sync 🆚 dispatch_async</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#死锁问题"><span class="nav-number">2.</span> <span class="nav-text">死锁问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -517,7 +475,7 @@
 
 
   
-<script src="/js/local-search.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/local-search.js"></script>
 
 
 
@@ -534,6 +492,61 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    
 
   
 

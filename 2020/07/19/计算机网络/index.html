@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/https.jpeg">
 <meta property="article:published_time" content="2020-07-18T16:14:02.000Z">
-<meta property="article:modified_time" content="2020-07-19T08:33:41.661Z">
+<meta property="article:modified_time" content="2020-07-28T16:47:42.824Z">
 <meta property="article:author" content="章肿鱼">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/https.jpeg">
@@ -220,10 +220,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-07-19 00:14:02 / 修改时间：16:33:41" itemprop="dateCreated datePublished" datetime="2020-07-19T00:14:02+08:00">2020-07-19</time>
+              <time title="创建时间：2020-07-19 00:14:02" itemprop="dateCreated datePublished" datetime="2020-07-19T00:14:02+08:00">2020-07-19</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-29 00:47:42" itemprop="dateModified" datetime="2020-07-29T00:47:42+08:00">2020-07-29</time>
+              </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -429,6 +435,23 @@
 <li>Socket连接：服务器可主动向客户端推送数据，保持客户端于服务器数据的实时与同步；</li>
 <li>http连接：<code>请求-响应</code>方式，在请求时需要先建立连接，在客户端向服务器发送请求后，服务器端才能回复数据；客户端需要定时向服务器端发送连接请求，使其保持在线状态，同时询问服务器是否有新数据。</li>
 </ul>
+<h1 id="GET-amp-POST"><a href="#GET-amp-POST" class="headerlink" title="GET &amp; POST"></a>GET &amp; POST</h1><ul>
+<li>get使用URL传输；</li>
+<li>post使用body传输数据。</li>
+</ul>
+<h2 id="浏览器中的GET和POST"><a href="#浏览器中的GET和POST" class="headerlink" title="浏览器中的GET和POST"></a>浏览器中的GET和POST</h2><p>浏览器中的非Ajax的Http请求，即从html和浏览器就一直使用的http协议中的GET/POST。</p>
+<ul>
+<li>用get请求来获取一个html页面/图片/css/js等资源；<ul>
+<li>get是读取一个资源，可以对get请求的数据做缓存。</li>
+</ul>
+</li>
+<li>用post来提交一个<form>表单，并得到一个结果的网页；<ul>
+<li>不等幂(不能随意多次执行)，页面不能被缓存，如下订单页面。</li>
+</ul>
+</li>
+</ul>
+<h2 id="接口中的GET和POST"><a href="#接口中的GET和POST" class="headerlink" title="接口中的GET和POST"></a>接口中的GET和POST</h2><p>指通过浏览器的Ajax api、ios/Android的app发出的http client、Java中的commons-httpclient/okhttp、curl/postman等工具发出的get/post请求。</p>
+<p>该get/post不仅能用在前后端的交互中，还能用在后端各个子服务的调用中(即充当一种RPC协议使用)。</p>
 <h1 id="session-amp-cookie"><a href="#session-amp-cookie" class="headerlink" title="session &amp; cookie"></a>session &amp; cookie</h1><p>针对http的无状态的特性，无法判断具体哪个用户，因此，设计了Cookie和Session。、</p>
 <h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>Cookie存储在客户端，用来记录用户状态，区分用户。<br>一般由服务端将生成的Cookie通过响应返回给客户端，由客户端进行保存。</p>
 <ul>
@@ -449,6 +472,66 @@
 <li>设置Cookie为httpOnly，防止跨站脚本攻击。</li>
 </ul>
 <h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>Session存储在网络端，需要依赖Cookie机制。<br>服务端生成Session后，返回给客户端，客户端进行存储<code>setCookie:sessionID</code>；<br>再次请求时，客户端将Cookie发送给服务端，服务端解析出<code>SessionID</code>，根据<code>SessionID</code>判断当前用户。</p>
+<h1 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h1><p>Http状态码是一个客户发出请求的时候，web服务器返回给客户的一个状态回应。</p>
+<ul>
+<li><code>1xx</code>信息代码；</li>
+<li><code>2xx</code>成功代码；</li>
+<li><code>3xx</code>重定向；</li>
+<li><code>4xx</code>客户端错误，可以是web浏览器、curl命令、postman等其它服务器测试软件发出的请求等；</li>
+<li><code>5xx</code>服务器错误，服务器发生错误或服务器识别出无法处理的请求。</li>
+</ul>
+<h2 id="客户端错误及处理"><a href="#客户端错误及处理" class="headerlink" title="客户端错误及处理"></a>客户端错误及处理</h2><ul>
+<li>400请求错误，服务器无法理解请求，发送到服务器的请求具有无效语法；<ul>
+<li>检查http请求中可能发生的语法错误，确保请求的URL或Post语法没有错误；</li>
+<li>尝试清楚浏览器的cookie和cache再尝试；</li>
+<li>尝试更新或更改浏览器，可能是浏览器版本太老或其它问题。</li>
+</ul>
+</li>
+<li>401未经授权的错误，访问系统需要身份验证，而在请求中没有给予正当的认证凭据token等；<ul>
+<li>提供正确的身份验证或凭据(账号密码或token等)。</li>
+</ul>
+</li>
+<li>403禁止访问，客户端无权访问该内容，服务器拒绝对访问所请求的文件给出正确的响应；<ul>
+<li>当用户没有访问所请求资源的权限时，通常会发生403错误；</li>
+<li>通常可能是客户端IP、Agent等被web服务器拒绝访问，比如触发了WAF、反扒策略等；</li>
+<li>可通过修改Agent内容、更换IP等来解决。</li>
+</ul>
+</li>
+<li>404文件找不到，用户可与服务器通信，并且服务器也想将资源发送给用户，但是无法找到用户请求的资源；<ul>
+<li>如果使用的是浏览器，还可能是服务器无法识别该URL；</li>
+<li>检查是否犯了类型错误，文件是否存在该目录下，是否已移动或删除。</li>
+</ul>
+</li>
+<li>408请求超时，<ul>
+<li>当服务器关闭连接时会发送此响应，因为客户端需要很长时间才能发送请求；</li>
+<li>当客户端连接速度较慢或服务器存在巨大负载时会发生；</li>
+<li>即使没有客户端先前的任何请求，此错误响应也经常由服务器发送，代表服务器希望关闭此未使用的连接。</li>
+</ul>
+</li>
+<li>429请求太多，用户在给定时间内发送了太多请求，通过被限制速率；<ul>
+<li>等待一段时间，然后重试或阅读与API访问限制有关文档来解决。</li>
+</ul>
+</li>
+</ul>
+<h2 id="服务器错误及处理"><a href="#服务器错误及处理" class="headerlink" title="服务器错误及处理"></a>服务器错误及处理</h2><ul>
+<li>500内部服务器错误，服务器遇到错误，不知道如何处理；<ul>
+<li>通常是由服务器配置错误导致，需要查询服务器详细的错误日志，或相关应用服务器的日志，具体问题具体解决。</li>
+</ul>
+</li>
+<li>502错误网关，服务器在工作以获取处理请求所需的另一台服务器的响应(接口、数据库等)时得到的响应无效；<ul>
+<li>客户端发送请求的服务器是代理服务器，需要从另一台服务器获取数据；</li>
+<li>通常是服务器配置错误，缺少软件包或不正确的负载均衡服务器可能会导致；</li>
+</ul>
+</li>
+<li>503服务不可用，服务器由于某些原因而处于维护或关闭状态，或服务器过载且无法处理请求；<ul>
+<li>若服务器未关闭，可能是服务器资源(如CPU ram或带宽)无法处理流量，需要重新配置任一服务器增加资源允许更过流量，或进行优化；</li>
+</ul>
+</li>
+<li>504网关超时，当服务器充当网关或代理服务器且无法在规定时间段内从代理服务器获得响应；<ul>
+<li>主要原因是父服务器负载严重，由于位置或带宽较慢，服务器间存在大量延迟。</li>
+</ul>
+</li>
+</ul>
 <hr>
 <h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
 <li><a href="https://www.bilibili.com/video/BV1yb41157bj?from=search&amp;seid=2308486019812769228" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1yb41157bj?from=search&amp;seid=2308486019812769228</a></li>
@@ -536,7 +619,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网络七层协议-OSI七层模型"><span class="nav-number">1.</span> <span class="nav-text">网络七层协议&#x2F;OSI七层模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-IP五层模型"><span class="nav-number">2.</span> <span class="nav-text">TCP&#x2F;IP五层模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP"><span class="nav-number">2.1.</span> <span class="nav-text">TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三次握手"><span class="nav-number">2.1.1.</span> <span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四次挥手"><span class="nav-number">2.1.2.</span> <span class="nav-text">四次挥手</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP"><span class="nav-number">2.2.</span> <span class="nav-text">UDP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-vs-UDP"><span class="nav-number">2.3.</span> <span class="nav-text">TCP vs. UDP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-HTTPS"><span class="nav-number">3.</span> <span class="nav-text">HTTP&#x2F;HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hypertext-Transfer-Protocol-超文本传输协议"><span class="nav-number">3.1.</span> <span class="nav-text">Hypertext Transfer Protocol 超文本传输协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hypertex-Transfer-Protocol-over-Secure-Socket-Layer"><span class="nav-number">3.2.</span> <span class="nav-text">Hypertex Transfer Protocol over Secure Socket Layer</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Socket-套接字协议"><span class="nav-number">4.</span> <span class="nav-text">Socket 套接字协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket连接的建立"><span class="nav-number">4.1.</span> <span class="nav-text">Socket连接的建立</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket连接-vs-TCP连接"><span class="nav-number">4.2.</span> <span class="nav-text">Socket连接 vs. TCP连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket连接-vs-http连接"><span class="nav-number">4.3.</span> <span class="nav-text">Socket连接 vs. http连接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#session-amp-cookie"><span class="nav-number">5.</span> <span class="nav-text">session &amp; cookie</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie"><span class="nav-number">5.1.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session"><span class="nav-number">5.2.</span> <span class="nav-text">Session</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考："><span class="nav-number">6.</span> <span class="nav-text">参考：</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网络七层协议-OSI七层模型"><span class="nav-number">1.</span> <span class="nav-text">网络七层协议&#x2F;OSI七层模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-IP五层模型"><span class="nav-number">2.</span> <span class="nav-text">TCP&#x2F;IP五层模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP"><span class="nav-number">2.1.</span> <span class="nav-text">TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三次握手"><span class="nav-number">2.1.1.</span> <span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四次挥手"><span class="nav-number">2.1.2.</span> <span class="nav-text">四次挥手</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP"><span class="nav-number">2.2.</span> <span class="nav-text">UDP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-vs-UDP"><span class="nav-number">2.3.</span> <span class="nav-text">TCP vs. UDP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-HTTPS"><span class="nav-number">3.</span> <span class="nav-text">HTTP&#x2F;HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hypertext-Transfer-Protocol-超文本传输协议"><span class="nav-number">3.1.</span> <span class="nav-text">Hypertext Transfer Protocol 超文本传输协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hypertex-Transfer-Protocol-over-Secure-Socket-Layer"><span class="nav-number">3.2.</span> <span class="nav-text">Hypertex Transfer Protocol over Secure Socket Layer</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Socket-套接字协议"><span class="nav-number">4.</span> <span class="nav-text">Socket 套接字协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket连接的建立"><span class="nav-number">4.1.</span> <span class="nav-text">Socket连接的建立</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket连接-vs-TCP连接"><span class="nav-number">4.2.</span> <span class="nav-text">Socket连接 vs. TCP连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket连接-vs-http连接"><span class="nav-number">4.3.</span> <span class="nav-text">Socket连接 vs. http连接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GET-amp-POST"><span class="nav-number">5.</span> <span class="nav-text">GET &amp; POST</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器中的GET和POST"><span class="nav-number">5.1.</span> <span class="nav-text">浏览器中的GET和POST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口中的GET和POST"><span class="nav-number">5.2.</span> <span class="nav-text">接口中的GET和POST</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#session-amp-cookie"><span class="nav-number">6.</span> <span class="nav-text">session &amp; cookie</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie"><span class="nav-number">6.1.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session"><span class="nav-number">6.2.</span> <span class="nav-text">Session</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP状态码"><span class="nav-number">7.</span> <span class="nav-text">HTTP状态码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端错误及处理"><span class="nav-number">7.1.</span> <span class="nav-text">客户端错误及处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器错误及处理"><span class="nav-number">7.2.</span> <span class="nav-text">服务器错误及处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考："><span class="nav-number">8.</span> <span class="nav-text">参考：</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -552,7 +635,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
