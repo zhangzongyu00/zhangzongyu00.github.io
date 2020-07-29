@@ -458,6 +458,7 @@
 </ul>
 <p><strong>重量级锁会让它申请的线程进入阻塞，性能降低。</strong></p>
 <h2 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h2><p>指尝试获取锁的线程不会立即阻塞，而是采用<strong>循环</strong>的方式去尝试获取锁。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%87%AA%E6%97%8B%E9%94%81%E4%BC%98%E5%85%88%E7%BA%A7%E5%8F%8D%E8%BD%AC.png" alt="自旋锁优先级反转"></p>
 <p>优点：减少线程上下文切换的消耗；<br>缺点：循环会消耗CPU。</p>
 <hr>
 <h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
@@ -466,6 +467,40 @@
 <li><a href="https://www.jianshu.com/p/0fdf60ec73ae" target="_blank" rel="noopener">https://www.jianshu.com/p/0fdf60ec73ae</a></li>
 </ul>
 ]]></content>
+  </entry>
+  <entry>
+    <title>Java测试</title>
+    <url>/2020/03/10/Java%E6%B5%8B%E8%AF%95/</url>
+    <content><![CDATA[<h1 id="开发者测试"><a href="#开发者测试" class="headerlink" title="开发者测试"></a>开发者测试</h1><p><em>插件 eclemma查询覆盖率，最新版eclipse已内置</em></p>
+<h2 id="利用junit进行测试，使用assert断言进行变异测试"><a href="#利用junit进行测试，使用assert断言进行变异测试" class="headerlink" title="利用junit进行测试，使用assert断言进行变异测试"></a>利用junit进行测试，使用assert断言进行变异测试</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Junit%E6%B5%8B%E8%AF%95.png" alt="Junit测试"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void testNextDay() &#123;</span><br><span class="line">	assertEquals(10&#x2F;15&#x2F;2019,10&#x2F;14,2019);</span><br><span class="line">	assertEquals(11&#x2F;1&#x2F;2019,10&#x2F;31,2019);</span><br><span class="line">	assertEquals(2&#x2F;29&#x2F;2000,2&#x2F;28,2000);</span><br><span class="line">	assertEquals(2&#x2F;29&#x2F;2004,2&#x2F;28,2004);</span><br><span class="line">	assertEquals(3&#x2F;1&#x2F;2001,2&#x2F;28,2001);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Test(expected&#x3D;ArithmeticException.class)</span><br><span class="line">&#x2F;&#x2F;抛出异常</span><br><span class="line">@Test(timeout&#x3D;毫秒)</span><br><span class="line">&#x2F;&#x2F;针对死循环进行测试</span><br><span class="line"></span><br><span class="line">@BeforeClass</span><br><span class="line">@AfterClass</span><br><span class="line">&#x2F;&#x2F;最先执行，static修饰</span><br><span class="line"></span><br><span class="line">@Before</span><br><span class="line">@After</span><br><span class="line">&#x2F;&#x2F;每个方法单独运行</span><br><span class="line">@Ignore</span><br><span class="line">&#x2F;&#x2F;该测试方法会被忽略</span><br><span class="line"></span><br><span class="line">@RunWith</span><br><span class="line">&#x2F;&#x2F;更改测试运行器org.junit.runner.Runner</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="移动应用测试"><a href="#移动应用测试" class="headerlink" title="移动应用测试"></a>移动应用测试</h1><h2 id="配置appium"><a href="#配置appium" class="headerlink" title="配置appium"></a>配置appium</h2><p>终端打开，输入：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb devices</span><br><span class="line">adb connect xxx.xxx.xxx.xxx:5555</span><br></pre></td></tr></table></figure>
+<p>将app的环境配置复制到appium中进行启动会话；</p>
+<h2 id="利用Android-SDK中的UI工具进行组建-控件的查询"><a href="#利用Android-SDK中的UI工具进行组建-控件的查询" class="headerlink" title="利用Android SDK中的UI工具进行组建/控件的查询"></a>利用Android SDK中的UI工具进行组建/控件的查询</h2><p><em>与appium兼容性很差，经常需要关闭appium后再打开</em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;通过id获取组件</span><br><span class="line">driver.findElementById(&quot;cn.etouch.ecalendar:id&#x2F;rl_toutiao_img&quot;).click();</span><br><span class="line">&#x2F;&#x2F;通过XPath获取组件</span><br><span class="line">driver.findElementByXPath(&quot;&#x2F;&#x2F;android.widget.TextView[@text&#x3D;&#39;头条&#39;]&quot;).click();</span><br><span class="line">driver.findElementById(&quot;cn.etouch.ecalendar:id&#x2F;fl_refresh_icon&quot;).click();</span><br><span class="line">&#x2F;&#x2F;返回</span><br><span class="line">driver.sendKeyEvent(AndroidKeyCode.BACK);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="自主可控测试"><a href="#自主可控测试" class="headerlink" title="自主可控测试"></a>自主可控测试</h1><h2 id="功能测试"><a href="#功能测试" class="headerlink" title="功能测试"></a>功能测试</h2><ul>
+<li>eclipse:<br>  driver.get(“url”);<br>  Thread.sleep(1000);</li>
+<li>word:<br>  打开操作文档，按要求查找网页中对应的元素进行输入等操作；</li>
+<li>chrome:<br>  F12 检索页面元素，获取元素xpath；</li>
+<li>eclipse:<br>  driver.findElement(By.xpath(“//*[@id=&quot;username&quot;]”)).sendKeys(“username”);</li>
+</ul>
+<h2 id="性能测试："><a href="#性能测试：" class="headerlink" title="性能测试："></a>性能测试：</h2><ul>
+<li>badboy录制脚本：<br>  输入网址，对测试部分进行录制，导出为jmeter文件</li>
+<li>JMeter:<br>  打开录制好的文件，更改名称，更改线程组相关设置，左侧右键add-&gt;LogicController-&gt;TransactionController;将Step移动到Transaction下面，在最后一个操作右键add-&gt;Timer-&gt;SynchronizingTimer;修改组人数为10；在最后操作上进行参数化设置${name}；</li>
+<li>创建csv文件：<br>  在文件右键add-&gt;ConfigElement-&gt;CSVDataSetConfig;修改VariableNames为对应的名称即可。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
   </entry>
   <entry>
     <title>Java框架</title>
@@ -559,69 +594,6 @@
 <li><a href="https://www.runoob.com/java/java-collections.html" target="_blank" rel="noopener">https://www.runoob.com/java/java-collections.html</a></li>
 <li><a href="https://www.cnblogs.com/williamjie/p/11458835.html" target="_blank" rel="noopener">https://www.cnblogs.com/williamjie/p/11458835.html</a></li>
 </ul>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java测试</title>
-    <url>/2020/03/10/Java%E6%B5%8B%E8%AF%95/</url>
-    <content><![CDATA[<h1 id="开发者测试"><a href="#开发者测试" class="headerlink" title="开发者测试"></a>开发者测试</h1><p><em>插件 eclemma查询覆盖率，最新版eclipse已内置</em></p>
-<h2 id="利用junit进行测试，使用assert断言进行变异测试"><a href="#利用junit进行测试，使用assert断言进行变异测试" class="headerlink" title="利用junit进行测试，使用assert断言进行变异测试"></a>利用junit进行测试，使用assert断言进行变异测试</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Junit%E6%B5%8B%E8%AF%95.png" alt="Junit测试"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void testNextDay() &#123;</span><br><span class="line">	assertEquals(10&#x2F;15&#x2F;2019,10&#x2F;14,2019);</span><br><span class="line">	assertEquals(11&#x2F;1&#x2F;2019,10&#x2F;31,2019);</span><br><span class="line">	assertEquals(2&#x2F;29&#x2F;2000,2&#x2F;28,2000);</span><br><span class="line">	assertEquals(2&#x2F;29&#x2F;2004,2&#x2F;28,2004);</span><br><span class="line">	assertEquals(3&#x2F;1&#x2F;2001,2&#x2F;28,2001);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Test(expected&#x3D;ArithmeticException.class)</span><br><span class="line">&#x2F;&#x2F;抛出异常</span><br><span class="line">@Test(timeout&#x3D;毫秒)</span><br><span class="line">&#x2F;&#x2F;针对死循环进行测试</span><br><span class="line"></span><br><span class="line">@BeforeClass</span><br><span class="line">@AfterClass</span><br><span class="line">&#x2F;&#x2F;最先执行，static修饰</span><br><span class="line"></span><br><span class="line">@Before</span><br><span class="line">@After</span><br><span class="line">&#x2F;&#x2F;每个方法单独运行</span><br><span class="line">@Ignore</span><br><span class="line">&#x2F;&#x2F;该测试方法会被忽略</span><br><span class="line"></span><br><span class="line">@RunWith</span><br><span class="line">&#x2F;&#x2F;更改测试运行器org.junit.runner.Runner</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="移动应用测试"><a href="#移动应用测试" class="headerlink" title="移动应用测试"></a>移动应用测试</h1><h2 id="配置appium"><a href="#配置appium" class="headerlink" title="配置appium"></a>配置appium</h2><p>终端打开，输入：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb devices</span><br><span class="line">adb connect xxx.xxx.xxx.xxx:5555</span><br></pre></td></tr></table></figure>
-<p>将app的环境配置复制到appium中进行启动会话；</p>
-<h2 id="利用Android-SDK中的UI工具进行组建-控件的查询"><a href="#利用Android-SDK中的UI工具进行组建-控件的查询" class="headerlink" title="利用Android SDK中的UI工具进行组建/控件的查询"></a>利用Android SDK中的UI工具进行组建/控件的查询</h2><p><em>与appium兼容性很差，经常需要关闭appium后再打开</em></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;通过id获取组件</span><br><span class="line">driver.findElementById(&quot;cn.etouch.ecalendar:id&#x2F;rl_toutiao_img&quot;).click();</span><br><span class="line">&#x2F;&#x2F;通过XPath获取组件</span><br><span class="line">driver.findElementByXPath(&quot;&#x2F;&#x2F;android.widget.TextView[@text&#x3D;&#39;头条&#39;]&quot;).click();</span><br><span class="line">driver.findElementById(&quot;cn.etouch.ecalendar:id&#x2F;fl_refresh_icon&quot;).click();</span><br><span class="line">&#x2F;&#x2F;返回</span><br><span class="line">driver.sendKeyEvent(AndroidKeyCode.BACK);</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="自主可控测试"><a href="#自主可控测试" class="headerlink" title="自主可控测试"></a>自主可控测试</h1><h2 id="功能测试"><a href="#功能测试" class="headerlink" title="功能测试"></a>功能测试</h2><ul>
-<li>eclipse:<br>  driver.get(“url”);<br>  Thread.sleep(1000);</li>
-<li>word:<br>  打开操作文档，按要求查找网页中对应的元素进行输入等操作；</li>
-<li>chrome:<br>  F12 检索页面元素，获取元素xpath；</li>
-<li>eclipse:<br>  driver.findElement(By.xpath(“//*[@id=&quot;username&quot;]”)).sendKeys(“username”);</li>
-</ul>
-<h2 id="性能测试："><a href="#性能测试：" class="headerlink" title="性能测试："></a>性能测试：</h2><ul>
-<li>badboy录制脚本：<br>  输入网址，对测试部分进行录制，导出为jmeter文件</li>
-<li>JMeter:<br>  打开录制好的文件，更改名称，更改线程组相关设置，左侧右键add-&gt;LogicController-&gt;TransactionController;将Step移动到Transaction下面，在最后一个操作右键add-&gt;Timer-&gt;SynchronizingTimer;修改组人数为10；在最后操作上进行参数化设置${name}；</li>
-<li>创建csv文件：<br>  在文件右键add-&gt;ConfigElement-&gt;CSVDataSetConfig;修改VariableNames为对应的名称即可。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java编程</title>
-    <url>/2020/03/10/Java%E7%BC%96%E7%A8%8B/</url>
-    <content><![CDATA[<h1 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h1><h2 id="websocket：持久化协议"><a href="#websocket：持久化协议" class="headerlink" title="websocket：持久化协议"></a>websocket：持久化协议</h2><p>实现服务器端主动向客户端推送信息，客户端也可主动向服务器发送请求，实现双向对话。<br>具体来讲，就是先通过客户端使用http协议向服务器发送请求，建立长链接；建立长链接之后，服务器即可主动向客户端发送消息；确定一个时间，经过该时间后，客户端向服务器发送请求确认，避免该🔗断开。</p>
-<p><em>为了兼容浏览器，在握手阶段使用HTTP协议。</em></p>
-<ul>
-<li>websocket建立在TCP协议上，服务器端端实现较容易；</li>
-<li>与HTTP协议兼容性较好，默认端口为80或443，可通过http代理的服务器；</li>
-<li>数据格式轻量，性能开销较小，通信高效；</li>
-<li>可以发送文本，也可以发送二进制数据；</li>
-<li>没有同源限制，客户端可以与任意服务器通信；</li>
-<li>协议表示符是ws，若需🔐，使用wss，服务器网址为url。</li>
-</ul>
-<h2 id="典型的websocket🤝"><a href="#典型的websocket🤝" class="headerlink" title="典型的websocket🤝"></a>典型的websocket🤝</h2><ul>
-<li>浏览器请求：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GET &#x2F;chat HTTP&#x2F;1.1</span><br><span class="line">Host: server.example.com</span><br><span class="line">Upgrade: websocket			&#x2F;&#x2F; websocket协议</span><br><span class="line">Connection: Upgrade			&#x2F;&#x2F; 告诉服务器，发起的请求为Upgrade对应的websocket协议</span><br><span class="line">Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw&#x3D;&#x3D;			&#x2F;&#x2F; Base64 encode值，由浏览器自动生成，用于验证是否使用websocket协议</span><br><span class="line">Sec-WebSocket-Protocol: chat, superchat			&#x2F;&#x2F; 用户定义的字符串，用于区分URL下不同服务所需要的协议</span><br><span class="line">Sec-WebSocket-Version: 13			&#x2F;&#x2F; websocket版本</span><br><span class="line">Origin: http:&#x2F;&#x2F;example.com</span><br></pre></td></tr></table></figure></li>
-<li>服务器返回：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">HTTP&#x2F;1.1 101 Switching Protocols</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk&#x3D;</span><br><span class="line">Sec-WebSocket-Protocol: chat</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<hr>
-<p><em>参考：</em><br><a href="https://www.cnblogs.com/jieerma666/p/10342435.html" target="_blank" rel="noopener">用JAVA分别实现WebSocket客户端与服务端</a><br><a href="https://www.cnblogs.com/nnngu/p/9347635.html" target="_blank" rel="noopener">看完让你彻底理解 WebSocket 原理，附完整的实战代码</a></p>
 ]]></content>
       <categories>
         <category>Java</category>
@@ -784,6 +756,35 @@
       </categories>
       <tags>
         <tag>software</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java编程</title>
+    <url>/2020/03/10/Java%E7%BC%96%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h1><h2 id="websocket：持久化协议"><a href="#websocket：持久化协议" class="headerlink" title="websocket：持久化协议"></a>websocket：持久化协议</h2><p>实现服务器端主动向客户端推送信息，客户端也可主动向服务器发送请求，实现双向对话。<br>具体来讲，就是先通过客户端使用http协议向服务器发送请求，建立长链接；建立长链接之后，服务器即可主动向客户端发送消息；确定一个时间，经过该时间后，客户端向服务器发送请求确认，避免该🔗断开。</p>
+<p><em>为了兼容浏览器，在握手阶段使用HTTP协议。</em></p>
+<ul>
+<li>websocket建立在TCP协议上，服务器端端实现较容易；</li>
+<li>与HTTP协议兼容性较好，默认端口为80或443，可通过http代理的服务器；</li>
+<li>数据格式轻量，性能开销较小，通信高效；</li>
+<li>可以发送文本，也可以发送二进制数据；</li>
+<li>没有同源限制，客户端可以与任意服务器通信；</li>
+<li>协议表示符是ws，若需🔐，使用wss，服务器网址为url。</li>
+</ul>
+<h2 id="典型的websocket🤝"><a href="#典型的websocket🤝" class="headerlink" title="典型的websocket🤝"></a>典型的websocket🤝</h2><ul>
+<li>浏览器请求：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GET &#x2F;chat HTTP&#x2F;1.1</span><br><span class="line">Host: server.example.com</span><br><span class="line">Upgrade: websocket			&#x2F;&#x2F; websocket协议</span><br><span class="line">Connection: Upgrade			&#x2F;&#x2F; 告诉服务器，发起的请求为Upgrade对应的websocket协议</span><br><span class="line">Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw&#x3D;&#x3D;			&#x2F;&#x2F; Base64 encode值，由浏览器自动生成，用于验证是否使用websocket协议</span><br><span class="line">Sec-WebSocket-Protocol: chat, superchat			&#x2F;&#x2F; 用户定义的字符串，用于区分URL下不同服务所需要的协议</span><br><span class="line">Sec-WebSocket-Version: 13			&#x2F;&#x2F; websocket版本</span><br><span class="line">Origin: http:&#x2F;&#x2F;example.com</span><br></pre></td></tr></table></figure></li>
+<li>服务器返回：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">HTTP&#x2F;1.1 101 Switching Protocols</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk&#x3D;</span><br><span class="line">Sec-WebSocket-Protocol: chat</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<p><em>参考：</em><br><a href="https://www.cnblogs.com/jieerma666/p/10342435.html" target="_blank" rel="noopener">用JAVA分别实现WebSocket客户端与服务端</a><br><a href="https://www.cnblogs.com/nnngu/p/9347635.html" target="_blank" rel="noopener">看完让你彻底理解 WebSocket 原理，附完整的实战代码</a></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -1224,6 +1225,70 @@
       </tags>
   </entry>
   <entry>
+    <title>hog特征</title>
+    <url>/2020/06/04/hog%E7%89%B9%E5%BE%81/</url>
+    <content><![CDATA[<h1 id="HOG特征"><a href="#HOG特征" class="headerlink" title="HOG特征"></a>HOG特征</h1><ul>
+<li><p>梯度计算</p>
+<ul>
+<li>分别计算水平、垂直梯度（将二维卷积转换为两个一维卷积）的幅值、方向；</li>
+<li>对于彩色图，选取梯度幅值最大的通道。</li>
+</ul>
+</li>
+<li><p>Block拆分</p>
+<ul>
+<li><p>16*16的Block，步长为8，50%的重合；</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/block.png" alt="block"></p>
+</li>
+<li><p>包含2*2个Cell；</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/cell.png" alt="cell"></p>
+</li>
+<li><p>每个Cell为8*8大小。</p>
+</li>
+</ul>
+</li>
+<li><p>计算每个Cell的梯度方向直方图</p>
+<ul>
+<li><p>9个方向bin(0-180)；</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/bin.png" alt="bin"></p>
+</li>
+<li><p>积累梯度幅值；<br>  <em>易受前景/背景对比度及局部光照影响</em>，需对局部细胞单元进行对比度归一化处理：将各Cell组合成大的、空间上连通的区间block，再进行归一化。</p>
+<p>  <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/hog%E5%BD%92%E4%B8%80%E5%8C%96%E5%A4%84%E7%90%86.png" alt="hog归一化处理"></p>
+</li>
+<li><p>使用位置高斯加权；</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BD%8D%E7%BD%AE%E9%AB%98%E6%96%AF%E5%8A%A0%E6%9D%83.png" alt="位置高斯加权"></p>
+</li>
+<li><p>相邻bin使用线性插值。</p>
+</li>
+</ul>
+</li>
+<li><p>串联所有Block直方图</p>
+</li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%B8%B2%E8%81%94Block.png" alt="串联Block"></p>
+<ul>
+<li>64*128大小图片；</li>
+<li>7*15=105个Block；</li>
+<li>105<em>(2</em>2)*9=3780维。</li>
+</ul>
+<h1 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/HOG%E6%AD%A5%E9%AA%A4.png" alt="HOG步骤"></p>
+<ol>
+<li>将整个图像进行Gamma空间、颜色归一化；</li>
+<li>计算图像梯度；</li>
+<li>构建方向的直方图；</li>
+<li>将细胞单元组成大的区间；</li>
+<li>收集HOG特征。</li>
+</ol>
+<p><em>行人HOG特征：</em></p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%A1%8C%E4%BA%BAHOG%E7%89%B9%E5%BE%81.png" alt="行人HOG特征"></p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>feature</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>kmeans聚类</title>
     <url>/2020/06/06/kmeans%E8%81%9A%E7%B1%BB/</url>
     <content><![CDATA[<h1 id="K-means"><a href="#K-means" class="headerlink" title="K-means"></a>K-means</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/K-means.png" alt="K-means"></p>
@@ -1292,102 +1357,6 @@
       <tags>
         <tag>mysql</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>hog特征</title>
-    <url>/2020/06/04/hog%E7%89%B9%E5%BE%81/</url>
-    <content><![CDATA[<h1 id="HOG特征"><a href="#HOG特征" class="headerlink" title="HOG特征"></a>HOG特征</h1><ul>
-<li><p>梯度计算</p>
-<ul>
-<li>分别计算水平、垂直梯度（将二维卷积转换为两个一维卷积）的幅值、方向；</li>
-<li>对于彩色图，选取梯度幅值最大的通道。</li>
-</ul>
-</li>
-<li><p>Block拆分</p>
-<ul>
-<li><p>16*16的Block，步长为8，50%的重合；</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/block.png" alt="block"></p>
-</li>
-<li><p>包含2*2个Cell；</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/cell.png" alt="cell"></p>
-</li>
-<li><p>每个Cell为8*8大小。</p>
-</li>
-</ul>
-</li>
-<li><p>计算每个Cell的梯度方向直方图</p>
-<ul>
-<li><p>9个方向bin(0-180)；</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/bin.png" alt="bin"></p>
-</li>
-<li><p>积累梯度幅值；<br>  <em>易受前景/背景对比度及局部光照影响</em>，需对局部细胞单元进行对比度归一化处理：将各Cell组合成大的、空间上连通的区间block，再进行归一化。</p>
-<p>  <img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/hog%E5%BD%92%E4%B8%80%E5%8C%96%E5%A4%84%E7%90%86.png" alt="hog归一化处理"></p>
-</li>
-<li><p>使用位置高斯加权；</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BD%8D%E7%BD%AE%E9%AB%98%E6%96%AF%E5%8A%A0%E6%9D%83.png" alt="位置高斯加权"></p>
-</li>
-<li><p>相邻bin使用线性插值。</p>
-</li>
-</ul>
-</li>
-<li><p>串联所有Block直方图</p>
-</li>
-</ul>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%B8%B2%E8%81%94Block.png" alt="串联Block"></p>
-<ul>
-<li>64*128大小图片；</li>
-<li>7*15=105个Block；</li>
-<li>105<em>(2</em>2)*9=3780维。</li>
-</ul>
-<h1 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/HOG%E6%AD%A5%E9%AA%A4.png" alt="HOG步骤"></p>
-<ol>
-<li>将整个图像进行Gamma空间、颜色归一化；</li>
-<li>计算图像梯度；</li>
-<li>构建方向的直方图；</li>
-<li>将细胞单元组成大的区间；</li>
-<li>收集HOG特征。</li>
-</ol>
-<p><em>行人HOG特征：</em></p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%A1%8C%E4%BA%BAHOG%E7%89%B9%E5%BE%81.png" alt="行人HOG特征"></p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>feature</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>runloop</title>
-    <url>/2020/07/29/runloop/</url>
-    <content><![CDATA[<h1 id="运行循环"><a href="#运行循环" class="headerlink" title="运行循环"></a>运行循环</h1><p>Runloop就是运行循环,每个线程内部都有一个运行循环，只有主线程的运行循环默认是开启的。<br>运行循环是一个<strong>死循环</strong>,只有满足一定条件才会结束循环。</p>
-<p>运行循环的作用：</p>
-<ol>
-<li>保证程序不退出，iOS的应用程序启动之后，之所以不会退出，就是因为有Runloop(运行循环)；</li>
-<li>负责处理输入事件；</li>
-<li>如果没有事件发生，会让程序进入休眠状态。</li>
-</ol>
-<p>Runloop接收的事件来自两种不同的来源：</p>
-<ul>
-<li>输入源(Input sources)：输入源传递异步事件，通常消息来自于其他线程或程序；</li>
-<li>定时源(Timer sounces)定时源则传递同步事件，发生在特定时间或者重复的时间间隔。</li>
-<li>两种源都使用程序的某一特定的处理例程来处理到达的事件。</li>
-</ul>
-<h2 id="runloop中的模式"><a href="#runloop中的模式" class="headerlink" title="runloop中的模式"></a>runloop中的模式</h2><p>model，是runloop里面的模式，不同的模式下的runloop处理的事件和消息有一定的差别。</p>
-<p>系统默认注册了5个Mode:</p>
-<ul>
-<li>kCFRunLoopDefaultMode: App的默认Mode，通常主线程是在这个Mode下运行的。</li>
-<li>UITrackingRunLoopMode: 界面跟踪Mode，用于ScrollView追踪触摸滑动，保证界面滑动时不受其他Mode影响。</li>
-<li>UIInitializationRunLoopMode: 在刚启动App时第进入的第一个Mode，启动完成后就不再使用。</li>
-<li>GSEventReceiveRunLoopMode: 接受系统事件的内部Mode，通常用不到。</li>
-<li>kCFRunLoopCommonModes: 这是一个占位的Mode，没有实际作用。</li>
-</ul>
-<p>ios对以上5中model进行了封装：NSDefaultRunLoopMode、NSRunLoopCommonModes。</p>
-<hr>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="https://www.cnblogs.com/damowangseven/p/5273319.html" target="_blank" rel="noopener">https://www.cnblogs.com/damowangseven/p/5273319.html</a></li>
-</ul>
-]]></content>
   </entry>
   <entry>
     <title>Redis持久化机制</title>
@@ -1511,6 +1480,73 @@
 <li><a href="https://www.jianshu.com/p/6264fa82ac33" target="_blank" rel="noopener">https://www.jianshu.com/p/6264fa82ac33</a></li>
 </ul>
 ]]></content>
+  </entry>
+  <entry>
+    <title>runloop</title>
+    <url>/2020/07/29/runloop/</url>
+    <content><![CDATA[<h1 id="运行循环"><a href="#运行循环" class="headerlink" title="运行循环"></a>运行循环</h1><p>Runloop就是运行循环,每个线程内部都有一个运行循环，只有主线程的运行循环默认是开启的。<br>运行循环是一个<strong>死循环</strong>,只有满足一定条件才会结束循环。</p>
+<p>运行循环的作用：</p>
+<ol>
+<li>保证程序不退出，iOS的应用程序启动之后，之所以不会退出，就是因为有Runloop(运行循环)；</li>
+<li>负责处理输入事件；</li>
+<li>如果没有事件发生，会让程序进入休眠状态。</li>
+</ol>
+<p>Runloop接收的事件来自两种不同的来源：</p>
+<ul>
+<li>输入源(Input sources)：输入源传递异步事件，通常消息来自于其他线程或程序；</li>
+<li>定时源(Timer sounces)定时源则传递同步事件，发生在特定时间或者重复的时间间隔。</li>
+<li>两种源都使用程序的某一特定的处理例程来处理到达的事件。</li>
+</ul>
+<h2 id="runloop中的模式"><a href="#runloop中的模式" class="headerlink" title="runloop中的模式"></a>runloop中的模式</h2><p>model，是runloop里面的模式，不同的模式下的runloop处理的事件和消息有一定的差别。</p>
+<p>系统默认注册了5个Mode:</p>
+<ul>
+<li>kCFRunLoopDefaultMode: App的默认Mode，通常主线程是在这个Mode下运行的。</li>
+<li>UITrackingRunLoopMode: 界面跟踪Mode，用于ScrollView追踪触摸滑动，保证界面滑动时不受其他Mode影响。</li>
+<li>UIInitializationRunLoopMode: 在刚启动App时第进入的第一个Mode，启动完成后就不再使用。</li>
+<li>GSEventReceiveRunLoopMode: 接受系统事件的内部Mode，通常用不到。</li>
+<li>kCFRunLoopCommonModes: 这是一个占位的Mode，没有实际作用。</li>
+</ul>
+<p>ios对以上5中model进行了封装：NSDefaultRunLoopMode、NSRunLoopCommonModes。</p>
+<hr>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://www.cnblogs.com/damowangseven/p/5273319.html" target="_blank" rel="noopener">https://www.cnblogs.com/damowangseven/p/5273319.html</a></li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>svm</title>
+    <url>/2020/06/02/svm/</url>
+    <content><![CDATA[<h1 id="basic-linear-SVM"><a href="#basic-linear-SVM" class="headerlink" title="basic linear SVM"></a>basic linear SVM</h1><p>最优分界面条件：</p>
+<ul>
+<li>支持向量机基本模型，是针对<strong>线性可分</strong>的情况下的<strong>最优分界面</strong>提出的；</li>
+<li>正类与反类训练样本<strong>可用超平面完全正确分开</strong>。</li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/svm%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B.png" alt="svm基本模型"></p>
+<p>支持向量：经过两类样本中距离最优分类面最近的点，且平行于最优分界面H1、H2(边界超平面)上的训练样本，即图中带圈的点。</p>
+<p>带约束的极值问题：<br>$$ min_{w,b} \frac{1}{2} {\Vert w \Vert}^2 $$<br>$$ s.t. y_i(w \cdot x_i + b) \geq 1 $$</p>
+<p><em>可通过拉格朗日乘数法并引入拉格朗日乘数，将该约束转化为一个对偶问题，通过寻求该对偶问题的最优解，可得原问题的最优解。</em></p>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="松弛变量"><a href="#松弛变量" class="headerlink" title="松弛变量"></a>松弛变量</h3><p>由于噪声或其它因素影响，两类数据可能有较少的融合或交叉。<br>引入松弛变量X使得分类器在训练后仍可存在一些错分样本，但要使两类样本间的间隔尽量大，使错分样本的松弛变量之和尽可能小。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%9D%BE%E5%BC%9B%E5%8F%98%E9%87%8F.png" alt="松弛变量"></p>
+<p>$$ min_{w,b} \frac{1}{2} {\Vert w \Vert}^2 + C \sum_i \xi_i $$<br>$$ s.t. y_i (w \cdot x_i + b) \geq 1 - \xi_i $$</p>
+<p>其中，x为松弛变量，满足$x_i \geq 0$；C为大于0的折衷因子，调和来间隔距离和错分样本数之间的关系。</p>
+<h3 id="映射到高维空间"><a href="#映射到高维空间" class="headerlink" title="映射到高维空间"></a>映射到高维空间</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E7%BB%B4%E7%A9%BA%E9%97%B4%E6%98%A0%E5%B0%841.png" alt="高维空间映射1"></p>
+<p>为解决线性不可分数据问题，将低维空间的线性不可分数据映射到高维的线性可分空间中。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E7%BB%B4%E7%A9%BA%E9%97%B4%E6%98%A0%E5%B0%842.png" alt="高维空间映射2"></p>
+<p>SVM通过非线性映射f(x)把数据由低维空间向高维空间映射，在高维空间为低维数据构造线性分离超平面。</p>
+<p>该分离超平面对应原特征空间上的一个分割超曲面。</p>
+<h2 id="用SVM区分行人与非行人HOG特征"><a href="#用SVM区分行人与非行人HOG特征" class="headerlink" title="用SVM区分行人与非行人HOG特征"></a>用SVM区分行人与非行人HOG特征</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/svm_hog.png" alt="svm_hog"></p>
+<h1 id="Multiple-instance-SVM"><a href="#Multiple-instance-SVM" class="headerlink" title="Multiple-instance SVM"></a>Multiple-instance SVM</h1><p>将标准SVM的最大化样本间距扩展为最大化样本集间距，即选取<strong>正样本集中最像正样本</strong>的样本用作训练，<strong>负样本中离分界面最近</strong>的负样本作为负样本。</p>
+<p>$$ min_{w,b,\xi} \frac{1}{2} {\Vert w \Vert}^2 + C \sum_I {\xi_I} $$<br>$$ s.t. \forall I : Y_I max_{i \in I}(&lt;w,x_i&gt;+b) \geq 1-\xi_I, \xi_I \geq 0 $$</p>
+<h1 id="Latent-SVM"><a href="#Latent-SVM" class="headerlink" title="Latent-SVM"></a>Latent-SVM</h1><p><em>Latent-SVM实质上与MI-SVM是一样的，只是扩展了Latent变量。</em></p>
+<p>Latent变量：MI-SVM决定正样本集中哪一个样本作为正样本，即一个latent变量，但这个变量的取值是正样本集中的序号。</p>
+<p>参考：<br><a href="https://blog.csdn.net/loadstar_kun/article/details/41145665" target="_blank" rel="noopener">https://blog.csdn.net/loadstar_kun/article/details/41145665</a></p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>分类器</tag>
+      </tags>
   </entry>
   <entry>
     <title>runtime</title>
@@ -1664,115 +1700,6 @@
       <categories>
         <category>ios</category>
       </categories>
-  </entry>
-  <entry>
-    <title>svm</title>
-    <url>/2020/06/02/svm/</url>
-    <content><![CDATA[<h1 id="basic-linear-SVM"><a href="#basic-linear-SVM" class="headerlink" title="basic linear SVM"></a>basic linear SVM</h1><p>最优分界面条件：</p>
-<ul>
-<li>支持向量机基本模型，是针对<strong>线性可分</strong>的情况下的<strong>最优分界面</strong>提出的；</li>
-<li>正类与反类训练样本<strong>可用超平面完全正确分开</strong>。</li>
-</ul>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/svm%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B.png" alt="svm基本模型"></p>
-<p>支持向量：经过两类样本中距离最优分类面最近的点，且平行于最优分界面H1、H2(边界超平面)上的训练样本，即图中带圈的点。</p>
-<p>带约束的极值问题：<br>$$ min_{w,b} \frac{1}{2} {\Vert w \Vert}^2 $$<br>$$ s.t. y_i(w \cdot x_i + b) \geq 1 $$</p>
-<p><em>可通过拉格朗日乘数法并引入拉格朗日乘数，将该约束转化为一个对偶问题，通过寻求该对偶问题的最优解，可得原问题的最优解。</em></p>
-<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="松弛变量"><a href="#松弛变量" class="headerlink" title="松弛变量"></a>松弛变量</h3><p>由于噪声或其它因素影响，两类数据可能有较少的融合或交叉。<br>引入松弛变量X使得分类器在训练后仍可存在一些错分样本，但要使两类样本间的间隔尽量大，使错分样本的松弛变量之和尽可能小。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%9D%BE%E5%BC%9B%E5%8F%98%E9%87%8F.png" alt="松弛变量"></p>
-<p>$$ min_{w,b} \frac{1}{2} {\Vert w \Vert}^2 + C \sum_i \xi_i $$<br>$$ s.t. y_i (w \cdot x_i + b) \geq 1 - \xi_i $$</p>
-<p>其中，x为松弛变量，满足$x_i \geq 0$；C为大于0的折衷因子，调和来间隔距离和错分样本数之间的关系。</p>
-<h3 id="映射到高维空间"><a href="#映射到高维空间" class="headerlink" title="映射到高维空间"></a>映射到高维空间</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E7%BB%B4%E7%A9%BA%E9%97%B4%E6%98%A0%E5%B0%841.png" alt="高维空间映射1"></p>
-<p>为解决线性不可分数据问题，将低维空间的线性不可分数据映射到高维的线性可分空间中。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E7%BB%B4%E7%A9%BA%E9%97%B4%E6%98%A0%E5%B0%842.png" alt="高维空间映射2"></p>
-<p>SVM通过非线性映射f(x)把数据由低维空间向高维空间映射，在高维空间为低维数据构造线性分离超平面。</p>
-<p>该分离超平面对应原特征空间上的一个分割超曲面。</p>
-<h2 id="用SVM区分行人与非行人HOG特征"><a href="#用SVM区分行人与非行人HOG特征" class="headerlink" title="用SVM区分行人与非行人HOG特征"></a>用SVM区分行人与非行人HOG特征</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/svm_hog.png" alt="svm_hog"></p>
-<h1 id="Multiple-instance-SVM"><a href="#Multiple-instance-SVM" class="headerlink" title="Multiple-instance SVM"></a>Multiple-instance SVM</h1><p>将标准SVM的最大化样本间距扩展为最大化样本集间距，即选取<strong>正样本集中最像正样本</strong>的样本用作训练，<strong>负样本中离分界面最近</strong>的负样本作为负样本。</p>
-<p>$$ min_{w,b,\xi} \frac{1}{2} {\Vert w \Vert}^2 + C \sum_I {\xi_I} $$<br>$$ s.t. \forall I : Y_I max_{i \in I}(&lt;w,x_i&gt;+b) \geq 1-\xi_I, \xi_I \geq 0 $$</p>
-<h1 id="Latent-SVM"><a href="#Latent-SVM" class="headerlink" title="Latent-SVM"></a>Latent-SVM</h1><p><em>Latent-SVM实质上与MI-SVM是一样的，只是扩展了Latent变量。</em></p>
-<p>Latent变量：MI-SVM决定正样本集中哪一个样本作为正样本，即一个latent变量，但这个变量的取值是正样本集中的序号。</p>
-<p>参考：<br><a href="https://blog.csdn.net/loadstar_kun/article/details/41145665" target="_blank" rel="noopener">https://blog.csdn.net/loadstar_kun/article/details/41145665</a></p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>分类器</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>swift中的图片管理</title>
-    <url>/2020/07/22/swift%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h1 id="Bundle"><a href="#Bundle" class="headerlink" title="Bundle"></a>Bundle</h1><p>使用ImageNamed方法生成的UIImage对象，会在应用的bundle中寻找，找到则Cache到系统缓存，作为内存的Cache(只能系统自动处理)；<br>当加载很多很大的图片时，内存消耗过大，会遇到<code>memory warnings</code>，从而强制释放内存。</p>
-<h1 id="xcassets"><a href="#xcassets" class="headerlink" title="xcassets"></a>xcassets</h1><p>注意事项：</p>
-<ul>
-<li>图片的大小要准确，不能出现图片太大的情况；</li>
-<li>不要存放大图，会产生缓存；</li>
-<li>不要存放JPEG格式的图片，会导致图片变大。</li>
-</ul>
-<p>Bundle和xcassets的主要区别：</p>
-<ul>
-<li>xcassets中的图片，只能通过imageNamed加载；Bundle还可通过imageWithContentsOfFile等方式加载；</li>
-<li>xcassets中的2x和3x，会根据具体设备分发，不会同时包含；Bundle则同时都包含；</li>
-<li>xcassets内可对图片进行剪裁和拉伸，Bundle不支持；</li>
-<li>Bundle支持多语言，而xcassets不支持；</li>
-</ul>
-<h1 id="释放图片内存"><a href="#释放图片内存" class="headerlink" title="释放图片内存"></a>释放图片内存</h1><p><code>[[UIImageView alloc] init]</code>返回的都是一些<strong>autorelease对象</strong>，当引用计数为0时不一定立即释放，但会在<strong>autoreleasepool</strong>结尾时释放。</p>
-<h1 id="SDWebImage"><a href="#SDWebImage" class="headerlink" title="SDWebImage"></a>SDWebImage</h1><p>SDWebImage具有缓存支持的异步映像下载程序。</p>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="https://www.jianshu.com/p/ca130b97446b" target="_blank" rel="noopener">https://www.jianshu.com/p/ca130b97446b</a></li>
-<li><a href="https://www.jianshu.com/p/efe8565c4218" target="_blank" rel="noopener">https://www.jianshu.com/p/efe8565c4218</a></li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>二进制运算</title>
-    <url>/2020/07/16/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BF%90%E7%AE%97/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">符号</th>
-<th align="center">名称</th>
-<th align="center">表示</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">&amp;</td>
-<td align="center">按位与</td>
-<td align="center">对应位均为1，才为1；否则为0</td>
-</tr>
-<tr>
-<td align="center">|</td>
-<td align="center">按位或</td>
-<td align="center">对应位有1，即为1；否则为0</td>
-</tr>
-<tr>
-<td align="center">^</td>
-<td align="center">按位异或</td>
-<td align="center">相同异或为1；不同异或为1</td>
-</tr>
-<tr>
-<td align="center">~</td>
-<td align="center">按位取反</td>
-<td align="center">1变0，0变1</td>
-</tr>
-<tr>
-<td align="center">&lt;&lt;</td>
-<td align="center">按位左移</td>
-<td align="center">左移，右边补0，相当*2</td>
-</tr>
-<tr>
-<td align="center">&gt;&gt;</td>
-<td align="center">有符号的右移</td>
-<td align="center">右移，左边补符号位，负数以原码形式参与运算</td>
-</tr>
-<tr>
-<td align="center">&gt;&gt;&gt;</td>
-<td align="center">无符号的右移</td>
-<td align="center">右移，左边补0，所有数据以无符号方式计算</td>
-</tr>
-</tbody></table>
-]]></content>
   </entry>
   <entry>
     <title>swift</title>
@@ -1970,6 +1897,80 @@
 ]]></content>
   </entry>
   <entry>
+    <title>swift中的图片管理</title>
+    <url>/2020/07/22/swift%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h1 id="Bundle"><a href="#Bundle" class="headerlink" title="Bundle"></a>Bundle</h1><p>使用ImageNamed方法生成的UIImage对象，会在应用的bundle中寻找，找到则Cache到系统缓存，作为内存的Cache(只能系统自动处理)；<br>当加载很多很大的图片时，内存消耗过大，会遇到<code>memory warnings</code>，从而强制释放内存。</p>
+<h1 id="xcassets"><a href="#xcassets" class="headerlink" title="xcassets"></a>xcassets</h1><p>注意事项：</p>
+<ul>
+<li>图片的大小要准确，不能出现图片太大的情况；</li>
+<li>不要存放大图，会产生缓存；</li>
+<li>不要存放JPEG格式的图片，会导致图片变大。</li>
+</ul>
+<p>Bundle和xcassets的主要区别：</p>
+<ul>
+<li>xcassets中的图片，只能通过imageNamed加载；Bundle还可通过imageWithContentsOfFile等方式加载；</li>
+<li>xcassets中的2x和3x，会根据具体设备分发，不会同时包含；Bundle则同时都包含；</li>
+<li>xcassets内可对图片进行剪裁和拉伸，Bundle不支持；</li>
+<li>Bundle支持多语言，而xcassets不支持；</li>
+</ul>
+<h1 id="释放图片内存"><a href="#释放图片内存" class="headerlink" title="释放图片内存"></a>释放图片内存</h1><p><code>[[UIImageView alloc] init]</code>返回的都是一些<strong>autorelease对象</strong>，当引用计数为0时不一定立即释放，但会在<strong>autoreleasepool</strong>结尾时释放。</p>
+<h1 id="SDWebImage"><a href="#SDWebImage" class="headerlink" title="SDWebImage"></a>SDWebImage</h1><p>SDWebImage具有缓存支持的异步映像下载程序。</p>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a href="https://www.jianshu.com/p/ca130b97446b" target="_blank" rel="noopener">https://www.jianshu.com/p/ca130b97446b</a></li>
+<li><a href="https://www.jianshu.com/p/efe8565c4218" target="_blank" rel="noopener">https://www.jianshu.com/p/efe8565c4218</a></li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>二进制运算</title>
+    <url>/2020/07/16/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BF%90%E7%AE%97/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">名称</th>
+<th align="center">表示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">&amp;</td>
+<td align="center">按位与</td>
+<td align="center">对应位均为1，才为1；否则为0</td>
+</tr>
+<tr>
+<td align="center">|</td>
+<td align="center">按位或</td>
+<td align="center">对应位有1，即为1；否则为0</td>
+</tr>
+<tr>
+<td align="center">^</td>
+<td align="center">按位异或</td>
+<td align="center">相同异或为1；不同异或为1</td>
+</tr>
+<tr>
+<td align="center">~</td>
+<td align="center">按位取反</td>
+<td align="center">1变0，0变1</td>
+</tr>
+<tr>
+<td align="center">&lt;&lt;</td>
+<td align="center">按位左移</td>
+<td align="center">左移，右边补0，相当*2</td>
+</tr>
+<tr>
+<td align="center">&gt;&gt;</td>
+<td align="center">有符号的右移</td>
+<td align="center">右移，左边补符号位，负数以原码形式参与运算</td>
+</tr>
+<tr>
+<td align="center">&gt;&gt;&gt;</td>
+<td align="center">无符号的右移</td>
+<td align="center">右移，左边补0，所有数据以无符号方式计算</td>
+</tr>
+</tbody></table>
+]]></content>
+  </entry>
+  <entry>
     <title>卷积神经网络</title>
     <url>/2020/06/08/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</url>
     <content><![CDATA[<h1 id="CNN基本组件"><a href="#CNN基本组件" class="headerlink" title="CNN基本组件"></a>CNN基本组件</h1><h2 id="卷积层-Convolutional-layer"><a href="#卷积层-Convolutional-layer" class="headerlink" title="卷积层 Convolutional_layer"></a>卷积层 Convolutional_layer</h2><p>用一个采样器从输入数据中采集关键数据内容；</p>
@@ -2085,6 +2086,37 @@
       </tags>
   </entry>
   <entry>
+    <title>图像增强</title>
+    <url>/2020/04/13/%E5%9B%BE%E5%83%8F%E5%A2%9E%E5%BC%BA/</url>
+    <content><![CDATA[<h1 id="图像增强目标"><a href="#图像增强目标" class="headerlink" title="图像增强目标"></a>图像增强目标</h1><ul>
+<li>改善图像视觉效果；</li>
+<li>抑制无用信息，提高图像的使用价值；</li>
+<li>转换为更适合人或机器分析处理的形式。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>图像增强</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>图像格式</title>
+    <url>/2020/06/05/%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="图片存储格式"><a href="#图片存储格式" class="headerlink" title="图片存储格式"></a>图片存储格式</h1><p>常用存储格式：<br>  bmp,jpg,png,tiff,gif,<br>  pcx,tga,exif,fpx,svg,<br>  psd,cdr,pcd,dxf,ufo,<br>  eps,ai,raw,WMF,webp等。</p>
+<ul>
+<li>BMP：采用位映射存储，占用空间大。</li>
+<li>JPG：常用有损压缩格式，压缩比例可达10:1-40:1。</li>
+<li>PNG：无损压缩图像文件格式，比GIF小30%。</li>
+<li>GIF：基于LZW算法的连续色调的无损压缩格式，压缩率一般在50%左右。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+  </entry>
+  <entry>
     <title>图像分类问题</title>
     <url>/2020/07/05/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<h1 id="CNN网络进化-结构演化"><a href="#CNN网络进化-结构演化" class="headerlink" title="CNN网络进化/结构演化"></a>CNN网络进化/结构演化</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/CNN%E7%BB%93%E6%9E%84%E6%BC%94%E5%8C%96.png" alt="CNN结构演化"></p>
@@ -2134,37 +2166,6 @@
 <li><a href="https://www.pianshen.com/article/2717286724/" target="_blank" rel="noopener">https://www.pianshen.com/article/2717286724/</a></li>
 </ul>
 ]]></content>
-  </entry>
-  <entry>
-    <title>图像增强</title>
-    <url>/2020/04/13/%E5%9B%BE%E5%83%8F%E5%A2%9E%E5%BC%BA/</url>
-    <content><![CDATA[<h1 id="图像增强目标"><a href="#图像增强目标" class="headerlink" title="图像增强目标"></a>图像增强目标</h1><ul>
-<li>改善图像视觉效果；</li>
-<li>抑制无用信息，提高图像的使用价值；</li>
-<li>转换为更适合人或机器分析处理的形式。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>图像增强</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>图像格式</title>
-    <url>/2020/06/05/%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F/</url>
-    <content><![CDATA[<h1 id="图片存储格式"><a href="#图片存储格式" class="headerlink" title="图片存储格式"></a>图片存储格式</h1><p>常用存储格式：<br>  bmp,jpg,png,tiff,gif,<br>  pcx,tga,exif,fpx,svg,<br>  psd,cdr,pcd,dxf,ufo,<br>  eps,ai,raw,WMF,webp等。</p>
-<ul>
-<li>BMP：采用位映射存储，占用空间大。</li>
-<li>JPG：常用有损压缩格式，压缩比例可达10:1-40:1。</li>
-<li>PNG：无损压缩图像文件格式，比GIF小30%。</li>
-<li>GIF：基于LZW算法的连续色调的无损压缩格式，压缩率一般在50%左右。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
   </entry>
   <entry>
     <title>图像特征</title>
@@ -2228,45 +2229,6 @@
       <tags>
         <tag>feature</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>图像颜色空间</title>
-    <url>/2020/04/25/%E5%9B%BE%E5%83%8F%E9%A2%9C%E8%89%B2%E7%A9%BA%E9%97%B4/</url>
-    <content><![CDATA[<h1 id="颜色空间"><a href="#颜色空间" class="headerlink" title="颜色空间"></a>颜色空间</h1><h2 id="RGB颜色空间"><a href="#RGB颜色空间" class="headerlink" title="RGB颜色空间"></a>RGB颜色空间</h2><p>三颜色通道：</p>
-<ul>
-<li>Red通道；</li>
-<li>Green通道；</li>
-<li>Blue通道。<br>一个像素颜色值为(b,g,r)，取值范围[0,255]或[0.0,1.0]<br>加法混色，用于彩色显示器。</li>
-</ul>
-<h2 id="CMY-K-颜色空间"><a href="#CMY-K-颜色空间" class="headerlink" title="CMY(K)颜色空间"></a>CMY(K)颜色空间</h2><p>四通道：</p>
-<ul>
-<li>Cyan通道；</li>
-<li>Magenta通道；</li>
-<li>Yellow通道；</li>
-<li>Key通道。<br>一个像素颜色值为(c,m,y,k)，取值范围[0,255]或[0.0,1.0]<br>减法混色，用于印刷。</li>
-</ul>
-<h2 id="HSV颜色空间"><a href="#HSV颜色空间" class="headerlink" title="HSV颜色空间"></a>HSV颜色空间</h2><p>三要素：</p>
-<ul>
-<li>H/Hue：色调，颜色种类；</li>
-<li>S/Saturation：饱和度，颜色纯度；</li>
-<li>V/Value：明亮度，颜色明亮度。<br>一个像素颜色值为(h,s,v)，取值范围[0,255]或[0.0,1.0]<br>符合人类视觉概念，用于画家调色。</li>
-</ul>
-<h2 id="CIE-XYZ颜色空间"><a href="#CIE-XYZ颜色空间" class="headerlink" title="CIE-XYZ颜色空间"></a>CIE-XYZ颜色空间</h2><p>基于人类颜色视觉的直接测定，是其他颜色空间的基础。于1931年由国际照明协会定义。</p>
-<p>3颜色刺激值通道：</p>
-<ul>
-<li>X，Y，Z：基本对应R，G，B；</li>
-<li>一种波的刺激等于几种波的刺激整合。</li>
-</ul>
-<p>人类视觉系统（视锥细胞）：</p>
-<ul>
-<li>短波（S,420-440nm）；</li>
-<li>中波（M,530-540nm）；</li>
-<li>长波（L,560-580nm）。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
   </entry>
   <entry>
     <title>图像特征表示</title>
@@ -2351,6 +2313,45 @@
       <tags>
         <tag>feature</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>图像颜色空间</title>
+    <url>/2020/04/25/%E5%9B%BE%E5%83%8F%E9%A2%9C%E8%89%B2%E7%A9%BA%E9%97%B4/</url>
+    <content><![CDATA[<h1 id="颜色空间"><a href="#颜色空间" class="headerlink" title="颜色空间"></a>颜色空间</h1><h2 id="RGB颜色空间"><a href="#RGB颜色空间" class="headerlink" title="RGB颜色空间"></a>RGB颜色空间</h2><p>三颜色通道：</p>
+<ul>
+<li>Red通道；</li>
+<li>Green通道；</li>
+<li>Blue通道。<br>一个像素颜色值为(b,g,r)，取值范围[0,255]或[0.0,1.0]<br>加法混色，用于彩色显示器。</li>
+</ul>
+<h2 id="CMY-K-颜色空间"><a href="#CMY-K-颜色空间" class="headerlink" title="CMY(K)颜色空间"></a>CMY(K)颜色空间</h2><p>四通道：</p>
+<ul>
+<li>Cyan通道；</li>
+<li>Magenta通道；</li>
+<li>Yellow通道；</li>
+<li>Key通道。<br>一个像素颜色值为(c,m,y,k)，取值范围[0,255]或[0.0,1.0]<br>减法混色，用于印刷。</li>
+</ul>
+<h2 id="HSV颜色空间"><a href="#HSV颜色空间" class="headerlink" title="HSV颜色空间"></a>HSV颜色空间</h2><p>三要素：</p>
+<ul>
+<li>H/Hue：色调，颜色种类；</li>
+<li>S/Saturation：饱和度，颜色纯度；</li>
+<li>V/Value：明亮度，颜色明亮度。<br>一个像素颜色值为(h,s,v)，取值范围[0,255]或[0.0,1.0]<br>符合人类视觉概念，用于画家调色。</li>
+</ul>
+<h2 id="CIE-XYZ颜色空间"><a href="#CIE-XYZ颜色空间" class="headerlink" title="CIE-XYZ颜色空间"></a>CIE-XYZ颜色空间</h2><p>基于人类颜色视觉的直接测定，是其他颜色空间的基础。于1931年由国际照明协会定义。</p>
+<p>3颜色刺激值通道：</p>
+<ul>
+<li>X，Y，Z：基本对应R，G，B；</li>
+<li>一种波的刺激等于几种波的刺激整合。</li>
+</ul>
+<p>人类视觉系统（视锥细胞）：</p>
+<ul>
+<li>短波（S,420-440nm）；</li>
+<li>中波（M,530-540nm）；</li>
+<li>长波（L,560-580nm）。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
   </entry>
   <entry>
     <title>图论</title>
@@ -2756,6 +2757,69 @@
       </categories>
   </entry>
   <entry>
+    <title>服务器连接</title>
+    <url>/2020/03/09/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE/</url>
+    <content><![CDATA[<h1 id="ssh远程连接（无需输入密码）"><a href="#ssh远程连接（无需输入密码）" class="headerlink" title="ssh远程连接（无需输入密码）"></a>ssh远程连接（无需输入密码）</h1><ol>
+<li><p>确保已经有生成有SSH公钥：<br>进入 <code>~/.ssh</code> 可看到有 <code>id_rsa</code> 和 <code>id_rsa.pub</code> ，其中 <code>id_rsa.pub</code> 为公钥。<br>若没有，运行：<code>ssh-keygen -t rsa -C &quot;***@gmail.com&quot;</code> 或 <code>ssh-keygen</code></p>
+</li>
+<li><p>将本电脑公钥发送到服务器端：<br><code>ssh-copy-id username@144.202.***.***</code></p>
+</li>
+<li><p>验证：<br><code>ssh &#39;username@144.202.***.***&#39;</code><br>自动连接！</p>
+</li>
+</ol>
+<ul>
+<li>若使用该方式后重置，再次连接时，会出现 <code>Host key verfication failed</code> 情况，使用 <code>ssh-keygen -R ip地址</code> 清除。</li>
+</ul>
+<h1 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h1><ol>
+<li><p>上传本地文件夹到服务器<br><code>scp -P port -r LocalWorkSpaces username@IP:WorkSpaces</code></p>
+</li>
+<li><p>下载服务器文件夹到本地<br><code>scp -P port -r username@IP:WorkSpaces LocalWorkSpaces</code> </p>
+</li>
+<li><p>上传本地文件到服务器<br><code>scp -P port file username@IP:WorkSpaces</code></p>
+</li>
+<li><p>下载服务器文件到本地<br><code>scp -P port 用户名@IP:file LocalWorkSpaces</code> </p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>remote</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数学公式</title>
+    <url>/2020/04/25/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="欧拉公式"><a href="#欧拉公式" class="headerlink" title="欧拉公式"></a>欧拉公式</h1><p>$e^{ix} = cos{x} + isin{x}$</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F.png" alt="欧拉公式"></p>
+<h1 id="链式求导法则"><a href="#链式求导法则" class="headerlink" title="链式求导法则"></a>链式求导法则</h1><p>$$(f(g(x)))’ = f’(g(x)) g’(x)$$</p>
+<p>或</p>
+<p>$$\frac{dy}{dx} = \frac{dy}{dz} \cdot \frac{dz}{dx}$$</p>
+<h1 id="极大似然估计MLE"><a href="#极大似然估计MLE" class="headerlink" title="极大似然估计MLE"></a>极大似然估计MLE</h1><ol>
+<li>样本集中的样本都是独立同分布iid的，可以只考虑一类样本集D，来估计参数向量$\theta$。</li>
+</ol>
+<p>$D = {x_1, x_2, … ,x_N}$</p>
+<ol start="2">
+<li>似然函数(likelihood function)：联合概率密度函数$p(D| \theta )$称为相对于$\theta$的似然函数。</li>
+</ol>
+<p>$l(\theta) = p(D|\theta) = p(x_1, x_2,…,x_N | \theta) = \prod_{i=1}^N p(x_i | \theta)$</p>
+<p>当$\widehat{\theta}$是参数空间中<strong>使似然函数最大的$\widehat{\theta}$值</strong>，那么，$\widehat{\theta}$很可能是最可能的参数值，则$\widehat{\theta}$为$\theta$的极大似然估计量。</p>
+<ol start="3">
+<li>MLE：求解使得出现该组样本的概率最大的$\theta$值。</li>
+</ol>
+<p>$$\widehat{\theta} = arg\underset{\theta}max l(\theta) = arg\underset{\theta}max \prod_{i=1}^N p(x_i | \theta)$$</p>
+<ol start="4">
+<li>对数似然函数（便于分析）</li>
+</ol>
+<p>$$\widehat{\theta} = arg\underset{\theta}max H(\theta) = arg\underset{\theta}max ln l(\theta) = arg\underset{\theta}max \sum_{i=1}^N ln p(x_i|\theta)$$</p>
+<h1 id="Lipschitz连续"><a href="#Lipschitz连续" class="headerlink" title="Lipschitz连续"></a>Lipschitz连续</h1><p>在一个连续函数f上面额外施加一个限制，要求存在一个常数$K \geq 0$，使得定义域内的任意两个元素$x_1$和$x_2$都满足$|f(x_1) - f(x_2)| \leq K|x_1 - x_2|$，即f的导数的绝对值不超过K。</p>
+]]></content>
+      <categories>
+        <category>Math</category>
+      </categories>
+  </entry>
+  <entry>
     <title>排序算法</title>
     <url>/2020/03/12/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><p>稳定性：</p>
@@ -2968,69 +3032,6 @@
       </categories>
   </entry>
   <entry>
-    <title>服务器连接</title>
-    <url>/2020/03/09/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE/</url>
-    <content><![CDATA[<h1 id="ssh远程连接（无需输入密码）"><a href="#ssh远程连接（无需输入密码）" class="headerlink" title="ssh远程连接（无需输入密码）"></a>ssh远程连接（无需输入密码）</h1><ol>
-<li><p>确保已经有生成有SSH公钥：<br>进入 <code>~/.ssh</code> 可看到有 <code>id_rsa</code> 和 <code>id_rsa.pub</code> ，其中 <code>id_rsa.pub</code> 为公钥。<br>若没有，运行：<code>ssh-keygen -t rsa -C &quot;***@gmail.com&quot;</code> 或 <code>ssh-keygen</code></p>
-</li>
-<li><p>将本电脑公钥发送到服务器端：<br><code>ssh-copy-id username@144.202.***.***</code></p>
-</li>
-<li><p>验证：<br><code>ssh &#39;username@144.202.***.***&#39;</code><br>自动连接！</p>
-</li>
-</ol>
-<ul>
-<li>若使用该方式后重置，再次连接时，会出现 <code>Host key verfication failed</code> 情况，使用 <code>ssh-keygen -R ip地址</code> 清除。</li>
-</ul>
-<h1 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h1><ol>
-<li><p>上传本地文件夹到服务器<br><code>scp -P port -r LocalWorkSpaces username@IP:WorkSpaces</code></p>
-</li>
-<li><p>下载服务器文件夹到本地<br><code>scp -P port -r username@IP:WorkSpaces LocalWorkSpaces</code> </p>
-</li>
-<li><p>上传本地文件到服务器<br><code>scp -P port file username@IP:WorkSpaces</code></p>
-</li>
-<li><p>下载服务器文件到本地<br><code>scp -P port 用户名@IP:file LocalWorkSpaces</code> </p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>remote</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数学公式</title>
-    <url>/2020/04/25/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/</url>
-    <content><![CDATA[<h1 id="欧拉公式"><a href="#欧拉公式" class="headerlink" title="欧拉公式"></a>欧拉公式</h1><p>$e^{ix} = cos{x} + isin{x}$</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F.png" alt="欧拉公式"></p>
-<h1 id="链式求导法则"><a href="#链式求导法则" class="headerlink" title="链式求导法则"></a>链式求导法则</h1><p>$$(f(g(x)))’ = f’(g(x)) g’(x)$$</p>
-<p>或</p>
-<p>$$\frac{dy}{dx} = \frac{dy}{dz} \cdot \frac{dz}{dx}$$</p>
-<h1 id="极大似然估计MLE"><a href="#极大似然估计MLE" class="headerlink" title="极大似然估计MLE"></a>极大似然估计MLE</h1><ol>
-<li>样本集中的样本都是独立同分布iid的，可以只考虑一类样本集D，来估计参数向量$\theta$。</li>
-</ol>
-<p>$D = {x_1, x_2, … ,x_N}$</p>
-<ol start="2">
-<li>似然函数(likelihood function)：联合概率密度函数$p(D| \theta )$称为相对于$\theta$的似然函数。</li>
-</ol>
-<p>$l(\theta) = p(D|\theta) = p(x_1, x_2,…,x_N | \theta) = \prod_{i=1}^N p(x_i | \theta)$</p>
-<p>当$\widehat{\theta}$是参数空间中<strong>使似然函数最大的$\widehat{\theta}$值</strong>，那么，$\widehat{\theta}$很可能是最可能的参数值，则$\widehat{\theta}$为$\theta$的极大似然估计量。</p>
-<ol start="3">
-<li>MLE：求解使得出现该组样本的概率最大的$\theta$值。</li>
-</ol>
-<p>$$\widehat{\theta} = arg\underset{\theta}max l(\theta) = arg\underset{\theta}max \prod_{i=1}^N p(x_i | \theta)$$</p>
-<ol start="4">
-<li>对数似然函数（便于分析）</li>
-</ol>
-<p>$$\widehat{\theta} = arg\underset{\theta}max H(\theta) = arg\underset{\theta}max ln l(\theta) = arg\underset{\theta}max \sum_{i=1}^N ln p(x_i|\theta)$$</p>
-<h1 id="Lipschitz连续"><a href="#Lipschitz连续" class="headerlink" title="Lipschitz连续"></a>Lipschitz连续</h1><p>在一个连续函数f上面额外施加一个限制，要求存在一个常数$K \geq 0$，使得定义域内的任意两个元素$x_1$和$x_2$都满足$|f(x_1) - f(x_2)| \leq K|x_1 - x_2|$，即f的导数的绝对值不超过K。</p>
-]]></content>
-      <categories>
-        <category>Math</category>
-      </categories>
-  </entry>
-  <entry>
     <title>深度学习</title>
     <url>/2020/06/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<h1 id="深度学习与神经网络的区别"><a href="#深度学习与神经网络的区别" class="headerlink" title="深度学习与神经网络的区别"></a>深度学习与神经网络的区别</h1><ul>
@@ -3087,27 +3088,6 @@
       </categories>
   </entry>
   <entry>
-    <title>熵</title>
-    <url>/2020/06/27/%E7%86%B5/</url>
-    <content><![CDATA[<h1 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h1><ul>
-<li>假设一个样本集中有<strong>两个概率分布p、q</strong>，其中p为真实分布，q为非真实分布；</li>
-<li>按照真实分布p来衡量识别一个样本所需要的编码长度的期望为：$$\sum_i p(i) \cdot log(\frac{1}{p(i)})$$</li>
-<li>按照错误分布q表示来自真实分布p的平均编码长度的期望为：$$\sum_i p(i) \cdot log(\frac{1}{q(i)})$$</li>
-<li>$H(p,q)$称之为交叉熵。</li>
-</ul>
-<h1 id="相对熵-KL散度"><a href="#相对熵-KL散度" class="headerlink" title="相对熵/KL散度"></a>相对熵/KL散度</h1><p>KL散度，是两个概率分布P和Q差别的非对称性的度量。</p>
-<p>通常情况下，</p>
-<ul>
-<li>P表示数据的真实分布；</li>
-<li>Q表示数据的理论分布（模型分布、P的近似分布）$D(P||Q) = \sum P(x) log \frac{P(x)}{Q(x)}$ 。</li>
-</ul>
-<p>KL散度<strong>不对称</strong>，不满足距离的性质，即$D_{KL}(P||Q) \neq D_{KL}(Q||P)$ 。</p>
-<h1 id="JS散度"><a href="#JS散度" class="headerlink" title="JS散度"></a>JS散度</h1><p>JS散度，度量两个概率分布的相似度；是基于KL散度的变体，解决了KL散度非对称性的问题。</p>
-<p>$$JS(P||Q) = \frac{1}{2} KL(P(x)||\frac{P(x)+Q(x)}{2}) + \frac{1}{2} KL(Q(x)||\frac{P(x)+Q(x)}{2})$$</p>
-<p>KL散度具有对称性，其取值区间为[0,1]。</p>
-]]></content>
-  </entry>
-  <entry>
     <title>激活函数</title>
     <url>/2020/06/05/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/</url>
     <content><![CDATA[<h1 id="sigmoid"><a href="#sigmoid" class="headerlink" title="sigmoid"></a>sigmoid</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/sigmoid.jpg" alt="sigmoid"></p>
@@ -3141,6 +3121,27 @@
       <categories>
         <category>deeplearning</category>
       </categories>
+  </entry>
+  <entry>
+    <title>熵</title>
+    <url>/2020/06/27/%E7%86%B5/</url>
+    <content><![CDATA[<h1 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h1><ul>
+<li>假设一个样本集中有<strong>两个概率分布p、q</strong>，其中p为真实分布，q为非真实分布；</li>
+<li>按照真实分布p来衡量识别一个样本所需要的编码长度的期望为：$$\sum_i p(i) \cdot log(\frac{1}{p(i)})$$</li>
+<li>按照错误分布q表示来自真实分布p的平均编码长度的期望为：$$\sum_i p(i) \cdot log(\frac{1}{q(i)})$$</li>
+<li>$H(p,q)$称之为交叉熵。</li>
+</ul>
+<h1 id="相对熵-KL散度"><a href="#相对熵-KL散度" class="headerlink" title="相对熵/KL散度"></a>相对熵/KL散度</h1><p>KL散度，是两个概率分布P和Q差别的非对称性的度量。</p>
+<p>通常情况下，</p>
+<ul>
+<li>P表示数据的真实分布；</li>
+<li>Q表示数据的理论分布（模型分布、P的近似分布）$D(P||Q) = \sum P(x) log \frac{P(x)}{Q(x)}$ 。</li>
+</ul>
+<p>KL散度<strong>不对称</strong>，不满足距离的性质，即$D_{KL}(P||Q) \neq D_{KL}(Q||P)$ 。</p>
+<h1 id="JS散度"><a href="#JS散度" class="headerlink" title="JS散度"></a>JS散度</h1><p>JS散度，度量两个概率分布的相似度；是基于KL散度的变体，解决了KL散度非对称性的问题。</p>
+<p>$$JS(P||Q) = \frac{1}{2} KL(P(x)||\frac{P(x)+Q(x)}{2}) + \frac{1}{2} KL(Q(x)||\frac{P(x)+Q(x)}{2})$$</p>
+<p>KL散度具有对称性，其取值区间为[0,1]。</p>
+]]></content>
   </entry>
   <entry>
     <title>生成对抗网络</title>

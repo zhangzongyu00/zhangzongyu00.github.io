@@ -224,7 +224,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-30 00:00:33" itemprop="dateModified" datetime="2020-07-30T00:00:33+08:00">2020-07-30</time>
+                <time title="修改时间：2020-07-30 00:07:46" itemprop="dateModified" datetime="2020-07-30T00:07:46+08:00">2020-07-30</time>
               </span>
 
           
@@ -348,6 +348,7 @@
 </ul>
 <p><strong>重量级锁会让它申请的线程进入阻塞，性能降低。</strong></p>
 <h2 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h2><p>指尝试获取锁的线程不会立即阻塞，而是采用<strong>循环</strong>的方式去尝试获取锁。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%87%AA%E6%97%8B%E9%94%81%E4%BC%98%E5%85%88%E7%BA%A7%E5%8F%8D%E8%BD%AC.png" alt="自旋锁优先级反转"></p>
 <p>优点：减少线程上下文切换的消耗；<br>缺点：循环会消耗CPU。</p>
 <hr>
 <h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
