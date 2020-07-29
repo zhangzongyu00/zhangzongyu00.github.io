@@ -469,40 +469,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Java测试</title>
-    <url>/2020/03/10/Java%E6%B5%8B%E8%AF%95/</url>
-    <content><![CDATA[<h1 id="开发者测试"><a href="#开发者测试" class="headerlink" title="开发者测试"></a>开发者测试</h1><p><em>插件 eclemma查询覆盖率，最新版eclipse已内置</em></p>
-<h2 id="利用junit进行测试，使用assert断言进行变异测试"><a href="#利用junit进行测试，使用assert断言进行变异测试" class="headerlink" title="利用junit进行测试，使用assert断言进行变异测试"></a>利用junit进行测试，使用assert断言进行变异测试</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Junit%E6%B5%8B%E8%AF%95.png" alt="Junit测试"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void testNextDay() &#123;</span><br><span class="line">	assertEquals(10&#x2F;15&#x2F;2019,10&#x2F;14,2019);</span><br><span class="line">	assertEquals(11&#x2F;1&#x2F;2019,10&#x2F;31,2019);</span><br><span class="line">	assertEquals(2&#x2F;29&#x2F;2000,2&#x2F;28,2000);</span><br><span class="line">	assertEquals(2&#x2F;29&#x2F;2004,2&#x2F;28,2004);</span><br><span class="line">	assertEquals(3&#x2F;1&#x2F;2001,2&#x2F;28,2001);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Test(expected&#x3D;ArithmeticException.class)</span><br><span class="line">&#x2F;&#x2F;抛出异常</span><br><span class="line">@Test(timeout&#x3D;毫秒)</span><br><span class="line">&#x2F;&#x2F;针对死循环进行测试</span><br><span class="line"></span><br><span class="line">@BeforeClass</span><br><span class="line">@AfterClass</span><br><span class="line">&#x2F;&#x2F;最先执行，static修饰</span><br><span class="line"></span><br><span class="line">@Before</span><br><span class="line">@After</span><br><span class="line">&#x2F;&#x2F;每个方法单独运行</span><br><span class="line">@Ignore</span><br><span class="line">&#x2F;&#x2F;该测试方法会被忽略</span><br><span class="line"></span><br><span class="line">@RunWith</span><br><span class="line">&#x2F;&#x2F;更改测试运行器org.junit.runner.Runner</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="移动应用测试"><a href="#移动应用测试" class="headerlink" title="移动应用测试"></a>移动应用测试</h1><h2 id="配置appium"><a href="#配置appium" class="headerlink" title="配置appium"></a>配置appium</h2><p>终端打开，输入：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb devices</span><br><span class="line">adb connect xxx.xxx.xxx.xxx:5555</span><br></pre></td></tr></table></figure>
-<p>将app的环境配置复制到appium中进行启动会话；</p>
-<h2 id="利用Android-SDK中的UI工具进行组建-控件的查询"><a href="#利用Android-SDK中的UI工具进行组建-控件的查询" class="headerlink" title="利用Android SDK中的UI工具进行组建/控件的查询"></a>利用Android SDK中的UI工具进行组建/控件的查询</h2><p><em>与appium兼容性很差，经常需要关闭appium后再打开</em></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;通过id获取组件</span><br><span class="line">driver.findElementById(&quot;cn.etouch.ecalendar:id&#x2F;rl_toutiao_img&quot;).click();</span><br><span class="line">&#x2F;&#x2F;通过XPath获取组件</span><br><span class="line">driver.findElementByXPath(&quot;&#x2F;&#x2F;android.widget.TextView[@text&#x3D;&#39;头条&#39;]&quot;).click();</span><br><span class="line">driver.findElementById(&quot;cn.etouch.ecalendar:id&#x2F;fl_refresh_icon&quot;).click();</span><br><span class="line">&#x2F;&#x2F;返回</span><br><span class="line">driver.sendKeyEvent(AndroidKeyCode.BACK);</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="自主可控测试"><a href="#自主可控测试" class="headerlink" title="自主可控测试"></a>自主可控测试</h1><h2 id="功能测试"><a href="#功能测试" class="headerlink" title="功能测试"></a>功能测试</h2><ul>
-<li>eclipse:<br>  driver.get(“url”);<br>  Thread.sleep(1000);</li>
-<li>word:<br>  打开操作文档，按要求查找网页中对应的元素进行输入等操作；</li>
-<li>chrome:<br>  F12 检索页面元素，获取元素xpath；</li>
-<li>eclipse:<br>  driver.findElement(By.xpath(“//*[@id=&quot;username&quot;]”)).sendKeys(“username”);</li>
-</ul>
-<h2 id="性能测试："><a href="#性能测试：" class="headerlink" title="性能测试："></a>性能测试：</h2><ul>
-<li>badboy录制脚本：<br>  输入网址，对测试部分进行录制，导出为jmeter文件</li>
-<li>JMeter:<br>  打开录制好的文件，更改名称，更改线程组相关设置，左侧右键add-&gt;LogicController-&gt;TransactionController;将Step移动到Transaction下面，在最后一个操作右键add-&gt;Timer-&gt;SynchronizingTimer;修改组人数为10；在最后操作上进行参数化设置${name}；</li>
-<li>创建csv文件：<br>  在文件右键add-&gt;ConfigElement-&gt;CSVDataSetConfig;修改VariableNames为对应的名称即可。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java框架</title>
     <url>/2020/03/10/Java%E6%A1%86%E6%9E%B6/</url>
     <content><![CDATA[<h1 id="Java集合框架图"><a href="#Java集合框架图" class="headerlink" title="Java集合框架图"></a>Java集合框架图</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E5%9B%BE.png" alt="Java集合框架图"></p>
@@ -594,6 +560,69 @@
 <li><a href="https://www.runoob.com/java/java-collections.html" target="_blank" rel="noopener">https://www.runoob.com/java/java-collections.html</a></li>
 <li><a href="https://www.cnblogs.com/williamjie/p/11458835.html" target="_blank" rel="noopener">https://www.cnblogs.com/williamjie/p/11458835.html</a></li>
 </ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java测试</title>
+    <url>/2020/03/10/Java%E6%B5%8B%E8%AF%95/</url>
+    <content><![CDATA[<h1 id="开发者测试"><a href="#开发者测试" class="headerlink" title="开发者测试"></a>开发者测试</h1><p><em>插件 eclemma查询覆盖率，最新版eclipse已内置</em></p>
+<h2 id="利用junit进行测试，使用assert断言进行变异测试"><a href="#利用junit进行测试，使用assert断言进行变异测试" class="headerlink" title="利用junit进行测试，使用assert断言进行变异测试"></a>利用junit进行测试，使用assert断言进行变异测试</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/Junit%E6%B5%8B%E8%AF%95.png" alt="Junit测试"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void testNextDay() &#123;</span><br><span class="line">	assertEquals(10&#x2F;15&#x2F;2019,10&#x2F;14,2019);</span><br><span class="line">	assertEquals(11&#x2F;1&#x2F;2019,10&#x2F;31,2019);</span><br><span class="line">	assertEquals(2&#x2F;29&#x2F;2000,2&#x2F;28,2000);</span><br><span class="line">	assertEquals(2&#x2F;29&#x2F;2004,2&#x2F;28,2004);</span><br><span class="line">	assertEquals(3&#x2F;1&#x2F;2001,2&#x2F;28,2001);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Test(expected&#x3D;ArithmeticException.class)</span><br><span class="line">&#x2F;&#x2F;抛出异常</span><br><span class="line">@Test(timeout&#x3D;毫秒)</span><br><span class="line">&#x2F;&#x2F;针对死循环进行测试</span><br><span class="line"></span><br><span class="line">@BeforeClass</span><br><span class="line">@AfterClass</span><br><span class="line">&#x2F;&#x2F;最先执行，static修饰</span><br><span class="line"></span><br><span class="line">@Before</span><br><span class="line">@After</span><br><span class="line">&#x2F;&#x2F;每个方法单独运行</span><br><span class="line">@Ignore</span><br><span class="line">&#x2F;&#x2F;该测试方法会被忽略</span><br><span class="line"></span><br><span class="line">@RunWith</span><br><span class="line">&#x2F;&#x2F;更改测试运行器org.junit.runner.Runner</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="移动应用测试"><a href="#移动应用测试" class="headerlink" title="移动应用测试"></a>移动应用测试</h1><h2 id="配置appium"><a href="#配置appium" class="headerlink" title="配置appium"></a>配置appium</h2><p>终端打开，输入：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb devices</span><br><span class="line">adb connect xxx.xxx.xxx.xxx:5555</span><br></pre></td></tr></table></figure>
+<p>将app的环境配置复制到appium中进行启动会话；</p>
+<h2 id="利用Android-SDK中的UI工具进行组建-控件的查询"><a href="#利用Android-SDK中的UI工具进行组建-控件的查询" class="headerlink" title="利用Android SDK中的UI工具进行组建/控件的查询"></a>利用Android SDK中的UI工具进行组建/控件的查询</h2><p><em>与appium兼容性很差，经常需要关闭appium后再打开</em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;通过id获取组件</span><br><span class="line">driver.findElementById(&quot;cn.etouch.ecalendar:id&#x2F;rl_toutiao_img&quot;).click();</span><br><span class="line">&#x2F;&#x2F;通过XPath获取组件</span><br><span class="line">driver.findElementByXPath(&quot;&#x2F;&#x2F;android.widget.TextView[@text&#x3D;&#39;头条&#39;]&quot;).click();</span><br><span class="line">driver.findElementById(&quot;cn.etouch.ecalendar:id&#x2F;fl_refresh_icon&quot;).click();</span><br><span class="line">&#x2F;&#x2F;返回</span><br><span class="line">driver.sendKeyEvent(AndroidKeyCode.BACK);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="自主可控测试"><a href="#自主可控测试" class="headerlink" title="自主可控测试"></a>自主可控测试</h1><h2 id="功能测试"><a href="#功能测试" class="headerlink" title="功能测试"></a>功能测试</h2><ul>
+<li>eclipse:<br>  driver.get(“url”);<br>  Thread.sleep(1000);</li>
+<li>word:<br>  打开操作文档，按要求查找网页中对应的元素进行输入等操作；</li>
+<li>chrome:<br>  F12 检索页面元素，获取元素xpath；</li>
+<li>eclipse:<br>  driver.findElement(By.xpath(“//*[@id=&quot;username&quot;]”)).sendKeys(“username”);</li>
+</ul>
+<h2 id="性能测试："><a href="#性能测试：" class="headerlink" title="性能测试："></a>性能测试：</h2><ul>
+<li>badboy录制脚本：<br>  输入网址，对测试部分进行录制，导出为jmeter文件</li>
+<li>JMeter:<br>  打开录制好的文件，更改名称，更改线程组相关设置，左侧右键add-&gt;LogicController-&gt;TransactionController;将Step移动到Transaction下面，在最后一个操作右键add-&gt;Timer-&gt;SynchronizingTimer;修改组人数为10；在最后操作上进行参数化设置${name}；</li>
+<li>创建csv文件：<br>  在文件右键add-&gt;ConfigElement-&gt;CSVDataSetConfig;修改VariableNames为对应的名称即可。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java编程</title>
+    <url>/2020/03/10/Java%E7%BC%96%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h1><h2 id="websocket：持久化协议"><a href="#websocket：持久化协议" class="headerlink" title="websocket：持久化协议"></a>websocket：持久化协议</h2><p>实现服务器端主动向客户端推送信息，客户端也可主动向服务器发送请求，实现双向对话。<br>具体来讲，就是先通过客户端使用http协议向服务器发送请求，建立长链接；建立长链接之后，服务器即可主动向客户端发送消息；确定一个时间，经过该时间后，客户端向服务器发送请求确认，避免该🔗断开。</p>
+<p><em>为了兼容浏览器，在握手阶段使用HTTP协议。</em></p>
+<ul>
+<li>websocket建立在TCP协议上，服务器端端实现较容易；</li>
+<li>与HTTP协议兼容性较好，默认端口为80或443，可通过http代理的服务器；</li>
+<li>数据格式轻量，性能开销较小，通信高效；</li>
+<li>可以发送文本，也可以发送二进制数据；</li>
+<li>没有同源限制，客户端可以与任意服务器通信；</li>
+<li>协议表示符是ws，若需🔐，使用wss，服务器网址为url。</li>
+</ul>
+<h2 id="典型的websocket🤝"><a href="#典型的websocket🤝" class="headerlink" title="典型的websocket🤝"></a>典型的websocket🤝</h2><ul>
+<li>浏览器请求：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GET &#x2F;chat HTTP&#x2F;1.1</span><br><span class="line">Host: server.example.com</span><br><span class="line">Upgrade: websocket			&#x2F;&#x2F; websocket协议</span><br><span class="line">Connection: Upgrade			&#x2F;&#x2F; 告诉服务器，发起的请求为Upgrade对应的websocket协议</span><br><span class="line">Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw&#x3D;&#x3D;			&#x2F;&#x2F; Base64 encode值，由浏览器自动生成，用于验证是否使用websocket协议</span><br><span class="line">Sec-WebSocket-Protocol: chat, superchat			&#x2F;&#x2F; 用户定义的字符串，用于区分URL下不同服务所需要的协议</span><br><span class="line">Sec-WebSocket-Version: 13			&#x2F;&#x2F; websocket版本</span><br><span class="line">Origin: http:&#x2F;&#x2F;example.com</span><br></pre></td></tr></table></figure></li>
+<li>服务器返回：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">HTTP&#x2F;1.1 101 Switching Protocols</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk&#x3D;</span><br><span class="line">Sec-WebSocket-Protocol: chat</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<p><em>参考：</em><br><a href="https://www.cnblogs.com/jieerma666/p/10342435.html" target="_blank" rel="noopener">用JAVA分别实现WebSocket客户端与服务端</a><br><a href="https://www.cnblogs.com/nnngu/p/9347635.html" target="_blank" rel="noopener">看完让你彻底理解 WebSocket 原理，附完整的实战代码</a></p>
 ]]></content>
       <categories>
         <category>Java</category>
@@ -759,35 +788,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Java编程</title>
-    <url>/2020/03/10/Java%E7%BC%96%E7%A8%8B/</url>
-    <content><![CDATA[<h1 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h1><h2 id="websocket：持久化协议"><a href="#websocket：持久化协议" class="headerlink" title="websocket：持久化协议"></a>websocket：持久化协议</h2><p>实现服务器端主动向客户端推送信息，客户端也可主动向服务器发送请求，实现双向对话。<br>具体来讲，就是先通过客户端使用http协议向服务器发送请求，建立长链接；建立长链接之后，服务器即可主动向客户端发送消息；确定一个时间，经过该时间后，客户端向服务器发送请求确认，避免该🔗断开。</p>
-<p><em>为了兼容浏览器，在握手阶段使用HTTP协议。</em></p>
-<ul>
-<li>websocket建立在TCP协议上，服务器端端实现较容易；</li>
-<li>与HTTP协议兼容性较好，默认端口为80或443，可通过http代理的服务器；</li>
-<li>数据格式轻量，性能开销较小，通信高效；</li>
-<li>可以发送文本，也可以发送二进制数据；</li>
-<li>没有同源限制，客户端可以与任意服务器通信；</li>
-<li>协议表示符是ws，若需🔐，使用wss，服务器网址为url。</li>
-</ul>
-<h2 id="典型的websocket🤝"><a href="#典型的websocket🤝" class="headerlink" title="典型的websocket🤝"></a>典型的websocket🤝</h2><ul>
-<li>浏览器请求：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GET &#x2F;chat HTTP&#x2F;1.1</span><br><span class="line">Host: server.example.com</span><br><span class="line">Upgrade: websocket			&#x2F;&#x2F; websocket协议</span><br><span class="line">Connection: Upgrade			&#x2F;&#x2F; 告诉服务器，发起的请求为Upgrade对应的websocket协议</span><br><span class="line">Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw&#x3D;&#x3D;			&#x2F;&#x2F; Base64 encode值，由浏览器自动生成，用于验证是否使用websocket协议</span><br><span class="line">Sec-WebSocket-Protocol: chat, superchat			&#x2F;&#x2F; 用户定义的字符串，用于区分URL下不同服务所需要的协议</span><br><span class="line">Sec-WebSocket-Version: 13			&#x2F;&#x2F; websocket版本</span><br><span class="line">Origin: http:&#x2F;&#x2F;example.com</span><br></pre></td></tr></table></figure></li>
-<li>服务器返回：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">HTTP&#x2F;1.1 101 Switching Protocols</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk&#x3D;</span><br><span class="line">Sec-WebSocket-Protocol: chat</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<hr>
-<p><em>参考：</em><br><a href="https://www.cnblogs.com/jieerma666/p/10342435.html" target="_blank" rel="noopener">用JAVA分别实现WebSocket客户端与服务端</a><br><a href="https://www.cnblogs.com/nnngu/p/9347635.html" target="_blank" rel="noopener">看完让你彻底理解 WebSocket 原理，附完整的实战代码</a></p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Markdown</title>
     <url>/2020/03/09/Markdown/</url>
     <content><![CDATA[<h1 id="md基本标记符号"><a href="#md基本标记符号" class="headerlink" title="md基本标记符号"></a>md基本标记符号</h1><ol>
@@ -851,6 +851,55 @@
       <tags>
         <tag>Markdown</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>统一建模语言Unified Modeling Language</title>
+    <url>/2020/07/12/UML/</url>
+    <content><![CDATA[<h1 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h1><p>特点：简单、统一、图形化、可表达软件设计中的动态和静态信息。</p>
+<p>UML从目标系统的不同角度出发，定义了用例图、类图、对象图、状态图、活动图、时序图、协作图、构件图、部署图。</p>
+<p><em>业界使用较多的为<code>Rational Rose</code>和轻量级的开源<code>Umlet</code>。</em></p>
+<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><h2 id="类Class"><a href="#类Class" class="headerlink" title="类Class"></a>类Class</h2><p>类指<strong>具有相同属性、方法、关系的对象的抽象</strong>，封装了数据和行为，是面向对象程序设计OOP的基础，具有<strong>封装性、继承性、多态性</strong>。</p>
+<p>在UML中，类使用包含<strong>类名、属性、操作，并带有分隔线的矩形</strong>表示。</p>
+<ul>
+<li>类名Name：一个字符串；</li>
+<li>属性Attribute，类的特性/成员变量：[可见性]属性名:类型[=默认值]<ul>
+<li>可见性表示该属性对类外的元素是否可见；</li>
+<li>公有Public对应<code>+</code>；</li>
+<li>私有Private对应<code>-</code>；</li>
+<li>受保护Protected对应<code>#</code>；</li>
+<li>朋友Friendly对应<code>~</code>；</li>
+</ul>
+</li>
+<li>操作Operations，类的任一实例对象都可使用的行为，类的成员方法：[可见性]名称(参数列表)[:返回类型]。</li>
+</ul>
+<h2 id="接口Interface"><a href="#接口Interface" class="headerlink" title="接口Interface"></a>接口Interface</h2><p>接口，具有类的结构，但<strong>不可被实例化</strong>，只能<strong>被子类实现</strong>。包含抽象操作，但不包含属性。</p>
+<p>UML中，接口使用一个<strong>带有名称的小圆圈</strong>来表示。</p>
+<h2 id="类图ClassDiagram"><a href="#类图ClassDiagram" class="headerlink" title="类图ClassDiagram"></a>类图ClassDiagram</h2><p>类图，用来<strong>显示系统中的类、接口、协作，及它们之间的静态结构和关系</strong>的一种<strong>静态结构</strong>。<br>主要用于描述软件系统的结构化设计，帮助人们简化对软件系统的理解，是系统分析和设计阶段的重要产物，也是系统编码和测试的重要模型依据。</p>
+<p>类图在<strong>软件系统开发的整个生命周期</strong>都有效，是OOP建模中最常见的图。</p>
+<h3 id="类间关系"><a href="#类间关系" class="headerlink" title="类间关系"></a>类间关系</h3><p>根据类与类之间的耦合度从弱到强排列： 依赖关系、关联关系、聚合关系、组合关系、泛化关系==实现关系。</p>
+<ol>
+<li><p>依赖关系Dependency：<strong>带箭头的虚线</strong>，箭头指向被依赖的类。<br>一种使用关系，<strong>临时性关联</strong>，某个类的方法通过局部变量、方法的参数、对静态方法的调用，来访问另一个类(被依赖类)中的某些方法来完成一些职责。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB.png" alt="依赖关系"></p>
+</li>
+<li><p>关联关系Association：</p>
+<ol>
+<li>双向关联：用<strong>带两个箭头或没有箭头的实线</strong>表示；</li>
+<li>单向关联：用<strong>带一个箭头的实线</strong>来表示；<br>对象间的一种<strong>引用关系</strong>，用于表示一类对象对另一类对象间的联系，通常将一个类的对象作为另一个类的成员变量来实现。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%85%B3%E8%81%94%E5%85%B3%E7%B3%BB.png" alt="关联关系"></li>
+</ol>
+</li>
+<li><p>聚合关系Aggregation：用<strong>带空心菱形的实线</strong>表示，菱形指向整体。<br>关联关系的一种，是<strong>强关联关系</strong>，是<strong>整体和部分</strong>间的关系。<br>聚合关系<strong>通过成员对象实现</strong>，其中，成员对象是整体对象的一部分，但<strong>成员对象可以脱离整体对象独立存在</strong>。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%81%9A%E5%90%88%E5%85%B3%E7%B3%BB.png" alt="聚合关系"></p>
+</li>
+<li><p>组合关系Composition：用<strong>带实心菱形的实线</strong>表示，菱形指向整体。<br>关联关系的一种，表示<strong>类间整体与部分</strong>的关系，是一种<strong>更强烈的聚合关系</strong>。<br>组合关系中，<strong>整体对象可以控制部分对象的生命周期</strong>，一旦整体对象不存在，部分对象也不存在了，<strong>部分对象不能脱离整体对象存在</strong>。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BB%84%E5%90%88%E5%85%B3%E7%B3%BB.png" alt="组合关系"></p>
+</li>
+<li><p>泛化关系Generalization：用<strong>带空心三角箭头的实线</strong>表示，箭头从子类指向父类。<br><strong>对象间耦合度最大</strong>的一种关系，表示<strong>一般与特殊的关系</strong>，是<strong>父类与子类</strong>的关系，是一种<strong>继承</strong>关系。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%B3%9B%E5%8C%96%E5%85%B3%E7%B3%BB.png" alt="泛化关系"></p>
+</li>
+<li><p>实现关系Realization：用<strong>带空心三角箭头的虚线</strong>表示，箭头从实现类指向接口。<br>实线关系是<strong>接口与实现类</strong>间的关系，类实现了接口，类中的操作<strong>实现了接口中声明的所有的抽象操作</strong>。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%AE%9E%E7%8E%B0%E5%85%B3%E7%B3%BB.png" alt="实现关系"></p>
+</li>
+</ol>
+<hr>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a href="http://c.biancheng.net/view/1319.html" target="_blank" rel="noopener">http://c.biancheng.net/view/1319.html</a></li>
+</ul>
+]]></content>
   </entry>
   <entry>
     <title>Swift设计模式框架集</title>
@@ -960,55 +1009,6 @@
       <categories>
         <category>ios</category>
       </categories>
-  </entry>
-  <entry>
-    <title>统一建模语言Unified Modeling Language</title>
-    <url>/2020/07/12/UML/</url>
-    <content><![CDATA[<h1 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h1><p>特点：简单、统一、图形化、可表达软件设计中的动态和静态信息。</p>
-<p>UML从目标系统的不同角度出发，定义了用例图、类图、对象图、状态图、活动图、时序图、协作图、构件图、部署图。</p>
-<p><em>业界使用较多的为<code>Rational Rose</code>和轻量级的开源<code>Umlet</code>。</em></p>
-<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><h2 id="类Class"><a href="#类Class" class="headerlink" title="类Class"></a>类Class</h2><p>类指<strong>具有相同属性、方法、关系的对象的抽象</strong>，封装了数据和行为，是面向对象程序设计OOP的基础，具有<strong>封装性、继承性、多态性</strong>。</p>
-<p>在UML中，类使用包含<strong>类名、属性、操作，并带有分隔线的矩形</strong>表示。</p>
-<ul>
-<li>类名Name：一个字符串；</li>
-<li>属性Attribute，类的特性/成员变量：[可见性]属性名:类型[=默认值]<ul>
-<li>可见性表示该属性对类外的元素是否可见；</li>
-<li>公有Public对应<code>+</code>；</li>
-<li>私有Private对应<code>-</code>；</li>
-<li>受保护Protected对应<code>#</code>；</li>
-<li>朋友Friendly对应<code>~</code>；</li>
-</ul>
-</li>
-<li>操作Operations，类的任一实例对象都可使用的行为，类的成员方法：[可见性]名称(参数列表)[:返回类型]。</li>
-</ul>
-<h2 id="接口Interface"><a href="#接口Interface" class="headerlink" title="接口Interface"></a>接口Interface</h2><p>接口，具有类的结构，但<strong>不可被实例化</strong>，只能<strong>被子类实现</strong>。包含抽象操作，但不包含属性。</p>
-<p>UML中，接口使用一个<strong>带有名称的小圆圈</strong>来表示。</p>
-<h2 id="类图ClassDiagram"><a href="#类图ClassDiagram" class="headerlink" title="类图ClassDiagram"></a>类图ClassDiagram</h2><p>类图，用来<strong>显示系统中的类、接口、协作，及它们之间的静态结构和关系</strong>的一种<strong>静态结构</strong>。<br>主要用于描述软件系统的结构化设计，帮助人们简化对软件系统的理解，是系统分析和设计阶段的重要产物，也是系统编码和测试的重要模型依据。</p>
-<p>类图在<strong>软件系统开发的整个生命周期</strong>都有效，是OOP建模中最常见的图。</p>
-<h3 id="类间关系"><a href="#类间关系" class="headerlink" title="类间关系"></a>类间关系</h3><p>根据类与类之间的耦合度从弱到强排列： 依赖关系、关联关系、聚合关系、组合关系、泛化关系==实现关系。</p>
-<ol>
-<li><p>依赖关系Dependency：<strong>带箭头的虚线</strong>，箭头指向被依赖的类。<br>一种使用关系，<strong>临时性关联</strong>，某个类的方法通过局部变量、方法的参数、对静态方法的调用，来访问另一个类(被依赖类)中的某些方法来完成一些职责。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB.png" alt="依赖关系"></p>
-</li>
-<li><p>关联关系Association：</p>
-<ol>
-<li>双向关联：用<strong>带两个箭头或没有箭头的实线</strong>表示；</li>
-<li>单向关联：用<strong>带一个箭头的实线</strong>来表示；<br>对象间的一种<strong>引用关系</strong>，用于表示一类对象对另一类对象间的联系，通常将一个类的对象作为另一个类的成员变量来实现。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%85%B3%E8%81%94%E5%85%B3%E7%B3%BB.png" alt="关联关系"></li>
-</ol>
-</li>
-<li><p>聚合关系Aggregation：用<strong>带空心菱形的实线</strong>表示，菱形指向整体。<br>关联关系的一种，是<strong>强关联关系</strong>，是<strong>整体和部分</strong>间的关系。<br>聚合关系<strong>通过成员对象实现</strong>，其中，成员对象是整体对象的一部分，但<strong>成员对象可以脱离整体对象独立存在</strong>。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E8%81%9A%E5%90%88%E5%85%B3%E7%B3%BB.png" alt="聚合关系"></p>
-</li>
-<li><p>组合关系Composition：用<strong>带实心菱形的实线</strong>表示，菱形指向整体。<br>关联关系的一种，表示<strong>类间整体与部分</strong>的关系，是一种<strong>更强烈的聚合关系</strong>。<br>组合关系中，<strong>整体对象可以控制部分对象的生命周期</strong>，一旦整体对象不存在，部分对象也不存在了，<strong>部分对象不能脱离整体对象存在</strong>。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BB%84%E5%90%88%E5%85%B3%E7%B3%BB.png" alt="组合关系"></p>
-</li>
-<li><p>泛化关系Generalization：用<strong>带空心三角箭头的实线</strong>表示，箭头从子类指向父类。<br><strong>对象间耦合度最大</strong>的一种关系，表示<strong>一般与特殊的关系</strong>，是<strong>父类与子类</strong>的关系，是一种<strong>继承</strong>关系。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%B3%9B%E5%8C%96%E5%85%B3%E7%B3%BB.png" alt="泛化关系"></p>
-</li>
-<li><p>实现关系Realization：用<strong>带空心三角箭头的虚线</strong>表示，箭头从实现类指向接口。<br>实线关系是<strong>接口与实现类</strong>间的关系，类实现了接口，类中的操作<strong>实现了接口中声明的所有的抽象操作</strong>。<br><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%AE%9E%E7%8E%B0%E5%85%B3%E7%B3%BB.png" alt="实现关系"></p>
-</li>
-</ol>
-<hr>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="http://c.biancheng.net/view/1319.html" target="_blank" rel="noopener">http://c.biancheng.net/view/1319.html</a></li>
-</ul>
-]]></content>
   </entry>
   <entry>
     <title>Ubuntu安装Matlab</title>
@@ -1514,41 +1514,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>svm</title>
-    <url>/2020/06/02/svm/</url>
-    <content><![CDATA[<h1 id="basic-linear-SVM"><a href="#basic-linear-SVM" class="headerlink" title="basic linear SVM"></a>basic linear SVM</h1><p>最优分界面条件：</p>
-<ul>
-<li>支持向量机基本模型，是针对<strong>线性可分</strong>的情况下的<strong>最优分界面</strong>提出的；</li>
-<li>正类与反类训练样本<strong>可用超平面完全正确分开</strong>。</li>
-</ul>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/svm%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B.png" alt="svm基本模型"></p>
-<p>支持向量：经过两类样本中距离最优分类面最近的点，且平行于最优分界面H1、H2(边界超平面)上的训练样本，即图中带圈的点。</p>
-<p>带约束的极值问题：<br>$$ min_{w,b} \frac{1}{2} {\Vert w \Vert}^2 $$<br>$$ s.t. y_i(w \cdot x_i + b) \geq 1 $$</p>
-<p><em>可通过拉格朗日乘数法并引入拉格朗日乘数，将该约束转化为一个对偶问题，通过寻求该对偶问题的最优解，可得原问题的最优解。</em></p>
-<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="松弛变量"><a href="#松弛变量" class="headerlink" title="松弛变量"></a>松弛变量</h3><p>由于噪声或其它因素影响，两类数据可能有较少的融合或交叉。<br>引入松弛变量X使得分类器在训练后仍可存在一些错分样本，但要使两类样本间的间隔尽量大，使错分样本的松弛变量之和尽可能小。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%9D%BE%E5%BC%9B%E5%8F%98%E9%87%8F.png" alt="松弛变量"></p>
-<p>$$ min_{w,b} \frac{1}{2} {\Vert w \Vert}^2 + C \sum_i \xi_i $$<br>$$ s.t. y_i (w \cdot x_i + b) \geq 1 - \xi_i $$</p>
-<p>其中，x为松弛变量，满足$x_i \geq 0$；C为大于0的折衷因子，调和来间隔距离和错分样本数之间的关系。</p>
-<h3 id="映射到高维空间"><a href="#映射到高维空间" class="headerlink" title="映射到高维空间"></a>映射到高维空间</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E7%BB%B4%E7%A9%BA%E9%97%B4%E6%98%A0%E5%B0%841.png" alt="高维空间映射1"></p>
-<p>为解决线性不可分数据问题，将低维空间的线性不可分数据映射到高维的线性可分空间中。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E7%BB%B4%E7%A9%BA%E9%97%B4%E6%98%A0%E5%B0%842.png" alt="高维空间映射2"></p>
-<p>SVM通过非线性映射f(x)把数据由低维空间向高维空间映射，在高维空间为低维数据构造线性分离超平面。</p>
-<p>该分离超平面对应原特征空间上的一个分割超曲面。</p>
-<h2 id="用SVM区分行人与非行人HOG特征"><a href="#用SVM区分行人与非行人HOG特征" class="headerlink" title="用SVM区分行人与非行人HOG特征"></a>用SVM区分行人与非行人HOG特征</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/svm_hog.png" alt="svm_hog"></p>
-<h1 id="Multiple-instance-SVM"><a href="#Multiple-instance-SVM" class="headerlink" title="Multiple-instance SVM"></a>Multiple-instance SVM</h1><p>将标准SVM的最大化样本间距扩展为最大化样本集间距，即选取<strong>正样本集中最像正样本</strong>的样本用作训练，<strong>负样本中离分界面最近</strong>的负样本作为负样本。</p>
-<p>$$ min_{w,b,\xi} \frac{1}{2} {\Vert w \Vert}^2 + C \sum_I {\xi_I} $$<br>$$ s.t. \forall I : Y_I max_{i \in I}(&lt;w,x_i&gt;+b) \geq 1-\xi_I, \xi_I \geq 0 $$</p>
-<h1 id="Latent-SVM"><a href="#Latent-SVM" class="headerlink" title="Latent-SVM"></a>Latent-SVM</h1><p><em>Latent-SVM实质上与MI-SVM是一样的，只是扩展了Latent变量。</em></p>
-<p>Latent变量：MI-SVM决定正样本集中哪一个样本作为正样本，即一个latent变量，但这个变量的取值是正样本集中的序号。</p>
-<p>参考：<br><a href="https://blog.csdn.net/loadstar_kun/article/details/41145665" target="_blank" rel="noopener">https://blog.csdn.net/loadstar_kun/article/details/41145665</a></p>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>分类器</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>runtime</title>
     <url>/2020/07/13/runtime/</url>
     <content><![CDATA[<h1 id="Runtime简介"><a href="#Runtime简介" class="headerlink" title="Runtime简介"></a>Runtime简介</h1><p>将源代码转换为可执行的程序，通常需要经过三个步骤：<strong>编译、链接、运行</strong>。</p>
@@ -1700,6 +1665,41 @@
       <categories>
         <category>ios</category>
       </categories>
+  </entry>
+  <entry>
+    <title>svm</title>
+    <url>/2020/06/02/svm/</url>
+    <content><![CDATA[<h1 id="basic-linear-SVM"><a href="#basic-linear-SVM" class="headerlink" title="basic linear SVM"></a>basic linear SVM</h1><p>最优分界面条件：</p>
+<ul>
+<li>支持向量机基本模型，是针对<strong>线性可分</strong>的情况下的<strong>最优分界面</strong>提出的；</li>
+<li>正类与反类训练样本<strong>可用超平面完全正确分开</strong>。</li>
+</ul>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/svm%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B.png" alt="svm基本模型"></p>
+<p>支持向量：经过两类样本中距离最优分类面最近的点，且平行于最优分界面H1、H2(边界超平面)上的训练样本，即图中带圈的点。</p>
+<p>带约束的极值问题：<br>$$ min_{w,b} \frac{1}{2} {\Vert w \Vert}^2 $$<br>$$ s.t. y_i(w \cdot x_i + b) \geq 1 $$</p>
+<p><em>可通过拉格朗日乘数法并引入拉格朗日乘数，将该约束转化为一个对偶问题，通过寻求该对偶问题的最优解，可得原问题的最优解。</em></p>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="松弛变量"><a href="#松弛变量" class="headerlink" title="松弛变量"></a>松弛变量</h3><p>由于噪声或其它因素影响，两类数据可能有较少的融合或交叉。<br>引入松弛变量X使得分类器在训练后仍可存在一些错分样本，但要使两类样本间的间隔尽量大，使错分样本的松弛变量之和尽可能小。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%9D%BE%E5%BC%9B%E5%8F%98%E9%87%8F.png" alt="松弛变量"></p>
+<p>$$ min_{w,b} \frac{1}{2} {\Vert w \Vert}^2 + C \sum_i \xi_i $$<br>$$ s.t. y_i (w \cdot x_i + b) \geq 1 - \xi_i $$</p>
+<p>其中，x为松弛变量，满足$x_i \geq 0$；C为大于0的折衷因子，调和来间隔距离和错分样本数之间的关系。</p>
+<h3 id="映射到高维空间"><a href="#映射到高维空间" class="headerlink" title="映射到高维空间"></a>映射到高维空间</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E7%BB%B4%E7%A9%BA%E9%97%B4%E6%98%A0%E5%B0%841.png" alt="高维空间映射1"></p>
+<p>为解决线性不可分数据问题，将低维空间的线性不可分数据映射到高维的线性可分空间中。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E9%AB%98%E7%BB%B4%E7%A9%BA%E9%97%B4%E6%98%A0%E5%B0%842.png" alt="高维空间映射2"></p>
+<p>SVM通过非线性映射f(x)把数据由低维空间向高维空间映射，在高维空间为低维数据构造线性分离超平面。</p>
+<p>该分离超平面对应原特征空间上的一个分割超曲面。</p>
+<h2 id="用SVM区分行人与非行人HOG特征"><a href="#用SVM区分行人与非行人HOG特征" class="headerlink" title="用SVM区分行人与非行人HOG特征"></a>用SVM区分行人与非行人HOG特征</h2><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/svm_hog.png" alt="svm_hog"></p>
+<h1 id="Multiple-instance-SVM"><a href="#Multiple-instance-SVM" class="headerlink" title="Multiple-instance SVM"></a>Multiple-instance SVM</h1><p>将标准SVM的最大化样本间距扩展为最大化样本集间距，即选取<strong>正样本集中最像正样本</strong>的样本用作训练，<strong>负样本中离分界面最近</strong>的负样本作为负样本。</p>
+<p>$$ min_{w,b,\xi} \frac{1}{2} {\Vert w \Vert}^2 + C \sum_I {\xi_I} $$<br>$$ s.t. \forall I : Y_I max_{i \in I}(&lt;w,x_i&gt;+b) \geq 1-\xi_I, \xi_I \geq 0 $$</p>
+<h1 id="Latent-SVM"><a href="#Latent-SVM" class="headerlink" title="Latent-SVM"></a>Latent-SVM</h1><p><em>Latent-SVM实质上与MI-SVM是一样的，只是扩展了Latent变量。</em></p>
+<p>Latent变量：MI-SVM决定正样本集中哪一个样本作为正样本，即一个latent变量，但这个变量的取值是正样本集中的序号。</p>
+<p>参考：<br><a href="https://blog.csdn.net/loadstar_kun/article/details/41145665" target="_blank" rel="noopener">https://blog.csdn.net/loadstar_kun/article/details/41145665</a></p>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>分类器</tag>
+      </tags>
   </entry>
   <entry>
     <title>swift</title>
@@ -2086,37 +2086,6 @@
       </tags>
   </entry>
   <entry>
-    <title>图像增强</title>
-    <url>/2020/04/13/%E5%9B%BE%E5%83%8F%E5%A2%9E%E5%BC%BA/</url>
-    <content><![CDATA[<h1 id="图像增强目标"><a href="#图像增强目标" class="headerlink" title="图像增强目标"></a>图像增强目标</h1><ul>
-<li>改善图像视觉效果；</li>
-<li>抑制无用信息，提高图像的使用价值；</li>
-<li>转换为更适合人或机器分析处理的形式。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-      <tags>
-        <tag>图像增强</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>图像格式</title>
-    <url>/2020/06/05/%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F/</url>
-    <content><![CDATA[<h1 id="图片存储格式"><a href="#图片存储格式" class="headerlink" title="图片存储格式"></a>图片存储格式</h1><p>常用存储格式：<br>  bmp,jpg,png,tiff,gif,<br>  pcx,tga,exif,fpx,svg,<br>  psd,cdr,pcd,dxf,ufo,<br>  eps,ai,raw,WMF,webp等。</p>
-<ul>
-<li>BMP：采用位映射存储，占用空间大。</li>
-<li>JPG：常用有损压缩格式，压缩比例可达10:1-40:1。</li>
-<li>PNG：无损压缩图像文件格式，比GIF小30%。</li>
-<li>GIF：基于LZW算法的连续色调的无损压缩格式，压缩率一般在50%左右。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>image</category>
-      </categories>
-  </entry>
-  <entry>
     <title>图像分类问题</title>
     <url>/2020/07/05/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<h1 id="CNN网络进化-结构演化"><a href="#CNN网络进化-结构演化" class="headerlink" title="CNN网络进化/结构演化"></a>CNN网络进化/结构演化</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/CNN%E7%BB%93%E6%9E%84%E6%BC%94%E5%8C%96.png" alt="CNN结构演化"></p>
@@ -2166,6 +2135,37 @@
 <li><a href="https://www.pianshen.com/article/2717286724/" target="_blank" rel="noopener">https://www.pianshen.com/article/2717286724/</a></li>
 </ul>
 ]]></content>
+  </entry>
+  <entry>
+    <title>图像格式</title>
+    <url>/2020/06/05/%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="图片存储格式"><a href="#图片存储格式" class="headerlink" title="图片存储格式"></a>图片存储格式</h1><p>常用存储格式：<br>  bmp,jpg,png,tiff,gif,<br>  pcx,tga,exif,fpx,svg,<br>  psd,cdr,pcd,dxf,ufo,<br>  eps,ai,raw,WMF,webp等。</p>
+<ul>
+<li>BMP：采用位映射存储，占用空间大。</li>
+<li>JPG：常用有损压缩格式，压缩比例可达10:1-40:1。</li>
+<li>PNG：无损压缩图像文件格式，比GIF小30%。</li>
+<li>GIF：基于LZW算法的连续色调的无损压缩格式，压缩率一般在50%左右。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>图像增强</title>
+    <url>/2020/04/13/%E5%9B%BE%E5%83%8F%E5%A2%9E%E5%BC%BA/</url>
+    <content><![CDATA[<h1 id="图像增强目标"><a href="#图像增强目标" class="headerlink" title="图像增强目标"></a>图像增强目标</h1><ul>
+<li>改善图像视觉效果；</li>
+<li>抑制无用信息，提高图像的使用价值；</li>
+<li>转换为更适合人或机器分析处理的形式。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>image</category>
+      </categories>
+      <tags>
+        <tag>图像增强</tag>
+      </tags>
   </entry>
   <entry>
     <title>图像特征</title>
@@ -2354,24 +2354,6 @@
       </categories>
   </entry>
   <entry>
-    <title>图论</title>
-    <url>/2020/07/01/%E5%9B%BE%E8%AE%BA/</url>
-    <content><![CDATA[<h1 id="深度优先遍历DFS"><a href="#深度优先遍历DFS" class="headerlink" title="深度优先遍历DFS"></a>深度优先遍历DFS</h1><p>思想：</p>
-<ol>
-<li>找一个未被访问过的顶点作为起始顶点，沿着当前顶点的边走到未访问过的顶点；</li>
-<li>当没有找到未访问过的结点时，回到上一个顶点，继续寻找未访问结点；</li>
-<li>直到所有顶点都被访问。</li>
-</ol>
-<h1 id="广度优先遍历BFS"><a href="#广度优先遍历BFS" class="headerlink" title="广度优先遍历BFS"></a>广度优先遍历BFS</h1><p>思想：类似于树的层次遍历</p>
-<ol>
-<li>找一个未被访问过的顶点作为起始顶点；</li>
-<li>找到顶点的所有的邻接点，放入队列中；</li>
-<li>从队列中依次取出结点，查找该结点的所有未被访问过的邻接点，存放到队列中；</li>
-<li>直到队列为空。</li>
-</ol>
-]]></content>
-  </entry>
-  <entry>
     <title>多尺度变换</title>
     <url>/2020/04/09/%E5%A4%9A%E5%B0%BA%E5%BA%A6%E5%8F%98%E6%8D%A2/</url>
     <content><![CDATA[<h1 id="空间域处理：卷积"><a href="#空间域处理：卷积" class="headerlink" title="空间域处理：卷积"></a>空间域处理：卷积</h1><h2 id="点运算"><a href="#点运算" class="headerlink" title="点运算"></a>点运算</h2><h3 id="直方图（特征提取方法）"><a href="#直方图（特征提取方法）" class="headerlink" title="直方图（特征提取方法）"></a>直方图（特征提取方法）</h3><p>是对图片数据/特征分布的一种统计，对数据区间/空间进行量化。<br><em>全黑为0</em></p>
@@ -2474,6 +2456,24 @@
       <tags>
         <tag>多尺度变换</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>图论</title>
+    <url>/2020/07/01/%E5%9B%BE%E8%AE%BA/</url>
+    <content><![CDATA[<h1 id="深度优先遍历DFS"><a href="#深度优先遍历DFS" class="headerlink" title="深度优先遍历DFS"></a>深度优先遍历DFS</h1><p>思想：</p>
+<ol>
+<li>找一个未被访问过的顶点作为起始顶点，沿着当前顶点的边走到未访问过的顶点；</li>
+<li>当没有找到未访问过的结点时，回到上一个顶点，继续寻找未访问结点；</li>
+<li>直到所有顶点都被访问。</li>
+</ol>
+<h1 id="广度优先遍历BFS"><a href="#广度优先遍历BFS" class="headerlink" title="广度优先遍历BFS"></a>广度优先遍历BFS</h1><p>思想：类似于树的层次遍历</p>
+<ol>
+<li>找一个未被访问过的顶点作为起始顶点；</li>
+<li>找到顶点的所有的邻接点，放入队列中；</li>
+<li>从队列中依次取出结点，查找该结点的所有未被访问过的邻接点，存放到队列中；</li>
+<li>直到队列为空。</li>
+</ol>
+]]></content>
   </entry>
   <entry>
     <title>小波变换</title>
@@ -2757,69 +2757,6 @@
       </categories>
   </entry>
   <entry>
-    <title>服务器连接</title>
-    <url>/2020/03/09/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE/</url>
-    <content><![CDATA[<h1 id="ssh远程连接（无需输入密码）"><a href="#ssh远程连接（无需输入密码）" class="headerlink" title="ssh远程连接（无需输入密码）"></a>ssh远程连接（无需输入密码）</h1><ol>
-<li><p>确保已经有生成有SSH公钥：<br>进入 <code>~/.ssh</code> 可看到有 <code>id_rsa</code> 和 <code>id_rsa.pub</code> ，其中 <code>id_rsa.pub</code> 为公钥。<br>若没有，运行：<code>ssh-keygen -t rsa -C &quot;***@gmail.com&quot;</code> 或 <code>ssh-keygen</code></p>
-</li>
-<li><p>将本电脑公钥发送到服务器端：<br><code>ssh-copy-id username@144.202.***.***</code></p>
-</li>
-<li><p>验证：<br><code>ssh &#39;username@144.202.***.***&#39;</code><br>自动连接！</p>
-</li>
-</ol>
-<ul>
-<li>若使用该方式后重置，再次连接时，会出现 <code>Host key verfication failed</code> 情况，使用 <code>ssh-keygen -R ip地址</code> 清除。</li>
-</ul>
-<h1 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h1><ol>
-<li><p>上传本地文件夹到服务器<br><code>scp -P port -r LocalWorkSpaces username@IP:WorkSpaces</code></p>
-</li>
-<li><p>下载服务器文件夹到本地<br><code>scp -P port -r username@IP:WorkSpaces LocalWorkSpaces</code> </p>
-</li>
-<li><p>上传本地文件到服务器<br><code>scp -P port file username@IP:WorkSpaces</code></p>
-</li>
-<li><p>下载服务器文件到本地<br><code>scp -P port 用户名@IP:file LocalWorkSpaces</code> </p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>remote</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数学公式</title>
-    <url>/2020/04/25/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/</url>
-    <content><![CDATA[<h1 id="欧拉公式"><a href="#欧拉公式" class="headerlink" title="欧拉公式"></a>欧拉公式</h1><p>$e^{ix} = cos{x} + isin{x}$</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F.png" alt="欧拉公式"></p>
-<h1 id="链式求导法则"><a href="#链式求导法则" class="headerlink" title="链式求导法则"></a>链式求导法则</h1><p>$$(f(g(x)))’ = f’(g(x)) g’(x)$$</p>
-<p>或</p>
-<p>$$\frac{dy}{dx} = \frac{dy}{dz} \cdot \frac{dz}{dx}$$</p>
-<h1 id="极大似然估计MLE"><a href="#极大似然估计MLE" class="headerlink" title="极大似然估计MLE"></a>极大似然估计MLE</h1><ol>
-<li>样本集中的样本都是独立同分布iid的，可以只考虑一类样本集D，来估计参数向量$\theta$。</li>
-</ol>
-<p>$D = {x_1, x_2, … ,x_N}$</p>
-<ol start="2">
-<li>似然函数(likelihood function)：联合概率密度函数$p(D| \theta )$称为相对于$\theta$的似然函数。</li>
-</ol>
-<p>$l(\theta) = p(D|\theta) = p(x_1, x_2,…,x_N | \theta) = \prod_{i=1}^N p(x_i | \theta)$</p>
-<p>当$\widehat{\theta}$是参数空间中<strong>使似然函数最大的$\widehat{\theta}$值</strong>，那么，$\widehat{\theta}$很可能是最可能的参数值，则$\widehat{\theta}$为$\theta$的极大似然估计量。</p>
-<ol start="3">
-<li>MLE：求解使得出现该组样本的概率最大的$\theta$值。</li>
-</ol>
-<p>$$\widehat{\theta} = arg\underset{\theta}max l(\theta) = arg\underset{\theta}max \prod_{i=1}^N p(x_i | \theta)$$</p>
-<ol start="4">
-<li>对数似然函数（便于分析）</li>
-</ol>
-<p>$$\widehat{\theta} = arg\underset{\theta}max H(\theta) = arg\underset{\theta}max ln l(\theta) = arg\underset{\theta}max \sum_{i=1}^N ln p(x_i|\theta)$$</p>
-<h1 id="Lipschitz连续"><a href="#Lipschitz连续" class="headerlink" title="Lipschitz连续"></a>Lipschitz连续</h1><p>在一个连续函数f上面额外施加一个限制，要求存在一个常数$K \geq 0$，使得定义域内的任意两个元素$x_1$和$x_2$都满足$|f(x_1) - f(x_2)| \leq K|x_1 - x_2|$，即f的导数的绝对值不超过K。</p>
-]]></content>
-      <categories>
-        <category>Math</category>
-      </categories>
-  </entry>
-  <entry>
     <title>排序算法</title>
     <url>/2020/03/12/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><p>稳定性：</p>
@@ -3030,6 +2967,69 @@
       <categories>
         <category>算法与数据结构</category>
       </categories>
+  </entry>
+  <entry>
+    <title>数学公式</title>
+    <url>/2020/04/25/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="欧拉公式"><a href="#欧拉公式" class="headerlink" title="欧拉公式"></a>欧拉公式</h1><p>$e^{ix} = cos{x} + isin{x}$</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F.png" alt="欧拉公式"></p>
+<h1 id="链式求导法则"><a href="#链式求导法则" class="headerlink" title="链式求导法则"></a>链式求导法则</h1><p>$$(f(g(x)))’ = f’(g(x)) g’(x)$$</p>
+<p>或</p>
+<p>$$\frac{dy}{dx} = \frac{dy}{dz} \cdot \frac{dz}{dx}$$</p>
+<h1 id="极大似然估计MLE"><a href="#极大似然估计MLE" class="headerlink" title="极大似然估计MLE"></a>极大似然估计MLE</h1><ol>
+<li>样本集中的样本都是独立同分布iid的，可以只考虑一类样本集D，来估计参数向量$\theta$。</li>
+</ol>
+<p>$D = {x_1, x_2, … ,x_N}$</p>
+<ol start="2">
+<li>似然函数(likelihood function)：联合概率密度函数$p(D| \theta )$称为相对于$\theta$的似然函数。</li>
+</ol>
+<p>$l(\theta) = p(D|\theta) = p(x_1, x_2,…,x_N | \theta) = \prod_{i=1}^N p(x_i | \theta)$</p>
+<p>当$\widehat{\theta}$是参数空间中<strong>使似然函数最大的$\widehat{\theta}$值</strong>，那么，$\widehat{\theta}$很可能是最可能的参数值，则$\widehat{\theta}$为$\theta$的极大似然估计量。</p>
+<ol start="3">
+<li>MLE：求解使得出现该组样本的概率最大的$\theta$值。</li>
+</ol>
+<p>$$\widehat{\theta} = arg\underset{\theta}max l(\theta) = arg\underset{\theta}max \prod_{i=1}^N p(x_i | \theta)$$</p>
+<ol start="4">
+<li>对数似然函数（便于分析）</li>
+</ol>
+<p>$$\widehat{\theta} = arg\underset{\theta}max H(\theta) = arg\underset{\theta}max ln l(\theta) = arg\underset{\theta}max \sum_{i=1}^N ln p(x_i|\theta)$$</p>
+<h1 id="Lipschitz连续"><a href="#Lipschitz连续" class="headerlink" title="Lipschitz连续"></a>Lipschitz连续</h1><p>在一个连续函数f上面额外施加一个限制，要求存在一个常数$K \geq 0$，使得定义域内的任意两个元素$x_1$和$x_2$都满足$|f(x_1) - f(x_2)| \leq K|x_1 - x_2|$，即f的导数的绝对值不超过K。</p>
+]]></content>
+      <categories>
+        <category>Math</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>服务器连接</title>
+    <url>/2020/03/09/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE/</url>
+    <content><![CDATA[<h1 id="ssh远程连接（无需输入密码）"><a href="#ssh远程连接（无需输入密码）" class="headerlink" title="ssh远程连接（无需输入密码）"></a>ssh远程连接（无需输入密码）</h1><ol>
+<li><p>确保已经有生成有SSH公钥：<br>进入 <code>~/.ssh</code> 可看到有 <code>id_rsa</code> 和 <code>id_rsa.pub</code> ，其中 <code>id_rsa.pub</code> 为公钥。<br>若没有，运行：<code>ssh-keygen -t rsa -C &quot;***@gmail.com&quot;</code> 或 <code>ssh-keygen</code></p>
+</li>
+<li><p>将本电脑公钥发送到服务器端：<br><code>ssh-copy-id username@144.202.***.***</code></p>
+</li>
+<li><p>验证：<br><code>ssh &#39;username@144.202.***.***&#39;</code><br>自动连接！</p>
+</li>
+</ol>
+<ul>
+<li>若使用该方式后重置，再次连接时，会出现 <code>Host key verfication failed</code> 情况，使用 <code>ssh-keygen -R ip地址</code> 清除。</li>
+</ul>
+<h1 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h1><ol>
+<li><p>上传本地文件夹到服务器<br><code>scp -P port -r LocalWorkSpaces username@IP:WorkSpaces</code></p>
+</li>
+<li><p>下载服务器文件夹到本地<br><code>scp -P port -r username@IP:WorkSpaces LocalWorkSpaces</code> </p>
+</li>
+<li><p>上传本地文件到服务器<br><code>scp -P port file username@IP:WorkSpaces</code></p>
+</li>
+<li><p>下载服务器文件到本地<br><code>scp -P port 用户名@IP:file LocalWorkSpaces</code> </p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>remote</tag>
+      </tags>
   </entry>
   <entry>
     <title>深度学习</title>
