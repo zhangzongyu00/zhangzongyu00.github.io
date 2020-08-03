@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhangzongyu00.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="HTTP&#x2F;HTTPSHTTP使用统一资源标识符(Uniform Resource Identifiers, URI)来传输数据和建立连接。URI一般包含：访问资源的命名机制、存放资源的主机名、资源本身的名称(由路径表示，着重强调资源)。 URL(Uniform Resource Locator)，统一资源定位符，互联网上用来标识某一处资源的地址，是一种特殊类型的URI。URL一般包括：协议&#x2F;服务方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http_https">
+<meta property="og:url" content="http://zhangzongyu00.github.io/2020/08/03/http-https/index.html">
+<meta property="og:site_name" content="爆发🍢小宇宙">
+<meta property="og:description" content="HTTP&#x2F;HTTPSHTTP使用统一资源标识符(Uniform Resource Identifiers, URI)来传输数据和建立连接。URI一般包含：访问资源的命名机制、存放资源的主机名、资源本身的名称(由路径表示，着重强调资源)。 URL(Uniform Resource Locator)，统一资源定位符，互联网上用来标识某一处资源的地址，是一种特殊类型的URI。URL一般包括：协议&#x2F;服务方">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/https.jpeg">
+<meta property="article:published_time" content="2020-08-03T03:50:27.000Z">
+<meta property="article:modified_time" content="2020-08-03T12:06:05.790Z">
+<meta property="article:author" content="章肿鱼">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/https.jpeg">
+
+<link rel="canonical" href="http://zhangzongyu00.github.io/2020/08/03/http-https/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>http_https | 爆发🍢小宇宙</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="爆发🍢小宇宙" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">爆发🍢小宇宙</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">所有的身不由己，都是因为不够强大</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/zhangzongyu00" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/08/03/http-https/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/img.png">
+      <meta itemprop="name" content="章肿鱼">
+      <meta itemprop="description" content="讨好世界不如取悦自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爆发🍢小宇宙">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          http_https
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-03 11:50:27 / 修改时间：20:06:05" itemprop="dateCreated datePublished" datetime="2020-08-03T11:50:27+08:00">2020-08-03</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="HTTP-HTTPS"><a href="#HTTP-HTTPS" class="headerlink" title="HTTP/HTTPS"></a>HTTP/HTTPS</h1><p>HTTP使用统一资源标识符(<code>Uniform Resource Identifiers</code>, <strong>URI</strong>)来传输数据和建立连接。<br>URI一般包含：访问资源的命名机制、存放资源的主机名、资源本身的名称(由路径表示，着重强调资源)。</p>
+<p>URL(<code>Uniform Resource Locator</code>)，统一资源定位符，互联网上用来标识某一处资源的地址，是一种特殊类型的URI。<br>URL一般包括：协议/服务方式、存有该资源的主机IP地址(可包含端口号)、主机资源的具体地址。</p>
+<p>一个完整的URL包括<code>协议部分 // 域名部分 : 端口部分 / 虚拟目录部分(可选) / 文件名部分 ? 文件部分 # 锚部分(可选)</code>，<br>参数部分/搜索部分/查询部分：从<code>?</code>到<code>#</code>中间的部分，参数可以允许多个参数，参数间用<code>&amp;</code>作为分隔符。</p>
+<p>URN(<code>uniform resource name</code>)，统一资源命名，通过名字来标识资源。</p>
+<ul>
+<li>请求Request：<ul>
+<li>请求行：用来说明请求类型，要访问的资源以及所使用的HTTP版本；</li>
+<li>请求头部：说明服务器要使用的附加信息；<ul>
+<li>HOST，指出请求的目的地；</li>
+<li>User-Agent，服务器端和客户端脚本都能访问它，是浏览器类型检测逻辑的重要基础；</li>
+</ul>
+</li>
+<li>空行；</li>
+<li>请求数据/主体：可以添加任意的其他数据。</li>
+</ul>
+</li>
+<li>响应Response：response是被动的，不能主动发起；<ul>
+<li>状态行：<ul>
+<li>HTTP协议版本号；</li>
+<li>状态码；</li>
+<li>状态消息；</li>
+</ul>
+</li>
+<li>消息报头：用来说明客户端要使用的一些附加信息；</li>
+<li>空行；</li>
+<li>响应正文：服务器返回给客户端的文本信息。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Hypertext-Transfer-Protocol-超文本传输协议"><a href="#Hypertext-Transfer-Protocol-超文本传输协议" class="headerlink" title="Hypertext Transfer Protocol 超文本传输协议"></a>Hypertext Transfer Protocol 超文本传输协议</h2><p>Http是建立在TCP协议上的一种应用，是Web联网的基础。</p>
+<p>核心：<strong>客户端发送的每次请求都需要服务器发送响应，在请求结束后，主动释放连接</strong>。</p>
+<ul>
+<li>从建立连接到关闭连接的过程称为<code>一次连接</code>。</li>
+<li>Http连接是一种<strong>短连接</strong>，即要保持客户端程序的在线状态，需要不断的向服务器发起连接请求；<ul>
+<li>若服务器长时间无法收到客户端的请求，则认为客户端“下线”；</li>
+<li>若客户端长时间无法收到服务器的回复，则认为网络已经断开。</li>
+</ul>
+</li>
+</ul>
+<p>http的主要特点：</p>
+<ul>
+<li>简单快速：客户向服务器请求服务时，只需传送请求方法和路径。</li>
+<li>灵活：HTTP允许传输任意类型的数据对象，正在传输的类型由Content-Type加以标记。</li>
+<li>无连接：无连接的含义是限制<strong>每次连接只处理一个请求</strong>，服务器处理完客户的请求，并收到客户的应答后，即断开连接，节省传输时间。</li>
+<li>无状态：HTTP协议是<strong>无状态协议</strong>，无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。</li>
+<li>支持B/S及C/S模式。</li>
+</ul>
+<ul>
+<li>Http 1.0<ul>
+<li>客户端的每次请求都要求建立一次单独的连接，在处理完本次请求后，自动释放连接。</li>
+<li>生命周期通过request界定，一个request对应一个response。</li>
+<li>三种请求方法：GET、POST、HEAD方法。</li>
+</ul>
+</li>
+<li>Http 1.1<ul>
+<li>可在一次连接中处理多个请求，并且多个请求可以交叠进行，不需要等待一个请求结束再发送下一个请求。</li>
+<li>添加一个keep-alive，可将多个http请求合并为一个，即在一个http链接中，可以发送多个request，接受对应多个response。</li>
+<li>增加了五种请求方法：OPTIONS、PUT、DELETE、TRACE、CONNECT方法。</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">请求方法</th>
+<th align="center">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">GET</td>
+<td align="center">请求指定的页面信息，并返回实体主体</td>
+</tr>
+<tr>
+<td align="center">HEAD</td>
+<td align="center">类似于get请求，只不过返回的响应中没有具体的内容，用于获取报头</td>
+</tr>
+<tr>
+<td align="center">POST</td>
+<td align="center"><strong>向指定资源提交数据</strong>进行处理请求，数据被包含在请求体中，POST请求可能会导致新的资源的建立或已有资源的修改</td>
+</tr>
+<tr>
+<td align="center">PUT</td>
+<td align="center">从客户端向服务器传送的数据<strong>取代指定的文档的内容</strong></td>
+</tr>
+<tr>
+<td align="center">DELETE</td>
+<td align="center">请求服务器<strong>删除指定的页面</strong></td>
+</tr>
+<tr>
+<td align="center">CONNECT</td>
+<td align="center">HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器</td>
+</tr>
+<tr>
+<td align="center">OPTIONS</td>
+<td align="center">允许客户端查看服务器的性能</td>
+</tr>
+<tr>
+<td align="center">TRACE</td>
+<td align="center">回显服务器收到的请求，主要用于测试或诊断</td>
+</tr>
+</tbody></table>
+<p>Get和Post的具体使用区别：</p>
+<ul>
+<li>浏览器中的GET和POST：浏览器中的非Ajax的Http请求，即从html和浏览器就一直使用的http协议中的GET/POST。<ul>
+<li>用get请求来获取一个html页面/图片/css/js等资源；<ul>
+<li>get是读取一个资源，可以对get请求的数据做缓存。</li>
+</ul>
+</li>
+<li>用post来提交一个<form>表单，并得到一个结果的网页；<ul>
+<li>不等幂(不能随意多次执行)，页面不能被缓存，如下订单页面。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>接口中的GET和POST，指通过浏览器的<code>Ajax api</code>、ios/Android的app发出的<code>http client</code>、Java中的commons-httpclient/okhttp、curl/postman等工具发出的get/post请求。<ul>
+<li>该get/post不仅能用在前后端的交互中，还能用在后端各个子服务的调用中(即充当一种RPC协议使用)。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Hypertex-Transfer-Protocol-over-Secure-Socket-Layer"><a href="#Hypertex-Transfer-Protocol-over-Secure-Socket-Layer" class="headerlink" title="Hypertex Transfer Protocol over Secure Socket Layer"></a>Hypertex Transfer Protocol over Secure Socket Layer</h2><p>https是以安全为目标的http通道，在http下<strong>加入SSL层</strong>(安全加密)。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/https.jpeg" alt="https"></p>
+<ol>
+<li>客户端发送https请求，服务器端响应非对称加密生成公钥和私钥；</li>
+<li>服务端将公钥发送给客户端，服务端保存私钥；</li>
+<li>客户端拿到公钥，生成一个密钥(客户端和服务端通信的🔑)；</li>
+<li>客户端用公钥对密钥进行加密，发送给服务器；</li>
+<li>服务器拿到客户端发送的加密后的密钥，用私钥进行解密，双方均获得通信的🔑。</li>
+</ol>
+<h2 id="https与http的区别："><a href="#https与http的区别：" class="headerlink" title="https与http的区别："></a>https与http的区别：</h2><ul>
+<li>https：需要<strong>ca申请证书</strong>，<strong>端口号443</strong>，https是由<code>ssl+http</code>构建的可进行<strong>加密传输、身份认证</strong>的网络协议。</li>
+<li>http：超文本传输协议，明文信息传输，<strong>端口号80</strong>，http的连接是<strong>无状态</strong>的。</li>
+</ul>
+<h1 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h1><p>Http状态码是一个客户发出请求的时候，web服务器返回给客户的一个状态回应。</p>
+<ul>
+<li><code>1xx</code>信息代码；</li>
+<li><code>2xx</code>成功代码；</li>
+<li><code>3xx</code>重定向；</li>
+<li><code>4xx</code>客户端错误，可以是web浏览器、curl命令、postman等其它服务器测试软件发出的请求等；</li>
+<li><code>5xx</code>服务器错误，服务器发生错误或服务器识别出无法处理的请求。</li>
+</ul>
+<h2 id="客户端错误及处理"><a href="#客户端错误及处理" class="headerlink" title="客户端错误及处理"></a>客户端错误及处理</h2><ul>
+<li>400请求错误，服务器无法理解请求，发送到服务器的请求具有无效语法；<ul>
+<li>检查http请求中可能发生的语法错误，确保请求的URL或Post语法没有错误；</li>
+<li>尝试清楚浏览器的cookie和cache再尝试；</li>
+<li>尝试更新或更改浏览器，可能是浏览器版本太老或其它问题。</li>
+</ul>
+</li>
+<li>401未经授权的错误，访问系统需要身份验证，而在请求中没有给予正当的认证凭据token等；<ul>
+<li>提供正确的身份验证或凭据(账号密码或token等)。</li>
+</ul>
+</li>
+<li>403禁止访问，客户端无权访问该内容，服务器拒绝对访问所请求的文件给出正确的响应；<ul>
+<li>当用户没有访问所请求资源的权限时，通常会发生403错误；</li>
+<li>通常可能是客户端IP、Agent等被web服务器拒绝访问，比如触发了WAF、反扒策略等；</li>
+<li>可通过修改Agent内容、更换IP等来解决。</li>
+</ul>
+</li>
+<li>404文件找不到，用户可与服务器通信，并且服务器也想将资源发送给用户，但是无法找到用户请求的资源；<ul>
+<li>如果使用的是浏览器，还可能是服务器无法识别该URL；</li>
+<li>检查是否犯了类型错误，文件是否存在该目录下，是否已移动或删除。</li>
+</ul>
+</li>
+<li>408请求超时，<ul>
+<li>当服务器关闭连接时会发送此响应，因为客户端需要很长时间才能发送请求；</li>
+<li>当客户端连接速度较慢或服务器存在巨大负载时会发生；</li>
+<li>即使没有客户端先前的任何请求，此错误响应也经常由服务器发送，代表服务器希望关闭此未使用的连接。</li>
+</ul>
+</li>
+<li>429请求太多，用户在给定时间内发送了太多请求，通过被限制速率；<ul>
+<li>等待一段时间，然后重试或阅读与API访问限制有关文档来解决。</li>
+</ul>
+</li>
+</ul>
+<h2 id="服务器错误及处理"><a href="#服务器错误及处理" class="headerlink" title="服务器错误及处理"></a>服务器错误及处理</h2><ul>
+<li>500内部服务器错误，服务器遇到错误，不知道如何处理；<ul>
+<li>通常是由服务器配置错误导致，需要查询服务器详细的错误日志，或相关应用服务器的日志，具体问题具体解决。</li>
+</ul>
+</li>
+<li>502错误网关，服务器在工作以获取处理请求所需的另一台服务器的响应(接口、数据库等)时得到的响应无效；<ul>
+<li>客户端发送请求的服务器是代理服务器，需要从另一台服务器获取数据；</li>
+<li>通常是服务器配置错误，缺少软件包或不正确的负载均衡服务器可能会导致；</li>
+</ul>
+</li>
+<li>503服务不可用，服务器由于某些原因而处于维护或关闭状态，或服务器过载且无法处理请求；<ul>
+<li>若服务器未关闭，可能是服务器资源(如CPU ram或带宽)无法处理流量，需要重新配置任一服务器增加资源允许更过流量，或进行优化；</li>
+</ul>
+</li>
+<li>504网关超时，当服务器充当网关或代理服务器且无法在规定时间段内从代理服务器获得响应；<ul>
+<li>主要原因是父服务器负载严重，由于位置或带宽较慢，服务器间存在大量延迟。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://blog.csdn.net/weixin_39805338/article/details/80810379" target="_blank" rel="noopener">https://blog.csdn.net/weixin_39805338/article/details/80810379</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/03/socket%E5%A5%97%E6%8E%A5%E5%AD%97/" rel="prev" title="socket套接字">
+      <i class="fa fa-chevron-left"></i> socket套接字
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/03/port/" rel="next" title="port">
+      port <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-HTTPS"><span class="nav-number">1.</span> <span class="nav-text">HTTP&#x2F;HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hypertext-Transfer-Protocol-超文本传输协议"><span class="nav-number">1.1.</span> <span class="nav-text">Hypertext Transfer Protocol 超文本传输协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hypertex-Transfer-Protocol-over-Secure-Socket-Layer"><span class="nav-number">1.2.</span> <span class="nav-text">Hypertex Transfer Protocol over Secure Socket Layer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#https与http的区别："><span class="nav-number">1.3.</span> <span class="nav-text">https与http的区别：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP状态码"><span class="nav-number">2.</span> <span class="nav-text">HTTP状态码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端错误及处理"><span class="nav-number">2.1.</span> <span class="nav-text">客户端错误及处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器错误及处理"><span class="nav-number">2.2.</span> <span class="nav-text">服务器错误及处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="章肿鱼"
+      src="/images/img.png">
+  <p class="site-author-name" itemprop="name">章肿鱼</p>
+  <div class="site-description" itemprop="description">讨好世界不如取悦自己</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zhangzongyu00" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zhangzongyu00" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangzongyu00@gmail.com" title="E-Mail → mailto:zhangzongyu00@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">章肿鱼</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.5" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    
+
+  
+
+</body>
+</html>

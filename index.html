@@ -193,6 +193,572 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/08/03/port/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/img.png">
+      <meta itemprop="name" content="章肿鱼">
+      <meta itemprop="description" content="讨好世界不如取悦自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爆发🍢小宇宙">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/03/port/" class="post-title-link" itemprop="url">port</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-03 14:45:44 / 修改时间：15:09:31" itemprop="dateCreated datePublished" datetime="2020-08-03T14:45:44+08:00">2020-08-03</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h1><p>随着计算机网络技术的发展，原来物理上的接口（如键盘、鼠标、网卡、显示卡等输入/输出接口）已不能满足网络通信的要求，TCP/IP协议作为网络通信的标准协议就解决了这个通信难题。TCP/IP协议集成到操作系统的内核中，这就相当于在操作系统中引入了一种新的输入/输出接口技术，因为在TCP/IP协议中引入了一种称之为Socket（套接字）应用程序接口。有了这样一种接口技术，一台计算机就可以通过软件的方式与任何一台具有Socket接口的计算机进行通信。端口在计算机编程上也就是Socket接口，通过不同端口，计算机就可以与外界进行互不干扰的通信。</p>
+<p>根据所提供的服务方式的不同，端口又可分为<strong>TCP协议端口</strong>(IP协议是一种无连接方式)和<strong>UDP协议端口</strong>两种。</p>
+<p>通常TCP/IP协议规定：</p>
+<ul>
+<li>Web采用80号端口，进行http通信使用；</li>
+<li>FTP采用21号端口，启动了文件传输服务。下载文件，上传主页，都要用到FTP服务；</li>
+<li>Telnet服务采用23号端口，用于远程登陆，用户以自己的身份远程连接到计算机上，通过端口提供一种基于DOS模式下的通信服务；</li>
+<li>邮件服务器采用25号端口。</li>
+</ul>
+<p>黑客程序可以采用某种方法，定义出一个特殊的端口来达到入侵的目的的原因所在。为了定义出这个端口，依靠某种程序在计算机启动之前自动加载到内存，强行控制计算机打开那个特殊的端口。这个程序就是后门程序，这些后门程序就是常说的木马程序。<br>简单的说，这些木马程序在入侵前是先通过某种手段在一台个人计算机中植入一个程序，打开某个（些）特定的端口，俗称后门（<strong>BackDoor</strong>），使这台计算机变成一台开放性极高（用户拥有极高权限）的FTP服务器，然后从后门就可以达到侵入的目的。</p>
+<h1 id="端口分类"><a href="#端口分类" class="headerlink" title="端口分类"></a>端口分类</h1><h2 id="公认端口-Well-Known-Ports"><a href="#公认端口-Well-Known-Ports" class="headerlink" title="公认端口 Well Known Ports"></a>公认端口 Well Known Ports</h2><p><strong>常用端口</strong>，这类端口的端口号从<strong>0-1024</strong>，它们紧密绑定于一些<strong>特定的服务</strong>。</p>
+<p>通常这些端口的通信明确表明了某种服务的协议，这种端口是<strong>不可再重新定义它的作用对象</strong>。</p>
+<p><em>这些端口通常不会像木马被黑客程序利用。</em></p>
+<h2 id="注册端口-Registered-Ports"><a href="#注册端口-Registered-Ports" class="headerlink" title="注册端口 Registered Ports"></a>注册端口 Registered Ports</h2><p>端口号从<strong>1025-49151</strong>。它们松散地绑定于一些服务，即有许多服务绑定于这些端口，这些端口同样用于许多其他目的。</p>
+<p>这些端口多数<strong>没有明确的定义服务对象</strong>，不同程序<strong>可根据实际需要自己定义</strong>。</p>
+<p><strong>远程控制软件和木马程序</strong>中都会用这些端口来定义，记住这些常见的程序端口在木马程序的防护和查杀上是非常有必要的。</p>
+<h2 id="动态-私有端口-Dynamic-Private-Ports"><a href="#动态-私有端口-Dynamic-Private-Ports" class="headerlink" title="动态/私有端口 Dynamic/Private Ports"></a>动态/私有端口 Dynamic/Private Ports</h2><p>端口号从<strong>49152-65535</strong>。</p>
+<ul>
+<li>理论上，不应把常用服务分配在这些端口上。</li>
+<li>实际上，有些较为特殊的程序，<strong>特别是一些木马程序就非常喜欢用这些端口</strong>，因为这些端口常常<strong>不被引起注意，容易隐蔽</strong>。</li>
+</ul>
+<hr>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://www.cnblogs.com/CodeWorkerLiMing/p/11580083.html" target="_blank" rel="noopener">https://www.cnblogs.com/CodeWorkerLiMing/p/11580083.html</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/08/03/http-https/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/img.png">
+      <meta itemprop="name" content="章肿鱼">
+      <meta itemprop="description" content="讨好世界不如取悦自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爆发🍢小宇宙">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/03/http-https/" class="post-title-link" itemprop="url">http_https</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-03 11:50:27 / 修改时间：20:06:05" itemprop="dateCreated datePublished" datetime="2020-08-03T11:50:27+08:00">2020-08-03</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="HTTP-HTTPS"><a href="#HTTP-HTTPS" class="headerlink" title="HTTP/HTTPS"></a>HTTP/HTTPS</h1><p>HTTP使用统一资源标识符(<code>Uniform Resource Identifiers</code>, <strong>URI</strong>)来传输数据和建立连接。<br>URI一般包含：访问资源的命名机制、存放资源的主机名、资源本身的名称(由路径表示，着重强调资源)。</p>
+<p>URL(<code>Uniform Resource Locator</code>)，统一资源定位符，互联网上用来标识某一处资源的地址，是一种特殊类型的URI。<br>URL一般包括：协议/服务方式、存有该资源的主机IP地址(可包含端口号)、主机资源的具体地址。</p>
+<p>一个完整的URL包括<code>协议部分 // 域名部分 : 端口部分 / 虚拟目录部分(可选) / 文件名部分 ? 文件部分 # 锚部分(可选)</code>，<br>参数部分/搜索部分/查询部分：从<code>?</code>到<code>#</code>中间的部分，参数可以允许多个参数，参数间用<code>&amp;</code>作为分隔符。</p>
+<p>URN(<code>uniform resource name</code>)，统一资源命名，通过名字来标识资源。</p>
+<ul>
+<li>请求Request：<ul>
+<li>请求行：用来说明请求类型，要访问的资源以及所使用的HTTP版本；</li>
+<li>请求头部：说明服务器要使用的附加信息；<ul>
+<li>HOST，指出请求的目的地；</li>
+<li>User-Agent，服务器端和客户端脚本都能访问它，是浏览器类型检测逻辑的重要基础；</li>
+</ul>
+</li>
+<li>空行；</li>
+<li>请求数据/主体：可以添加任意的其他数据。</li>
+</ul>
+</li>
+<li>响应Response：response是被动的，不能主动发起；<ul>
+<li>状态行：<ul>
+<li>HTTP协议版本号；</li>
+<li>状态码；</li>
+<li>状态消息；</li>
+</ul>
+</li>
+<li>消息报头：用来说明客户端要使用的一些附加信息；</li>
+<li>空行；</li>
+<li>响应正文：服务器返回给客户端的文本信息。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Hypertext-Transfer-Protocol-超文本传输协议"><a href="#Hypertext-Transfer-Protocol-超文本传输协议" class="headerlink" title="Hypertext Transfer Protocol 超文本传输协议"></a>Hypertext Transfer Protocol 超文本传输协议</h2><p>Http是建立在TCP协议上的一种应用，是Web联网的基础。</p>
+<p>核心：<strong>客户端发送的每次请求都需要服务器发送响应，在请求结束后，主动释放连接</strong>。</p>
+<ul>
+<li>从建立连接到关闭连接的过程称为<code>一次连接</code>。</li>
+<li>Http连接是一种<strong>短连接</strong>，即要保持客户端程序的在线状态，需要不断的向服务器发起连接请求；<ul>
+<li>若服务器长时间无法收到客户端的请求，则认为客户端“下线”；</li>
+<li>若客户端长时间无法收到服务器的回复，则认为网络已经断开。</li>
+</ul>
+</li>
+</ul>
+<p>http的主要特点：</p>
+<ul>
+<li>简单快速：客户向服务器请求服务时，只需传送请求方法和路径。</li>
+<li>灵活：HTTP允许传输任意类型的数据对象，正在传输的类型由Content-Type加以标记。</li>
+<li>无连接：无连接的含义是限制<strong>每次连接只处理一个请求</strong>，服务器处理完客户的请求，并收到客户的应答后，即断开连接，节省传输时间。</li>
+<li>无状态：HTTP协议是<strong>无状态协议</strong>，无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。</li>
+<li>支持B/S及C/S模式。</li>
+</ul>
+<ul>
+<li>Http 1.0<ul>
+<li>客户端的每次请求都要求建立一次单独的连接，在处理完本次请求后，自动释放连接。</li>
+<li>生命周期通过request界定，一个request对应一个response。</li>
+<li>三种请求方法：GET、POST、HEAD方法。</li>
+</ul>
+</li>
+<li>Http 1.1<ul>
+<li>可在一次连接中处理多个请求，并且多个请求可以交叠进行，不需要等待一个请求结束再发送下一个请求。</li>
+<li>添加一个keep-alive，可将多个http请求合并为一个，即在一个http链接中，可以发送多个request，接受对应多个response。</li>
+<li>增加了五种请求方法：OPTIONS、PUT、DELETE、TRACE、CONNECT方法。</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">请求方法</th>
+<th align="center">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">GET</td>
+<td align="center">请求指定的页面信息，并返回实体主体</td>
+</tr>
+<tr>
+<td align="center">HEAD</td>
+<td align="center">类似于get请求，只不过返回的响应中没有具体的内容，用于获取报头</td>
+</tr>
+<tr>
+<td align="center">POST</td>
+<td align="center"><strong>向指定资源提交数据</strong>进行处理请求，数据被包含在请求体中，POST请求可能会导致新的资源的建立或已有资源的修改</td>
+</tr>
+<tr>
+<td align="center">PUT</td>
+<td align="center">从客户端向服务器传送的数据<strong>取代指定的文档的内容</strong></td>
+</tr>
+<tr>
+<td align="center">DELETE</td>
+<td align="center">请求服务器<strong>删除指定的页面</strong></td>
+</tr>
+<tr>
+<td align="center">CONNECT</td>
+<td align="center">HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器</td>
+</tr>
+<tr>
+<td align="center">OPTIONS</td>
+<td align="center">允许客户端查看服务器的性能</td>
+</tr>
+<tr>
+<td align="center">TRACE</td>
+<td align="center">回显服务器收到的请求，主要用于测试或诊断</td>
+</tr>
+</tbody></table>
+<p>Get和Post的具体使用区别：</p>
+<ul>
+<li>浏览器中的GET和POST：浏览器中的非Ajax的Http请求，即从html和浏览器就一直使用的http协议中的GET/POST。<ul>
+<li>用get请求来获取一个html页面/图片/css/js等资源；<ul>
+<li>get是读取一个资源，可以对get请求的数据做缓存。</li>
+</ul>
+</li>
+<li>用post来提交一个<form>表单，并得到一个结果的网页；<ul>
+<li>不等幂(不能随意多次执行)，页面不能被缓存，如下订单页面。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>接口中的GET和POST，指通过浏览器的<code>Ajax api</code>、ios/Android的app发出的<code>http client</code>、Java中的commons-httpclient/okhttp、curl/postman等工具发出的get/post请求。<ul>
+<li>该get/post不仅能用在前后端的交互中，还能用在后端各个子服务的调用中(即充当一种RPC协议使用)。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Hypertex-Transfer-Protocol-over-Secure-Socket-Layer"><a href="#Hypertex-Transfer-Protocol-over-Secure-Socket-Layer" class="headerlink" title="Hypertex Transfer Protocol over Secure Socket Layer"></a>Hypertex Transfer Protocol over Secure Socket Layer</h2><p>https是以安全为目标的http通道，在http下<strong>加入SSL层</strong>(安全加密)。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/https.jpeg" alt="https"></p>
+<ol>
+<li>客户端发送https请求，服务器端响应非对称加密生成公钥和私钥；</li>
+<li>服务端将公钥发送给客户端，服务端保存私钥；</li>
+<li>客户端拿到公钥，生成一个密钥(客户端和服务端通信的🔑)；</li>
+<li>客户端用公钥对密钥进行加密，发送给服务器；</li>
+<li>服务器拿到客户端发送的加密后的密钥，用私钥进行解密，双方均获得通信的🔑。</li>
+</ol>
+<h2 id="https与http的区别："><a href="#https与http的区别：" class="headerlink" title="https与http的区别："></a>https与http的区别：</h2><ul>
+<li>https：需要<strong>ca申请证书</strong>，<strong>端口号443</strong>，https是由<code>ssl+http</code>构建的可进行<strong>加密传输、身份认证</strong>的网络协议。</li>
+<li>http：超文本传输协议，明文信息传输，<strong>端口号80</strong>，http的连接是<strong>无状态</strong>的。</li>
+</ul>
+<h1 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h1><p>Http状态码是一个客户发出请求的时候，web服务器返回给客户的一个状态回应。</p>
+<ul>
+<li><code>1xx</code>信息代码；</li>
+<li><code>2xx</code>成功代码；</li>
+<li><code>3xx</code>重定向；</li>
+<li><code>4xx</code>客户端错误，可以是web浏览器、curl命令、postman等其它服务器测试软件发出的请求等；</li>
+<li><code>5xx</code>服务器错误，服务器发生错误或服务器识别出无法处理的请求。</li>
+</ul>
+<h2 id="客户端错误及处理"><a href="#客户端错误及处理" class="headerlink" title="客户端错误及处理"></a>客户端错误及处理</h2><ul>
+<li>400请求错误，服务器无法理解请求，发送到服务器的请求具有无效语法；<ul>
+<li>检查http请求中可能发生的语法错误，确保请求的URL或Post语法没有错误；</li>
+<li>尝试清楚浏览器的cookie和cache再尝试；</li>
+<li>尝试更新或更改浏览器，可能是浏览器版本太老或其它问题。</li>
+</ul>
+</li>
+<li>401未经授权的错误，访问系统需要身份验证，而在请求中没有给予正当的认证凭据token等；<ul>
+<li>提供正确的身份验证或凭据(账号密码或token等)。</li>
+</ul>
+</li>
+<li>403禁止访问，客户端无权访问该内容，服务器拒绝对访问所请求的文件给出正确的响应；<ul>
+<li>当用户没有访问所请求资源的权限时，通常会发生403错误；</li>
+<li>通常可能是客户端IP、Agent等被web服务器拒绝访问，比如触发了WAF、反扒策略等；</li>
+<li>可通过修改Agent内容、更换IP等来解决。</li>
+</ul>
+</li>
+<li>404文件找不到，用户可与服务器通信，并且服务器也想将资源发送给用户，但是无法找到用户请求的资源；<ul>
+<li>如果使用的是浏览器，还可能是服务器无法识别该URL；</li>
+<li>检查是否犯了类型错误，文件是否存在该目录下，是否已移动或删除。</li>
+</ul>
+</li>
+<li>408请求超时，<ul>
+<li>当服务器关闭连接时会发送此响应，因为客户端需要很长时间才能发送请求；</li>
+<li>当客户端连接速度较慢或服务器存在巨大负载时会发生；</li>
+<li>即使没有客户端先前的任何请求，此错误响应也经常由服务器发送，代表服务器希望关闭此未使用的连接。</li>
+</ul>
+</li>
+<li>429请求太多，用户在给定时间内发送了太多请求，通过被限制速率；<ul>
+<li>等待一段时间，然后重试或阅读与API访问限制有关文档来解决。</li>
+</ul>
+</li>
+</ul>
+<h2 id="服务器错误及处理"><a href="#服务器错误及处理" class="headerlink" title="服务器错误及处理"></a>服务器错误及处理</h2><ul>
+<li>500内部服务器错误，服务器遇到错误，不知道如何处理；<ul>
+<li>通常是由服务器配置错误导致，需要查询服务器详细的错误日志，或相关应用服务器的日志，具体问题具体解决。</li>
+</ul>
+</li>
+<li>502错误网关，服务器在工作以获取处理请求所需的另一台服务器的响应(接口、数据库等)时得到的响应无效；<ul>
+<li>客户端发送请求的服务器是代理服务器，需要从另一台服务器获取数据；</li>
+<li>通常是服务器配置错误，缺少软件包或不正确的负载均衡服务器可能会导致；</li>
+</ul>
+</li>
+<li>503服务不可用，服务器由于某些原因而处于维护或关闭状态，或服务器过载且无法处理请求；<ul>
+<li>若服务器未关闭，可能是服务器资源(如CPU ram或带宽)无法处理流量，需要重新配置任一服务器增加资源允许更过流量，或进行优化；</li>
+</ul>
+</li>
+<li>504网关超时，当服务器充当网关或代理服务器且无法在规定时间段内从代理服务器获得响应；<ul>
+<li>主要原因是父服务器负载严重，由于位置或带宽较慢，服务器间存在大量延迟。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://blog.csdn.net/weixin_39805338/article/details/80810379" target="_blank" rel="noopener">https://blog.csdn.net/weixin_39805338/article/details/80810379</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/08/03/socket%E5%A5%97%E6%8E%A5%E5%AD%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/img.png">
+      <meta itemprop="name" content="章肿鱼">
+      <meta itemprop="description" content="讨好世界不如取悦自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爆发🍢小宇宙">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/03/socket%E5%A5%97%E6%8E%A5%E5%AD%97/" class="post-title-link" itemprop="url">socket套接字</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-03 11:49:06 / 修改时间：17:09:38" itemprop="dateCreated datePublished" datetime="2020-08-03T11:49:06+08:00">2020-08-03</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Socket是通信的基石，是支持TCP/IP协议的网络通信的**基本操作单元**。socket的本质是一种资源，它包含了端到端的四元组信息，用来标识数据包的归属。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/03/socket%E5%A5%97%E6%8E%A5%E5%AD%97/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/08/03/HTTP%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/img.png">
+      <meta itemprop="name" content="章肿鱼">
+      <meta itemprop="description" content="讨好世界不如取悦自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爆发🍢小宇宙">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/03/HTTP%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">HTTP工作原理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-03 11:09:02 / 修改时间：20:08:58" itemprop="dateCreated datePublished" datetime="2020-08-03T11:09:02+08:00">2020-08-03</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>浏览器输入一个URL，整个过程会发生什么？</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/03/HTTP%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/07/31/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/img.png">
+      <meta itemprop="name" content="章肿鱼">
+      <meta itemprop="description" content="讨好世界不如取悦自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爆发🍢小宇宙">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/31/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">内存管理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-31 12:20:04 / 修改时间：13:08:43" itemprop="dateCreated datePublished" datetime="2020-07-31T12:20:04+08:00">2020-07-31</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><h2 id="块式管理"><a href="#块式管理" class="headerlink" title="块式管理"></a>块式管理</h2><p>把主存分为一大块、一大块的，当所需的程序片断不在主存时就分配一块主存空间，把程序片断load入主存，就算所需的程序片度只有几个字节也只能把这一块分配给它。</p>
+<ul>
+<li>优点：<ul>
+<li>易于管理；</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>造成很大的浪费，平均浪费了50％的内存空间。</li>
+</ul>
+</li>
+</ul>
+<h2 id="页式管理"><a href="#页式管理" class="headerlink" title="页式管理"></a>页式管理</h2><p>把主存分为一页一页的，每一页的空间要比一块一块的空间小很多。<br>将程序的逻辑地址划分为固定大小的页(page)，而物理内存划分为同样大小的帧，程序加载时，可以将任意一页放入内存中任意一个帧，这些帧不必连续，从而实现了离散分配。</p>
+<ul>
+<li>优点：<ul>
+<li>空间利用率要比块式管理高很多；</li>
+<li>用户视角内存与物理内存相分离的内存分配管理方案；</li>
+<li>没有外碎片(因为页的大小固定)。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>会产生内碎片(一个页可能填充不满)。</li>
+</ul>
+</li>
+</ul>
+<h2 id="段式管理"><a href="#段式管理" class="headerlink" title="段式管理"></a>段式管理</h2><p>把主存分为一段一段的，每一段的空间又要比一页一页的空间小很多。</p>
+<ul>
+<li>优点：<ul>
+<li>在空间利用率上又比页式管理高很多；</li>
+<li>没有内碎片(因为段大小可变，改变段大小来消除内碎片)；</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>一个程序片断可能会被分为几十段，这样很多时间就会被浪费在计算每一段的物理地址上；</li>
+<li>段换入换出时，会产生外碎片(比如4k的段换5k的段，会产生1k的外碎片)。</li>
+</ul>
+</li>
+</ul>
+<h2 id="段页式管理"><a href="#段页式管理" class="headerlink" title="段页式管理"></a>段页式管理</h2><p>段式存储管理是一种符合用户视角的内存分配管理方案。在段式存储管理中，将程序的地址空间划分为若干段(segment)，如代码段、数据段、堆栈段，这样每个进程有一个二维地址空间，相互独立，互不干扰。</p>
+<p><strong>将程序分成若干段，每个段分成若干页</strong>。<strong>段页式管理每读取一数据，要访问3次内存</strong>。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/07/29/runloop/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -665,685 +1231,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/07/19/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/img.png">
-      <meta itemprop="name" content="章肿鱼">
-      <meta itemprop="description" content="讨好世界不如取悦自己">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爆发🍢小宇宙">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/19/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-title-link" itemprop="url">计算机网络</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-19 00:14:02" itemprop="dateCreated datePublished" datetime="2020-07-19T00:14:02+08:00">2020-07-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-29 00:47:42" itemprop="dateModified" datetime="2020-07-29T00:47:42+08:00">2020-07-29</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="网络七层协议-OSI七层模型"><a href="#网络七层协议-OSI七层模型" class="headerlink" title="网络七层协议/OSI七层模型"></a>网络七层协议/OSI七层模型</h1><ul>
-<li>应用层<ul>
-<li>用户接口、应用程序，<strong>网络进程</strong>访问应用层；</li>
-<li>Application典型设备：网关；</li>
-<li>典型协议、标准、应用：TELNET、FTP、HTTP、DNS；</li>
-</ul>
-</li>
-<li>表示层<ul>
-<li>数据表示、压缩、加密presentation，应用层数据的<strong>格式转化</strong>；</li>
-<li>典型设备：网关；</li>
-<li>典型协议、标准、应用：ASCLL、PICT、TIFF、JPEG｜MPEG；</li>
-<li>表示层相当于一个东西的表示，表示的一些协议，如图片、声音、视频MPEG；</li>
-</ul>
-</li>
-<li>会话层<ul>
-<li>会话的建立和结束，<strong>应用程序间</strong>的会话；</li>
-<li>典型设备：网关；</li>
-<li>典型协议、标准、应用：RPC、SQL、NFS、X WINDOWS、ASP；</li>
-</ul>
-</li>
-<li>传输层<ul>
-<li>主要功能：端到端控制Transport，<code>网段</code>传输；</li>
-<li>典型设备：网关；</li>
-<li>典型协议、标准、应用：<strong>TCP</strong>、<strong>UDP</strong>、SPX；</li>
-<li>错误检测和<strong>恢复</strong>：海明码；</li>
-</ul>
-</li>
-<li>网络层<code>host-to-network</code>：IP头-&gt;源地址SIP-&gt;目标地址DIP-&gt;”DLL_Data”<ul>
-<li>主要功能：路由、寻址NetWork，<code>数据包</code>传输；</li>
-<li>典型设备：路由器Router；<ul>
-<li>路由表<code>route</code>：目标网络、端口、距离(路径选择)；</li>
-</ul>
-</li>
-<li>典型协议、标准、应用：<strong>IP</strong>、IPX、APPLETALK、ICMP、<strong>ARP、逆地址解析协议RARP</strong>；</li>
-</ul>
-</li>
-<li>数据链路层：前导符_8-&gt;目标地址DMAC_6-&gt;源地址SMAC_6-&gt;长度_2-&gt;Data-&gt;FCS_4<ul>
-<li>主要功能：保证无差错的疏忽链路的data link，<code>帧</code>传输；</li>
-<li>典型设备：交换机、网桥、网卡；<ul>
-<li>交换机各接口拥有各自冲突域；</li>
-<li>同一广播域；</li>
-<li>通过加压等手段，解决电流不分压问题；</li>
-</ul>
-</li>
-<li>典型协议、标准、应用：802.2、802.3ATM、HDLC、FRAME RELAY；</li>
-<li>错误检测：奇偶校验；CRC冗余校验、</li>
-</ul>
-</li>
-<li>物理层<ul>
-<li>主要功能：传输比特流Physical，二进制<code>位</code>传输；</li>
-<li>典型设备：集线器、中继器；<ul>
-<li>集线器特点：<ul>
-<li>同一冲突域：CSMA/CD载波侦听多路访问控制；</li>
-<li>同一广播域：电流扩散特性；</li>
-<li>所有设备共享相同带宽：并联分压；</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>典型协议、标准、应用：V.35、EIA/TIA-232。</li>
-</ul>
-</li>
-</ul>
-<h1 id="TCP-IP五层模型"><a href="#TCP-IP五层模型" class="headerlink" title="TCP/IP五层模型"></a>TCP/IP五层模型</h1><p>TCP/IP协议是一个<strong>协议簇</strong>，包含很多协议，如UDP。<br>TCP/IP<strong>协议集/协议族</strong>包括：应用层、传输层、网络层、网络访问层/数据链路层。</p>
-<ul>
-<li>应用层</li>
-<li>传输层</li>
-<li>Internet层</li>
-<li>数据链路层</li>
-<li>物理层</li>
-</ul>
-<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><p><code>Transmission Control Protocol</code>，传输控制协议，是<strong>面向连接</strong>的协议，在<strong>收发数据前必须建立起可靠的连接</strong>。<br>一个TCP连接必须要经过<strong>三次握手</strong>才能建立，经过<strong>四次挥手</strong>断开连接，大大提高了数据通信的可靠性，使发送数据端和接收端在数据正式传输前就有了交互。</p>
-<p>TCP报头：原端口_16位，目标端口_16，序列号_32，TCP头长度_4，reserved_6，控制代码_6，窗口大小_16，偏移量_16，校验和_16，选项_32(可选)。<br><em>TCP最小报头长度为20字节。</em></p>
-<h3 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h3><ol>
-<li>主机A通过向主机B发送一个<strong>含有同步序列号SYN的标识位的数据段</strong>给主机B，向主机B请求建立连接。<br>通过该数据段，主机A告诉主机B两件事：我想要和你通信；你可以用那个序列号作为起始数据段来回应我。</li>
-<li>主机B收到主机A的请求后，用一个<strong>带有确认应答ACK和同步序列号SYN标识位的数据段</strong>响应主机A。<br>主机B回应主机A两件事：我已经收到你的请求，你可以传输数据了；你要用哪个序列号作为起始数据段来回应我。</li>
-<li>主机A收到回应的数据段后，再发送一个<strong>确认应答ACK</strong>，确认已收到主机B的数据段“我已收到回复，我现在要开始传输实际数据了”。</li>
-</ol>
-<p>三次握手的特点：</p>
-<ul>
-<li>没有应用层的数据；</li>
-<li>SYN这个标识位只有在TCP建立连接时才会被置为1，握手完成后SYN标识位被置为0。</li>
-</ul>
-<p>ACK：TCP报头的控制位之一，对数据进行确认，确认由目的端发出，告诉发送端某序列号之前的数据段都收到了。<br>    如，确认号为X，则表示前X-1个数据段都收到了，只有当ACK=1时，确认才有效；当ACK=0时，确认号无效，要求重传数据，保证数据的完整性。<br>SYN：同步序列号，TCP建立连接时，将该位置置为1。</p>
-<h3 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h3><ol>
-<li>当主机A完成数据传输后，将<strong>控制位FIN置为1</strong>，提出停止TCP连接的请求；</li>
-<li>主机B收到FIN后对其作出响应，确认这一方向上的TCP连接将要关闭，将<strong>ACK置为1</strong>；</li>
-<li>主机B提出反方向的关闭请求，将<strong>FIN置为1</strong>；</li>
-<li>主机A对主机B的请求进行确认，将<strong>ACK置为1</strong>，TCP连接关闭。</li>
-</ol>
-<p>FIN：发送端完成发送任务后，当TCP完成数据传输需要断开时，提出断开连接的一方将该位置为1。</p>
-<h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p><code>User Data Protocol</code>，用户数据报协议：</p>
-<ul>
-<li>UDP是一个<strong>非连接的协议</strong>，传输数据之前源端和终端不建立连接，当它想传送时就简单的去抓取来自应用程序的数据，并尽可能快的将其扔到网络上。<ul>
-<li>发送端，UDP传送数据的速度仅仅受应用程序生成数据的速度、计算机的能力、传输带宽的限制；</li>
-<li>接收端，UDP将每个消息段放在队列中，应用程序每次从队列中读取一个消息段；</li>
-</ul>
-</li>
-<li>由于传输数据不建立连接，因此不需要维护连接状态(包括收发状态等)；<ul>
-<li>一台服务器可同时向多个客户机传输相同的消息；</li>
-</ul>
-</li>
-<li>UDP信息报的标题只有8个字节，信息报的额外开销小；</li>
-<li>吞吐量不受拥塞控制算法的调节，只受应用软件生成数据的速率、传输带宽、源端和终端主机性能的限制；</li>
-<li>UDP使用<strong>尽最大努力交付</strong>，即不保证可靠交付，主机不需要维持复杂的链接状态表；</li>
-<li>UDP<strong>面向报文</strong>，发送方的UDP对应用程序交下来报文，在添加首部后就向下交付给IP层，既不拆分，也不合并，保留这些报文的边界。<ul>
-<li>应用程序需要选择合适的报文大小。</li>
-</ul>
-</li>
-</ul>
-<p>UDP报头：源端口_16，目的端口_16，长度_16，校验和_16位。</p>
-<h2 id="TCP-vs-UDP"><a href="#TCP-vs-UDP" class="headerlink" title="TCP vs. UDP"></a>TCP vs. UDP</h2><p>TCP：一种<strong>流模式</strong>的协议，面向连接、传输可靠(保证数据正确性，保证数据顺序)、用于传输大量数据(流模式)、速度慢，建立连接需要开销大(时间&amp;系统资源)，TCP程序结构较简单。<br>UDP：一种<strong>数据报模式</strong>的协议，面向非连接、传输不可靠、用于传输少量数据(数据报模式)、速度快，对系统资源占用少，UDP程序结构较简单。</p>
-<h1 id="HTTP-HTTPS"><a href="#HTTP-HTTPS" class="headerlink" title="HTTP/HTTPS"></a>HTTP/HTTPS</h1><h2 id="Hypertext-Transfer-Protocol-超文本传输协议"><a href="#Hypertext-Transfer-Protocol-超文本传输协议" class="headerlink" title="Hypertext Transfer Protocol 超文本传输协议"></a>Hypertext Transfer Protocol 超文本传输协议</h2><p>Http是建立在TCP协议上的一种应用，是Web联网的基础。</p>
-<p>核心：<strong>客户端发送的每次请求都需要服务器发送响应，在请求结束后，主动释放连接</strong>。</p>
-<ul>
-<li>从建立连接到关闭连接的过程称为<code>一次连接</code>。</li>
-<li>Http连接是一种<code>**短连接**</code>，即要保持客户端程序的在线状态，需要不断的向服务器发起连接请求；<ul>
-<li>若服务器长时间无法收到客户端的请求，则认为客户端“下线”；</li>
-<li>若客户端长时间无法收到服务器的回复，则认为网络已经断开。</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Http 1.0<ul>
-<li>客户端的每次请求都要求建立一次单独的连接，在处理完本次请求后，自动释放连接。</li>
-<li>生命周期通过request界定，一个request对应一个response。</li>
-</ul>
-</li>
-<li>Http 1.1<ul>
-<li>可在一次连接中处理多个请求，并且多个请求可以交叠进行，不需要等待一个请求结束再发送下一个请求。</li>
-<li>添加一个keep-alive，可将多个http请求合并为一个，即在一个http链接中，可以发送多个request，接受对应多个response。</li>
-</ul>
-</li>
-</ul>
-<p><em>response是被动的，不能主动发起。</em></p>
-<h2 id="Hypertex-Transfer-Protocol-over-Secure-Socket-Layer"><a href="#Hypertex-Transfer-Protocol-over-Secure-Socket-Layer" class="headerlink" title="Hypertex Transfer Protocol over Secure Socket Layer"></a>Hypertex Transfer Protocol over Secure Socket Layer</h2><p>https是以安全为目标的http通道，在http下加入SSL层(安全加密)。</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/https.jpeg" alt="https"></p>
-<ol>
-<li>客户端发送https请求，服务器端应非对称加密生成公钥和私钥；</li>
-<li>服务端将公钥发送给客户端，服务端保存私钥；</li>
-<li>客户端拿到公钥，生成一个密钥(客户端和服务端通信的🔑)；</li>
-<li>客户端用公钥对密钥进行加密，发送给服务器；</li>
-<li>服务器拿到客户端发送的加密后的密钥，用私钥进行解密，双方均获得通信的🔑。</li>
-</ol>
-<p>https与http的区别：</p>
-<ul>
-<li>https：需要<strong>ca申请证书</strong>，<strong>端口号443</strong>，https是由<code>ssl+http</code>构建的可进行<strong>加密传输、身份认证</strong>的网络协议。</li>
-<li>http：超文本传输协议，明文信息传输，<strong>端口号80</strong>，http的连接是<strong>无状态</strong>的。</li>
-</ul>
-<h1 id="Socket-套接字协议"><a href="#Socket-套接字协议" class="headerlink" title="Socket 套接字协议"></a>Socket 套接字协议</h1><p>Socket是通信的基石，是支持TCP/IP协议的网络通信的<strong>基本操作单元</strong>。</p>
-<p>Socket是网络通信过程中端点的抽象表示，包含进行网络通信必须的五种信息：</p>
-<ul>
-<li>连接使用的协议</li>
-<li>本地主机的IP地址</li>
-<li>本地进程的协议端口</li>
-<li>远地主机的IP地址</li>
-<li>远地进程的协议端口</li>
-</ul>
-<p>解决问题：</p>
-<ul>
-<li>应用层通过传输层进行数据通信时，TCP会遇到同时为多个应用程序提供并发服务的问题。</li>
-<li>多个TCP连接或多个应用程序进程可能需要通过同一个TCP协议端口传输数据。</li>
-<li>为了区别不同的应用程序进程和连接，操作系统为应用程序及TCP/IP协议交互提供了Socket接口。</li>
-<li>应用层可以和传输层通过Socket接口，区分来自不同应用程序进程或网络连接的通信，<strong>实现数据传输的并发服务</strong>。</li>
-</ul>
-<h2 id="Socket连接的建立"><a href="#Socket连接的建立" class="headerlink" title="Socket连接的建立"></a>Socket连接的建立</h2><p>建立Socket连接至少需要一对套接字，其中一个运行于客户端<code>ClientSocket</code>，另一个运行于服务器端<code>ServerSocket</code>。</p>
-<ol>
-<li>服务器监听：ServerSocket不定位具体的ClientSocket，而是<strong>处于等待连接的状态</strong>，<strong>实时监控网络状态</strong>，等待客户端的连接请求。</li>
-<li>客户端请求：ClientSocket提出连接请求，要连接的目标是ServerSocket。<ol>
-<li>ClientSocket必须描述要连接的ServerSocket，指出S而verSocket的地址和端口号；</li>
-<li>向ServerSocket提出连接请求。</li>
-</ol>
-</li>
-<li>连接确认：当ServerSocket监听/接收到ClientSocket的连接请求，响应ClientSocket请求。<ol>
-<li>建立一个新线程，将ServerSocket的描述发送给客户端；</li>
-<li>待客户端确认该描述，双方正式建立连接；</li>
-<li>ServerSocket继续处于监听状态，继续接收其它ClientSocket的连接请求。</li>
-</ol>
-</li>
-</ol>
-<h2 id="Socket连接-vs-TCP连接"><a href="#Socket连接-vs-TCP连接" class="headerlink" title="Socket连接 vs. TCP连接"></a>Socket连接 vs. TCP连接</h2><p>创建Socket连接时，可指定使用的传输层协议，当Socket使用TCP协议进行连接时(<strong>默认TCP</strong>)，Socket就是一个TCP连接。<br>当Socket连接一旦建立，通信双方即可开始相互发送数据内容，直到双方连接断开。</p>
-<p>在实际网络应用中，客户端到服务器间的通信往往需要穿越多个中间节点(路由器、网关、防火墙等)而导致Socket连接中断，因此，<strong>需要通过<code>轮询</code>告诉网络该连接处于活跃状态</strong>。</p>
-<h2 id="Socket连接-vs-http连接"><a href="#Socket连接-vs-http连接" class="headerlink" title="Socket连接 vs. http连接"></a>Socket连接 vs. http连接</h2><ul>
-<li>Socket连接：服务器可主动向客户端推送数据，保持客户端于服务器数据的实时与同步；</li>
-<li>http连接：<code>请求-响应</code>方式，在请求时需要先建立连接，在客户端向服务器发送请求后，服务器端才能回复数据；客户端需要定时向服务器端发送连接请求，使其保持在线状态，同时询问服务器是否有新数据。</li>
-</ul>
-<h1 id="GET-amp-POST"><a href="#GET-amp-POST" class="headerlink" title="GET &amp; POST"></a>GET &amp; POST</h1><ul>
-<li>get使用URL传输；</li>
-<li>post使用body传输数据。</li>
-</ul>
-<h2 id="浏览器中的GET和POST"><a href="#浏览器中的GET和POST" class="headerlink" title="浏览器中的GET和POST"></a>浏览器中的GET和POST</h2><p>浏览器中的非Ajax的Http请求，即从html和浏览器就一直使用的http协议中的GET/POST。</p>
-<ul>
-<li>用get请求来获取一个html页面/图片/css/js等资源；<ul>
-<li>get是读取一个资源，可以对get请求的数据做缓存。</li>
-</ul>
-</li>
-<li>用post来提交一个<form>表单，并得到一个结果的网页；<ul>
-<li>不等幂(不能随意多次执行)，页面不能被缓存，如下订单页面。</li>
-</ul>
-</li>
-</ul>
-<h2 id="接口中的GET和POST"><a href="#接口中的GET和POST" class="headerlink" title="接口中的GET和POST"></a>接口中的GET和POST</h2><p>指通过浏览器的Ajax api、ios/Android的app发出的http client、Java中的commons-httpclient/okhttp、curl/postman等工具发出的get/post请求。</p>
-<p>该get/post不仅能用在前后端的交互中，还能用在后端各个子服务的调用中(即充当一种RPC协议使用)。</p>
-<h1 id="session-amp-cookie"><a href="#session-amp-cookie" class="headerlink" title="session &amp; cookie"></a>session &amp; cookie</h1><p>针对http的无状态的特性，无法判断具体哪个用户，因此，设计了Cookie和Session。、</p>
-<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>Cookie存储在客户端，用来记录用户状态，区分用户。<br>一般由服务端将生成的Cookie通过响应返回给客户端，由客户端进行保存。</p>
-<ul>
-<li>修改Cookie<ul>
-<li>相同Key值得到的新的Cookie会<strong>覆盖</strong>旧的Cookie；</li>
-<li>覆盖规则是<code>name path</code>和<code>domain</code>等需要与原有的一致。</li>
-</ul>
-</li>
-<li>删除Cookie<ul>
-<li>设置Cookie的expires为过去的一个时间点，或<code>maxAge = 0</code>。</li>
-</ul>
-</li>
-</ul>
-<p>如何保证Cookie的安全：</p>
-<ul>
-<li>对Cookie进行加密处理；</li>
-<li>只在https上携带Cookie；</li>
-<li>设置Cookie为httpOnly，防止跨站脚本攻击。</li>
-</ul>
-<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>Session存储在网络端，需要依赖Cookie机制。<br>服务端生成Session后，返回给客户端，客户端进行存储<code>setCookie:sessionID</code>；<br>再次请求时，客户端将Cookie发送给服务端，服务端解析出<code>SessionID</code>，根据<code>SessionID</code>判断当前用户。</p>
-<h1 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h1><p>Http状态码是一个客户发出请求的时候，web服务器返回给客户的一个状态回应。</p>
-<ul>
-<li><code>1xx</code>信息代码；</li>
-<li><code>2xx</code>成功代码；</li>
-<li><code>3xx</code>重定向；</li>
-<li><code>4xx</code>客户端错误，可以是web浏览器、curl命令、postman等其它服务器测试软件发出的请求等；</li>
-<li><code>5xx</code>服务器错误，服务器发生错误或服务器识别出无法处理的请求。</li>
-</ul>
-<h2 id="客户端错误及处理"><a href="#客户端错误及处理" class="headerlink" title="客户端错误及处理"></a>客户端错误及处理</h2><ul>
-<li>400请求错误，服务器无法理解请求，发送到服务器的请求具有无效语法；<ul>
-<li>检查http请求中可能发生的语法错误，确保请求的URL或Post语法没有错误；</li>
-<li>尝试清楚浏览器的cookie和cache再尝试；</li>
-<li>尝试更新或更改浏览器，可能是浏览器版本太老或其它问题。</li>
-</ul>
-</li>
-<li>401未经授权的错误，访问系统需要身份验证，而在请求中没有给予正当的认证凭据token等；<ul>
-<li>提供正确的身份验证或凭据(账号密码或token等)。</li>
-</ul>
-</li>
-<li>403禁止访问，客户端无权访问该内容，服务器拒绝对访问所请求的文件给出正确的响应；<ul>
-<li>当用户没有访问所请求资源的权限时，通常会发生403错误；</li>
-<li>通常可能是客户端IP、Agent等被web服务器拒绝访问，比如触发了WAF、反扒策略等；</li>
-<li>可通过修改Agent内容、更换IP等来解决。</li>
-</ul>
-</li>
-<li>404文件找不到，用户可与服务器通信，并且服务器也想将资源发送给用户，但是无法找到用户请求的资源；<ul>
-<li>如果使用的是浏览器，还可能是服务器无法识别该URL；</li>
-<li>检查是否犯了类型错误，文件是否存在该目录下，是否已移动或删除。</li>
-</ul>
-</li>
-<li>408请求超时，<ul>
-<li>当服务器关闭连接时会发送此响应，因为客户端需要很长时间才能发送请求；</li>
-<li>当客户端连接速度较慢或服务器存在巨大负载时会发生；</li>
-<li>即使没有客户端先前的任何请求，此错误响应也经常由服务器发送，代表服务器希望关闭此未使用的连接。</li>
-</ul>
-</li>
-<li>429请求太多，用户在给定时间内发送了太多请求，通过被限制速率；<ul>
-<li>等待一段时间，然后重试或阅读与API访问限制有关文档来解决。</li>
-</ul>
-</li>
-</ul>
-<h2 id="服务器错误及处理"><a href="#服务器错误及处理" class="headerlink" title="服务器错误及处理"></a>服务器错误及处理</h2><ul>
-<li>500内部服务器错误，服务器遇到错误，不知道如何处理；<ul>
-<li>通常是由服务器配置错误导致，需要查询服务器详细的错误日志，或相关应用服务器的日志，具体问题具体解决。</li>
-</ul>
-</li>
-<li>502错误网关，服务器在工作以获取处理请求所需的另一台服务器的响应(接口、数据库等)时得到的响应无效；<ul>
-<li>客户端发送请求的服务器是代理服务器，需要从另一台服务器获取数据；</li>
-<li>通常是服务器配置错误，缺少软件包或不正确的负载均衡服务器可能会导致；</li>
-</ul>
-</li>
-<li>503服务不可用，服务器由于某些原因而处于维护或关闭状态，或服务器过载且无法处理请求；<ul>
-<li>若服务器未关闭，可能是服务器资源(如CPU ram或带宽)无法处理流量，需要重新配置任一服务器增加资源允许更过流量，或进行优化；</li>
-</ul>
-</li>
-<li>504网关超时，当服务器充当网关或代理服务器且无法在规定时间段内从代理服务器获得响应；<ul>
-<li>主要原因是父服务器负载严重，由于位置或带宽较慢，服务器间存在大量延迟。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="https://www.bilibili.com/video/BV1yb41157bj?from=search&amp;seid=2308486019812769228" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1yb41157bj?from=search&amp;seid=2308486019812769228</a></li>
-<li><a href="https://www.jianshu.com/p/a9a960677508" target="_blank" rel="noopener">https://www.jianshu.com/p/a9a960677508</a></li>
-<li><a href="https://blog.csdn.net/u013967628/article/details/85210036" target="_blank" rel="noopener">https://blog.csdn.net/u013967628/article/details/85210036</a></li>
-<li><a href="https://www.jianshu.com/p/afb516bc4519" target="_blank" rel="noopener">https://www.jianshu.com/p/afb516bc4519</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/07/16/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BF%90%E7%AE%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/img.png">
-      <meta itemprop="name" content="章肿鱼">
-      <meta itemprop="description" content="讨好世界不如取悦自己">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爆发🍢小宇宙">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/16/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BF%90%E7%AE%97/" class="post-title-link" itemprop="url">二进制运算</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-07-16 15:16:04 / 修改时间：15:23:54" itemprop="dateCreated datePublished" datetime="2020-07-16T15:16:04+08:00">2020-07-16</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <table>
-<thead>
-<tr>
-<th align="center">符号</th>
-<th align="center">名称</th>
-<th align="center">表示</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">&amp;</td>
-<td align="center">按位与</td>
-<td align="center">对应位均为1，才为1；否则为0</td>
-</tr>
-<tr>
-<td align="center">|</td>
-<td align="center">按位或</td>
-<td align="center">对应位有1，即为1；否则为0</td>
-</tr>
-<tr>
-<td align="center">^</td>
-<td align="center">按位异或</td>
-<td align="center">相同异或为1；不同异或为1</td>
-</tr>
-<tr>
-<td align="center">~</td>
-<td align="center">按位取反</td>
-<td align="center">1变0，0变1</td>
-</tr>
-<tr>
-<td align="center">&lt;&lt;</td>
-<td align="center">按位左移</td>
-<td align="center">左移，右边补0，相当*2</td>
-</tr>
-<tr>
-<td align="center">&gt;&gt;</td>
-<td align="center">有符号的右移</td>
-<td align="center">右移，左边补符号位，负数以原码形式参与运算</td>
-</tr>
-<tr>
-<td align="center">&gt;&gt;&gt;</td>
-<td align="center">无符号的右移</td>
-<td align="center">右移，左边补0，所有数据以无符号方式计算</td>
-</tr>
-</tbody></table>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/07/13/runtime/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/img.png">
-      <meta itemprop="name" content="章肿鱼">
-      <meta itemprop="description" content="讨好世界不如取悦自己">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爆发🍢小宇宙">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/13/runtime/" class="post-title-link" itemprop="url">runtime</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-13 19:12:06" itemprop="dateCreated datePublished" datetime="2020-07-13T19:12:06+08:00">2020-07-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-29 22:05:32" itemprop="dateModified" datetime="2020-07-29T22:05:32+08:00">2020-07-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ios/" itemprop="url" rel="index"><span itemprop="name">ios</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>接受者receiver -> 选择器selector</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/13/runtime/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/07/12/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/img.png">
-      <meta itemprop="name" content="章肿鱼">
-      <meta itemprop="description" content="讨好世界不如取悦自己">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爆发🍢小宇宙">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/12/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" class="post-title-link" itemprop="url">面向对象设计原则</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-12 20:35:22" itemprop="dateCreated datePublished" datetime="2020-07-12T20:35:22+08:00">2020-07-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 18:26:16" itemprop="dateModified" datetime="2020-07-17T18:26:16+08:00">2020-07-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在软件开发中，为了提高软件系统的可维护性和可复用性，增加软件的可扩展性和灵活性，程序员要尽量根据7条原则来开发程序，从而提高软件开发效率、节约软件开发成本和维护成本。开闭原则OCP是总纲，它告诉我们要对扩展开放，对修改关闭；里氏替换原则LSP告诉我们不要破坏继承体系；依赖倒置原则DIP告诉我们要面向接口编程；单一职责原则SRP告诉我们实现类要职责单一；接口隔离原则ISP告诉我们在设计接口的时候要精简单一；迪米特法则LoD告诉我们要降低耦合度；合成复用原则CRP告诉我们要优先使用组合或者聚合关系复用，少用继承关系复用。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/12/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/07/12/UML/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/img.png">
-      <meta itemprop="name" content="章肿鱼">
-      <meta itemprop="description" content="讨好世界不如取悦自己">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爆发🍢小宇宙">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/12/UML/" class="post-title-link" itemprop="url">统一建模语言Unified Modeling Language</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-07-12 16:41:56 / 修改时间：20:01:21" itemprop="dateCreated datePublished" datetime="2020-07-12T16:41:56+08:00">2020-07-12</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>用来设计软件蓝图的可视化建模语言，1997年被国际对象管理组织OMG采纳为面向对象的建模语言的国际标准。UML为软件开发的所有阶段提供模型化和可视化支持，并且融入软件工程领域的新思想、新方法、新技术，使软件设计人员沟通更简明，进一步缩短了设计时间、减少开发成本。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/12/UML/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1411,7 +1302,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
