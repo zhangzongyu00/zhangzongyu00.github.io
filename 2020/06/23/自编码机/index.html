@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"zhangzongyu00.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="编码与解码 左侧将原始图像编码为向量，右侧通过解卷积层“解码”，还原回原始图像。 可以用尽可能多的图像来训练网络，当保存了某张图像的编码向量，可用解码组件重建。 经典自编码机VAE 通过编码向量，创造潜在向量，或实现连续、平滑的潜在空间表示。 通过给编码网络添加一个约束，使其所产生的潜在向量大体上服从单位高斯分布。  如图，只需从单位高斯分布中采样出一个潜在向量，并将其传递到解码器，就可以生成一张">
+  <meta name="description" content="目的是为了将输入数据进行更高效的表示，输出数据比输入数据更有规律，即输出数据是对输入数据的重建。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自编码机">
 <meta property="og:url" content="http://zhangzongyu00.github.io/2020/06/23/%E8%87%AA%E7%BC%96%E7%A0%81%E6%9C%BA/index.html">
 <meta property="og:site_name" content="爆发🍢小宇宙">
-<meta property="og:description" content="编码与解码 左侧将原始图像编码为向量，右侧通过解卷积层“解码”，还原回原始图像。 可以用尽可能多的图像来训练网络，当保存了某张图像的编码向量，可用解码组件重建。 经典自编码机VAE 通过编码向量，创造潜在向量，或实现连续、平滑的潜在空间表示。 通过给编码网络添加一个约束，使其所产生的潜在向量大体上服从单位高斯分布。  如图，只需从单位高斯分布中采样出一个潜在向量，并将其传递到解码器，就可以生成一张">
+<meta property="og:description" content="目的是为了将输入数据进行更高效的表示，输出数据比输入数据更有规律，即输出数据是对输入数据的重建。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BC%96%E7%A0%81%E4%B8%8E%E8%A7%A3%E7%A0%81.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE.png">
@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_Reparameterization.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_vs_GAN.png">
 <meta property="article:published_time" content="2020-06-23T06:25:00.000Z">
-<meta property="article:modified_time" content="2020-07-20T10:14:26.082Z">
+<meta property="article:modified_time" content="2020-08-10T11:23:32.957Z">
 <meta property="article:author" content="章肿鱼">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BC%96%E7%A0%81%E4%B8%8E%E8%A7%A3%E7%A0%81.png">
@@ -234,8 +234,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-20 18:14:26" itemprop="dateModified" datetime="2020-07-20T18:14:26+08:00">2020-07-20</time>
+                <time title="修改时间：2020-08-10 19:23:32" itemprop="dateModified" datetime="2020-08-10T19:23:32+08:00">2020-08-10</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/image/" itemprop="url" rel="index"><span itemprop="name">image</span></a>
+                </span>
+            </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -245,6 +254,7 @@
               <span class="post-meta-item-text">阅读次数：</span>
               <span id="busuanzi_value_page_pv"></span>
             </span>
+            <div class="post-description">目的是为了将输入数据进行更高效的表示，输出数据比输入数据更有规律，即输出数据是对输入数据的重建。</div>
 
         </div>
       </header>
@@ -257,7 +267,7 @@
       
         <h1 id="编码与解码"><a href="#编码与解码" class="headerlink" title="编码与解码"></a>编码与解码</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E7%BC%96%E7%A0%81%E4%B8%8E%E8%A7%A3%E7%A0%81.png" alt="编码与解码"></p>
 <p>左侧将原始图像编码为向量，右侧通过解卷积层“解码”，还原回原始图像。</p>
-<p><em>可以用尽可能多的图像来训练网络，当保存了某张图像的编码向量，可用解码组件重建。</em></p>
+<p>可以用尽可能多的图像来训练网络，当保存了某张图像的编码向量，可用解码组件重建。</p>
 <h1 id="经典自编码机VAE"><a href="#经典自编码机VAE" class="headerlink" title="经典自编码机VAE"></a>经典自编码机VAE</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE.png" alt="VAE"></p>
 <p><em>通过编码向量，创造潜在向量，或实现连续、平滑的潜在空间表示。</em></p>
 <p>通过给编码网络添加一个约束，使其所产生的潜在向量大体上服从单位高斯分布。</p>
@@ -284,6 +294,11 @@
 <h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
 <li>优点：遵循“编码-解码”模式，能直接将生成的图像同原始图像进行对比；</li>
 <li>缺点：直接采用均方误差，导致其神经网络倾向生成较为模糊的图像。</li>
+</ul>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><ul>
+<li>降维；</li>
+<li>作为强大的特征检测器，用于深度神经网络的训练；</li>
+<li>随机生成与训练数据类似的数据-生成模型。</li>
 </ul>
 <h1 id="VAE和GAN的区别"><a href="#VAE和GAN的区别" class="headerlink" title="VAE和GAN的区别"></a>VAE和GAN的区别</h1><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/VAE_vs_GAN.png" alt="VAE_vs_GAN"></p>
 <p>GAN是VAE后半部分再加上一个鉴别网络，导致完全不同的训练方式。</p>
@@ -372,7 +387,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#编码与解码"><span class="nav-number">1.</span> <span class="nav-text">编码与解码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#经典自编码机VAE"><span class="nav-number">2.</span> <span class="nav-text">经典自编码机VAE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参数调整"><span class="nav-number">2.1.</span> <span class="nav-text">参数调整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特点"><span class="nav-number">2.2.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#VAE和GAN的区别"><span class="nav-number">3.</span> <span class="nav-text">VAE和GAN的区别</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#编码与解码"><span class="nav-number">1.</span> <span class="nav-text">编码与解码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#经典自编码机VAE"><span class="nav-number">2.</span> <span class="nav-text">经典自编码机VAE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参数调整"><span class="nav-number">2.1.</span> <span class="nav-text">参数调整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特点"><span class="nav-number">2.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">2.3.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#VAE和GAN的区别"><span class="nav-number">3.</span> <span class="nav-text">VAE和GAN的区别</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -388,20 +403,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">76</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

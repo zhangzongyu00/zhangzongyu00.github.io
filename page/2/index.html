@@ -193,6 +193,87 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/07/22/swift%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/img.png">
+      <meta itemprop="name" content="章肿鱼">
+      <meta itemprop="description" content="讨好世界不如取悦自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爆发🍢小宇宙">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/22/swift%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">swift中的图片管理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-22 15:37:47" itemprop="dateCreated datePublished" datetime="2020-07-22T15:37:47+08:00">2020-07-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-10 19:28:54" itemprop="dateModified" datetime="2020-08-10T19:28:54+08:00">2020-08-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ios/" itemprop="url" rel="index"><span itemprop="name">ios</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>工程中所有使用Asset Catalog管理的图片(位于.xcassets文件夹)，输出时被压缩到Assets.car内，否则归类为Bundle管理。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/22/swift%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E7%AE%A1%E7%90%86/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/07/19/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -224,8 +305,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-03 20:01:37" itemprop="dateModified" datetime="2020-08-03T20:01:37+08:00">2020-08-03</time>
+                <time title="修改时间：2020-08-10 19:23:09" itemprop="dateModified" datetime="2020-08-10T19:23:09+08:00">2020-08-10</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+                </span>
+            </span>
 
           
 
@@ -329,6 +419,11 @@
 <li>主机A对主机B的请求进行确认，将<strong>ACK置为1</strong>，TCP连接关闭。</li>
 </ol>
 <p>FIN：发送端完成发送任务后，当TCP完成数据传输需要断开时，提出断开连接的一方将该位置为1。</p>
+<h3 id="TCP拥塞控制"><a href="#TCP拥塞控制" class="headerlink" title="TCP拥塞控制"></a>TCP拥塞控制</h3><p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6.png" alt="拥塞控制"></p>
+<p>在某段时间，若对网络中<strong>某一资源的需求超过了该资源所能提供的可用部分</strong>，网络性能就要变坏，这种情况就叫做<strong>网络拥塞</strong>。<br>若出现拥塞而不进行控制，整个网络的吞吐量将随输入负荷的增大而下降。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/TCP%E7%9A%84%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6.png" alt="TCP的拥塞控制"></p>
+<p>TCP的四种拥塞控制算法：<strong>慢开始、拥塞控制、快重传(发送方收到3个重复确认)、快恢复</strong>。</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/zhangzongyu00/images/%E5%BF%AB%E9%87%8D%E4%BC%A0.png" alt="快重传"></p>
 <h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p><code>User Data Protocol</code>，用户数据报协议：</p>
 <ul>
 <li>UDP是一个<strong>非连接的协议</strong>，传输数据之前源端和终端不建立连接，当它想传送时就简单的去抓取来自应用程序的数据，并尽可能快的将其扔到网络上。<ul>
@@ -419,9 +514,24 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-07-16 15:16:04 / 修改时间：15:23:54" itemprop="dateCreated datePublished" datetime="2020-07-16T15:16:04+08:00">2020-07-16</time>
+              <time title="创建时间：2020-07-16 15:16:04" itemprop="dateCreated datePublished" datetime="2020-07-16T15:16:04+08:00">2020-07-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-10 19:27:43" itemprop="dateModified" datetime="2020-08-10T19:27:43+08:00">2020-08-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">组成原理</span></a>
+                </span>
             </span>
 
           
@@ -610,8 +720,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 18:26:16" itemprop="dateModified" datetime="2020-07-17T18:26:16+08:00">2020-07-17</time>
+                <time title="修改时间：2020-08-10 19:22:05" itemprop="dateModified" datetime="2020-08-10T19:22:05+08:00">2020-08-10</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">软件开发</span></a>
+                </span>
+            </span>
 
           
 
@@ -674,9 +793,24 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-07-12 16:41:56 / 修改时间：20:01:21" itemprop="dateCreated datePublished" datetime="2020-07-12T16:41:56+08:00">2020-07-12</time>
+              <time title="创建时间：2020-07-12 16:41:56" itemprop="dateCreated datePublished" datetime="2020-07-12T16:41:56+08:00">2020-07-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-10 19:28:32" itemprop="dateModified" datetime="2020-08-10T19:28:32+08:00">2020-08-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">软件开发</span></a>
+                </span>
             </span>
 
           
@@ -748,8 +882,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-03 10:29:43" itemprop="dateModified" datetime="2020-08-03T10:29:43+08:00">2020-08-03</time>
+                <time title="修改时间：2020-08-10 19:30:55" itemprop="dateModified" datetime="2020-08-10T19:30:55+08:00">2020-08-10</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
 
           
 
@@ -833,16 +976,17 @@
 <li>使用了final关键字的类不能被继承；</li>
 <li>如果一个类只有私有的构造函数，它不能被继承。</li>
 </ol>
-<h1 id="JVM内存"><a href="#JVM内存" class="headerlink" title="JVM内存"></a>JVM内存</h1><p>Java的JVM内存可分为3个区：堆heap、栈stack、方法区method。</p>
+<h1 id="JVM内存"><a href="#JVM内存" class="headerlink" title="JVM内存"></a>JVM内存</h1><p>Java的JVM内存可分为3个区：堆heap、栈stack、方法区method、代码区code。</p>
 <ol>
-<li>堆：提供所有类实例和数组对象存储区域；<ol>
+<li>堆：提供所有类实例和数组对象存储区域，一般由程序员分配释放；<ol>
 <li>jvm只有一个堆区heap被所有线程共享；</li>
-<li>堆中不存放基本数据类型和对象引用，只存放对象本身；</li>
+<li>堆中存放由new创建的对象和数组，不存放基本数据类型和对象引用，<strong>只存放对象本身</strong>；</li>
 </ol>
 </li>
-<li>栈：每个线程包含一个栈区；<ol>
+<li>栈：每个线程包含一个栈区，由编译器自动分配释放；<ol>
+<li><strong>存放函数的参数值，局部变量的值等</strong>，具体方法执行结束之后，系统自动释放JVM内存资源；</li>
 <li>栈中只保存基础数据类型对象和自定义对象的引用(不是对象)，对象都存放在堆中；</li>
-<li>每个栈中的数据(原始类型和对象引用)都是私有的，其它栈不能访问；</li>
+<li>每个栈中的数据(原始类型和对象引用)都是私有的，其它栈不能访问，但是存在每个栈中的数据可以共享；</li>
 </ol>
 </li>
 <li>方法区/静态区：被所有线程共享，包含所有的class和static变量；<ol>
@@ -850,7 +994,9 @@
 <li>运行时常量池都分配在Java虚拟机的方法区中。</li>
 </ol>
 </li>
+<li>代码区：存放程序中方法的二进制代码，而且是多个对象共享一个代码空间区域。</li>
 </ol>
+<p>Java自动管理栈和堆，程序员不能直接地设置栈或堆。<br>当在一段代码块定义一个变量时，Java就在栈中为这个变量分配内存空间，当超过变量的作用域后，Java会自动释放掉为该变量所分配的内存空间，该内存空间可以立即被另作他用。<br>在堆中产生了一个数组或对象后，还可以在栈中定义一个特殊的变量，让栈中这个变量的取值等于数组或对象在堆内存中的首地址，栈中的这个变量就成了数组或对象的引用变量。</p>
 <h1 id="equals-和-的区别"><a href="#equals-和-的区别" class="headerlink" title="equals 和 == 的区别"></a>equals 和 == 的区别</h1><h2 id="equals"><a href="#equals" class="headerlink" title="equals"></a>equals</h2><p>若没有对Object的equals方法进行重写，则比较的是引用类型的变量所指向的对象的地址，反之，比较的是内容。</p>
 <ul>
 <li>类覆盖了equals()方法，<strong>一般都覆盖equals()方法来比较两个对象的内容是否相等</strong>，若相同返回true；</li>
@@ -950,6 +1096,7 @@
 <li><a href="https://www.jianshu.com/p/0fdf60ec73ae" target="_blank" rel="noopener">https://www.jianshu.com/p/0fdf60ec73ae</a></li>
 <li><a href="https://www.runoob.com/java/java-modifier-types.html" target="_blank" rel="noopener">https://www.runoob.com/java/java-modifier-types.html</a></li>
 <li><a href="https://www.cnblogs.com/zhengchunhao/p/4996027.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhengchunhao/p/4996027.html</a></li>
+<li><a href="https://blog.csdn.net/qq_20081637/article/details/80875779" target="_blank" rel="noopener">https://blog.csdn.net/qq_20081637/article/details/80875779</a></li>
 </ul>
 
       
@@ -1001,8 +1148,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-27 22:57:32" itemprop="dateModified" datetime="2020-07-27T22:57:32+08:00">2020-07-27</time>
+                <time title="修改时间：2020-08-10 19:22:55" itemprop="dateModified" datetime="2020-08-10T19:22:55+08:00">2020-08-10</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">软件开发</span></a>
+                </span>
+            </span>
 
           
 
@@ -1042,7 +1198,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/07/07/%E7%BA%BF%E7%A8%8BVS%E8%BF%9B%E7%A8%8B/">
+    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/07/07/%E8%BF%9B%E7%A8%8B&%E7%BA%BF%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/img.png">
@@ -1056,7 +1212,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/07/07/%E7%BA%BF%E7%A8%8BVS%E8%BF%9B%E7%A8%8B/" class="post-title-link" itemprop="url">线程&进程</a>
+            <a href="/2020/07/07/%E8%BF%9B%E7%A8%8B&%E7%BA%BF%E7%A8%8B/" class="post-title-link" itemprop="url">进程&线程</a>
         </h2>
 
         <div class="post-meta">
@@ -1073,8 +1229,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-03 11:23:35" itemprop="dateModified" datetime="2020-08-03T11:23:35+08:00">2020-08-03</time>
+                <time title="修改时间：2020-08-10 19:22:33" itemprop="dateModified" datetime="2020-08-10T19:22:33+08:00">2020-08-10</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
+                </span>
+            </span>
 
           
 
@@ -1090,7 +1255,7 @@
           <p>操作系统最底层的就是调度程序，在此上面有很多进程。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/07/07/%E7%BA%BF%E7%A8%8BVS%E8%BF%9B%E7%A8%8B/">
+              <a class="btn" href="/2020/07/07/%E8%BF%9B%E7%A8%8B&%E7%BA%BF%E7%A8%8B/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1145,8 +1310,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-10 01:23:51" itemprop="dateModified" datetime="2020-07-10T01:23:51+08:00">2020-07-10</time>
+                <time title="修改时间：2020-08-10 19:26:57" itemprop="dateModified" datetime="2020-08-10T19:26:57+08:00">2020-08-10</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/image/" itemprop="url" rel="index"><span itemprop="name">image</span></a>
+                </span>
+            </span>
 
           
 
@@ -1205,77 +1379,6 @@
 <li><a href="http://image-net.org/challenges/LSVRC/2017/" target="_blank" rel="noopener">http://image-net.org/challenges/LSVRC/2017/</a></li>
 <li><a href="https://www.pianshen.com/article/2717286724/" target="_blank" rel="noopener">https://www.pianshen.com/article/2717286724/</a></li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangzongyu00.github.io/2020/07/01/%E5%9B%BE%E8%AE%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/img.png">
-      <meta itemprop="name" content="章肿鱼">
-      <meta itemprop="description" content="讨好世界不如取悦自己">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爆发🍢小宇宙">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/01/%E5%9B%BE%E8%AE%BA/" class="post-title-link" itemprop="url">图论</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-07-01 16:56:24 / 修改时间：17:04:05" itemprop="dateCreated datePublished" datetime="2020-07-01T16:56:24+08:00">2020-07-01</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="深度优先遍历DFS"><a href="#深度优先遍历DFS" class="headerlink" title="深度优先遍历DFS"></a>深度优先遍历DFS</h1><p>思想：</p>
-<ol>
-<li>找一个未被访问过的顶点作为起始顶点，沿着当前顶点的边走到未访问过的顶点；</li>
-<li>当没有找到未访问过的结点时，回到上一个顶点，继续寻找未访问结点；</li>
-<li>直到所有顶点都被访问。</li>
-</ol>
-<h1 id="广度优先遍历BFS"><a href="#广度优先遍历BFS" class="headerlink" title="广度优先遍历BFS"></a>广度优先遍历BFS</h1><p>思想：类似于树的层次遍历</p>
-<ol>
-<li>找一个未被访问过的顶点作为起始顶点；</li>
-<li>找到顶点的所有的邻接点，放入队列中；</li>
-<li>从队列中依次取出结点，查找该结点的所有未被访问过的邻接点，存放到队列中；</li>
-<li>直到队列为空。</li>
-</ol>
 
       
     </div>
@@ -1362,20 +1465,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">76</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
